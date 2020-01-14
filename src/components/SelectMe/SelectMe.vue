@@ -27,6 +27,7 @@
                     @keyup.enter="selectHoveredOption"
                     tabindex="0"
                     @focus="hoverElement()"
+                    @blur="closeDropdown"
                     v-for="option in selectOptions"
                     :value="option[valueAttribute]"
                     :ref="'hover' + option[valueAttribute]"
