@@ -1,0 +1,28 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "description": "NASIC Storybook",
+  "main": "index.js",
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 8129"
+  },
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-styled-components": "^1.4.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@storybook/addon-a11y": "^5.3.3",
+    "@storybook/addon-actions": "^5.3.3",
+    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-knobs": "^5.3.3",
+    "@storybook/vue": "^5.3.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-vue": "^2.0.2",
+    "vue-loader": "^15.8.3",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
