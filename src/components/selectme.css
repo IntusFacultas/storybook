@@ -1,0 +1,93 @@
+.form-control {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.badge-secondary {
+	color: #fff;
+	background-color: #6c757d;
+}
+.badge {
+        display: inline-block;
+        padding: .25em .4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25rem;
+}
+
+.selectme-dropdown {
+        position: absolute;
+        z-index: 2;
+        background-color: white;
+        padding: 5px;
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 0 0 5px 5px;
+        box-shadow: 5px 10px 18px #bababa;
+}
+.selectme-badge-single-span {
+        float: left;
+        padding-right: 8px;
+}
+
+.selectme-badge {
+        font-weight: 700 !important;
+        font-size: 12px !important;
+        font-family: "Segoe UI" !important;
+}
+.selectme-badge-transparent {
+        color: black;
+        font-size: 16px !important;
+        background-color: transparent !important;
+}
+.selectme-selected {
+        position: relative;
+        display: inline-block;
+        margin-left: 5px;
+}
+.selectme-selected > span {
+        cursor:pointer;
+        padding: 7px;
+        margin-right:2px;
+}
+.selectme-dropdown > ul {
+        list-style: none;
+        padding-left:0px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+}
+.selectme-dropdown > ul > li {
+        padding: 2px 10px 2px 10px;
+        cursor:pointer;
+        width: 100%;
+        margin-left:0px;
+}
+.selectme-dropdown > ul > li.selectme-selected {
+        background-color:#007bff;
+        color:white;
+}
+.selectme-dropdown > ul > li.selectme-hovered {
+        background-color: #eeeeee;
+}
+.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {
+        background-color:#0069d9;
+        color:white;
+}
+.selectme-dropdown > ul > li:hover {
+        background-color: #eeeeee;
+}
+.selectme-dropdown > ul > li.selectme-selected:hover {
+        background-color:#0069d9;
+        color:white;
+}

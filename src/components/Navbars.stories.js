@@ -1,4 +1,4 @@
-import MiniNav from "./Navbar.vue"
+import MiniNav from "./Navbars/Navbar.vue"
 import { withA11y } from '@storybook/addon-a11y';
 
 export default {
@@ -8,7 +8,11 @@ export default {
     excludeStories: /.*Data$/,
   };
 
+
+// Mini Navbar
 export const MiniNavbar = () => ({
-    components: { MiniNav },
-    template: `<mini-nav><b>DYNAMIC CONTENT - may be classified up to TOP SECRET//HCS-P/SI-G/TK//ORCON/NOFORN/FISA</b></mini-nav>`
+  components: { MiniNav },
+  template: `
+    <mini-nav><b>DYNAMIC CONTENT - May be classified up to TOP SECRET//HCS-P/SI-G/TK//ORCON/NOFORN/FISA</b></mini-nav>
+  `
 })

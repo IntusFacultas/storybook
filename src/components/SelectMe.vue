@@ -1,3 +1,5 @@
+
+
 <template>
     <div>
         <input autocomplete="off" type="text" :class="inputClass" @click="openDropdown" @focus="openDropdown" @input="openDropdown" @blur="closeDropdown" v-model="optionSearch" @keydown.delete="handleBackspace" @keydown.down="hoverOption(1)" @keydown.up="hoverOption(-1)" @keyup.enter="selectHoveredOption" id="searchbar" :style="{'padding-left': calculatedPadding + 'px'}" :disabled="disabled">
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-    export default {
+    const SelectMe = {
         name: 'select-me',
         data: function () {
             return {
@@ -58,7 +60,7 @@
             },
             options: {
                 type: Array,
-                default: [],
+                default: function() { return []},
             },
             debug: {
                 type: Boolean,
@@ -106,7 +108,8 @@
             },
             selectOptions: function() {
                 var self = this;
-                options = self.options;
+                console.log(self.options)
+                let options = self.options;
                 function filter(fn, array) {
                     var rtArray = [];
                     for (var x = 0; x < array.length; x++) {
@@ -120,6 +123,7 @@
                     function textContains(n) {
                         return n[self.displayAttribute].toUpperCase().indexOf(self.optionSearch.toUpperCase()) > -1;
                     }
+                    console.log(options)
                     options = filter(textContains, options)
                 }
                 return options;
@@ -194,8 +198,8 @@
             contains: function (option, options) {
                 var self = this;
                 for (var x = 0; x < options.length; x++) {
-                    textMatches = option[self.displayAttribute] == options[x][self.displayAttribute];
-                    valueMatches = option[self.valueAttribute] == options[x][self.valueAttribute];
+                    let textMatches = option[self.displayAttribute] == options[x][self.displayAttribute];
+                    let valueMatches = option[self.valueAttribute] == options[x][self.valueAttribute];
                     if (textMatches && valueMatches)
                         return true;
                 }
@@ -203,8 +207,8 @@
             },
             isHovered: function(option) {
                 var self = this;
-                textMatches = option[self.displayAttribute] == self.hoveredOption[self.displayAttribute];
-                valueMatches = option[self.valueAttribute] == self.hoveredOption[self.valueAttribute];
+                let textMatches = option[self.displayAttribute] == self.hoveredOption[self.displayAttribute];
+                let valueMatches = option[self.valueAttribute] == self.hoveredOption[self.valueAttribute];
                 return textMatches && valueMatches;
             },
             handleBackspace: function() {
@@ -335,5 +339,10 @@
                 }
             }
         },
-  };
+    };
+    export default SelectMe;
 </script>
+
+<style scoped>
+@import './selectme.css';
+</style>

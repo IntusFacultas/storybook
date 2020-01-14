@@ -29,3 +29,18 @@
     `
     export default NH1;
 </script>
+
+<style>
+    @font-face {
+        font-family: "PT Serif Regular";
+        src: url("fonts/PT_Serif-Web-Regular.ttf");
+    }
+    @font-face {
+        font-family: "PT Serif Bold";
+        src: url("fonts/PT_Serif-Web-Bold.ttf");
+    }
+    @font-face {
+        font-family: "PT Serif Italic";
+        src: url("fonts/PT_Serif-Web-Italic.ttf");
+    }
+</style>
