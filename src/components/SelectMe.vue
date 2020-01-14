@@ -2,11 +2,37 @@
 
 <template>
     <div>
-        <input autocomplete="off" type="text" :class="inputClass" @click="openDropdown" @focus="openDropdown" @input="openDropdown" @blur="closeDropdown" v-model="optionSearch" @keydown.delete="handleBackspace" @keydown.down="hoverOption(1)" @keydown.up="hoverOption(-1)" @keyup.enter="selectHoveredOption" id="searchbar" :style="{'padding-left': calculatedPadding + 'px'}" :disabled="disabled">
-        <div style="max-height:200px; overflow-y:auto" v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + 'px'}" >
+        <input 
+            :id="id"
+            autocomplete="off"
+            type="text"
+            :class="inputClass"
+            @click="openDropdown"
+            @focus="openDropdown"
+            @input="openDropdown"
+            @blur="closeDropdown"
+            v-model="optionSearch"
+            @keydown.delete="handleBackspace"
+            @keydown.down="handleDown"
+            @keydown.up="handleUp"
+            @keydown.left="handleLeft"
+            @keydown.right="handleRight"
+            @keyup.enter="selectHoveredOption"
+            id="searchbar"
+            :style="{'padding-left': calculatedPadding + 'px'}"
+            :disabled="disabled">
+        <div v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + 'px'}" >
             <ul>
-                <li v-for="option in selectOptions" @click="selectOption(option)" :class="{'selectme-selected': contained(option), 'selectme-hovered': isHovered(option)}">
-                    {{option[displayAttribute]}}
+                <li 
+                    @keyup.enter="selectHoveredOption"
+                    tabindex="0"
+                    @focus="hoverElement()"
+                    v-for="option in selectOptions"
+                    :value="option[valueAttribute]"
+                    :ref="'hover' + option[valueAttribute]"
+                    @click="selectOption(option)"
+                    :class="{'selectme-selected': contained(option), 'selectme-hovered': isHovered(option, hoveredOption)}">
+                    <span class="sr-only" v-if="contained(option)">Active: </span><span class="sr-only" v-else>Press enter to select: </span>{{option[displayAttribute]}}
                 </li>
                 <li v-if="selectOptions.length == 0">
                     No results found
@@ -17,7 +43,7 @@
             <span @click="toggleSelectedDropdown" :class="computedBadgeClass"> {{selectedOptions.length}} selected... <span v-if="!showSelected">&#x25BE;</span><span v-else>&#x25B4;</span> </span>
             <div class="selectme-dropdown" style="min-width: 200px; max-height:300px; overflow-y:auto" v-show="showSelected">
                 <ul>
-                    <li @click="deselectDropdownOption(option)" v-for="option in selectedOptions"><span>&#215;</span> {{option[displayAttribute]}}</li>
+                    <li :ref="'selected' + option[valueAttribute]" :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}" @click="deselectDropdownOption(option)" v-for="option in selectedOptions"><span>&#215;</span> {{option[displayAttribute]}}</li>
                 </ul>
             </div>
         </div>
@@ -32,6 +58,7 @@
         name: 'select-me',
         data: function () {
             return {
+                timeout: "",
                 optionSearch: "",
                 showOptions: false,
                 showSelected: false,
@@ -41,11 +68,17 @@
                 calculatedPadding: 0,
                 selectedOptions: [],
                 hoveredOption: {},
+                hoveredSelectedOption: {},
                 combinedPaddingPerBadge: 26,
                 hoveredIndex: -1,
+                hoveredSelectedIndex: -1,
             }
         },
         props: {
+            id: {
+                type: String,
+                default: ""
+            },
             displayAttribute: {
                 type: String,
                 default: "text",
@@ -108,7 +141,6 @@
             },
             selectOptions: function() {
                 var self = this;
-                console.log(self.options)
                 let options = self.options;
                 function filter(fn, array) {
                     var rtArray = [];
@@ -123,7 +155,6 @@
                     function textContains(n) {
                         return n[self.displayAttribute].toUpperCase().indexOf(self.optionSearch.toUpperCase()) > -1;
                     }
-                    console.log(options)
                     options = filter(textContains, options)
                 }
                 return options;
@@ -160,21 +191,42 @@
             },
             selectHoveredOption: function() {
                 var self = this;
-                if (Object.keys(self.hoveredOption).length > 0) {
-                    if (!self.contains(self.hoveredOption, self.selectedOptions)) {
-                        if (!self.multiSelect)
-                            self.selectedOptions = [];
-                        self.selectedOptions.push(Object.assign({}, self.hoveredOption));
+                if (self.showOptions) {
+                    if (Object.keys(self.hoveredOption).length > 0) {
+                        if (!self.contains(self.hoveredOption, self.selectedOptions)) {
+                            if (!self.multiSelect)
+                                self.selectedOptions = [];
+                            self.selectedOptions.push(Object.assign({}, self.hoveredOption));
+                        }
+                        else {
+                            self.deselectOption(self.hoveredOption)
+                        }
+                        self.$emit('input', self.selectedOptions)
+                        self.hoveredOption = {};
+                        self.hoveredIndex = -1;
+                        self.setSelectBoxWidth();
+                        self.setCalculatedPadding();
+                        self.closeDropdown();
                     }
-                    else {
-                        self.deselectOption(self.hoveredOption)
-                    }
-                    self.$emit('input', self.selectedOptions)
-                    self.hoveredOption = {};
-                    self.setSelectBoxWidth();
-                    self.setCalculatedPadding();
-                    self.closeDropdown();
                 }
+                else if (self.showSelected) {
+                    self.deselectOption(self.hoveredSelectedOption);
+                    self.$emit('input', self.selectedOptions);
+                    self.hoveredSelectedOption = {};
+                    self.showSelected = false;
+                    setTimeout(function() {
+                        self.hoveredIndex = -1;
+                        self.setSelectBoxWidth();
+                        self.setCalculatedPadding();
+                        self.$el.firstChild.focus();
+                    }, 550);
+                }
+            },
+            hoverElement: function(e) {
+                var self = this;
+                clearTimeout(self.timeout)
+                self.hoveredOption = self.selectOptions.filter(option => option[self.valueAttribute] == document.activeElement.getAttribute("value"))[0]
+                self.hoveredIndex = self.selectOptions.map(option => option[self.valueAttribute]).indexOf(self.hoveredOption.valueAttribute)
             },
             hoverOption: function(step) {
                 var self = this;
@@ -195,6 +247,25 @@
                     self.$forceUpdate();
                 }
             },
+            hoverSelectedOption: function(step) {
+                var self = this;
+                var proposedIndex = self.hoveredIndex + step;
+                self.showSelected = true;
+                if (proposedIndex >= self.selectedOptions.length || proposedIndex < -1 ) {
+                    return;
+                }
+                else if (proposedIndex == -1) {
+                    self.hoveredIndex = proposedIndex;
+                    self.$el.firstChild.focus();
+                    self.showSelected = false;
+                    self.hoveredSelectedOption = {};
+                }
+                else {
+                    self.hoveredIndex = proposedIndex
+                    self.hoveredSelectedOption = self.selectedOptions[self.hoveredIndex];
+                    self.$forceUpdate();
+                }
+            },
             contains: function (option, options) {
                 var self = this;
                 for (var x = 0; x < options.length; x++) {
@@ -205,11 +276,50 @@
                 }
                 return false;
             },
-            isHovered: function(option) {
+            isHovered: function(option, hoverOption) {
                 var self = this;
-                let textMatches = option[self.displayAttribute] == self.hoveredOption[self.displayAttribute];
-                let valueMatches = option[self.valueAttribute] == self.hoveredOption[self.valueAttribute];
+                let textMatches = option[self.displayAttribute] == hoverOption[self.displayAttribute];
+                let valueMatches = option[self.valueAttribute] == hoverOption[self.valueAttribute];
                 return textMatches && valueMatches;
+            },
+            handleUp: function() {
+                var self = this;
+                if (self.showSelected) {
+                    self.hoverSelectedOption(-1);
+                }
+                else if (self.showOptions) {
+                    self.hoverOption(-1)
+                }
+                else {
+                    self.hoverOption(-1);
+                }
+            },
+            handleDown: function() {
+                var self = this;
+                if (self.showSelected) {
+                    self.hoverSelectedOption(1)
+                }
+                else if (self.showOptions) {
+                    self.hoverOption(1)
+                }
+                else {
+                    self.hoverOption(1)
+                }
+            },
+            handleLeft: function() {
+                var self = this;
+                if (self.optionSearch.length == 0 && self.selectedOptions.length > 0 && self.selectBoxWidth > self.computedCutOff & !self.showSelected) {
+                    self.closeDropdown();
+                    self.showSelected = true;
+                }
+            },
+            handleRight: function() {
+                var self = this
+                if (self.showSelected) {
+                    self.showSelected = false;
+                    self.hoveredSelectedOption = {};
+                    self.$el.firstChild.focus();
+                }
             },
             handleBackspace: function() {
                 var self = this;
@@ -260,8 +370,9 @@
             },
             closeDropdown: function() {
                 var self = this;
+                var elements = Object.values(self.$refs).map(x => x[0])
                 self.hoveredIndex = -1;
-                setTimeout(function() {
+                self.timeout = setTimeout(function() {
                     self.showOptions = false
                 }, 200);
             },
@@ -293,7 +404,7 @@
                 var element = document.querySelector(".selectme-badge");
                 var style = getComputedStyle(element)
                 var textLength = getTextWidth(combinedText, style.font);
-                self.selectBoxWidth = textLength + additionalPadding;
+                self.selectBoxWidth = textLength + additionalPadding + (2 * self.selectedOptions.length) ;
                 if (!self.multiSelect && textLength > 0)
                     self.selectBoxWidth += 25
             },
@@ -306,7 +417,7 @@
                     else {
                         self.calculatedPadding = self.selectBoxWidth + 17;
                     }
-                }, 50)
+                }, 100)
             },
             setCalculatedWidth: function() {
                 var self = this;
