@@ -206,6 +206,7 @@
                         self.hoveredIndex = -1;
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();
+                        self.$el.firstChild.focus();
                         self.closeDropdown();
                     }
                 }
@@ -218,6 +219,7 @@
                         self.hoveredIndex = -1;
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();
+                        self.$el.firstChild.focus();
                         self.$el.firstChild.focus();
                     }, 550);
                 }
@@ -347,6 +349,7 @@
                     self.deselectOption(option)
                 }
                 self.optionSearch = "";
+                self.closeDropdown();
                 self.$emit('input', self.selectedOptions)
                 self.setSelectBoxWidth();
                 self.setCalculatedPadding();
@@ -364,6 +367,7 @@
                 var index = findIndex(option, self.selectedOptions);
                 self.selectedOptions.splice(index, 1);
                 self.$forceUpdate();
+                self.closeDropdown();
                 self.$emit('input', self.selectedOptions);
                 self.setSelectBoxWidth();
                 self.setCalculatedPadding();

@@ -1,0 +1,31 @@
+.niws-state {
+    padding: 2px 5px;
+    border-radius: 5px;
+    text-align: center;
+    /* box-shadow: 4px 4px 10px 1px rgba(195,195,195,0.7); */
+}
+.niws-state-task { 
+    background-color: #9BC4D3;
+    border: 1px solid #9BC4D3;
+    color: #FFF;
+}
+.niws-state-start { 
+    background-color: #FFF;
+    border: 2px solid #05D3DD;
+    color: #05D3DD;
+}
+.niws-state-cancel { 
+    background-color: #844D4D;
+    border: 1px solid #844D4D;
+    color: #FFF;
+}
+.niws-state-complete { 
+    background-color: #F1F2F2;
+    border: 1px solid #F1F2F2;
+    color: #A7A9AC;
+}
+.niws-state-rework { 
+    background-color: #FFA300;
+    border: 1px solid #FFA300;
+    color: #FFF;
+}
