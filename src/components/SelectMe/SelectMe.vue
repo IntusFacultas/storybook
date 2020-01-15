@@ -25,7 +25,9 @@
             <ul>
                 <li 
                     @keyup.enter="selectHoveredOption"
+                    @keyup.space="selectHoveredOption"
                     tabindex="0"
+                    role="button"
                     @focus="hoverElement()"
                     @keydown.down="hoverOption(1)"
                     @keydown.up="hoverOption(-1)"
@@ -70,7 +72,9 @@
                 <ul>
                     <li 
                         tabindex="0"
+                        role="button"
                         @keyup.enter="deselectDropdownOption(option)"
+                        @keyup.space="deselectDropdownOption(option)"
                         :ref="'selected' + option[valueAttribute]"
                         :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}" 
                         @click="deselectDropdownOption(option)"
@@ -255,7 +259,6 @@
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();
                         self.$el.firstChild.focus();
-                        // self.closeDropdown();
                     }
                 }
                 else if (self.showSelected) {
@@ -477,7 +480,10 @@
                 var self = this;
                 setTimeout(function() {
                     try {
-                        self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 3;
+                        self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;
+                        if (!self.multiSelect) {
+                            self.calculatedHeight -= 4;
+                        }
                         self.calculatedWidth = self.$el.firstChild.offsetWidth;
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();

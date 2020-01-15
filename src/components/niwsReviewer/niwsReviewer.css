@@ -1,0 +1,115 @@
+.niws-reviewer-button {
+    border-width: 1px;
+    border-style: solid;
+    padding: .375rem .75rem;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.niws-reviewer-button:disabled {
+    cursor: not-allowed;
+}
+
+
+.niws-reviewer-task-button {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #212529;
+}
+.niws-reviewer-task-button:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+.niws-reviewer-task-button:disabled {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    opacity: .65;
+}
+.niws-reviewer-task-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(248,249,250,.5);
+    outline: none
+}
+
+
+.niws-reviewer-start-button {
+    background-color: green;
+    border-color: #017301;
+    color: white;
+}
+.niws-reviewer-start-button:hover {
+    background-color: #006b00;
+}
+.niws-reviewer-start-button:disabled {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    opacity: .65;
+}
+.niws-reviewer-start-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+    outline: none;
+}
+
+
+.niws-reviewer-cancel-button {
+    color: #fff;
+    background-color: #dc3545;
+    border: 1px solid transparent;
+    border-color: #dc3545;
+}
+.niws-reviewer-cancel-button:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.niws-reviewer-cancel-button:disabled {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    opacity: .65;
+}
+.niws-reviewer-cancel-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.5);
+}
+
+.niws-reviewer-complete-button {
+    background-color: green;
+    border: 1px solid #017301;
+    color: white;
+}
+.niws-reviewer-complete-button:hover {
+    background-color: #006b00;
+}
+.niws-reviewer-complete-button:disabled {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    opacity: .65;
+}
+.niws-reviewer-complete-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+    outline: none;
+}
+
+
+.niws-reviewer-rework-button {
+    color: #fff;
+    background-color: #17a2b8;
+    border: 1px solid transparent;
+    border-color: #17a2b8;
+}
+.niws-reviewer-rework-button:hover {
+    color: #fff;
+    background-color: #138496;
+    border-color: #117a8b;
+}
+.niws-reviewer-rework-button:disabled {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    opacity: .65;
+}
+.niws-reviewer-rework-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(23,162,184,.5);
+}
