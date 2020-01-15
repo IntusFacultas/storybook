@@ -1,6 +1,6 @@
 // import { action } from '@storybook/addon-actions';
 import { NH1, NH2, NH3, NH4, NH5, NH6 } from './Typography/StyledTitle';
-import {NBody, PortionMarking} from "./Typography/StyledBody";
+import { NText, PortionMarking } from "./Typography/StyledBody";
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
@@ -15,14 +15,14 @@ export default {
 
 // H1 Title
 export const Example = () => ({
-  components: { NH1 , NBody, PortionMarking},
+  components: { NH1, NText, PortionMarking },
   template: `
   <div>
     <n-h1>
       <portion-marking>(U)</portion-marking> 
       H1 Example Product Title
     </n-h1>
-    <n-body>This is a body text that defaults to 16px</n-body>
+    <n-text>This is a text text that defaults to 16px</n-text>
   </div>`,
 });
 
@@ -64,7 +64,7 @@ export const TitleH6 = () => ({
 
 // body
 export const Body = () => ({
-  components: { NBody },
+  components: { NText },
   props: {
     size: {
       default: number("Font Size", 14)
@@ -74,7 +74,7 @@ export const Body = () => ({
    * Size prop must be a Number, and controls the font size of the body
    * Any number less than 14 will be set to 14, and number greater than 16 will be set to 16
    */
-  template: `<n-body :size="size">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </n-body>`,
+  template: `<n-text :size="size">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </n-text>`,
 });
 
 // portion marking

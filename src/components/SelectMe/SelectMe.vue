@@ -18,9 +18,9 @@
             @keydown.left="handleLeft"
             @keydown.right="handleRight"
             @keyup.enter="selectHoveredOption"
-            id="searchbar"
             :style="{'padding-left': calculatedPadding + 'px'}"
             :disabled="disabled">
+        <!-- Dropdown for all options -->
         <div v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + 'px'}" >
             <ul>
                 <li 
@@ -33,15 +33,35 @@
                     :ref="'hover' + option[valueAttribute]"
                     @click="selectOption(option)"
                     :class="{'selectme-selected': contained(option), 'selectme-hovered': isHovered(option, hoveredOption)}">
-                    <span class="sr-only" v-if="contained(option)">Active: </span><span class="sr-only" v-else>Press enter to select: </span>{{option[displayAttribute]}}
+                        <span 
+                            class="sr-only"
+                            v-if="contained(option)">
+                            Active:
+                        </span>
+                        <span class="sr-only" v-else>
+                            Press enter to select: 
+                        </span>
+                        {{option[displayAttribute]}}
                 </li>
                 <li v-if="selectOptions.length == 0">
                     No results found
                 </li>
             </ul>
         </div>
-        <div class="selectme-selected" id="test" :style="{top: calculatedHeight + 'px' }" v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0" ref="selectDropdownBox">
-            <span @click="toggleSelectedDropdown" :class="computedBadgeClass"> {{selectedOptions.length}} selected... <span v-if="!showSelected">&#x25BE;</span><span v-else>&#x25B4;</span> </span>
+        <!-- Dropdown for selected values. Only shows when selected overflow input-->
+        <div 
+            class="selectme-selected"
+            :style="{top: calculatedHeight + 'px' }"
+            v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0"
+            ref="selectDropdownBox">
+            <button 
+                @click="toggleSelectedDropdown"
+                class="selectme-button"
+                :class="computedBadgeClass"> 
+                {{selectedOptions.length}} selected... 
+                    <span v-if="!showSelected">&#x25BE;</span>
+                    <span v-else>&#x25B4;</span>
+            </button>
             <div class="selectme-dropdown" style="min-width: 200px; max-height:300px; overflow-y:auto" v-show="showSelected">
                 <ul>
                     <li :ref="'selected' + option[valueAttribute]" :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}" @click="deselectDropdownOption(option)" v-for="option in selectedOptions"><span>&#215;</span> {{option[displayAttribute]}}</li>
@@ -49,7 +69,9 @@
             </div>
         </div>
         <div class="selectme-selected" ref="selectBox" :style="{top: calculatedHeight + 'px' }" v-show="selectBoxWidth <= computedCutOff">
-            <span v-for="option in selectedOptions" @click="deselectOption(option)" :class="computedBadgeClass">{{option[displayAttribute]}} <span :class="computedSpanClass">&#215;</span></span>
+            <button 
+                class="selectme-button"
+                v-for="option in selectedOptions" @click="deselectOption(option)" :class="computedBadgeClass">{{option[displayAttribute]}} <span :class="computedSpanClass">&#215;</span></button>
         </div>
     </div>
 </template>
@@ -409,7 +431,7 @@
                 var element = document.querySelector(".selectme-badge");
                 var style = getComputedStyle(element)
                 var textLength = getTextWidth(combinedText, style.font);
-                self.selectBoxWidth = textLength + additionalPadding + (2 * self.selectedOptions.length) ;
+                self.selectBoxWidth = textLength + additionalPadding + (5 * self.selectedOptions.length) ;
                 if (!self.multiSelect && textLength > 0)
                     self.selectBoxWidth += 25
             },
@@ -420,7 +442,7 @@
                         self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;
                     }
                     else {
-                        self.calculatedPadding = self.selectBoxWidth + 17;
+                        self.calculatedPadding = self.selectBoxWidth + 17 + (2 * self.selectedOptions.length);
                     }
                 }, 100)
             },

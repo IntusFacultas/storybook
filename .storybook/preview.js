@@ -4,9 +4,9 @@ import '@storybook/addon-console';
 import { addParameters } from '@storybook/vue';
 
 addParameters({
-  docs: {
-    inlineStories: true,
-  },
+    docs: {
+        inlineStories: true,
+    },
 });
 // import Vue from 'vue';
 

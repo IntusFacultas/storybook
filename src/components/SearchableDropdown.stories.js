@@ -1,24 +1,24 @@
 import SelectMe from "./SelectMe/SelectMe.vue"
 import { action } from '@storybook/addon-actions'
 import { withA11y } from '@storybook/addon-a11y';
-import { withKnobs, array, text, boolean, object} from '@storybook/addon-knobs';
+import { withKnobs, array, text, boolean, object } from '@storybook/addon-knobs';
 
 export default {
     title: 'Searchable Dropdown',
     decorators: [withA11y, withKnobs],
     // Our exports that end in "Data" are not stories.
     excludeStories: /.*Data$/,
-  };
+};
 
-  const actionsData = {
-      onInput: action("onInput")
-  }
+const actionsData = {
+    onInput: action("onInput")
+}
 
 export const MultipleSelect = () => ({
     components: { SelectMe },
     methods: actionsData,
     props: {
-        
+
         /**
          * type: String,
          * default: ""
@@ -45,39 +45,40 @@ export const MultipleSelect = () => ({
          */
         options: {
             default: object("Select Options", [
-            {
-                text: "United States",
-                value: "USA"
-            },
-            {
-                text: "Russia",
-                value: "RUS"
-            },
-            {
-                text: "China",
-                value: "CHN"
-            },
-            {
-                text: "Canada",
-                value: "CAN"
-            },
-            {
-                text: "Mexico",
-                value: "MEX"
-            },
-            {
-                text: "Japan",
-                value: "JPN"
-            },
-            {
-                text: "North Korea",
-                value: "NKA"
-            },
-            {
-                text: "South Korea",
-                value: "SKA"
-            },
-        ])},
+                {
+                    text: "United States",
+                    value: "USA"
+                },
+                {
+                    text: "Russia",
+                    value: "RUS"
+                },
+                {
+                    text: "China",
+                    value: "CHN"
+                },
+                {
+                    text: "Canada",
+                    value: "CAN"
+                },
+                {
+                    text: "Mexico",
+                    value: "MEX"
+                },
+                {
+                    text: "Japan",
+                    value: "JPN"
+                },
+                {
+                    text: "North Korea",
+                    value: "NKA"
+                },
+                {
+                    text: "South Korea",
+                    value: "SKA"
+                },
+            ])
+        },
 
         /**
          * type: String,
@@ -93,35 +94,35 @@ export const MultipleSelect = () => ({
          * default: "text"
          * What attribute in a JS object should be referenced for displaying the option text and badge text for an option
          */
-        displayAttribute: {default: text("Display Key in Option", "text")},
+        displayAttribute: { default: text("Display Key in Option", "text") },
 
         /**
          * type: Boolean,
          * default: false,
          * disables the widget, disallowing selection
          */
-        disabled: {default: boolean("Disable SelectMe", false)},
+        disabled: { default: boolean("Disable SelectMe", false) },
 
         /**
          * type: Boolean,
          * default: false, 
          * When this is set to True, the dropdown does not close, allowing you to inspect the element
          */
-        debug: {default: boolean("Debug Mode", false)},
+        debug: { default: boolean("Debug Mode", false) },
 
         /**
          * type: Boolean,
          * default: false,
          * When this is set to True, the dropdown will allow a user to select multiple options
          */
-        multiSelect: {default: boolean("Multi Select Mode", true)},
+        multiSelect: { default: boolean("Multi Select Mode", true) },
 
         /**
          * type: Array,
          * default: ["form-control"]
          * Controls what classes should be applied to the searchbox
          */
-        inputClass: {default: array("Input CSS Classes", ["form-control"])},
+        inputClass: { default: array("Input CSS Classes", ["form-control"]) },
 
         /**
          * type: Array
@@ -155,7 +156,7 @@ export const SingleSelect = () => ({
     components: { SelectMe },
     methods: actionsData,
     props: {
-        
+
         /**
          * type: String,
          * default: ""
@@ -182,39 +183,40 @@ export const SingleSelect = () => ({
          */
         options: {
             default: object("Select Options", [
-            {
-                text: "United States",
-                value: "USA"
-            },
-            {
-                text: "Russia",
-                value: "RUS"
-            },
-            {
-                text: "China",
-                value: "CHN"
-            },
-            {
-                text: "Canada",
-                value: "CAN"
-            },
-            {
-                text: "Mexico",
-                value: "MEX"
-            },
-            {
-                text: "Japan",
-                value: "JPN"
-            },
-            {
-                text: "North Korea",
-                value: "NKA"
-            },
-            {
-                text: "South Korea",
-                value: "SKA"
-            },
-        ])},
+                {
+                    text: "United States",
+                    value: "USA"
+                },
+                {
+                    text: "Russia",
+                    value: "RUS"
+                },
+                {
+                    text: "China",
+                    value: "CHN"
+                },
+                {
+                    text: "Canada",
+                    value: "CAN"
+                },
+                {
+                    text: "Mexico",
+                    value: "MEX"
+                },
+                {
+                    text: "Japan",
+                    value: "JPN"
+                },
+                {
+                    text: "North Korea",
+                    value: "NKA"
+                },
+                {
+                    text: "South Korea",
+                    value: "SKA"
+                },
+            ])
+        },
 
         /**
          * type: String,
@@ -230,35 +232,35 @@ export const SingleSelect = () => ({
          * default: "text"
          * What attribute in a JS object should be referenced for displaying the option text and badge text for an option
          */
-        displayAttribute: {default: text("Display Key in Option", "text")},
+        displayAttribute: { default: text("Display Key in Option", "text") },
 
         /**
          * type: Boolean,
          * default: false,
          * disables the widget, disallowing selection
          */
-        disabled: {default: boolean("Disable SelectMe", false)},
+        disabled: { default: boolean("Disable SelectMe", false) },
 
         /**
          * type: Boolean,
          * default: false, 
          * When this is set to True, the dropdown does not close, allowing you to inspect the element
          */
-        debug: {default: boolean("Debug Mode", false)},
+        debug: { default: boolean("Debug Mode", false) },
 
         /**
          * type: Boolean,
          * default: false,
          * When this is set to True, the dropdown will allow a user to select multiple options
          */
-        multiSelect: {default: boolean("Multi Select Mode", false)},
+        multiSelect: { default: boolean("Multi Select Mode", false) },
 
         /**
          * type: Array,
          * default: ["form-control"]
          * Controls what classes should be applied to the searchbox
          */
-        inputClass: {default: array("Input CSS Classes", ["form-control"])},
+        inputClass: { default: array("Input CSS Classes", ["form-control"]) },
 
         /**
          * type: Array

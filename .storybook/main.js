@@ -5,11 +5,11 @@ module.exports = {
         '@storybook/addon-knobs/register', {
             name: '@storybook/addon-docs',
             options: {
-              configureJSX: true,
-              babelOptions: {},
-              sourceLoaderOptions: {
-                  '../src/**/*.stories.([tj]s|mdx)': "@storybook/addon-docs/jest-transform-mdx"
-              },
+                configureJSX: true,
+                babelOptions: {},
+                sourceLoaderOptions: {
+                    '../src/**/*.stories.([tj]s|mdx)': "@storybook/addon-docs/jest-transform-mdx"
+                },
             },
         },
     ]

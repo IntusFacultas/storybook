@@ -37,7 +37,9 @@
         vertical-align: baseline;
         border-radius: .25rem;
 }
-
+.selectme-button {
+        border: 5px solid transparent
+}
 .selectme-dropdown {
         position: absolute;
         z-index: 2;
@@ -67,7 +69,7 @@
         display: inline-block;
         margin-left: 5px;
 }
-.selectme-selected > span {
+.selectme-selected > button {
         cursor:pointer;
         padding: 7px;
         margin-right:2px;

@@ -3,7 +3,7 @@
     const props = {
         size: Number,
     }
-    export const NBody = styled('p', props)`
+    export const NText = styled('p', props)`
         margin: 0;
         font-family: "Open Sans Regular",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
         font-size: ${
@@ -21,7 +21,7 @@
         font-family: "Open Sans Condensed Light",sans-serif !important; 
     `;
 
-    export default NBody;
+    export default NText;
 </script>
 
 <style>
