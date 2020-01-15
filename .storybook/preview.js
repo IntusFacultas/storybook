@@ -1,15 +1,6 @@
-import { configure } from '@storybook/vue';
 import '@storybook/addon-console';
 
 import { addParameters } from '@storybook/vue';
-
-addParameters({
-    docs: {
-        inlineStories: true,
-    },
-});
-
-import { ipad, ipad10p, ipad12p } from '@storybook/addon-viewport';
 
 addParameters({
     viewport: {
