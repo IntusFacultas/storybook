@@ -27,21 +27,23 @@
                     @keyup.enter="selectHoveredOption"
                     tabindex="0"
                     @focus="hoverElement()"
+                    @keydown.down="hoverOption(1)"
+                    @keydown.up="hoverOption(-1)"
                     @blur="closeDropdown"
                     v-for="option in selectOptions"
                     :value="option[valueAttribute]"
                     :ref="'hover' + option[valueAttribute]"
                     @click="selectOption(option)"
                     :class="{'selectme-selected': contained(option), 'selectme-hovered': isHovered(option, hoveredOption)}">
-                        <span 
-                            class="sr-only"
-                            v-if="contained(option)">
-                            Active:
-                        </span>
-                        <span class="sr-only" v-else>
-                            Press enter to select: 
-                        </span>
-                        {{option[displayAttribute]}}
+                    <span 
+                        class="sr-only"
+                        v-if="contained(option)">
+                        Active:
+                    </span>
+                    <span class="sr-only" v-else>
+                        Press enter to select: 
+                    </span>
+                    {{option[displayAttribute]}}
                 </li>
                 <li v-if="selectOptions.length == 0">
                     No results found
@@ -62,16 +64,38 @@
                     <span v-if="!showSelected">&#x25BE;</span>
                     <span v-else>&#x25B4;</span>
             </button>
-            <div class="selectme-dropdown" style="min-width: 200px; max-height:300px; overflow-y:auto" v-show="showSelected">
+            <div
+                class="selectme-dropdown"
+                v-show="showSelected">
                 <ul>
-                    <li :ref="'selected' + option[valueAttribute]" :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}" @click="deselectDropdownOption(option)" v-for="option in selectedOptions"><span>&#215;</span> {{option[displayAttribute]}}</li>
+                    <li 
+                        tabindex="0"
+                        @keyup.enter="deselectDropdownOption(option)"
+                        :ref="'selected' + option[valueAttribute]"
+                        :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}" 
+                        @click="deselectDropdownOption(option)"
+                        v-for="option in selectedOptions">
+                        <span>&#215;</span>
+                        {{option[displayAttribute]}}
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="selectme-selected" ref="selectBox" :style="{top: calculatedHeight + 'px' }" v-show="selectBoxWidth <= computedCutOff">
-            <button 
+        <!-- Inline selected options -->
+        <div 
+            class="selectme-selected"
+            ref="selectBox"
+            :style="{top: calculatedHeight + 'px' }"
+            v-show="selectBoxWidth <= computedCutOff">
+            <button
+                tabindex="-1"
                 class="selectme-button"
-                v-for="option in selectedOptions" @click="deselectOption(option)" :class="computedBadgeClass">{{option[displayAttribute]}} <span :class="computedSpanClass">&#215;</span></button>
+                v-for="option in selectedOptions"
+                @click="deselectOption(option)"
+                :class="computedBadgeClass">
+                {{option[displayAttribute]}}
+                <span :class="computedSpanClass">&#215;</span>
+            </button>
         </div>
     </div>
 </template>
@@ -191,6 +215,7 @@
                     self.setSelectBoxWidth();
                 }, 50);
                 self.showSelected = false;
+                self.$el.firstChild.focus();
             },
             handleOffClick: function(event) {
                 var self = this;
@@ -222,7 +247,7 @@
                             self.selectedOptions.push(Object.assign({}, self.hoveredOption));
                         }
                         else {
-                            self.deselectOption(self.hoveredOption)
+                            self.deselectOption(self.hoveredOption, false)
                         }
                         self.$emit('input', self.selectedOptions)
                         self.hoveredOption = {};
@@ -230,7 +255,7 @@
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();
                         self.$el.firstChild.focus();
-                        self.closeDropdown();
+                        // self.closeDropdown();
                     }
                 }
                 else if (self.showSelected) {
@@ -243,7 +268,6 @@
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();
                         self.$el.firstChild.focus();
-                        self.$el.firstChild.focus();
                     }, 550);
                 }
             },
@@ -251,7 +275,7 @@
                 var self = this;
                 clearTimeout(self.timeout)
                 self.hoveredOption = self.selectOptions.filter(option => option[self.valueAttribute] == document.activeElement.getAttribute("value"))[0]
-                self.hoveredIndex = self.selectOptions.map(option => option[self.valueAttribute]).indexOf(self.hoveredOption.valueAttribute)
+                self.hoveredIndex = self.selectOptions.map(option => option[self.valueAttribute]).indexOf(self.hoveredOption[self.valueAttribute])
             },
             hoverOption: function(step) {
                 var self = this;
@@ -377,7 +401,7 @@
                 self.setSelectBoxWidth();
                 self.setCalculatedPadding();
             },
-            deselectOption: function(option) {
+            deselectOption: function(option, closeDropdown) {
                 var self = this;
                 function findIndex(option, options) {
                     for (var x = 0; x < options.length; x++) {
@@ -390,7 +414,9 @@
                 var index = findIndex(option, self.selectedOptions);
                 self.selectedOptions.splice(index, 1);
                 self.$forceUpdate();
-                self.closeDropdown();
+                if (typeof closeDropdown === "undefined" || closeDropdown) {
+                    self.closeDropdown();
+                }
                 self.$emit('input', self.selectedOptions);
                 self.setSelectBoxWidth();
                 self.setCalculatedPadding();
@@ -405,6 +431,7 @@
             },
             openDropdown: function() {
                 var self = this;
+                clearTimeout(self.timeout)
                 if (self.disabled) {
                     return false;
                 }
@@ -450,7 +477,7 @@
                 var self = this;
                 setTimeout(function() {
                     try {
-                        self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;
+                        self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 3;
                         self.calculatedWidth = self.$el.firstChild.offsetWidth;
                         self.setSelectBoxWidth();
                         self.setCalculatedPadding();

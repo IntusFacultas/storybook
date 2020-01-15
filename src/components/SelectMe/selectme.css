@@ -38,7 +38,7 @@
         border-radius: .25rem;
 }
 .selectme-button {
-        border: 5px solid transparent
+        border: 1px solid transparent
 }
 .selectme-dropdown {
         position: absolute;
@@ -48,6 +48,9 @@
         border: 1px solid rgba(0,0,0,0.15);
         border-radius: 0 0 5px 5px;
         box-shadow: 5px 10px 18px #bababa;
+        min-width: 200px;
+        max-height:300px;
+        overflow-y:auto;
 }
 .selectme-badge-single-span {
         float: left;
