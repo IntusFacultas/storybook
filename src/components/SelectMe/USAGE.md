@@ -34,39 +34,68 @@ Various Vue Component Props have been exposed for customizing the behavior of th
 
 Special note: camelCase props need to be converted to kebab-case when being set.
 
-1. displayAttribute
-    * type: String,
-    * default: "text"
-    * What attribute in a JS object should be referenced for displaying the option text and badge text for an option
-2. valueAttribute
-    * type: String,
-    * default: "value",
-    * What attribute in a JS object should be referenced for determining the value
-3. disabled
-    * type: Boolean,
-    * default: false,
-    * disables the widget, disallowing selection
-4. options
-    * type: Array,
-    * default: [],
-    * This is the options for the dropdown
-5. debug
-    * type: Boolean,
-    * default: false,
-    * When this is set to True, the dropdown does not close, allowing you to inspect the element
-6. initialValues
-    * type: Array
-    * default: []
-    * When this is set to an array of objects with key "value" that match the values of options present in the required "options" prop, the selectme will initialize itself already having those options pre-selected.
-7. multiSelect
-    * type: Boolean,
-    * default: false,
-    * When this is set to True, the dropdown will allow a user to select multiple options
-8. inputClass
-    * type: Array,
-    * default: `["form-control"]`
-    * Controls what classes should be applied to the searchbox
-9. badgeClass
-    * type: Array,
-    * default: `["badge", "badge-secondary"]`
-    * Controls what classes should be applied to the badges for selected values. `"selectme-badge"` is always applied.
+<table>
+    <thead>
+        <tr>
+            <th>Prop Name</th>
+            <th>Type</th>
+            <th>Default</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>displayAttribute</td>
+            <td>String</td>
+            <td>`"text"`</td>
+            <td>What attribute in a JS object should be referenced for displaying the option text and badge text for an option</td>
+        </tr>
+        <tr>
+            <td>valueAttribute</td>
+            <td>String</td>
+            <td>`"value"`</td>
+            <td>What attribute in a JS object should be referenced for determining the value</td>
+        </tr>
+        <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>`false`</td>
+            <td>disables the widget, disallowing selection</td>
+        </tr>
+        <tr>
+            <td>options</td>
+            <td>Array</td>
+            <td>`[]`</td>
+            <td>This is the options for the dropdown</td>
+        </tr>
+        <tr>
+            <td>debug</td>
+            <td>Boolean</td>
+            <td>`false`</td>
+            <td>When this is set to True, the dropdown does not close, allowing you to inspect the element</td>
+        </tr>
+        <tr>
+            <td>initialValues</td>
+            <td>Array</td>
+            <td>`[]`</td>
+            <td>When this is set to an array of objects with key "value" that match the values of options present in the required "options" prop, the selectme will initialize itself already having those options pre-selected.</td>
+        </tr>
+        <tr>
+            <td>multiSelect</td>
+            <td>Boolean</td>
+            <td>`false`</td>
+            <td>When this is set to True, the dropdown will allow a user to select multiple options</td>
+        </tr>
+        <tr>
+            <td>inputClass</td>
+            <td>Array</td>
+            <td>`["form-control"]`</td>
+            <td>Controls what classes should be applied to the searchbox</td>
+        </tr>
+        <tr>
+            <td>badgeClass</td>
+            <td>Array</td>
+            <td>`["badge", "badge-secondary"]`</td>
+            <td>Controls what classes should be applied to the badges for selected values. `"selectme-badge"` is always applied.</td>
+        </tr>
+    </tbody>
+</table>

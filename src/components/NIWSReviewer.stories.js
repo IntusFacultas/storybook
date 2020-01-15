@@ -1,10 +1,14 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, object, text, } from '@storybook/addon-knobs';
 import { NiwsReviewer } from "./NIWSReviewer/niwsReviewer.vue";
+import markdown from "./NIWSReviewer/USAGE.md";
 
 export default {
-    title: 'NIWS Reviewing Panel',
+    title: 'NIWS/Reviewing Panel',
     decorators: [withA11y, withKnobs],
+    parameters: {
+        notes: { markdown }
+    },
     // Our exports that end in "Data" are not stories.
     excludeStories: /.*Data$/,
 };

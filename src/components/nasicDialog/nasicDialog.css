@@ -1,0 +1,251 @@
+.nasic-dialog-backdrop-animation-enter-active, .nasic-dialog-backdrop-animation-leave-active {
+    transition-property: opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);
+}
+.nasic-dialog-backdrop-animation-enter {
+    opacity: 0
+}
+.nasic-dialog-backdrop-animation-enter-to {
+    opacity: .2;
+}
+.nasic-dialog-backdrop-animation-leave {
+    opacity: .2;
+}
+.nasic-dialog-backdrop-animation-leave-to {
+    opacity: 0
+}
+
+
+/* Dialog Panel and backdrop */
+.nasic-dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0px;
+    bottom:0px;
+    left: 0px;
+    right: 0px;
+}
+.nasic-dialog-backdrop {
+    background-color: #444;
+    opacity: 0;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);
+    transition-property: opacity;
+}
+.nasic-dialog-backdrop-open {
+    opacity: .2;
+}
+
+
+
+
+/* Dismiss Animation*/
+.nasic-dismiss-dialog {
+    transition: all .4s;
+    transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);
+    transform: scale(0);
+    display: block;
+}
+
+
+/* Background Dismiss Shake Animation*/
+.nasic-shake-dialog {
+    -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+@keyframes shake {
+    10%,
+    90% {
+        -webkit-transform: translate3d(-2px, 0, 0);
+        transform: translate3d(-2px, 0, 0);
+    }
+    20%,
+    80% {
+        -webkit-transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translate3d(-8px, 0, 0);
+        transform: translate3d(-8px, 0, 0);
+    }
+    40%,
+    60% {
+        -webkit-transform: translate3d(8px, 0, 0);
+        transform: translate3d(8px, 0, 0);
+    }
+}
+/* .nasic-dialog-animation-enter-active, .nasic-dialog-animation-leave-active {
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);
+    transition-property: all, margin;
+} */
+
+.nasic-dialog-label {
+    margin-bottom: 5px;
+    display: block;
+}
+.nasic-dialog-field {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: calc(1.5em + 2px + 0.75rem);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.nasic-dialog-field:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0px 0px 0px 0.2rem rgba(0,123,255,0.25);
+}
+.nasic-dialog-header {
+    font-size: 22px;
+}
+.nasic-dialog-header span {
+    font-size: 22px;
+}
+
+/* Dialog CSS */
+.nasic-dialog {
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    max-width: 500px;
+    min-width: 360px;
+    transition: all .4s;
+    transform: scale(0);
+    transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);
+}
+.nasic-dialog-open {
+    transform: scale(1);
+}
+.nasic-dialog-content-container {
+    width: 100%;
+    padding: 10px;
+    word-break: break-word;
+}
+.nasic-dialog-button-container {
+    margin-top: 15px;
+}
+
+
+/* Buttons */
+.nasic-dialog-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.nasic-dialog-btn {
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-weight: bold;
+    text-shadow: none;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background-image: none;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.nasic-dialog-btn-default {
+    background-color: #ecf0f1;
+    color: #000;
+    text-shadow: none;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+}
+.nasic-dialog-btn-default:hover {
+    background: #ddd;
+}
+
+.nasic-dialog-btn-dark {
+    background-color: #34495e;
+    color: white;
+}
+.nasic-dialog-btn-dark:hover {
+    background-color: #2c3e50;
+}
+.nasic-dialog-btn-red {
+    color: white;
+    background-color: #e74c3c;
+}
+.nasic-dialog-btn-red:hover {
+    background-color: #c0392b;
+}
+.nasic-dialog-btn-blue {
+    color: white;
+    background-color: #3498db;
+}
+.nasic-dialog-btn-blue:hover {
+    background-color: #2980b9;
+}
+.nasic-dialog-btn-purple {
+    background-color: #9b59b6;
+    color: white;
+}
+.nasic-dialog-btn-purple:hover {
+    background-color: #8e44ad;
+}
+.nasic-dialog-btn-green {
+    color: white;
+    background-color: #2ecc71;
+}
+.nasic-dialog-btn-green:hover {
+    background-color: #27ae60;
+}
+.nasic-dialog-btn-orange {
+    color: white;
+    background-color: #f1c40f;
+}
+.nasic-dialog-btn-orange {
+    background-color: #f39c12;
+}
+
+
+/* Themes */
+.nasic-default-dialog {
+    border-top: solid 7px white;
+}
+.nasic-dark-dialog {
+    border-top: solid 7px #34495e;
+}
+.nasic-red-dialog {
+    border-top: solid 7px #e74c3c;
+}
+.nasic-blue-dialog {
+    border-top: solid 7px #3498db;
+}
+.nasic-purple-dialog {
+    border-top: solid 7px #9b59b6;
+}
+.nasic-green-dialog {
+    border-top: solid 7px #2ecc71;
+}
+.nasic-orange-dialog {
+    border-top: solid 7px #f1c40f;
+}

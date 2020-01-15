@@ -3,7 +3,7 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 import { NiwsState } from "./NIWSStateBadge/StateBadge.vue";
 
 export default {
-    title: 'NIWS State Badge',
+    title: 'NIWS/State Badge',
     decorators: [withA11y, withKnobs],
     // Our exports that end in "Data" are not stories.
     excludeStories: /.*Data$/,
