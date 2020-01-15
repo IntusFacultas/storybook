@@ -1,13 +1,13 @@
 {
   "name": "storybook",
   "version": "1.0.0",
-  "description": "NASIC Storybook",
-  "main": "index.js",
+  "description": "Storybook",
   "author": "Pedro Del Moral Lopez",
   "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 8129"
+    "storybook": "start-storybook -p 8129",
+    "build-storybook": "build-storybook -c .storybook -o .out"
   },
   "dependencies": {
     "vue": "^2.6.11",
