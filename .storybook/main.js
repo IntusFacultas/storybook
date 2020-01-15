@@ -1,8 +1,9 @@
-module.exports = {
+module.exports = ({
     stories: ['../src/**/*.stories.([tj]s|mdx)'],
     addons: [
         '@storybook/addon-actions/register', '@storybook/addon-a11y/register',
-        '@storybook/addon-knobs/register', {
+        '@storybook/addon-knobs/register', '@storybook/addon-viewport/register',
+        'storybook-readme/register', {
             name: '@storybook/addon-docs',
             options: {
                 configureJSX: true,
@@ -12,5 +13,9 @@ module.exports = {
                 },
             },
         },
-    ]
-};
+    ],
+    rules: [{
+        resourceQuery: /blockType=docs/,
+        use: ['storybook-readme/vue/docs-loader', 'html-loader', 'markdown-loader'],
+    }]
+});

@@ -2,11 +2,11 @@ import MiniNav from "./Navbars/Navbar.vue"
 import { withA11y } from '@storybook/addon-a11y';
 
 export default {
-    title: 'Navbars',
-    decorators: [withA11y],
-    // Our exports that end in "Data" are not stories.
-    excludeStories: /.*Data$/,
-  };
+  title: 'Navbars',
+  decorators: [withA11y],
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
 
 
 // Mini Navbar

@@ -1,24 +1,22 @@
 <template>
-    <div class="row">
-        <div class="col-lg-6 col-sm-12">
-            <label for="">Attach optional comment</label>
-            <textarea v-model="comment" class="form-control" id="" cols="30" rows="10"></textarea>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <label for="" style="display:block">Send to:</label>
-            <button 
-                class="niws-reviewer-button"
-                v-for="transition in transitions"
-                @click="submit(transition)"
-                :class="calculateClass(transition)">
-                {{transition.destinationState.stateName}}
-            </button>
+    <div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="">Attach optional comment</label>
+                <textarea v-model="comment" class="form-control" id="" cols="30" rows="10"></textarea>
+            </div></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <label for="" style="display:block">Send to:</label>
+                    <button style="margin-left: 2px; margin-right: 2px;" v-for="transition in transitions" @click="submit(transition)" :class="calculateClass(transition)">{{transition.destinationState.stateName}}</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    export const NiwsReviewer = {
+    export const NiwsStackedReviewer = {
         data: function () {
             return {
                 comment: "",
@@ -105,10 +103,9 @@
             }
         }
     }
-    export default NiwsReviewer
+    export default NiwsStackedReviewer;
 </script>
 
 <style scoped>
     @import "./niwsReviewer.css";
 </style>
-

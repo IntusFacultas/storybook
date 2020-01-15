@@ -1,5 +1,5 @@
 import { withA11y } from '@storybook/addon-a11y';
-import { withKnobs, object} from '@storybook/addon-knobs';
+import { withKnobs, object } from '@storybook/addon-knobs';
 import { NiwsState } from "./NIWSStateBadge/StateBadge.vue";
 
 export default {
