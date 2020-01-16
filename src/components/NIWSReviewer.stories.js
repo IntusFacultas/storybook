@@ -14,7 +14,7 @@ export default {
     excludeStories: /.*Data$/,
 };
 
-const propActions = {
+const propData = {
     classMapping: {
         default: object("State CSS Class Mapping", {
             "TASK": ["niws-reviewer-task-button"],
@@ -43,7 +43,7 @@ const propActions = {
 
 export const HorizontalReviewer = () => ({
     components: { NiwsReviewer },
-    props: propActions,
+    props: propData,
     template: `
         <niws-reviewer></niws-reviewer>
     `
@@ -51,7 +51,7 @@ export const HorizontalReviewer = () => ({
 
 export const StackedReviewer = () => ({
     components: { NiwsStackedReviewer },
-    props: propActions,
+    props: propData,
     template: `
         <niws-stacked-reviewer></niws-stacked-reviewer>
     `
