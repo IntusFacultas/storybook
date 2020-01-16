@@ -3,6 +3,7 @@ import { NButton } from "./NASICHTML/Button.vue";
 import { ThemeProvider } from "vue-styled-components";
 import { withKnobs, object, text } from '@storybook/addon-knobs';
 import NASICTheme from "./NASICHTML/nasic-theme.js";
+import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue"
 
 
 export default {
@@ -23,18 +24,30 @@ export const BaseButton = () => ({
 });
 
 export const ButtonThemes = () => ({
-    components: { NButton, 'theme-provider': ThemeProvider },
+    components: { NButton, FlexRow, FlexColumn, 'theme-provider': ThemeProvider },
     props: {
+        flavor: {
+            default: text("Flavor", "LightBlue")
+        },
         theme: {
             default: object("Themes", NASICTheme)
         },
-        flavor: {
-            default: text("Flavor", "LightBlue")
-        }
     },
     template: `
-        <theme-provider :theme="theme">
-            <n-button flavor="LightBlue">Base Button</n-button>
-        </theme-provider>
+        <flex-row>
+            <flex-column>
+                <theme-provider :theme="theme">
+                    <n-button :flavor="flavor">Themed Button</n-button>
+                </theme-provider>
+            </flex-column>
+            <flex-column>
+                <b>Available Themes</b>
+                <ul>
+                <li v-for="t in Object.keys(theme)">{{t}}</li>
+                </ul>
+            </flex-column>
+            <flex-column :col="4">
+            </flex-column>
+        </flex-row>
     `
 })
