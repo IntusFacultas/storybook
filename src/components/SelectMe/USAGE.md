@@ -1,6 +1,6 @@
 # SelectMe
 
-## Type of Widget
+## Type of Component
 Vue Component - https://v1.vuejs.org/guide/components.html
 
 ## Dependencies

@@ -3,10 +3,18 @@ import { NH1, NH2, NH3, NH4, NH5, NH6 } from './Typography/StyledTitle';
 import { NText, PortionMarking } from "./Typography/StyledBody";
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, number } from '@storybook/addon-knobs';
+import titlemarkdown from "./Typography/StyledTitleUsage.md";
+import textmarkdown from "./Typography/StyledBodyUsage.md";
 
 export default {
   title: 'Typography',
   decorators: [withA11y, withKnobs],
+  parameters: {
+    notes: {
+      Title: titlemarkdown,
+      Text: textmarkdown
+    }
+  },
   // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
