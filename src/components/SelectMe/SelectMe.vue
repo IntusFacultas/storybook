@@ -293,9 +293,11 @@ const SelectMe = {
       var self = this;
       var proposedIndex = self.hoveredIndex + step;
       self.openDropdown();
-      if (proposedIndex >= self.selectOptions.length || proposedIndex < -1) {
-        return;
-      } else if (proposedIndex == -1) {
+      if (proposedIndex >= self.selectOptions.length) {
+        self.hoveredIndex = 0;
+        self.hoveredOption = self.selectOptions[self.hoveredIndex];
+        self.$forceUpdate();
+      } else if (proposedIndex <= -1) {
         self.hoveredIndex = proposedIndex;
         self.$el.firstChild.focus();
         self.closeDropdown();
