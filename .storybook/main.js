@@ -1,16 +1,8 @@
-module.exports = {
-    stories: ['../src/**/*.stories.([tj]s|mdx)'],
+module.exports = ({
+    stories: ['../src/**/*.stories.[tj]s'],
     addons: [
         '@storybook/addon-actions/register', '@storybook/addon-a11y/register',
-        '@storybook/addon-knobs/register', {
-            name: '@storybook/addon-docs',
-            options: {
-              configureJSX: true,
-              babelOptions: {},
-              sourceLoaderOptions: {
-                  '../src/**/*.stories.([tj]s|mdx)': "@storybook/addon-docs/jest-transform-mdx"
-              },
-            },
-        },
-    ]
-};
+        '@storybook/addon-knobs/register', '@storybook/addon-viewport/register',
+        '@storybook/addon-storysource', '@storybook/addon-notes/register'
+    ],
+});

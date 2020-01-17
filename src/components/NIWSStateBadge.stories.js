@@ -1,9 +1,13 @@
 import { withA11y } from '@storybook/addon-a11y';
-import { withKnobs, object} from '@storybook/addon-knobs';
+import { withKnobs, object } from '@storybook/addon-knobs';
 import { NiwsState } from "./NIWSStateBadge/StateBadge.vue";
+import markdown from "./NIWSStateBadge/USAGE.md";
 
 export default {
-    title: 'NIWS State Badge',
+    title: 'NIWS/State Badge',
+    parameters: {
+        notes: { markdown }
+    },
     decorators: [withA11y, withKnobs],
     // Our exports that end in "Data" are not stories.
     excludeStories: /.*Data$/,
