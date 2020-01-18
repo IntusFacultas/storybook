@@ -20,7 +20,7 @@ export const NButton = styled("button", props)`
         color: ${props =>
           props.theme[props.flavor] && props.theme[props.flavor].color.color
             ? props.theme[props.flavor].color.color
-            : "#000"}
+            : "#040404"}
         background-color: ${props =>
           props.theme[props.flavor] &&
           props.theme[props.flavor].background.color

@@ -2,7 +2,7 @@ import { withA11y } from '@storybook/addon-a11y';
 import { NButton } from "./StyledHTML/Button.vue";
 import { ThemeProvider } from "vue-styled-components";
 import { withKnobs, object, text, boolean } from '@storybook/addon-knobs';
-import Theme from "./StyledHTML/theme.js";
+import Theme from "./DesignSystem/theme.js";
 import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue"
 
 
