@@ -258,7 +258,7 @@ export const Theme = {
 export const TextTheme = {
     "Normal": "#040404",
     "Medium": "#5A5A5A",
-    "Light": "#ddd",
+    "Light": "#b1b1b1",
     "White": "#fff",
 }
 export default Theme;

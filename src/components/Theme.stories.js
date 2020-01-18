@@ -8,11 +8,15 @@ import {
 } from "./StyledHTML/Typography.vue"
 import ColorSwatch from "./DesignSystem/colorSwatch.vue";
 import Theme from "./DesignSystem/theme.js";
+import markdown from './StyledHTML/TypographyUsage.md';
 
 export default {
     title: 'Design System',
     decorators: [withA11y],
     parameters: {
+        notes: {
+            markdown
+        }
     },
     // Our exports that end in "Data" are not stories.
     excludeStories: /.*Data$/,

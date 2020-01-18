@@ -4,6 +4,7 @@ import { ThemeProvider } from "vue-styled-components";
 import { withKnobs, object, text, boolean } from '@storybook/addon-knobs';
 import Theme from "./DesignSystem/theme.js";
 import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue"
+import buttonmarkdown from "./StyledHTML/ButtonUsage.md";
 
 
 export default {
@@ -11,6 +12,7 @@ export default {
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
+            Button: buttonmarkdown
         }
     },
     excludeStories: /.*Data$/,
@@ -25,15 +27,17 @@ export const BaseButton = () => ({
 
 export const ButtonThemes = () => ({
     components: { NButton, FlexRow, FlexColumn, 'theme-provider': ThemeProvider },
+    data: function() {
+        return {
+            theme: Theme
+        }
+    },
     props: {
         flavor: {
             default: text("Flavor", "Success")
         },
         disabled: {
             default: boolean("Disable Button", false)
-        },
-        theme: {
-            default: object("Themes", Theme)
         },
     },
     template: `

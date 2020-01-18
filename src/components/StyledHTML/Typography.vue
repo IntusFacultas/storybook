@@ -15,21 +15,25 @@ export const NSpan = styled("span", props)`
   color: ${props => props.colors.Normal};
   font-family: "Roboto", sans-serif;
 `;
+export const NLabel = NSpan.withComponent("label");
 export const NP = NSpan.withComponent("p");
 export const MSpan = styled("span", props)`
   color: ${props => props.colors.Medium};
   font-family: "Roboto", sans-serif;
 `;
+export const MLabel = MSpan.withComponent("label");
 export const MP = MSpan.withComponent("p");
 export const LSpan = styled("span", props)`
   color: ${props => props.colors.Light};
   font-family: "Roboto", sans-serif;
 `;
+export const LLabel = LSpan.withComponent("label");
 export const LP = LSpan.withComponent("p");
 export const WSpan = styled("span", props)`
   color: ${props => props.colors.White};
   font-family: "Roboto", sans-serif;
 `;
+export const WLabel = WSpan.withComponent("label");
 export const WP = WSpan.withComponent("p");
 
 export const NH1 = styled("h1", props)`
