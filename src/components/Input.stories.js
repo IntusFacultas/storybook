@@ -4,12 +4,14 @@ import { VueInput } from "./StyledHTML/Input.vue";
 import { NLabel } from "./StyledHTML/Typography.vue";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue";
+import markdown from "./StyledHTML/InputUsage.md";
 
 export default {
     title: "StyledHTML/Input",
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
+            markdown
         }
     },
     excludeStories: /.*Data$/,

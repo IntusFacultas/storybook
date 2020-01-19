@@ -121,7 +121,7 @@ export const VueInput = {
     },
     label: {
       type: String,
-      default: ""
+      required: true
     },
     autofocus: {
       type: Boolean,
@@ -130,7 +130,10 @@ export const VueInput = {
   },
   mounted: function() {
     var self = this;
-    self.value = self.initialValue;
+    if (typeof self.$parent !== "undefined") {
+      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};
+      self.$parent.$refs.inputs[self.name] = self;
+    }
   },
   methods: {
     oninput: function() {
