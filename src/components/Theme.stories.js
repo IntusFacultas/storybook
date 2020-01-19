@@ -7,7 +7,7 @@ import {
     WH1, WH2, WH3, WH4, WH5, WH6,
 } from "./StyledHTML/Typography.vue"
 import ColorSwatch from "./DesignSystem/colorSwatch.vue";
-import Theme from "./DesignSystem/theme.js";
+import { Theme, TextTheme } from "./DesignSystem/theme.js";
 import markdown from './StyledHTML/TypographyUsage.md';
 
 export default {
@@ -33,6 +33,7 @@ export const DesignSystem = () => ({
     data: function () {
         return {
             theme: Theme,
+            texts: TextTheme,
             count: 0,
             limit: 3,
         }
@@ -71,6 +72,8 @@ export const DesignSystem = () => ({
     },
     template: `
         <div>
+            <n-h1>Color Swatches</n-h1>
+            <hr/>
             <flex-row v-for="list in splitArray" style="padding-top:10px">
                 <div v-for="obj in list" style="display: flex">
                     <color-swatch
@@ -85,6 +88,18 @@ export const DesignSystem = () => ({
                     </color-swatch>
                 </div>
             </flex-row>
+            <n-h1>Text Colors</n-h1>
+            <hr/>
+            <flex-row style="padding-top:10px; padding-left: 10px">
+            </flex-row>
+            <flex-row style="padding-top:10px">
+                <color-swatch 
+                    v-for="obj in Object.keys(texts)"
+                    :name="obj"
+                    :color="texts[obj]">
+                </color-swatch>
+            </flex-row>
+            <n-h1>Typography</n-h1><hr/>
             <flex-row>
                 <flex-column style="flex-direction: column; padding-top: 10px;">
                     <n-h1>This is a normal h1 header</n-h1>

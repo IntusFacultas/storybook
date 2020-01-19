@@ -1,12 +1,13 @@
 import { withA11y } from '@storybook/addon-a11y';
-import { NInput } from "./StyledHTML/Input.vue";
+import { action } from '@storybook/addon-actions';
+import { VueInput } from "./StyledHTML/Input.vue";
 import { NLabel } from "./StyledHTML/Typography.vue";
-import { withKnobs, text } from '@storybook/addon-knobs';
-import { FlexRow } from "./Layout/flexColumn.vue";
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
+import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue";
 
 export default {
     title: "StyledHTML/Input",
-    decorators: [withA11y, withKnobs ],
+    decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
         }
@@ -14,17 +15,77 @@ export default {
     excludeStories: /.*Data$/,
 };
 
-// export const Input = () => ({
-//     components: { NInput, FlexRow, NLabel},
-//     props: {
-//         inputType: {
-//             default: text("Input Type", "text")
-//         }
-//     },
-//     template: `
-//     <div>
-//     </div>
-//         <n-label for="input">Example input</n-label>
-//         <flex-row><n-input id="input"></n-input></flex-row>
-//     `
-// })
+const actionsData = {
+    onInput: action("onInput")
+}
+
+export const Input = () => ({
+    components: { VueInput, FlexRow, NLabel, FlexColumn },
+    methods: actionsData,
+    props: {
+        readonly: {
+            default: boolean("Readonly", false)
+        },
+        placeholder: {
+            default: text("Placeholder", "")
+        },
+        pattern: {
+            default: text("Pattern", "")
+        },
+        multiple: {
+            default: boolean("Multiple", false)
+        },
+        min: {
+            default: text("Min", "")
+        },
+        max: {
+            default: text("Max", "")
+        },
+        name: {
+            default: text("Name", "inputName")
+        },
+        inputType: {
+            default: text("Type", "text")
+        },
+        required: {
+            default: boolean("Required", false)
+        },
+        disabled: {
+            default: boolean("Disabled", false)
+        },
+        labelType: {
+            default: text("Label Type", "normal")
+        },
+        label: {
+            default: text("Label Text", "This is a sample input")
+        },
+        autofocus: {
+            default: boolean("Autofocus", false)
+        },
+        autocomplete: {
+            default: text("Autocomplete", "off")
+        }
+    },
+    template: `
+    <flex-row>
+        <flex-column>
+            <vue-input
+            :readonly="readonly"
+            :placeholder="placeholder"
+            :pattern="pattern"
+            :multiple="multiple"
+            :min="min"
+            :max="max"
+            :name="name"
+            :input-type="inputType"
+            :required="required"
+            :disabled="disabled"
+            :label-type="labelType"
+            :label="label"
+            @input="onInput"
+            :autofocus="autofocus"
+            :autocomplete="autocomplete"></vue-input>
+        </flex-column>
+    </flex-row>
+    `
+})
