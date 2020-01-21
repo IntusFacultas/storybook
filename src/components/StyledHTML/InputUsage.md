@@ -72,7 +72,7 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
         <tr>
             <td>pattern</td>
             <td>`Text`</td>
-            <td>`""`</td>
+            <td>`"*"`</td>
             <td>Sets the pattern HTML attribute on the input</td>
             <td>&nbsp;</td>
         </tr>
