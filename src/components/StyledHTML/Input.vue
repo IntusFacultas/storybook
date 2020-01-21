@@ -148,7 +148,8 @@ export default VueInput;
 
 <style>
 .input-container {
-  display: block;
+  display: flex;
+  flex-direction:column;
   width: 100%;
 }
 </style>
