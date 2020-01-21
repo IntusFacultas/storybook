@@ -9,12 +9,16 @@ import Theme from "./DesignSystem/theme.js";
 import { NButton } from "./StyledHTML/Button.vue";
 import VueMe from "./VueMe/vueMe.vue";
 import Vue from 'vue';
+import markdown from "./VueMe/vueMe.md";
+
+
 Vue.config.silent = true;
 export default {
     title: 'VueMe',
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
+            markdown
         }
     },
     // Our exports that end in "Data" are not stories.
