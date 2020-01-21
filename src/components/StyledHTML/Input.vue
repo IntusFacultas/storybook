@@ -42,6 +42,7 @@ export const NInput = styled("input", props)`
   border-radius: 5px;
   border: 1px solid #838e99;
   padding: 2px 5px 2px 5px;
+  box-sizing: border-box;
   transition: box-shadow 0.5s;
   &:focus {
     outline: none;

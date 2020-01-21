@@ -18,37 +18,41 @@ export default {
     excludeStories: /.*Data$/,
 };
 
-export const BaseButton = () => ({
-    components: { NButton },
-    template: `
-        <n-button>Base Button</n-button>
-    `
-});
-
-export const ButtonThemes = () => ({
+export const Button = () => ({
     components: { NButton, FlexRow, FlexColumn, 'theme-provider': ThemeProvider },
-    data: function() {
+    data: function () {
         return {
             theme: Theme
         }
     },
     props: {
+        large: {
+            default: boolean("Large Button", false)
+        },
+        small: {
+            default: boolean("Small Button", false)
+        },
         flavor: {
             default: text("Flavor", "Success")
         },
         disabled: {
             default: boolean("Disable Button", false)
         },
+        block: {
+            default: boolean("Block Button", false)
+        }
     },
     template: `
         <flex-row>
-            <flex-column>
-                <theme-provider :theme="theme">
-                    <n-button :flavor="flavor" :disabled="disabled">Themed Button</n-button>
-                </theme-provider>
-            </flex-column>
-            <flex-column :col="4">
-            </flex-column>
+            <theme-provider :theme="theme" style="width: 100%">
+                <n-button
+                    :flavor="flavor"
+                    :disabled="disabled"
+                    :small="small"
+                    :large="large"
+                    :block="block">Themed Button
+                </n-button>
+            </theme-provider>
         </flex-row>
     `
 })
