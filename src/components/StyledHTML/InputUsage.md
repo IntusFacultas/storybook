@@ -3,7 +3,7 @@
 
 This provides a styleguide consistent and accessible input element that can be configured for most uses via a variety of props, listed below.
 
-On mount, this component adds itself to the parent Vue componet under `.$refs.inputs[namePropValue]`. 
+On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`. 
 
 ## Usage
 
