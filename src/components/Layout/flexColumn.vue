@@ -24,10 +24,12 @@
         @media (min-width: 1200px) {
             flex: ${ props => !isNaN(props.xl) ? props.xl : !isNaN(props.col) ? props.col : 1 }
         }
+        box-sizing: border-box;
     `;
     export const FlexRow = styled.div`
         display: flex;
         width: 100%;
+        flex-wrap: wrap;
     `;
     export default FlexColumn;
 </script>
