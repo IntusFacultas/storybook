@@ -1,52 +1,41 @@
 <template>
   <div class="input-container">
-    <l-label :for="name" v-if="labelType.toUpperCase() == 'LIGHT'">{{label}}</l-label>
-    <m-label :for="name" v-else-if="labelType.toUpperCase() == 'MEDIUM'">{{label}}</m-label>
-    <w-label :for="name" v-else-if="labelType.toUpperCase() == 'WHITE'">{{label}}</w-label>
-    <n-label :for="name" v-else>{{label}}</n-label>
-    <n-input
+    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{label}}</n-label>
+    <n-text-area
       :id="name"
+      :cols="cols"
+      :rows="rows"
       :readonly="readonly"
       :placeholder="placeholder"
-      :pattern="pattern"
-      :multiple="multiple"
-      :min="min"
-      :max="max"
       :name="name"
-      :type="inputType"
+      :maxlength="maxlength"
       :required="required"
       :disabled="disabled"
       :autofocus="autofocus"
-      :autocomplete="autocomplete"
       v-model="value"
       @input="oninput"
-    ></n-input>
+    ></n-text-area>
   </div>
 </template>
 
 <script>
-import {
-  NLabel,
-  LLabel,
-  MLabel,
-  WLabel
-} from "Components/components/StyledHTML/Typography/Typography.vue";
-import styled from "vue-styled-components";
+import { NLabel } from "Components/components/StyledHTML/Typography/Typography.vue";
 import Theme from "Components/components/DesignSystem/theme.js";
-
+import styled from "vue-styled-components";
 const props = {
   color: {
     type: String,
     default: Theme.InfoMedium.background.color
   }
 };
-export const NInput = styled("input", props)`
+export const NTextArea = styled("textarea", props)`
   width: 100%;
   height: 35px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #838e99;
   padding: 2px 5px 2px 5px;
+  margin-top: 2px;
   box-sizing: border-box;
   transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
   &:focus {
@@ -64,22 +53,18 @@ export const NInput = styled("input", props)`
     background-color: #e2e2e2;
   }
 `;
-export const VueInput = {
-  name: "vue-input",
-  components: { NInput, NLabel, LLabel, MLabel, WLabel },
+export const VueTextArea = {
+  name: "vue-text-area",
+  components: { NTextArea, NLabel },
   data: function() {
     return {
       value: ""
     };
   },
   props: {
-    autocomplete: {
-      type: String,
-      default: "off"
-    },
-    initialValue: {
-      type: String,
-      default: ""
+    autofocus: {
+      type: Boolean,
+      default: false
     },
     readonly: {
       type: Boolean,
@@ -89,19 +74,15 @@ export const VueInput = {
       type: String,
       default: ""
     },
-    pattern: {
-      type: String,
-      default: "*"
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    min: {
+    maxlength: {
       type: String,
       default: ""
     },
-    max: {
+    cols: {
+      type: String,
+      default: ""
+    },
+    rows: {
       type: String,
       default: ""
     },
@@ -109,27 +90,23 @@ export const VueInput = {
       type: String,
       required: true
     },
-    inputType: {
-      type: String,
-      required: true
-    },
     required: {
       type: Boolean,
       default: false
     },
-    disabled: {
+    labelFlavor: {
+      type: String,
+      default: ""
+    },
+    labelDark: {
       type: Boolean,
       default: false
-    },
-    labelType: {
-      type: String,
-      default: "normal"
     },
     label: {
       type: String,
       required: true
     },
-    autofocus: {
+    disabled: {
       type: Boolean,
       default: false
     }
@@ -148,7 +125,7 @@ export const VueInput = {
     }
   }
 };
-export default VueInput;
+export default VueTextArea;
 </script>
 
 <style>

@@ -1,17 +1,20 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { VueInput } from "Components/components/StyledHTML/Input/Input.vue";
+import { VueTextArea } from "Components/components/StyledHTML/TextArea/TextArea.vue";
 import { NLabel } from "Components/components/StyledHTML/Typography/Typography.vue";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 import { FlexRow, FlexColumn } from "Components/components/Layout/Layout.vue";
 import markdown from "Components/components/StyledHTML/InputUsage.md";
+import textareamarkdown from "Components/components/StyledHTML/TextAreaUsage.md";
 
 export default {
     title: "StyledHTML/Input",
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
-            markdown
+            Input: markdown,
+            TextArea: textareamarkdown
         }
     },
     excludeStories: /.*Data$/,
@@ -90,4 +93,68 @@ export const Input = () => ({
         </flex-column>
     </flex-row>
     `
-})
+});
+
+export const TextArea = () => ({
+    components: { VueTextArea, FlexRow, FlexColumn },
+    methods: actionsData,
+    props: {
+        autofocus: {
+            default: boolean("Autofocus", false)
+        },
+        readonly: {
+            default: boolean("Read only", false)
+        },
+        placeholder: {
+            default: text("Placeholder", "")
+        },
+        maxlength: {
+            default: number("Max Length", '')
+        },
+        cols: {
+            default: number("Cols", "")
+        },
+        rows: {
+            default: number("Rows", "")
+        },
+        name: {
+            default: text("Name", "TextArea")
+        },
+        required: {
+            default: boolean("Required", false)
+        },
+        labelFlavor: {
+            default: text("Label Flavor", "")
+        },
+        labelDark: {
+            default: boolean("Label Dark", false)
+        },
+        label: {
+            default: text("Label Text", "This is a sample input")
+        },
+        disabled: {
+            default: boolean("Disabled", false)
+        },
+    },
+    template: `
+    <flex-row>
+        <flex-column>
+            <vue-text-area
+                :readonly="readonly"
+                :placeholder="placeholder"
+                :name="name"
+                :rows="rows"
+                :cols="cols"
+                :maxlength="maxlength"
+                :required="required"
+                :disabled="disabled"
+                :label-flavor="labelFlavor"
+                :label-dark="labelDark"
+                :label="label"
+                @input="onInput"
+                :autofocus="autofocus"
+            ></vue-text-area>
+        </flex-column>
+    </flex-row>
+    `
+});
