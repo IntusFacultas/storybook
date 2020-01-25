@@ -25,9 +25,14 @@
 </template>
 
 <script>
-import { NLabel, LLabel, MLabel, WLabel } from "./Typography.vue";
+import {
+  NLabel,
+  LLabel,
+  MLabel,
+  WLabel
+} from "Components/components/StyledHTML/Typography/Typography.vue";
 import styled from "vue-styled-components";
-import Theme from "../DesignSystem/theme.js";
+import Theme from "Components/components/DesignSystem/theme.js";
 
 const props = {
   color: {
@@ -37,7 +42,7 @@ const props = {
 };
 export const NInput = styled("input", props)`
   width: 100%;
-  height: 25px;
+  height: 35px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #838e99;
@@ -149,7 +154,7 @@ export default VueInput;
 <style>
 .input-container {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   width: 100%;
 }
 </style>

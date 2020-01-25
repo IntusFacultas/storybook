@@ -1,10 +1,10 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { VueInput } from "./StyledHTML/Input.vue";
-import { NLabel } from "./StyledHTML/Typography.vue";
+import { VueInput } from "Components/components/StyledHTML/Input/Input.vue";
+import { NLabel } from "Components/components/StyledHTML/Typography/Typography.vue";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
-import { FlexRow, FlexColumn } from "./Layout/flexColumn.vue";
-import markdown from "./StyledHTML/InputUsage.md";
+import { FlexRow, FlexColumn } from "Components/components/Layout/Layout.vue";
+import markdown from "Components/components/StyledHTML/InputUsage.md";
 
 export default {
     title: "StyledHTML/Input",

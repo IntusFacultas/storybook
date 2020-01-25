@@ -1,7 +1,7 @@
-import { FlexColumn, FlexRow } from "./Layout/flexColumn.vue";
+import { FlexColumn, FlexRow } from "Components/components/Layout/Layout.vue";
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, number } from '@storybook/addon-knobs';
-import markdown from "./Layout/USAGE.md";
+import markdown from "Components/components/Layout/USAGE.md";
 
 
 export default {

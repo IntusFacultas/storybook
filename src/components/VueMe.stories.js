@@ -5,11 +5,11 @@ import {
     withKnobs,
     text, boolean, object
 } from '@storybook/addon-knobs';
-import Theme from "./DesignSystem/theme.js";
-import { NButton } from "./StyledHTML/Button.vue";
-import VueMe from "./VueMe/vueMe.vue";
+import Theme from "Components/components/DesignSystem/theme.js";
+import { NButton } from "Components/components/StyledHTML/Button/Button.vue";
+import VueMe from "Components/components/VueMe/vueMe.vue";
 import Vue from 'vue';
-import markdown from "./VueMe/vueMe.md";
+import markdown from "Components/components/VueMe/vueMe.md";
 
 
 Vue.config.silent = true;

@@ -1,3 +1,91 @@
+export const NIWSTheme = {
+    "TASK": {
+        color: {
+            color: "#444444",
+            hover: "#FFFFFF",
+            focus: "#444444",
+        },
+        background: {
+            color: "#CBE6F7",
+            hover: "#51BAF4",
+            focus: "#CBE6F7",
+        },
+        border: {
+            color: "#CBE6F7",
+            hover: "#51BAF4",
+            focus: "#51BAF4",
+        }
+    },
+    "REWORK": {
+        color: {
+            color: "#444444",
+            hover: "#FFFFFF",
+            focus: "#444444"
+
+        },
+        background: {
+            color: "#FFC364",
+            hover: "#ED9406",
+            focus: "#FFC364"
+        },
+        border: {
+            color: "#FFC364",
+            hover: "#ED9406",
+            focus: "#ED9406",
+        }
+    },
+    "START": {
+        color: {
+            color: "#444444",
+            hover: "#FFFFFF",
+            focus: "#444444",
+        },
+        background: {
+            color: "#B7F7DC",
+            hover: "#2EE591",
+            focus: "#B7F7DC",
+        },
+        border: {
+            color: "#B7F7DC",
+            hover: "#2EE591",
+            focus: "#2EE591",
+        },
+    },
+    "COMPLETE": {
+        color: {
+            color: "#444444",
+            hover: "#FFFFFF",
+            focus: "#444444",
+        },
+        background: {
+            color: "#E0CEF4",
+            hover: "#735D87",
+            focus: "#E0CEF4",
+        },
+        border: {
+            color: "#E0CEF4",
+            hover: "#735D87",
+            focus: "#E0CEF4",
+        },
+    },
+    "CANCEL": {
+        color: {
+            color: "#444444",
+            hover: "#FFFFFF",
+            focus: "#444444",
+        },
+        background: {
+            color: "#DDA8A8",
+            hover: "#964545",
+            focus: ""
+        },
+        border: {
+            color: "#DDA8A8",
+            hover: "#964545",
+            focus: ""
+        }
+    }
+};
 export const Theme = {
     "SuccessLight": {
         color: {
@@ -254,6 +342,7 @@ export const Theme = {
             focus: "#F1AC17"
         }
     },
+
 }
 export const TextTheme = {
     "Normal": "#040404",

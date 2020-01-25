@@ -1,8 +1,8 @@
 <template></template>
 
 <script>
-import Vue from "./vue.js";
-import VueMeDialog from "./vueMeDialog.js";
+import Vue from "vue";
+import VueMeDialog from "Components/components/VueMe/vueMeDialog.js";
 export const VueMe = {
   name: "vue-me",
   props: {

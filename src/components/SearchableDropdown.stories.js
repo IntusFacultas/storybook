@@ -1,8 +1,8 @@
-import SelectMe from "./SelectMe/SelectMe.vue"
+import SelectMe from "Components/components/SelectMe/SelectMe.vue"
 import { action } from '@storybook/addon-actions'
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, array, text, boolean, object } from '@storybook/addon-knobs';
-import markdown from "./SelectMe/USAGE.md";
+import markdown from "Components/components/SelectMe/USAGE.md";
 
 export default {
     title: 'Searchable Dropdown',

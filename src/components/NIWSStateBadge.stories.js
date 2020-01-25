@@ -1,7 +1,7 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, object } from '@storybook/addon-knobs';
-import { NiwsState } from "./NIWSStateBadge/StateBadge.vue";
-import markdown from "./NIWSStateBadge/USAGE.md";
+import { NiwsState } from "Components/components/NIWSStateBadge/StateBadge.vue";
+import markdown from "Components/components/NIWSStateBadge/USAGE.md";
 
 export default {
     title: 'NIWS/State Badge',
@@ -16,29 +16,6 @@ export default {
 export const TaskStateBadge = () => ({
     components: { NiwsState },
     props: {
-
-        /**
-         * type: Object,
-         * default:
-         * {
-         *     "TASK": ["niws-tabular-task"],
-         *     "START": ["niws-tabular-start"],
-         *     "CANCEL": ['niws-tabular-cancel'],
-         *     "COMPLETE": ["niws-tabular-complete"],
-         *     "REWORK": ["niws-tabular-rework"],
-         * }
-         * Sets the mapping between State type and CSS class
-         */
-        classMapping: {
-            default: object("Class Mapping", {
-                "TASK": ["niws-state-task"],
-                "START": ["niws-state-start"],
-                "CANCEL": ['niws-state-cancel'],
-                "COMPLETE": ["niws-state-complete"],
-                "REWORK": ["niws-state-rework"],
-            })
-        },
-
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -63,29 +40,6 @@ export const TaskStateBadge = () => ({
 export const ReworkStateBadge = () => ({
     components: { NiwsState },
     props: {
-
-        /**
-         * type: Object,
-         * default:
-         * {
-         *     "TASK": ["niws-tabular-task"],
-         *     "START": ["niws-tabular-start"],
-         *     "CANCEL": ['niws-tabular-cancel'],
-         *     "COMPLETE": ["niws-tabular-complete"],
-         *     "REWORK": ["niws-tabular-rework"],
-         * }
-         * Sets the mapping between State type and CSS class
-         */
-        classMapping: {
-            default: object("Class Mapping", {
-                "TASK": ["niws-state-task"],
-                "START": ["niws-state-start"],
-                "CANCEL": ['niws-state-cancel'],
-                "COMPLETE": ["niws-state-complete"],
-                "REWORK": ["niws-state-rework"],
-            })
-        },
-
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -110,29 +64,6 @@ export const ReworkStateBadge = () => ({
 export const StartStateBadge = () => ({
     components: { NiwsState },
     props: {
-
-        /**
-         * type: Object,
-         * default:
-         * {
-         *     "TASK": ["niws-tabular-task"],
-         *     "START": ["niws-tabular-start"],
-         *     "CANCEL": ['niws-tabular-cancel'],
-         *     "COMPLETE": ["niws-tabular-complete"],
-         *     "REWORK": ["niws-tabular-rework"],
-         * }
-         * Sets the mapping between State type and CSS class
-         */
-        classMapping: {
-            default: object("Class Mapping", {
-                "TASK": ["niws-state-task"],
-                "START": ["niws-state-start"],
-                "CANCEL": ['niws-state-cancel'],
-                "COMPLETE": ["niws-state-complete"],
-                "REWORK": ["niws-state-rework"],
-            })
-        },
-
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -157,29 +88,6 @@ export const StartStateBadge = () => ({
 export const CompleteStateBadge = () => ({
     components: { NiwsState },
     props: {
-
-        /**
-         * type: Object,
-         * default:
-         * {
-         *     "TASK": ["niws-tabular-task"],
-         *     "START": ["niws-tabular-start"],
-         *     "CANCEL": ['niws-tabular-cancel'],
-         *     "COMPLETE": ["niws-tabular-complete"],
-         *     "REWORK": ["niws-tabular-rework"],
-         * }
-         * Sets the mapping between State type and CSS class
-         */
-        classMapping: {
-            default: object("Class Mapping", {
-                "TASK": ["niws-state-task"],
-                "START": ["niws-state-start"],
-                "CANCEL": ['niws-state-cancel'],
-                "COMPLETE": ["niws-state-complete"],
-                "REWORK": ["niws-state-rework"],
-            })
-        },
-
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -204,29 +112,6 @@ export const CompleteStateBadge = () => ({
 export const CancelStateBadge = () => ({
     components: { NiwsState },
     props: {
-
-        /**
-         * type: Object,
-         * default:
-         * {
-         *     "TASK": ["niws-tabular-task"],
-         *     "START": ["niws-tabular-start"],
-         *     "CANCEL": ['niws-tabular-cancel'],
-         *     "COMPLETE": ["niws-tabular-complete"],
-         *     "REWORK": ["niws-tabular-rework"],
-         * }
-         * Sets the mapping between State type and CSS class
-         */
-        classMapping: {
-            default: object("Class Mapping", {
-                "TASK": ["niws-state-task"],
-                "START": ["niws-state-start"],
-                "CANCEL": ['niws-state-cancel'],
-                "COMPLETE": ["niws-state-complete"],
-                "REWORK": ["niws-state-rework"],
-            })
-        },
-
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation

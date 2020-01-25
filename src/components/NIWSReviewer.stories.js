@@ -1,8 +1,8 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, object, text, } from '@storybook/addon-knobs';
-import { NiwsReviewer } from "./NIWSReviewer/niwsReviewer.vue";
-import { NiwsStackedReviewer } from "./NIWSReviewer/niwsStackedReviewer.vue";
-import markdown from "./NIWSReviewer/USAGE.md";
+import { NiwsReviewer } from "Components/components/NIWSReviewer/niwsReviewer.vue";
+import { NiwsStackedReviewer } from "Components/components/NIWSReviewer/niwsStackedReviewer.vue";
+import markdown from "Components/components/NIWSReviewer/USAGE.md";
 
 export default {
     title: 'NIWS/Reviewing Panel',
