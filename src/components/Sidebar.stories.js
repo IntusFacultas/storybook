@@ -33,7 +33,9 @@ export const Sidebar = () => ({
     <flex-row>
         <n-sidebar
             :flavor="flavor"
-            :sidebar-title="sidebarTitle"><n-h1 flavor="White">Sidebar Title</n-h1></n-sidebar:flavor="flavor">
+            :sidebar-title="sidebarTitle">
+            <n-h1 flavor="White">Sidebar Title</n-h1>
+        </n-sidebar>
         <sidebar-offset-content><h2>Content!</h2></sidebar-offset-content>
     </flex-row>
     `
