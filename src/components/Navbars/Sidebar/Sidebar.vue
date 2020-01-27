@@ -66,7 +66,7 @@ export const NSidebar = {
   },
   data: {
     windowWidth: 0,
-    open: false,
+    open: false
   },
   mounted: function() {
     this.$nextTick(() => {
@@ -84,16 +84,15 @@ export const NSidebar = {
   computed: {
     computedClass: function() {
       if (this.windowWidth > 575) {
-        return {}
-      }
-      else {
+        return {};
+      } else {
         if (this.open) {
-          return {}
+          return {};
         }
-        return ["closed"]
+        return ["closed"];
       }
     }
-  }
+  },
   props: {
     sidebarTitle: {
       type: Object,
