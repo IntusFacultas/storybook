@@ -26,6 +26,8 @@ export const NSmall = NSpan.withComponent("small", props);
 export const NH1 = styled("h1", props)`
   color: ${props => props.colors[props.flavor]};
   font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
 `;
 export const NH2 = NH1.withComponent("h2", props);
 export const NH3 = NH1.withComponent("h3", props);

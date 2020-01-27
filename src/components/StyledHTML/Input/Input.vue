@@ -1,9 +1,6 @@
 <template>
   <div class="input-container">
-    <l-label :for="name" v-if="labelType.toUpperCase() == 'LIGHT'">{{label}}</l-label>
-    <m-label :for="name" v-else-if="labelType.toUpperCase() == 'MEDIUM'">{{label}}</m-label>
-    <w-label :for="name" v-else-if="labelType.toUpperCase() == 'WHITE'">{{label}}</w-label>
-    <n-label :for="name" v-else>{{label}}</n-label>
+    <n-label :for="name">{{label}}</n-label>
     <n-input
       :id="name"
       :readonly="readonly"
