@@ -46,7 +46,7 @@ export const NCardHeader = styled("div", props)`
         ? "background-color:" +
           props.defaultTheme[props.flavor].background.color +
           ";"
-        : "background-color: #eaeaea;"
+        : "background-color: #f4f4f4;"
       : props.theme && props.theme[props.flavor]
       ? "border: 1px solid " + props.theme[props.flavor].background.color + ";"
       : props.defaultTheme[props.flavor]
@@ -54,7 +54,7 @@ export const NCardHeader = styled("div", props)`
         props.defaultTheme[props.flavor].background.color +
         ";"
       : "border: 1px solid #aaa;"};
-  ${props => (props.bordered ? "background-color: #eaeaea;" : "")}
+  ${props => (props.bordered ? "background-color: #f4f4f4;" : "")}
   & * {
     color: ${props =>
       !props.bordered
@@ -131,7 +131,7 @@ export const NCardFooter = styled("div", props)`
         ? "background-color:" +
           props.defaultTheme[props.flavor].background.color +
           ";"
-        : "background-color: #eaeaea;"
+        : "background-color: #f4f4f4;"
       : props.theme && props.theme[props.flavor]
       ? "border: 1px solid " + props.theme[props.flavor].background.color + ";"
       : props.defaultTheme[props.flavor]
@@ -139,7 +139,7 @@ export const NCardFooter = styled("div", props)`
         props.defaultTheme[props.flavor].background.color +
         ";"
       : "border: 1px solid #aaa;"};
-  ${props => (props.bordered ? "background-color: #eaeaea;" : "")}
+  ${props => (props.bordered ? "background-color: #f4f4f4;" : "")}
   & * {
     color: ${props =>
       !props.bordered
