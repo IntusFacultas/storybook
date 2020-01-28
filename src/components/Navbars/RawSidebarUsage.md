@@ -50,14 +50,14 @@ let bottomOffset = "10px";
     <tbody>
         <tr>
             <td>flavor</td>
-            <td>`String`</td>
-            <td>`""`</td>
+            <td>```String```</td>
+            <td>```""```</td>
             <td>Sets the flavor of sidebar</td>
         </tr>
         <tr>
             <td>sidebarTitle</td>
-            <td>`String`</td>
-            <td>`"Sidebar"`</td>
+            <td>```String```</td>
+            <td>```"Sidebar"```</td>
             <td>Sets the title of the sidebar</td>
         </tr>
         <tr>
@@ -68,20 +68,20 @@ let bottomOffset = "10px";
         </tr>
         <tr>
             <td>bottomOffset</td>
-            <td>`String`</td>
-            <td>`"0px"`</td>
+            <td>```String```</td>
+            <td>```"0px"```</td>
             <td>Offsets the sidebar from the bottom</td>
         </tr>
         <tr>
             <td>width</td>
-            <td>`Number`</td>
-            <td>`200`</td>
+            <td>```Number```</td>
+            <td>```200```</td>
             <td>Sets the sidebar width</td>
         </tr>
         <tr>
             <td>breakpoint</td>
-            <td>`Number`</td>
-            <td>`576`</td>
+            <td>```Number```</td>
+            <td>```576```</td>
             <td>Sets the window width at which point the sidebar collapses</td>
         </tr>
     </tbody>
