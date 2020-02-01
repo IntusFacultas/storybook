@@ -1,0 +1,16 @@
+{
+  "name": "@intus/designsystem",
+  "version": "1.0.0",
+  "description": "Provides a default set of colors and themes for intus styled components",
+  "main": "theme.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "design",
+    "theme",
+    "intus"
+  ],
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

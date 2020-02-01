@@ -1,0 +1,23 @@
+{
+  "name": "@intus/layout",
+  "version": "1.0.0",
+  "description": "Provides a flex layout library for arranging content on screen",
+  "main": "Layout.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue build --target lib --name VueLayout --dest dist/VueLayout Layout.vue"
+  },
+  "keywords": [
+    "flex",
+    "layout",
+    "intus"
+  ],
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC",
+  "dependencies": {
+    "vue-styled-components": "^1.4.14"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  }
+}

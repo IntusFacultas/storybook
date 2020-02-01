@@ -1,0 +1,15 @@
+{
+  "name": "@intus/fonts",
+  "version": "1.0.0",
+  "description": "Provides fonts necessary for components to function",
+  "main": "fonts.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fonts",
+    "intus"
+  ],
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

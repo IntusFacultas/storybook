@@ -10,6 +10,9 @@
     "build-storybook": "build-storybook -c .storybook -o .out"
   },
   "dependencies": {
+    "@intus/button": "^1.0.1",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/fonts": "^1.0.0",
     "vue": "^2.6.11",
     "vue-styled-components": "^1.4.14"
   },

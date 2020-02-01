@@ -178,9 +178,9 @@
 
 <script>
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
-require("Components/components/StyledHTML/Fonts/fonts.css");
-import { NButton } from "Components/components/StyledHTML/Button/Button.vue";
+import Theme from "@intus/designsystem";
+require("@intus/fonts");
+import { NButton } from "@intus/button";
 
 const props = {
   flavor: String,
@@ -324,7 +324,7 @@ export const NavbarContentContainer = styled("div", props)`
   padding-right: 10px;
   ${props =>
     props.collapsed
-      ? "flex-direction: column; padding-bottom: 5px; flex-basis: 100%; flex-grow: 1;"
+      ? "flex-direction: column; padding-bottom: 5px; flex-basis: 100%; flex-grow: 1; padding-right: 0px;"
       : ""};
 
   ${props => (props.collapsed && !props.open ? "max-width: 0px;" : "")}
