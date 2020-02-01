@@ -1,9 +1,20 @@
 # Input
 
+## Type of Component
 
-This provides a styleguide consistent and accessible input element that can be configured for most uses via a variety of props, listed below.
+Vue Component - https://vuejs.org/v2/guide/components.html
+
+## Installation
 
 On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`. 
+
+```bash
+    npm install @nasic/input --save
+```
+
+## Purpose
+
+This provides a styleguide consistent and accessible input element that can be configured for most uses via a variety of props, listed below.
 
 ## Usage
 
@@ -19,7 +30,8 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
     :input-type="inputType"
     :required="required"
     :disabled="disabled"
-    :label-type="labelType"
+    :label-flavor="labelFlavor"
+    :label-dark="labelDark"
     :label="label"
     @input="onInput"
     :autofocus="autofocus"
@@ -28,7 +40,6 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
 ```
 
 ## Configuration
-
 
 <table>
     <thead>
@@ -126,10 +137,17 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>labelType</td>
+            <td>labelFlavor</td>
             <td>`Text`</td>
-            <td>`normal`</td>
-            <td>Sets the text decoration for the label. Choices are "normal", "medium", "light" and "white"</td>
+            <td>`""`</td>
+            <td>Sets the label flavor</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>labelDark</td>
+            <td>`Boolean`</td>
+            <td>`false`</td>
+            <td>Sets the label to dark mode</td>
             <td>&nbsp;</td>
         </tr>
         <tr>

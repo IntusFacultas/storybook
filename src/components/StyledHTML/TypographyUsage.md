@@ -1,26 +1,48 @@
 # Typography
 
+
+## Purpose
+
 These components overhaul the basic HTML text with styled text components
 
-Available components are:
-- NH1-NH6 (Normal)
-- MH1-MH6 (Medium)
-- LH1-LH6 (Light)
-- WH1-WH6 (White)
-- NLabel, MLabel, LLabel, WLabel
-- NSpan, NP (Normal)
-- MSpan, MP (Medium)
-- LSpan, LP (Light)
-- WSpan, WP (White)
+## Usage
+
+These components functions similarly to a normal HTML5 text tags. You can place content inside of them as you normally would.
+
+
+## Available Components
+- NSpan
+- NLabel
+- NP
+- NText
+- NSmall
+- NH1 - NH6
 
 ## Usage
 
 ```html
-<n-h1>This is a title</n-h1>
-<m-h2>This is a title</m-h2>
-<l-h3>This is a title</l-h3>
-<n-span>This is a span</n-span>
-<m-span>This is a span</m-span>
-<l-p>This is a paragraph</l-p>
-<m-label>This is a label</m-label>
+<n-span :flavor="Medium"></n-span>
 ```
+
+## Configuration
+
+- The flavors for text are pulled from `@nasic/design-system` in the `TextTheme` Object.
+
+<table>
+    <thead>
+        <tr>
+            <th>Prop</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Purpose</th>
+        </tr>
+    </thead>
+    <tbody>    
+        <tr>
+            <td>flavor</td>
+            <td>`String`</td>
+            <td>`""`</td>
+            <td>Sets the color of the text to provided flavor.</td>
+        </tr>
+    </tbody>
+</table>

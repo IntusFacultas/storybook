@@ -2,11 +2,13 @@
 
 ## Type of Component
 
-Vue Component 
+Vue Component - https://vuejs.org/v2/guide/components.html
 
-## Dependencies
+## Installation
 
-1. vue-styled-components
+```bash
+npm install @nasic/sidebar --save
+```
 
 ## Purpose
 
@@ -27,7 +29,8 @@ This is meant to be used in tandem with the `SidebarOffsetContent` component for
     :width="width"
     :breakpoint="breakpoint">
 </n-sidebar>
-<sidebar-offset-content><h2>Content!</h2></sidebar-offset-content>
+<sidebar-offset-content :width="width"
+            :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
 ```
 
 ```javascript
@@ -72,6 +75,8 @@ let items = [
     },
 ]
 ```
+
+## Configuration
 
 <table>
     <thead>
@@ -130,7 +135,9 @@ let items = [
                     type: "item", // item or dropdown
                     text: "Link 98",  // any text of your choice
                     icon: "",  // text to be rendered as HTML
-                    url: "/url/to/place"  // URL
+                    url: "/url/to/place"  // URL,
+                    disabled: false,
+                    active: false
                 },
                 </code>
             </pre>
@@ -142,6 +149,8 @@ let items = [
                     text: "Dropdown",
                     icon: "",
                     items: []  // no nested dropdowns
+                    disabled: false,
+                    active: false
                 },
                 </code>
             </pre>

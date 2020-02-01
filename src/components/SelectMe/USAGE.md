@@ -3,8 +3,11 @@
 ## Type of Component
 Vue Component - https://v1.vuejs.org/guide/components.html
 
-## Dependencies
-None
+## Installatoin
+
+```bash
+npm install @nasic/select-me --save
+```
 
 ## Purpose
 This allows the user to select options or multiple options, replicating the original Select2 behavior, without the need for jQuery. This widget also has certain benefits over Vue-Multiselect, mainly that removing selected options is far easier on account of the badge system used.
@@ -29,7 +32,7 @@ var optionsForSelect = [
 ```
 
 
-### Special Configuration
+## Configuration
 Various Vue Component Props have been exposed for customizing the behavior of the component.
 
 Special note: camelCase props need to be converted to kebab-case when being set.

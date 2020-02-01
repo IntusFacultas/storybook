@@ -4,9 +4,11 @@
 
 Vue Styled Component - https://github.com/styled-components/vue-styled-components
 
-## Dependencies
+## Installation
 
-1. vue-styled-components
+```bash
+npm install @nasic/layout --save
+```
 
 ## Purpose
 

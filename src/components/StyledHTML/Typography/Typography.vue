@@ -16,7 +16,14 @@ const props = {
 };
 
 export const NSpan = styled("span", props)`
-  color: ${props => props.colors[props.flavor]};
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
   font-family: "Roboto", sans-serif;
 `;
 export const NLabel = NSpan.withComponent("label", props);
@@ -24,7 +31,14 @@ export const NP = NSpan.withComponent("p", props);
 export const NText = NSpan.withComponent("span", props);
 export const NSmall = NSpan.withComponent("small", props);
 export const NH1 = styled("h1", props)`
-  color: ${props => props.colors[props.flavor]};
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
   font-family: "Montserrat", sans-serif;
   margin-top: 0px;
   margin-bottom: 5px;

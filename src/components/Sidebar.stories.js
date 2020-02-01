@@ -39,6 +39,25 @@ export const Sidebar = () => ({
                     url: "/url/to/place"
                 },
                 {
+                    type: "dropdown",
+                    text: "Dropdown",
+                    icon: "",
+                    items: [
+                        {
+                            type: "item",
+                            text: "Link 98",
+                            icon: "",
+                            url: "/url/to/place"
+                        },
+                        {
+                            type: "item",
+                            text: "Link 10",
+                            icon: "",
+                            url: "/url/to/place"
+                        },
+                    ]
+                },
+                {
                     type: "item",
                     text: "Link 2",
                     icon: "",
@@ -80,25 +99,7 @@ export const Sidebar = () => ({
                     icon: "",
                     url: "/url/to/place"
                 },
-                {
-                    type: "dropdown",
-                    text: "Dropdown",
-                    icon: "",
-                    items: [
-                        {
-                            type: "item",
-                            text: "Link 98",
-                            icon: "",
-                            url: "/url/to/place"
-                        },
-                        {
-                            type: "item",
-                            text: "Link 10",
-                            icon: "",
-                            url: "/url/to/place"
-                        },
-                    ]
-                },
+
             ])
         },
         sidebarTitle: {

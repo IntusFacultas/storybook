@@ -1,11 +1,17 @@
 <script>
 import styled from "vue-styled-components";
-
+import Theme from "Components/components/DesignSystem/theme.js";
 const props = {
   flavor: String,
   small: Boolean,
   large: Boolean,
-  block: Boolean
+  block: Boolean,
+  defaultTheme: {
+    type: Object,
+    default: function() {
+      return Theme;
+    }
+  }
 };
 
 const dialogProps = {
@@ -13,7 +19,12 @@ const dialogProps = {
   small: Boolean,
   large: Boolean,
   block: Boolean,
-  dialogTheme: Object
+  dialogTheme: {
+    type: Object,
+    default: function() {
+      return Theme;
+    }
+  }
 };
 
 export const DialogButton = styled("button", dialogProps)`
@@ -32,25 +43,33 @@ export const DialogButton = styled("button", dialogProps)`
             box-shadow .1s ease-in-out;
         cursor: pointer;
         color: ${props =>
-          props.dialogTheme[props.flavor] &&
-          props.dialogTheme[props.flavor].color.color
+          props.theme && props.theme[props.flavor]
+            ? props.theme[props.flavor].color.color
+            : props.dialogTheme[props.flavor] &&
+              props.dialogTheme[props.flavor].color.color
             ? props.dialogTheme[props.flavor].color.color
             : "#040404"}
         background-color: ${props =>
-          props.dialogTheme[props.flavor] &&
-          props.dialogTheme[props.flavor].background.color
+          props.theme && props.theme[props.flavor]
+            ? props.theme[props.flavor].background.color
+            : props.dialogTheme[props.flavor] &&
+              props.dialogTheme[props.flavor].background.color
             ? props.dialogTheme[props.flavor].background.color
             : "#f0f0f0"};
         &:focus {
             outline: none;
             box-shadow: 0 0 0 .2rem ${props =>
-              props.dialogTheme[props.flavor] &&
-              props.dialogTheme[props.flavor].background.color
+              props.theme && props.theme[props.flavor]
+                ? props.theme[props.flavor].background.color + "80"
+                : props.dialogTheme[props.flavor] &&
+                  props.dialogTheme[props.flavor].background.color
                 ? props.dialogTheme[props.flavor].background.color + "80"
-                : "#dcc"};
+                : "#ddcccc80"};
             color: ${props =>
-              props.dialogTheme[props.flavor] &&
-              props.dialogTheme[props.flavor].color.focus
+              props.theme && props.theme[props.flavor]
+                ? props.theme[props.flavor].color.focus
+                : props.dialogTheme[props.flavor] &&
+                  props.dialogTheme[props.flavor].color.focus
                 ? props.dialogTheme[props.flavor].color.focus
                 : "#000"}
         }
@@ -60,20 +79,26 @@ export const DialogButton = styled("button", dialogProps)`
         }
         &:hover {
             background-color: ${props =>
-              props.dialogTheme[props.flavor] &&
-              props.dialogTheme[props.flavor].background.hover
+              props.theme && props.theme[props.flavor]
+                ? props.theme[props.flavor].background.hover
+                : props.dialogTheme[props.flavor] &&
+                  props.dialogTheme[props.flavor].background.hover
                 ? props.dialogTheme[props.flavor].background.hover
                 : "#d5d5d5"};
             color: ${props =>
-              props.dialogTheme[props.flavor] &&
-              props.dialogTheme[props.flavor].color.hover
+              props.theme && props.theme[props.flavor]
+                ? props.theme[props.flavor].color.hover
+                : props.dialogTheme[props.flavor] &&
+                  props.dialogTheme[props.flavor].color.hover
                 ? props.dialogTheme[props.flavor].color.hover
                 : "#000"}
         }
         &:disabled:hover {
             background-color: ${props =>
-              props.dialogTheme[props.flavor] &&
-              props.dialogTheme[props.flavor].background.color
+              props.theme && props.theme[props.flavor]
+                ? props.theme[props.flavor].background.color
+                : props.dialogTheme[props.flavor] &&
+                  props.dialogTheme[props.flavor].background.color
                 ? props.dialogTheme[props.flavor].background.color
                 : "#f0f0f0"};
         }
@@ -94,24 +119,34 @@ export const NButton = styled("button", props)`
             box-shadow .1s ease-in-out;
         cursor: pointer;
         color: ${props =>
-          props.theme[props.flavor] && props.theme[props.flavor].color.color
+          props.theme && props.theme[props.flavor]
             ? props.theme[props.flavor].color.color
+            : props.defaultTheme[props.flavor] &&
+              props.defaultTheme[props.flavor].color.color
+            ? props.defaultTheme[props.flavor].color.color
             : "#040404"}
         background-color: ${props =>
-          props.theme[props.flavor] &&
-          props.theme[props.flavor].background.color
+          props.theme && props.theme[props.flavor]
             ? props.theme[props.flavor].background.color
+            : props.defaultTheme[props.flavor] &&
+              props.defaultTheme[props.flavor].background.color
+            ? props.defaultTheme[props.flavor].background.color
             : "#f0f0f0"};
         &:focus {
             outline: none;
             box-shadow: 0 0 0 .2rem ${props =>
-              props.theme[props.flavor] &&
-              props.theme[props.flavor].background.color
+              props.theme && props.theme[props.flavor]
                 ? props.theme[props.flavor].background.color + "80"
+                : props.defaultTheme[props.flavor] &&
+                  props.defaultTheme[props.flavor].background.color
+                ? props.defaultTheme[props.flavor].background.color + "80"
                 : "#dcc"};
             color: ${props =>
-              props.theme[props.flavor] && props.theme[props.flavor].color.focus
+              props.theme && props.theme[props.flavor]
                 ? props.theme[props.flavor].color.focus
+                : props.defaultTheme[props.flavor] &&
+                  props.defaultTheme[props.flavor].color.focus
+                ? props.defaultTheme[props.flavor].color.focus
                 : "#000"}
         }
         &:disabled {
@@ -120,20 +155,27 @@ export const NButton = styled("button", props)`
         }
         &:hover {
             background-color: ${props =>
-              props.theme[props.flavor] &&
-              props.theme[props.flavor].background.hover
+              props.theme && props.theme[props.flavor]
                 ? props.theme[props.flavor].background.hover
+                : props.defaultTheme[props.flavor] &&
+                  props.defaultTheme[props.flavor].background.hover
+                ? props.defaultTheme[props.flavor].background.hover
                 : "#d5d5d5"};
             color: ${props =>
-              props.theme[props.flavor] && props.theme[props.flavor].color.hover
+              props.theme && props.theme[props.flavor]
                 ? props.theme[props.flavor].color.hover
+                : props.defaultTheme[props.flavor] &&
+                  props.defaultTheme[props.flavor].color.hover
+                ? props.defaultTheme[props.flavor].color.hover
                 : "#000"}
         }
         &:disabled:hover {
             background-color: ${props =>
-              props.theme[props.flavor] &&
-              props.theme[props.flavor].background.color
+              props.theme && props.theme[props.flavor]
                 ? props.theme[props.flavor].background.color
+                : props.defaultTheme[props.flavor] &&
+                  props.defaultTheme[props.flavor].background.color
+                ? props.defaultTheme[props.flavor].background.color
                 : "#f0f0f0"};
         }
     `;

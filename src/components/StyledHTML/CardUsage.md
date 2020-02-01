@@ -1,6 +1,18 @@
 # Card
 
+## Type of Component
+
+Vue Styled Component - https://github.com/styled-components/vue-styled-components
+
+## Installation
+
+```bash
+npm install @nasic/card --save
+```
+
+## Purpose
 This provides a card component that can be configured to a variety of different appearances as necessary, and accepts any valid HTML in slots to allow displaying content in the card
+
 
 ## Usage
 
@@ -19,6 +31,8 @@ This provides a card component that can be configured to a variety of different 
 ```
 
 ## Configuration
+
+The colors are pulled from `@nasic/design-system` in the `Theme` Object.
 
 <table>
     <thead>

@@ -2,12 +2,13 @@
 
 ## Type of Component
 
-Vue Component 
+Vue Component - https://vuejs.org/v2/guide/components.html
 
-## Dependencies
+## Installation
 
-1. vue-styled-components
-
+```bash
+npm install @nasic/raw-sidebar --save
+```
 ## Purpose
 
 This creates a responsive sidebar for navigation purposes which you can insert pure HTML into in order to create your own content.
@@ -18,13 +19,13 @@ This is meant to be used in tandem with the `SidebarOffsetContent` component for
 
 ```html
 
-<n-sidebar
+<n-raw-sidebar
     :flavor="flavor"
     :sidebar-title="sidebarTitle"
     :top-offset="topOffset"
-    :bottom-offset="bottomOffset"
-    :items="items">
-</n-sidebar>
+    :bottom-offset="bottomOffset">
+    <p>Custom HTML content goes in here.</p>
+</n-raw-sidebar>
 <sidebar-offset-content><h2>Content!</h2></sidebar-offset-content>
 ```
 
@@ -35,32 +36,56 @@ let sidebarTitle = "Sidebar Title";
 let topOffset = "10px";
 // offset the sidebar from the bottom to make space for a footer
 let bottomOffset = "10px";
-let items = [
-    {
-        type: "item",
-        text: "Link 1",
-        icon: "<i>Info!</i>",
-        url: "/url/to/place"
-    },
-    {
-        type: "dropdown",
-        text: "Dropdown",
-        icon: "",
 
-        items: [
-            {
-                type: "item",
-                text: "Link 98",
-                icon: "",
-                url: "/url/to/place"
-            },
-            {
-                type: "item",
-                text: "Link 10",
-                icon: "",
-                url: "/url/to/place"
-            },
-        ]
-    },
-]
 ```
+
+## Configuration
+
+<table>
+    <thead>
+        <tr>
+            <th>Prop</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Purpose</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>flavor</td>
+            <td>`String`</td>
+            <td>`""`</td>
+            <td>Sets the flavor of sidebar</td>
+        </tr>
+        <tr>
+            <td>sidebarTitle</td>
+            <td>`String`</td>
+            <td>`"Sidebar"`</td>
+            <td>Sets the title of the sidebar</td>
+        </tr>
+        <tr>
+            <td>topOffset</td>
+            <td>`String`</td>
+            <td>`"0px"`</td>
+            <td>Offsets the sidebar from the top</td>
+        </tr>
+        <tr>
+            <td>bottomOffset</td>
+            <td>`String`</td>
+            <td>`"0px"`</td>
+            <td>Offsets the sidebar from the bottom</td>
+        </tr>
+        <tr>
+            <td>width</td>
+            <td>`Number`</td>
+            <td>`200`</td>
+            <td>Sets the sidebar width</td>
+        </tr>
+        <tr>
+            <td>breakpoint</td>
+            <td>`Number`</td>
+            <td>`576`</td>
+            <td>Sets the window width at which point the sidebar collapses</td>
+        </tr>
+    </tbody>
+</table>
