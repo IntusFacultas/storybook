@@ -6,12 +6,14 @@ import { withKnobs, array, text, boolean, object, number } from '@storybook/addo
 import { NText, NH1 } from "Components/components/StyledHTML/Typography/Typography.vue";
 import { VueInput } from "Components/components/StyledHTML/Input/Input.vue"
 import markdown from "Components/components/Navbars/SidebarUsage.md";
+import rawmarkdown from "Components/components/Navbars/RawSidebarUsage.md";
 export default {
     title: 'Navbars/Sidebar',
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
-            Sidebar: markdown
+            Sidebar: markdown,
+            "Raw Sidebar": rawmarkdown,
         }
     },
     // Our exports that end in "Data" are not stories.

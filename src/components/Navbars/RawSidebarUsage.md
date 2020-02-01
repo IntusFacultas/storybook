@@ -39,8 +39,6 @@ let bottomOffset = "10px";
 
 ```
 
-## Configuration
-
 <table>
     <thead>
         <tr>
@@ -88,4 +86,8 @@ let bottomOffset = "10px";
             <td>Sets the window width at which point the sidebar collapses</td>
         </tr>
     </tbody>
+<<<<<<< HEAD
 </table>
+=======
+</table>
+>>>>>>> 0d08bf65dede33a29f97ef37625d323a3ec01931
