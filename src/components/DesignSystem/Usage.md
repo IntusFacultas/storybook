@@ -6,7 +6,7 @@ Configuration JS objects
 
 ## Installation
 ```bash
-npm install @nasic/design-system --save
+npm install @intus/design-system --save
 ```
 
 ## Purpose
@@ -16,5 +16,5 @@ This provides a set of themes used by a number of components. You can import the
 ```javascript
 NIWSTheme
 TextTheme
-NASICTheme
+Theme
 ```

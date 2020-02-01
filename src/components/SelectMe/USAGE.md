@@ -6,7 +6,7 @@ Vue Component - https://v1.vuejs.org/guide/components.html
 ## Installatoin
 
 ```bash
-npm install @nasic/select-me --save
+npm install @intus/select-me --save
 ```
 
 ## Purpose

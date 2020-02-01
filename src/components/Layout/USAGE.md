@@ -7,7 +7,7 @@ Vue Styled Component - https://github.com/styled-components/vue-styled-component
 ## Installation
 
 ```bash
-npm install @nasic/layout --save
+npm install @intus/layout --save
 ```
 
 ## Purpose

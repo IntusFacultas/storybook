@@ -9,7 +9,7 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`. 
 
 ```bash
-    npm install @nasic/input --save
+    npm install @intus/input --save
 ```
 
 ## Purpose

@@ -277,7 +277,7 @@ export const VueMeDialog = Vue.component('vueme-dialog', {
     }
 });
 function alert(options, parent) {
-    var instance = new NasicDialog({
+    var instance = new VueMeDialog({
         propsData: { destruct: false, }
     });
     instance.$mount();

@@ -6,10 +6,10 @@ Recreates most of the core functionality of jQuery-Confirm without the need of r
 ## Usage
 
 ```html 
-<nasic-dialog></nasic-dialog>
+<vue-me></vue-me>
 ```
 
-The initial <nasic-dialog> element sets up a function in your Vue App before self-destructing called $alert. This is how you create alerts in NASIC dialog. You can pass it a number of options:
+The initial <vue-me> element sets up a function in your Vue App before self-destructing called $alert. This is how you create alerts in VueMe. You can pass it a number of options:
 
 ```javascript
 // in the Vue App
@@ -41,11 +41,6 @@ self.$alert({
     // Default: ""
     icon: "<i class='fa fa-info-circle'></i>",
  
- 
-    // TitleClass - String or Array of Strings
-    // Controls: The CSS classes applied to the dialog title
-    // Default: "nasic-dialog-header"
-    titleClass: "card-title",
  
  
     // Content - String

@@ -5,7 +5,7 @@ import {
 } from "Components/components/StyledHTML/Typography/Typography.vue"
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
 import { Theme, TextTheme } from "Components/components/DesignSystem/theme.js";
-import markdown from 'Components/components/StyledHTML/TypographyUsage.md';
+import markdown from 'Components/components/DesignSystem/Usage.md';
 
 export default {
     title: 'Design System',

@@ -7,7 +7,7 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 ## Installation
 
 ```bash
-npm install @nasic/sidebar --save
+npm install @intus/sidebar --save
 ```
 
 ## Purpose

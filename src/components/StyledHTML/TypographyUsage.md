@@ -26,7 +26,7 @@ These components functions similarly to a normal HTML5 text tags. You can place 
 
 ## Configuration
 
-- The flavors for text are pulled from `@nasic/design-system` in the `TextTheme` Object.
+- The flavors for text are pulled from `@intus/design-system` in the `TextTheme` Object.
 
 <table>
     <thead>

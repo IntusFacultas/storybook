@@ -7,11 +7,11 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 ## Installation
 
 ```bash
-npm install @nasic/navbar --save
+npm install @intus/navbar --save
 ```
 ## Purpose
 
-This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default NASIC provider
+This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default Theme provided
 
 ## Usage
 

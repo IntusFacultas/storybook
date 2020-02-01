@@ -7,7 +7,7 @@ Vue Styled Component - https://github.com/styled-components/vue-styled-component
 ## Installation
 
 ```bash
-npm install @nasic/card --save
+npm install @intus/card --save
 ```
 
 ## Purpose
@@ -32,7 +32,7 @@ This provides a card component that can be configured to a variety of different 
 
 ## Configuration
 
-The colors are pulled from `@nasic/design-system` in the `Theme` Object.
+The colors are pulled from `@intus/design-system` in the `Theme` Object.
 
 <table>
     <thead>
