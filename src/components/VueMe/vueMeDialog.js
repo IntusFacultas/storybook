@@ -1,9 +1,9 @@
 import Vue from "vue";
-import { NH3 } from "Components/components/StyledHTML/Typography/Typography.vue";
-import { DialogButton } from "Components/components/StyledHTML/Button/Button.vue";
-import { VueInput } from "Components/components/StyledHTML/Input/Input.vue";
-import { FlexRow, FlexColumn } from "Components/components/Layout/Layout.vue";
-import Theme from "Components/components/DesignSystem/theme.js";
+import { NH3 } from "@intus/typography";
+import { DialogButton } from "@intus/button";
+import { VueInput } from "@intus/input";
+import { FlexRow, FlexColumn } from "@intus/layout";
+import Theme from "@intus/designsystem";
 
 export const VueMeDialog = Vue.component('vueme-dialog', {
     components: {

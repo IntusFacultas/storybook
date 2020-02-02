@@ -1,0 +1,29 @@
+{
+  "name": "@intus/vueme",
+  "version": "1.0.0",
+  "description": "A jQuery Confirm style configurable dialog for VueJS",
+  "main": "vueMe.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "configurable",
+    "dialog",
+    "jquery-confirm",
+    "intus"
+  ],
+  "dependencies": {
+    "vue-styled-components": "^1.4.14",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/typography": "^1.0.0",
+    "@intus/button": "^1.0.0",
+    "@intus/input": "^1.0.0",
+    "@intus/layout": "^1.0.0",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  },
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

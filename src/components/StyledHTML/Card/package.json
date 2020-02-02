@@ -1,0 +1,23 @@
+{
+  "name": "@intus/card",
+  "version": "1.0.0",
+  "description": "Provides a configurable card component",
+  "main": "Card.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue build --target lib --name Card --dest dist/Card Card.vue"
+  },
+  "keywords": [
+    "card",
+    "intus"
+  ],
+  "dependencies": {
+    "vue-styled-components": "^1.4.14",
+    "@intus/designsystem": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  },
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

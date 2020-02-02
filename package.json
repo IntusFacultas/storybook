@@ -13,6 +13,10 @@
     "@intus/button": "^1.0.1",
     "@intus/designsystem": "^1.0.0",
     "@intus/fonts": "^1.0.0",
+    "@intus/input": "^1.0.1",
+    "@intus/layout": "^1.0.0",
+    "@intus/sidebar": "^1.0.1",
+    "@intus/typography": "^1.0.0",
     "vue": "^2.6.11",
     "vue-styled-components": "^1.4.14"
   },

@@ -22,14 +22,9 @@
 </template>
 
 <script>
-import {
-  NLabel,
-  LLabel,
-  MLabel,
-  WLabel
-} from "Components/components/StyledHTML/Typography/Typography.vue";
+import { NLabel, LLabel, MLabel, WLabel } from "@intus/typography";
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
+import Theme from "@intus/designsystem";
 
 const props = {
   color: {

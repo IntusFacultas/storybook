@@ -1,6 +1,7 @@
 <script>
 import styled from "vue-styled-components";
-import { TextTheme } from "Components/components/DesignSystem/theme.js";
+import { TextTheme } from "@intus/designsystem";
+require("@intus/fonts");
 
 const props = {
   flavor: {
@@ -53,5 +54,4 @@ export default NSpan;
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap");
 </style>

@@ -119,12 +119,9 @@
 </template>
 <script>
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
-import {
-  NText,
-  NLabel
-} from "Components/components/StyledHTML/Typography/Typography.vue";
-import { NButton } from "Components/components/StyledHTML/Button/Button.vue";
+import Theme from "@intus/designsystem";
+import { NText, NLabel } from "@intus/typography";
+import { NButton } from "@intus/button";
 const props = {
   flavor: String,
   disabled: Boolean,

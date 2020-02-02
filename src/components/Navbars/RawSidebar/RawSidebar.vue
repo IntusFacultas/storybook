@@ -30,16 +30,16 @@
 
 <script>
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
-import { NText } from "Components/components/StyledHTML/Typography/Typography.vue";
-import { NButton } from "Components/components/StyledHTML/Button/Button.vue";
+import Theme from "@intus/designsystem";
+import { NText } from "@intus/typography";
+import { NButton } from "@intus/button";
 import {
   NSidebarHamburgerContainer,
   NSidebarContainer,
   NSidebarTitle,
   NSidebarContent,
   NCollapsedSidebarContent
-} from "./Sidebar.vue";
+} from "@intus/sidebar";
 const props = {
   flavor: String,
   topOffset: {

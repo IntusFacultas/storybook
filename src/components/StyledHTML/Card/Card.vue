@@ -14,7 +14,7 @@
 
 <script>
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
+import Theme from "@intus/designsystem";
 const props = {
   flavor: String,
   bordered: {

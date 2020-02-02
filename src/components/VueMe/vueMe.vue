@@ -2,7 +2,8 @@
 
 <script>
 import Vue from "vue";
-import VueMeDialog from "Components/components/VueMe/vueMeDialog.js";
+require("@intus/fonts");
+import VueMeDialog from "./vueMeDialog.js";
 export const VueMe = {
   name: "vue-me",
   props: {
@@ -38,7 +39,6 @@ export default VueMe;
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap");
 .vueme-title-container {
   display: flex;
 }

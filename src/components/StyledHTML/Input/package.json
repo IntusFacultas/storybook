@@ -1,0 +1,26 @@
+{
+  "name": "@intus/input",
+  "version": "1.0.1",
+  "description": "Provides an accessible input component",
+  "main": "Input.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue build --target lib --name Input --dest dist/Input Input.vue"
+  },
+  "keywords": [
+    "accessible",
+    "input",
+    "styled",
+    "intus"
+  ],
+  "dependencies": {
+    "vue-styled-components": "^1.4.14",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/typography": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  },
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

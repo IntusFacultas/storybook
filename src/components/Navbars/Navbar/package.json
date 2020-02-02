@@ -1,0 +1,27 @@
+{
+  "name": "@intus/navbar",
+  "version": "1.0.0",
+  "description": "Provides a responsive configurable navbar",
+  "main": "Navbar.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue build --target lib --name Navbar --dest dist/Navbar Navbar.vue"
+  },
+  "dependencies": {
+    "vue-styled-components": "^1.4.14",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/fonts": "^1.0.0",
+    "@intus/button": "^1.0.2"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  },
+  "keywords": [
+    "navbar",
+    "intus",
+    "configurable",
+    "responsive"
+  ],
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
+}

@@ -1,5 +1,5 @@
 import { NSidebar, SidebarOffsetContent } from "Components/components/Navbars/Sidebar/Sidebar.vue"
-import { NRawSidebar } from "Components/components/Navbars/Sidebar/RawSidebar.vue";
+import { NRawSidebar } from "Components/components/Navbars/RawSidebar/RawSidebar.vue";
 import { FlexRow } from "Components/components/Layout/Layout.vue";
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, array, text, boolean, object, number } from '@storybook/addon-knobs';

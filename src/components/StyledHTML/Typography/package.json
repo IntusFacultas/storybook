@@ -1,0 +1,26 @@
+{
+  "name": "@intus/typography",
+  "version": "1.0.0",
+  "description": "Provides styled text elements",
+  "main": "Typography.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue build --target lib --name Typography --dest dist/Typography Typography.vue"
+  },
+  "keywords": [
+    "typography",
+    "styled",
+    "text",
+    "intus"
+  ],
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC",
+  "dependencies": {
+    "vue-styled-components": "^1.4.14",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/fonts": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.1.2"
+  }
+}
