@@ -350,4 +350,64 @@ export const TextTheme = {
     "Light": "#b1b1b1",
     "White": "#fff",
 }
+export const ToastTheme = {
+    "warning": {
+        color: {
+            color: "#B19E10",
+            hover: "#B19E10",
+            focus: "#B19E10",
+        },
+        background: {
+            color: "#F4E04D",
+            hover: "#F4E04D",
+            focus: "#F4E04D"
+        },
+        border: {
+            color: "#E2CC24",
+            hover: "#E2CC24",
+            focus: "#E2CC24",
+        }
+    },
+    "danger": {
+        color: {
+            color: "#40000C",
+            hover: "#40000C",
+            focus: "#40000C",
+        },
+        background: {
+            color: "#890620",
+            hover: "#890620",
+            focus: "#890620",
+        },
+        border: {
+            color: "#670014",
+            hover: "#670014",
+            focus: "#670014",
+        }
+    },
+    "success": {
+        color: {
+            color: "#11593F",
+            hover: "#11593F",
+            focus: "#11593F",
+        },
+        background: {
+            color: "#4E937A",
+            hover: "#4E937A",
+            focus: "#4E937A"
+        },
+        border: {
+            color: "#2B775C",
+            hover: "#2B775C",
+            focus: "#2B775C",
+        }
+    },
+    "info": {
+        background: {
+            color: "#4E8098",
+            hover: "#4E8098",
+            focus: "#4E8098",
+        }
+    }
+}
 export default Theme;

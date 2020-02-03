@@ -4,7 +4,7 @@ import {
     NSpan, NP, NH1, NH2, NH3, NH4, NH5, NH6, NSmall
 } from "Components/components/StyledHTML/Typography/Typography.vue"
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
-import { Theme, TextTheme } from "Components/components/DesignSystem/theme.js";
+import { Theme, TextTheme, ToastTheme } from "Components/components/DesignSystem/theme.js";
 import markdown from 'Components/components/DesignSystem/Usage.md';
 
 export default {
@@ -27,38 +27,41 @@ export const DesignSystem = () => ({
     data: function () {
         return {
             theme: Theme,
+            toast: ToastTheme,
             texts: TextTheme,
             count: 0,
             limit: 3,
         }
     },
-    computed: {
-        splitArray: function () {
+    methods: {
+        splitArray: function (theme, limit) {
             let self = this;
             let colors = [];
             let count = 0;
             let row = 0;
-            for (const key in self.theme) {
+            for (const key in theme) {
                 if (count == 0) {
                     colors.push([{
                         name: key,
-                        color: self.theme[key].background
+                        color: theme[key].background
                     }])
                 }
                 else {
                     colors[row].push({
                         name: key,
-                        color: self.theme[key].background
+                        color: theme[key].background
                     })
                 }
                 count++;
-                if (count == self.limit) {
+                if (count == limit) {
                     row += 1;
                     count = 0;
                 }
             }
             return colors;
         },
+    },
+    computed: {
         keys: function () {
             var self = this;
             return Object.keys(self.theme);
@@ -68,7 +71,7 @@ export const DesignSystem = () => ({
         <div>
             <n-h1>Color Swatches</n-h1>
             <hr/>
-            <flex-row v-for="list in splitArray" style="padding-top:10px">
+            <flex-row v-for="list in splitArray(theme, limit)" style="padding-top:10px">
                 <div v-for="obj in list" style="display: flex">
                     <color-swatch
                         :name="obj.name"
@@ -84,14 +87,23 @@ export const DesignSystem = () => ({
             </flex-row>
             <n-h1>Text Colors</n-h1>
             <hr/>
-            <flex-row style="padding-top:10px; padding-left: 10px">
-            </flex-row>
             <flex-row style="padding-top:10px">
                 <color-swatch 
                     v-for="obj in Object.keys(texts)"
                     :name="obj"
                     :color="texts[obj]">
                 </color-swatch>
+            </flex-row>
+            <n-h1>Toast Colors</n-h1>
+            <hr/>
+            <flex-row v-for="list in splitArray(toast, 4)" style="padding-top:10px">
+                <div v-for="obj in list" style="display: flex">
+                    <color-swatch
+                        :name="obj.name"
+                        :color="obj.color.color">
+                        <color-swatch
+                    </color-swatch>
+                </div>
             </flex-row>
             <n-h1>Typography</n-h1><hr/>
             <flex-row>
