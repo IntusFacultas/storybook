@@ -245,7 +245,7 @@ export const NavbarContainer = styled("nav", props)`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0rem 1rem;
+  padding: 0rem 0.5rem;
   border: none;
 `;
 export const NavbarItem = styled("li", props)`
@@ -299,8 +299,7 @@ export const NavbarItem = styled("li", props)`
 export const NavbarTitle = styled.span`
   font-weight: bold;
   font-size: 24px;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
   & a {
     text-decoration: none;
   }
