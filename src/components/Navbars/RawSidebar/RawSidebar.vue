@@ -19,7 +19,6 @@
     <n-collapsed-sidebar-content
       :width="width"
       :breakpoint="breakpoint"
-      class="raw-sidebar"
       :class="computedClass"
       :flavor="flavor"
     >
@@ -112,7 +111,7 @@ export const NRawSidebar = {
       if (this.open) {
         return {};
       }
-      return ["closed"];
+      return ["sidebar-closed"];
     }
   },
   props: {

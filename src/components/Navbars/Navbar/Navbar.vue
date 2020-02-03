@@ -300,6 +300,7 @@ export const NavbarTitle = styled.span`
   font-weight: bold;
   font-size: 24px;
   padding: 0.5rem;
+  padding-left: 0rem;
   & a {
     text-decoration: none;
   }
