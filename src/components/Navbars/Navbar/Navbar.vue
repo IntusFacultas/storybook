@@ -250,7 +250,11 @@ export const NavbarContainer = styled("nav", props)`
 `;
 export const NavbarItem = styled("li", props)`
   white-space: nowrap;
-  padding: 1rem 0.5rem 0px 0.5rem;
+  padding: 1rem 0.75rem 0px 0.75rem;
+  transition: color .2s ease-in-out,
+            background-color .2s ease-in-out,
+            border-color .2s ease-in-out,
+            box-shadow .2s ease-in-out;
   height:
   ${props => (props.collapsed ? "auto" : `calc(${props.navHeight}px - 1rem);`)}
 
@@ -610,6 +614,7 @@ export default Navbar;
 }
 .navbar-open-carat {
   transform: rotate(135deg) !important;
+  margin-bottom: 4px;
 }
 .open {
   max-height: 1980px !important;

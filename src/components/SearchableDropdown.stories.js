@@ -23,6 +23,12 @@ export const MultipleSelect = () => ({
     methods: actionsData,
     props: {
 
+        badgeFlavor: {
+            default: text("Badge Flavor", "Primary")
+        },
+        flavor: {
+            default: text("Flavor", "LightBlue")
+        },
         /**
          * type: String,
          * default: ""
@@ -30,15 +36,6 @@ export const MultipleSelect = () => ({
          */
         id: {
             default: text("Input ID", "selectInput")
-        },
-
-        /**
-         * type: Array,
-         * default: ["badge", "badge-secondary"]
-         * Controls what classes should be applied to the badges for selected values. "selectme-badge" is always applied.
-         */
-        badgeClasses: {
-            default: array("Badge CSS Classes", ["badge", "badge-secondary"]),
         },
 
         /**
@@ -120,37 +117,21 @@ export const MultipleSelect = () => ({
          * When this is set to True, the dropdown will allow a user to select multiple options
          */
         multiSelect: { default: boolean("Multi Select Mode", true) },
-
-        /**
-         * type: Array,
-         * default: ["form-control"]
-         * Controls what classes should be applied to the searchbox
-         */
-        inputClass: { default: array("Input CSS Classes", ["form-control"]) },
-
-        /**
-         * type: Array
-         * default: []
-         * When this is set to an array of objects with key "value" that match the values of 
-         * options present in the required "options" prop, the selectme will initialize itself 
-         * already having those options pre-selected.
-         */
-        // initialValues: {default: object("Initially Set Values", [])}
     },
     template: `
-        <div style="max-width: 25%">
+        <div style="max-width: 35%">
             <label :for="id">Select a country</label>
             <select-me
+                :flavor="flavor"
+                :badge-flavor="badgeFlavor"
                 @input="onInput"
                 :id="id"
-                :badge-class="badgeClasses"
                 :options="options"
                 :value-attribute="valueAttribute"
                 :display-attribute="displayAttribute"
                 :disabled="disabled"
                 :debug="debug"
-                :multi-select="multiSelect"
-                :input-class="inputClass">
+                :multi-select="multiSelect">
             </select-me>
         </div>
     `
@@ -160,7 +141,12 @@ export const SingleSelect = () => ({
     components: { SelectMe },
     methods: actionsData,
     props: {
-
+        badgeFlavor: {
+            default: text("Badge Flavor", "Primary")
+        },
+        flavor: {
+            default: text("Flavor", "LightBlue")
+        },
         /**
          * type: String,
          * default: ""
@@ -168,15 +154,6 @@ export const SingleSelect = () => ({
          */
         id: {
             default: text("Input ID", "selectInput")
-        },
-
-        /**
-         * type: Array,
-         * default: ["badge", "badge-secondary"]
-         * Controls what classes should be applied to the badges for selected values. "selectme-badge" is always applied.
-         */
-        badgeClasses: {
-            default: array("Badge CSS Classes", ["badge", "badge-secondary"]),
         },
 
         /**
@@ -258,37 +235,21 @@ export const SingleSelect = () => ({
          * When this is set to True, the dropdown will allow a user to select multiple options
          */
         multiSelect: { default: boolean("Multi Select Mode", false) },
-
-        /**
-         * type: Array,
-         * default: ["form-control"]
-         * Controls what classes should be applied to the searchbox
-         */
-        inputClass: { default: array("Input CSS Classes", ["form-control"]) },
-
-        /**
-         * type: Array
-         * default: []
-         * When this is set to an array of objects with key "value" that match the values of 
-         * options present in the required "options" prop, the selectme will initialize itself 
-         * already having those options pre-selected.
-         */
-        // initialValues: {default: object("Initially Set Values", [])}
     },
     template: `
-        <div style="max-width: 25%">
+        <div style="max-width: 35%">
             <label :for="id">Select a country</label>
             <select-me
+                :flavor="flavor"
+                :badge-flavor="badgeFlavor"
                 @input="onInput"
                 :id="id"
-                :badge-class="badgeClasses"
                 :options="options"
                 :value-attribute="valueAttribute"
                 :display-attribute="displayAttribute"
                 :disabled="disabled"
                 :debug="debug"
-                :multi-select="multiSelect"
-                :input-class="inputClass">
+                :multi-select="multiSelect">
             </select-me>
         </div>
     `

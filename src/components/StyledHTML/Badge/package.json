@@ -1,0 +1,24 @@
+{
+    "name": "@intus/badge",
+    "version": "1.0.0",
+    "description": "Provides a badge component with baked in styles",
+    "main": "Badge.vue",
+    "scripts": {
+        "build": "vue build --target lib --name Badge --dest dist/Badge Badge.vue",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "badge",
+        "styled"
+    ],
+    "dependencies": {
+        "vue-styled-components": "^1.4.14",
+        "@intus/designsystem": "^1.0.0",
+        "@intus/fonts": "^1.0.0"
+    },
+    "devDependencies": {
+        "@vue/cli": "^4.1.2"
+    },
+    "author": "Pedro Del Moral Lopez",
+    "license": "ISC"
+}

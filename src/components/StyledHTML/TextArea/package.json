@@ -1,6 +1,6 @@
 {
   "name": "@intus/textarea",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a styled accessible textarea component",
   "main": "TextArea.vue",
   "scripts": {
@@ -16,7 +16,8 @@
   "dependencies": {
     "vue-styled-components": "^1.4.14",
     "@intus/designsystem": "^1.0.0",
-    "@intus/typography": "^1.0.1"
+    "@intus/typography": "^1.0.1",
+    "@intus/fonts": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli": "^4.1.2"

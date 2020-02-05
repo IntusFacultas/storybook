@@ -53,6 +53,13 @@ This provides a styleguide consistent and accessible input element that can be c
     </thead>
     <tbody>
         <tr>
+            <td>flavor</td>
+            <td>`String`</td>
+            <td>`"Primary"`</td>
+            <td>Sets the flavor on the input</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
             <td>autocomplete</td>
             <td>`Boolean`</td>
             <td>`off`</td>

@@ -1,16 +1,15 @@
-
-
 <template>
-  <div>
-    <input
+  <div class="selectme-container">
+    <n-input
       :id="id"
       autocomplete="off"
       type="text"
-      :class="inputClass"
+      placeholder="Search..."
       @click="openDropdown"
       @focus="openDropdown"
       @input="openDropdown"
       @blur="closeDropdown"
+      :flavor="flavor"
       v-model="optionSearch"
       @keydown.delete="handleBackspace"
       @keydown.down="handleDown"
@@ -20,7 +19,7 @@
       @keyup.enter="selectHoveredOption"
       :style="{'padding-left': calculatedPadding + 'px'}"
       :disabled="disabled"
-    />
+    ></n-input>
     <!-- Dropdown for all options -->
     <div v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + 'px'}">
       <ul>
@@ -33,8 +32,8 @@
           @keydown.down="hoverOption(1)"
           @keydown.up="hoverOption(-1)"
           @blur="closeDropdown"
-          v-for="option in selectOptions"
-          :key="option[valueAttribute]"
+          v-for="(option, index) in selectOptions"
+          :key="'dropdown-' + option[valueAttribute] + '-' + index"
           :value="option[valueAttribute]"
           :ref="'hover' + option[valueAttribute]"
           @click="selectOption(option)"
@@ -54,23 +53,27 @@
       v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0"
       ref="selectDropdownBox"
     >
-      <button @click="toggleSelectedDropdown" class="selectme-button" :class="computedBadgeClass">
+      <n-button
+        @click="toggleSelectedDropdown"
+        class="selectme-button selectme-badge"
+        :flavor="badgeFlavor"
+      >
         {{selectedOptions.length}} selected...
         <span v-if="!showSelected">&#x25BE;</span>
         <span v-else>&#x25B4;</span>
-      </button>
+      </n-button>
       <div class="selectme-dropdown" v-show="showSelected">
         <ul>
           <li
             tabindex="0"
+            v-for="(option, index) in selectedOptions"
+            :key="'selected-' + option[valueAttribute] + '-' + index"
             role="button"
             @keyup.enter="deselectDropdownOption(option)"
             @keyup.space="deselectDropdownOption(option)"
             :ref="'selected' + option[valueAttribute]"
             :class="{'selectme-hovered': isHovered(option, hoveredSelectedOption)}"
             @click="deselectDropdownOption(option)"
-            :key="option[valueAttribute]"
-            v-for="option in selectedOptions"
           >
             <span>&#215;</span>
             {{option[displayAttribute]}}
@@ -85,25 +88,32 @@
       :style="{top: calculatedHeight + 'px' }"
       v-show="selectBoxWidth <= computedCutOff"
     >
-      <button
+      <n-button
+        :flavor="badgeFlavor"
         tabindex="-1"
-        :key="option[valueAttribute]"
-        class="selectme-button"
-        v-for="option in selectedOptions"
+        class="selectme-button selectme-badge"
+        :class="{'selectme-single-select-badge': !multiSelect}"
+        v-for="(option, index) in selectedOptions"
         @click="deselectOption(option)"
-        :class="computedBadgeClass"
+        :key="'selected-badge-' + option[valueAttribute] + '-' + index"
       >
         {{option[displayAttribute]}}
         <span :class="computedSpanClass">&#215;</span>
-      </button>
+      </n-button>
     </div>
   </div>
 </template>
 
 <script>
+import styled from "vue-styled-components";
+import Theme from "@intus/designsystem";
+import { NInput } from "@intus/input";
+import { NButton } from "@intus/button";
+require("@intus/fonts");
 const SelectMe = {
   name: "select-me",
-  data: function() {
+  components: { NInput, NButton },
+  data() {
     return {
       timeout: "",
       optionSearch: "",
@@ -122,6 +132,14 @@ const SelectMe = {
     };
   },
   props: {
+    badgeFlavor: {
+      type: String,
+      default: "Primary"
+    },
+    flavor: {
+      type: String,
+      default: "LightBlue"
+    },
     id: {
       type: String,
       default: ""
@@ -157,18 +175,6 @@ const SelectMe = {
       default: function() {
         return [];
       }
-    },
-    inputClass: {
-      type: Array,
-      default: function() {
-        return ["form-control"];
-      }
-    },
-    badgeClass: {
-      type: Array,
-      default: function() {
-        return ["badge", "badge-secondary"];
-      }
     }
   },
   computed: {
@@ -176,13 +182,6 @@ const SelectMe = {
       var self = this;
       if (!self.multiSelect) return ["selectme-badge-single-span"];
       return [];
-    },
-    computedBadgeClass: function() {
-      var self = this;
-      var array = self.badgeClass.slice();
-      array.push("selectme-badge");
-      if (!self.multiSelect) array.push("selectme-badge-transparent");
-      return array;
     },
     computedCutOff: function() {
       var self = this;
@@ -293,11 +292,9 @@ const SelectMe = {
       var self = this;
       var proposedIndex = self.hoveredIndex + step;
       self.openDropdown();
-      if (proposedIndex >= self.selectOptions.length) {
-        self.hoveredIndex = 0;
-        self.hoveredOption = self.selectOptions[self.hoveredIndex];
-        self.$forceUpdate();
-      } else if (proposedIndex <= -1) {
+      if (proposedIndex >= self.selectOptions.length || proposedIndex < -1) {
+        return;
+      } else if (proposedIndex == -1) {
         self.hoveredIndex = proposedIndex;
         self.$el.firstChild.focus();
         self.closeDropdown();
@@ -531,7 +528,27 @@ const SelectMe = {
 };
 export default SelectMe;
 </script>
-
 <style scoped>
+.selectme-button {
+  height: 30px;
+  margin-top: -2px;
+}
+.selectme-single-select-badge {
+  margin-top: 1px;
+}
+.selectme-badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  font-family: "Segoe UI" !important;
+}
 @import "./selectme.css";
 </style>

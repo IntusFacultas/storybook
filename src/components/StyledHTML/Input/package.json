@@ -1,6 +1,6 @@
 {
   "name": "@intus/input",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Provides an accessible input component",
   "main": "Input.vue",
   "scripts": {
@@ -16,7 +16,8 @@
   "dependencies": {
     "vue-styled-components": "^1.4.14",
     "@intus/designsystem": "^1.0.0",
-    "@intus/typography": "^1.0.0"
+    "@intus/typography": "^1.0.0",
+    "@intus/fonts": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli": "^4.1.2"

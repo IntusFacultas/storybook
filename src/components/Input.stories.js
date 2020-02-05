@@ -69,12 +69,16 @@ export const Input = () => ({
         },
         autocomplete: {
             default: text("Autocomplete", "off")
+        },
+        flavor: {
+            default: text("Flavor", "Info")
         }
     },
     template: `
     <flex-row>
         <flex-column>
             <vue-input
+            :flavor="flavor"
             :readonly="readonly"
             :placeholder="placeholder"
             :pattern="pattern"
@@ -135,12 +139,16 @@ export const TextArea = () => ({
         disabled: {
             default: boolean("Disabled", false)
         },
+        flavor: {
+            default: text("Flavor", "Info")
+        }
     },
     template: `
     <flex-row>
         <flex-column>
             <vue-text-area
                 :readonly="readonly"
+                :flavor="flavor"
                 :placeholder="placeholder"
                 :name="name"
                 :rows="rows"

@@ -38,6 +38,13 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
     </thead>
     <tbody>
         <tr>
+            <td>flavor</td>
+            <td>`String`</td>
+            <td>`"Primary"`</td>
+            <td>Sets the flavor on the textarea</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
             <td>readonly</td>
             <td>`Boolean`</td>
             <td>`false`</td>

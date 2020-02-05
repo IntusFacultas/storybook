@@ -1,11 +1,18 @@
 {
   "name": "@intus/selectme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a searchable multi or single select",
   "main": "SelectMe.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vue build --target lib --name SelectMe --dest dist/SelectMe SelectMe.vue"
+  },
+  "dependencies": {
+    "vue-styled-components": "^1.0.0",
+    "@intus/designsystem": "^1.0.0",
+    "@intus/input": "^1.0.0",
+    "@intus/button": "^1.0.0",
+    "@intus/fonts": "^1.0.0"
   },
   "keywords": [
     "select",

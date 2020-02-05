@@ -11,6 +11,7 @@
       :maxlength="maxlength"
       :required="required"
       :disabled="disabled"
+      :flavor="flavor"
       :autofocus="autofocus"
       v-model="value"
       @input="oninput"
@@ -20,12 +21,19 @@
 
 <script>
 import { NLabel } from "Components/components/StyledHTML/Typography/Typography.vue";
-import Theme from "Components/components/DesignSystem/theme.js";
+import Theme from "@intus/designsystem";
 import styled from "vue-styled-components";
+require("@intus/fonts");
 const props = {
-  color: {
+  flavor: {
     type: String,
-    default: Theme.InfoMedium.background.color
+    default: "Info"
+  },
+  defaultTheme: {
+    type: Object,
+    default: function() {
+      return Theme;
+    }
   }
 };
 export const NTextArea = styled("textarea", props)`
@@ -33,15 +41,29 @@ export const NTextArea = styled("textarea", props)`
   height: 35px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #838e99;
+  border: 1px solid
+    ${props =>
+      props.theme && props.theme[props.flavor]
+        ? props.theme[props.flavor].border.color
+        : props.defaultTheme[props.flavor] &&
+          props.defaultTheme[props.flavor].border.color
+        ? props.defaultTheme[props.flavor].border.color
+        : "#04040480"};
   padding: 2px 5px 2px 5px;
+  font-family: "Roboto", sans-serif;
   margin-top: 2px;
   box-sizing: border-box;
   transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
   &:focus {
     outline: none;
-    border-color: ${props => props.color};
-    box-shadow: 0px 0px 0px 3px ${props => props.color};
+    box-shadow: 0px 0px 0px 3px
+      ${props =>
+        props.theme && props.theme[props.flavor]
+          ? props.theme[props.flavor].border.color
+          : props.defaultTheme[props.flavor] &&
+            props.defaultTheme[props.flavor].border.color
+          ? props.defaultTheme[props.flavor].border.color
+          : "#10d2ff80"};
   }
   &:read-only {
     background-color: #e9e9e9;
@@ -109,6 +131,10 @@ export const VueTextArea = {
     disabled: {
       type: Boolean,
       default: false
+    },
+    flavor: {
+      type: String,
+      default: "Info"
     }
   },
   mounted: function() {
