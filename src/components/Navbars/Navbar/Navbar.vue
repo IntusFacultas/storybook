@@ -13,7 +13,11 @@
       ref="hamburger"
     >&#9776;</n-button>
     <navbar-content-container :collapsed="collapsed" :open="open" ref="content">
-      <navbar-content :style="computedStyle(leftItems.length)" :collapsed="collapsed">
+      <navbar-content
+        :style="computedStyle(leftItems.length)"
+        :collapsed="collapsed"
+        ref="leftContent"
+      >
         <navbar-item
           v-for="(item, index) in leftItems"
           :key="index + '-left'"
@@ -66,7 +70,11 @@
           </navbar-dropdown-container>
         </navbar-item>
       </navbar-content>
-      <navbar-content :style="computedStyle(centerItems.length)" :collapsed="collapsed">
+      <navbar-content
+        :style="computedStyle(centerItems.length)"
+        :collapsed="collapsed"
+        ref="middleContent"
+      >
         <navbar-item
           v-for="(item, index) in centerItems"
           :key="index + '-left'"
@@ -119,7 +127,11 @@
           </navbar-dropdown-container>
         </navbar-item>
       </navbar-content>
-      <navbar-content :style="computedStyle(rightItems.length)" :collapsed="collapsed">
+      <navbar-content
+        :style="computedStyle(rightItems.length)"
+        :collapsed="collapsed"
+        ref="rightContent"
+      >
         <navbar-item
           v-for="(item, index) in rightItems"
           :key="index + '-left'"
@@ -555,9 +567,11 @@ export const Navbar = {
       };
     },
     calculateDimensions() {
-      if (this.$refs.content && !this.collapsed) {
-        this.contentWidth = this.$refs.content.$el.clientWidth;
-      }
+      if (this.$refs.content && !this.collapsed)
+        this.contentWidth =
+          this.$refs.leftContent.$el.clientWidth +
+          this.$refs.middleContent.$el.clientWidth +
+          this.$refs.rightContent.$el.clientWidth;
       if (this.$refs.container) {
         if (!this.open) {
           this.navHeight = this.$refs.container.$el.clientHeight;
@@ -617,7 +631,8 @@ export const Navbar = {
       return ["closed"];
     },
     collapseCutOff() {
-      return this.containerWidth - this.titleWidth;
+      let additionalPadding = 28;
+      return this.containerWidth - this.titleWidth - additionalPadding;
     }
   }
 };
