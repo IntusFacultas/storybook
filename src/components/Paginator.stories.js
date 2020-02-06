@@ -16,7 +16,11 @@ export default {
 };
 
 const actionsData = {
-    onSelect: action("@select")
+    onSelect: action("@select"),
+    update: function (page) {
+        this.currentPage = page;
+
+    }
 }
 
 
@@ -52,7 +56,7 @@ export const ConfigurablePaginator = () => ({
                 :current-page="currentPage"
                 :margin-pages="marginPages" 
                 :page-range="pageRange" 
-                @select="onSelect">
+                @select="onSelect($event); update($event);">
             </paginator>
         </div>
     `
