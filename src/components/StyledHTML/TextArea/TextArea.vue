@@ -41,20 +41,23 @@ export const NTextArea = styled("textarea", props)`
   height: 35px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid
-    ${props =>
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px 5px 2px 5px;
+  margin-top: 2px;
+  box-sizing: border-box;
+  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
+  &:focus {
+    border-color: ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor] &&
           props.defaultTheme[props.flavor].border.color
         ? props.defaultTheme[props.flavor].border.color
-        : "#04040480"};
-  padding: 2px 5px 2px 5px;
-  font-family: "Roboto", sans-serif;
-  margin-top: 2px;
-  box-sizing: border-box;
-  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
-  &:focus {
+        : "#040404"};
     outline: none;
     box-shadow: 0px 0px 0px 3px
       ${props =>
@@ -63,7 +66,7 @@ export const NTextArea = styled("textarea", props)`
           : props.defaultTheme[props.flavor] &&
             props.defaultTheme[props.flavor].border.color
           ? props.defaultTheme[props.flavor].border.color
-          : "#10d2ff80"};
+          : "#040404"};
   }
   &:read-only {
     background-color: #e9e9e9;
@@ -71,6 +74,7 @@ export const NTextArea = styled("textarea", props)`
   }
   &:disabled {
     cursor: not-allowed;
+    pointer-events: none;
     color: #747474;
     background-color: #e2e2e2;
   }
