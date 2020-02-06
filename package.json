@@ -15,7 +15,7 @@
     "@intus/fonts": "^1.0.0",
     "@intus/input": "^1.0.2",
     "@intus/layout": "^1.0.0",
-    "@intus/sidebar": "^1.0.1",
+    "@intus/sidebar": "^1.0.2",
     "@intus/table": "^1.0.0",
     "@intus/typography": "^1.0.0",
     "vue": "^2.6.11",
