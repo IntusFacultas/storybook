@@ -416,7 +416,10 @@ export const Navbar = {
       containerWidth: 0,
       navHeight: 0,
       titleWidth: 0,
-      dropdowns: {}
+      dropdowns: {},
+      LEFT_CONTENT_INDICATOR: "L",
+      CENTER_CONTENT_INDICATOR: "C",
+      RIGHT_CONTENT_INDICATOR: "R"
     };
   },
   mounted() {
@@ -424,17 +427,17 @@ export const Navbar = {
     this.calculateDimensions();
     self.leftItems.forEach((item, index) => {
       if (item.type == "dropdown") {
-        self.dropdowns["L" + index] = false;
+        self.dropdowns[this.LEFT_CONTENT_INDICATOR + index] = false;
       }
     });
     self.centerItems.forEach((item, index) => {
       if (item.type == "dropdown") {
-        self.dropdowns["C" + index] = false;
+        self.dropdowns[this.CENTER_CONTENT_INDICATOR + index] = false;
       }
     });
     self.rightItems.forEach((item, index) => {
       if (item.type == "dropdown") {
-        self.dropdowns["R" + index] = false;
+        self.dropdowns[this.RIGHT_CONTENT_INDICATOR + index] = false;
       }
     });
     window.addEventListener(
@@ -534,6 +537,9 @@ export const Navbar = {
       return [];
     },
     debounce(func, wait, immediate) {
+      /**
+       * Pulled from: https://davidwalsh.name/javascript-debounce-function
+       */
       var timeout;
       return function() {
         var context = this,
@@ -549,13 +555,18 @@ export const Navbar = {
       };
     },
     calculateDimensions() {
-      if (this.$refs.content && !this.collapsed)
+      if (this.$refs.content && !this.collapsed) {
         this.contentWidth = this.$refs.content.$el.clientWidth;
+      }
       if (this.$refs.container) {
-        if (!this.open) this.navHeight = this.$refs.container.$el.clientHeight;
+        if (!this.open) {
+          this.navHeight = this.$refs.container.$el.clientHeight;
+        }
         this.containerWidth = this.$refs.container.$el.clientWidth;
       }
-      if (this.$refs.title) this.titleWidth = this.$refs.title.$el.clientWidth;
+      if (this.$refs.title) {
+        this.titleWidth = this.$refs.title.$el.clientWidth;
+      }
     },
     toggleDropdown($e, section, index) {
       $e.preventDefault();
@@ -563,17 +574,23 @@ export const Navbar = {
       this.$forceUpdate();
     },
     computedStyle(length) {
-      let sizeOfUnit = 50;
+      let sizeOfUnit = 50; // height of the nav elements
       for (let dropdown in this.dropdowns) {
         if (this.dropdowns[dropdown]) {
-          if (dropdown[0] == "L") {
+          if (dropdown[0] == this.LEFT_CONTENT_INDICATOR) {
             length += this.leftItems[dropdown.substring(1, dropdown.length)]
+              .items.length;
+          } else if (dropdown[0] == this.CENTER_CONTENT_INDICATOR) {
+            length += this.centerItems[dropdown.substring(1, dropdown.length)]
+              .items.length;
+          } else if (dropdown[0] == this.RIGHT_CONTENT_INDICATOR) {
+            length += this.rightItems[dropdown.substring(1, dropdown.length)]
               .items.length;
           }
         }
       }
       return {
-        "max-height": this.open ? sizeOfUnit * length + "px" : "0px"
+        "max-height": `${this.open ? sizeOfUnit * length : 0}px`
       };
     },
     toggleAccordion() {
@@ -595,7 +612,7 @@ export const Navbar = {
 
     computedClass() {
       if (this.open) {
-        return {};
+        return [];
       }
       return ["closed"];
     },

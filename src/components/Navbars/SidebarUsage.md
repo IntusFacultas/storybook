@@ -29,8 +29,9 @@ This is meant to be used in tandem with the `SidebarOffsetContent` component for
     :width="width"
     :breakpoint="breakpoint">
 </n-sidebar>
-<sidebar-offset-content :width="width"
-            :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
+<sidebar-offset-content 
+    :width="width"
+    :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
 ```
 
 ```javascript

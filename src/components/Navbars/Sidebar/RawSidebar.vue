@@ -4,17 +4,31 @@
     :top-offset="topOffset"
     :bottom-offset="bottomOffset"
     id="sidebar"
+    :width="width"
+    :breakpoint="breakpoint"
   >
     <n-sidebar-title :flavor="flavor">
       <n-text :size="16">{{sidebarTitle}}</n-text>
-      <n-sidebar-hamburger-container>
+      <n-sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </n-sidebar-hamburger-container>
     </n-sidebar-title>
-    <n-sidebar-content :flavor="flavor">
+    <n-sidebar-content
+      :raw="true"
+      :flavor="flavor"
+      class="raw-sidebar"
+      :width="width"
+      :breakpoint="breakpoint"
+    >
       <slot></slot>
     </n-sidebar-content>
-    <n-collapsed-sidebar-content :class="computedClass" :flavor="flavor">
+    <n-collapsed-sidebar-content
+      :raw="true"
+      :width="width"
+      :breakpoint="breakpoint"
+      :class="computedClass"
+      :flavor="flavor"
+    >
       <slot></slot>
     </n-collapsed-sidebar-content>
   </n-sidebar-container>
@@ -22,16 +36,16 @@
 
 <script>
 import styled from "vue-styled-components";
-import Theme from "Components/components/DesignSystem/theme.js";
-import { NText } from "Components/components/StyledHTML/Typography/Typography.vue";
-import { NButton } from "Components/components/StyledHTML/Button/Button.vue";
+import Theme from "@intus/design-system";
+import { NText } from "@intus/typography";
+import { NButton } from "@intus/button";
 import {
   NSidebarHamburgerContainer,
   NSidebarContainer,
   NSidebarTitle,
   NSidebarContent,
   NCollapsedSidebarContent
-} from "./Sidebar.vue";
+} from "@intus/sidebar";
 const props = {
   flavor: String,
   topOffset: {
@@ -104,7 +118,7 @@ export const NRawSidebar = {
       if (this.open) {
         return {};
       }
-      return ["closed"];
+      return ["sidebar-closed"];
     }
   },
   props: {
@@ -123,6 +137,14 @@ export const NRawSidebar = {
     topOffset: {
       type: String,
       default: ""
+    },
+    width: {
+      type: Number,
+      default: 200
+    },
+    breakpoint: {
+      type: Number,
+      default: 576
     }
   }
 };
@@ -130,4 +152,7 @@ export default NRawSidebar;
 </script>
 
 <style>
+.raw-sidebar {
+  padding: 5px 15px;
+}
 </style>

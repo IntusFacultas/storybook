@@ -1,6 +1,6 @@
 {
   "name": "@intus/raw-sidebar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a non-configurable raw sidebar for inputting straight HTML into",
   "main": "RawSidebar.vue",
   "scripts": {

@@ -85,8 +85,7 @@
     <div
       class="selectme-selected"
       ref="selectBox"
-      :style="{top: calculatedHeight + 'px' }"
-      v-show="selectBoxWidth <= computedCutOff"
+      :style="{top: selectBoxWidth <= computedCutOff ? calculatedHeight + 'px' : '999999px' }"
     >
       <n-button
         :flavor="badgeFlavor"
@@ -220,9 +219,7 @@ const SelectMe = {
     deselectDropdownOption: function(option) {
       var self = this;
       self.deselectOption(option);
-      setTimeout(function() {
-        self.setSelectBoxWidth();
-      }, 50);
+      window.requestAnimationFrame(self.setSelectBoxWidth);
       self.showSelected = false;
       self.$el.firstChild.focus();
     },
@@ -259,7 +256,7 @@ const SelectMe = {
           self.$emit("input", self.selectedOptions);
           self.hoveredOption = {};
           self.hoveredIndex = -1;
-          self.setSelectBoxWidth();
+          window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
           self.$el.firstChild.focus();
         }
@@ -270,7 +267,7 @@ const SelectMe = {
         self.showSelected = false;
         setTimeout(function() {
           self.hoveredIndex = -1;
-          self.setSelectBoxWidth();
+          window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
           self.$el.firstChild.focus();
         }, 550);
@@ -389,7 +386,7 @@ const SelectMe = {
       ) {
         var el = self.selectedOptions.pop();
         self.$emit("input", self.selectedOptions);
-        self.setSelectBoxWidth();
+        window.requestAnimationFrame(self.setSelectBoxWidth);
         self.setCalculatedPadding();
         self.optionSearch = el[self.displayAttribute];
       }
@@ -411,7 +408,7 @@ const SelectMe = {
       self.optionSearch = "";
       self.closeDropdown();
       self.$emit("input", self.selectedOptions);
-      self.setSelectBoxWidth();
+      window.requestAnimationFrame(self.setSelectBoxWidth);
       self.setCalculatedPadding();
     },
     deselectOption: function(option, closeDropdown) {
@@ -431,7 +428,7 @@ const SelectMe = {
         self.closeDropdown();
       }
       self.$emit("input", self.selectedOptions);
-      self.setSelectBoxWidth();
+      window.requestAnimationFrame(self.setSelectBoxWidth);
       self.setCalculatedPadding();
     },
     closeDropdown: function() {
@@ -455,40 +452,18 @@ const SelectMe = {
     },
     setSelectBoxWidth: function() {
       var self = this;
-      function getTextWidth(text, font) {
-        // re-use canvas object for better performance
-        var canvas =
-          getTextWidth.canvas ||
-          (getTextWidth.canvas = document.createElement("canvas"));
-        var context = canvas.getContext("2d");
-        context.font = font;
-        var metrics = context.measureText(text);
-        return metrics.width;
-      }
-      var combinedText = "";
-      for (var x = 0; x < self.selectedOptions.length; x++) {
-        combinedText += self.selectedOptions[x][self.displayAttribute];
-      }
-      var additionalPadding =
-        self.combinedPaddingPerBadge * self.selectedOptions.length;
-      var element = document.querySelector(".selectme-badge");
-      var style = getComputedStyle(element);
-      var textLength = getTextWidth(combinedText, style.font);
-      self.selectBoxWidth =
-        textLength + additionalPadding + 5 * self.selectedOptions.length;
-      if (!self.multiSelect && textLength > 0) self.selectBoxWidth += 25;
+      if (self.$refs.selectBox)
+        self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;
+      window.requestAnimationFrame(self.setSelectBoxWidth);
     },
     setCalculatedPadding: function() {
       var self = this;
-      setTimeout(function() {
-        if (self.selectBoxWidth > self.computedCutOff) {
-          self.calculatedPadding =
-            self.$refs.selectDropdownBox.clientWidth + 10;
-        } else {
-          self.calculatedPadding =
-            self.selectBoxWidth + 17 + 2 * self.selectedOptions.length;
-        }
-      }, 100);
+      if (self.selectBoxWidth > self.computedCutOff) {
+        self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;
+      } else {
+        self.calculatedPadding = self.selectBoxWidth;
+      }
+      window.requestAnimationFrame(self.setCalculatedPadding);
     },
     setCalculatedWidth: function() {
       var self = this;
@@ -499,7 +474,7 @@ const SelectMe = {
             self.calculatedHeight -= 4;
           }
           self.calculatedWidth = self.$el.firstChild.offsetWidth;
-          self.setSelectBoxWidth();
+          window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
         } catch (err) {}
       }, 50);
@@ -507,6 +482,7 @@ const SelectMe = {
   },
   mounted: function() {
     var self = this;
+    window.requestAnimationFrame(self.setCalculatedPadding);
     window.addEventListener("resize", self.setCalculatedWidth);
     window.addEventListener("click", self.handleOffClick);
     self.setCalculatedWidth();

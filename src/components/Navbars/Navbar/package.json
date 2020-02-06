@@ -1,6 +1,6 @@
 {
   "name": "@intus/navbar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a responsive configurable navbar",
   "main": "Navbar.vue",
   "scripts": {

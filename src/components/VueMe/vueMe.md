@@ -1,20 +1,30 @@
 # VueMe
 
+
+## Type of Component
+Vue Component - https://v1.vuejs.org/guide/components.html
+
+
+## Installation
+
+```
+npm install --save @intus/vueme
+```
+
 ## Purpose
 Recreates most of the core functionality of jQuery-Confirm without the need of requiring jQuery using VueJS only.
 
 ## Usage
 
 ```html 
-<vue-me></vue-me>
+<vue-me :parent-instance="this"></vue-me>
 ```
 
-The initial <vue-me> element sets up a function in your Vue App before self-destructing called $alert. This is how you create alerts in VueMe. You can pass it a number of options:
+The initial <vue-me> element sets up a function in your Vue App before self-destructing called $alert. This is how you create alerts in NASIC dialog. You can pass it a number of options:
 
 ```javascript
 // in the Vue App
 var self = this;
- 
  
 /**
  * @function $alert
@@ -41,6 +51,11 @@ self.$alert({
     // Default: ""
     icon: "<i class='fa fa-info-circle'></i>",
  
+ 
+    // TitleClass - String or Array of Strings
+    // Controls: The CSS classes applied to the dialog title
+    // Default: "vue-me-header"
+    titleClass: "card-title",
  
  
     // Content - String
@@ -119,3 +134,27 @@ self.$alert({
     autoClose: "CloseButton|10000",
 }, self);
 ```
+
+## Configuration
+
+<table>
+    <thead>
+        <tr>
+            <th>Prop Name</th>
+            <th>Type</th>
+            <th>Default</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>parentInstance</td>
+            <td>`Object`</td>
+            <td>Pass the parent Vue instance by using the `this` keyword so that VueMe can bind to your parent Vue component. Without this, you won't be able to call dialogs.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Events
+
+
+When a button is pressed, all field values for any inputs you've requested will be passed as one argument in dict format back to the callback function you have provided to the buttons.

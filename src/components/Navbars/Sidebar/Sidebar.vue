@@ -126,6 +126,7 @@ const props = {
   flavor: String,
   disabled: Boolean,
   active: Boolean,
+  raw: Boolean,
   width: {
     type: Number,
     default: 200
@@ -165,14 +166,14 @@ export const NSidebarContainer = styled("aside", props)`
   width: ${props => props.width}px;
   z-index: 1;
   position: fixed;
-  margin-left: -15px;
+  left: 0px;
   top: ${props => props.topOffset};
   bottom: ${props => props.bottomOffset};
   @media (max-width: ${props => props.breakpoint}px) {
     position: relative;
     width: 100%;
-    margin-left: auto;
     padding-left: auto;
+    top: initial;
   }
   & * {
     webkit-touch-callout: none; /* iOS Safari */
@@ -202,14 +203,21 @@ export const NSidebarContent = styled("div", props)`
   @media (max-width: ${props => props.breakpoint}px) {
     display: none;
   }
-  & * {
-    color: ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "#222"};};
-  }
+  ${props =>
+    props.raw
+      ? ""
+      : `
+    & * {
+      color: ${
+        props.theme && props.theme[props.flavor]
+          ? props.theme[props.flavor].color.color
+          : props.defaultTheme[props.flavor]
+          ? props.defaultTheme[props.flavor].color.color
+          : "#222"
+      };};
+    }
+  
+  `}
 `;
 export const NCollapsedSidebarContent = styled("div", props)`
   transition: 0.3s all;
@@ -227,14 +235,21 @@ export const NCollapsedSidebarContent = styled("div", props)`
     display: block;
     padding: 10px 0px;
   }
-  & * {
-    color: ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "#222"};};
-  }
+  ${props =>
+    props.raw
+      ? ""
+      : `
+    & * {
+      color: ${
+        props.theme && props.theme[props.flavor]
+          ? props.theme[props.flavor].color.color
+          : props.defaultTheme[props.flavor]
+          ? props.defaultTheme[props.flavor].color.color
+          : "#222"
+      };};
+    }
+  
+  `}
 `;
 export const NSidebarItemList = styled.ul`
   list-style: none;
@@ -242,7 +257,6 @@ export const NSidebarItemList = styled.ul`
   padding: 0px;
   margin-bottom: 0px;
 `;
-
 export const NSidebarItem = styled("li", props)`
   padding: 10px 20px;
   & a {
@@ -254,7 +268,6 @@ export const NSidebarItem = styled("li", props)`
     pointer-events: none;
     & * {color: rgba(0, 0, 0, 0.3) !important;}`
       : ""};
-
   ${props =>
     props.active
       ? `
@@ -432,6 +445,7 @@ export default NSidebar;
 <style>
 .sidebar-open-carat {
   transform: rotate(135deg) !important;
+  margin-bottom: 4px;
 }
 .dropdown-arrow {
   background-image: linear-gradient(to top right, transparent 50%, #727272 50%);
