@@ -1,9 +1,9 @@
 <template>
   <div class="input-container">
-    <n-label :for="name">{{label}}</n-label>
+    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{label}}</n-label>
     <n-input
-      :id="name"
       :flavor="flavor"
+      :id="name"
       :readonly="readonly"
       :placeholder="placeholder"
       :pattern="pattern"
@@ -16,7 +16,7 @@
       :disabled="disabled"
       :autofocus="autofocus"
       :autocomplete="autocomplete"
-      v-model="value"
+      v-bind:value="value"
       @input="oninput"
       @change="onChange"
       @focus="onFocus"
@@ -25,15 +25,14 @@
 </template>
 
 <script>
-import { NLabel, LLabel, MLabel, WLabel } from "@intus/typography";
+import { NLabel } from "@intus/typography";
 import styled from "vue-styled-components";
 import Theme from "@intus/designsystem";
 require("@intus/fonts");
-
 const props = {
   flavor: {
     type: String,
-    default: "Info"
+    default: "LightBlue"
   },
   defaultTheme: {
     type: Object,
@@ -88,18 +87,20 @@ export const NInput = styled("input", props)`
 `;
 export const VueInput = {
   name: "vue-input",
-  components: { NInput, NLabel, LLabel, MLabel, WLabel },
+  components: { NInput, NLabel },
   data: function() {
-    return {
-      value: ""
-    };
+    return {};
   },
   props: {
+    flavor: {
+      type: String,
+      default: "LightBlue"
+    },
     autocomplete: {
       type: String,
       default: "off"
     },
-    initialValue: {
+    value: {
       type: String,
       default: ""
     },
@@ -143,9 +144,13 @@ export const VueInput = {
       type: Boolean,
       default: false
     },
-    labelType: {
+    labelFlavor: {
       type: String,
-      default: "normal"
+      default: ""
+    },
+    labelDark: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,
@@ -154,13 +159,9 @@ export const VueInput = {
     autofocus: {
       type: Boolean,
       default: false
-    },
-    flavor: {
-      type: String,
-      default: "Info"
     }
   },
-  mounted: function() {
+  mounted() {
     var self = this;
     if (typeof self.$parent !== "undefined") {
       if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};
@@ -168,8 +169,9 @@ export const VueInput = {
     }
   },
   methods: {
-    oninput: function() {
+    oninput($e) {
       var self = this;
+      this.value = $e;
       self.$emit("input", self.value);
     },
     onChange() {
