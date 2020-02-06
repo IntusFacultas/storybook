@@ -85,7 +85,8 @@
     <div
       class="selectme-selected"
       ref="selectBox"
-      :style="{top: selectBoxWidth <= computedCutOff ? calculatedHeight + 'px' : '999999px' }"
+      :style="{top:  calculatedHeight + 'px' }"
+      :class="{'hidden-inline': selectBoxWidth > computedCutOff}"
     >
       <n-button
         :flavor="badgeFlavor"
@@ -511,6 +512,10 @@ export default SelectMe;
 }
 .selectme-single-select-badge {
   margin-top: 1px;
+}
+.hidden-inline {
+  opacity: 0;
+  pointer-events: none;
 }
 .selectme-badge {
   display: inline-block;
