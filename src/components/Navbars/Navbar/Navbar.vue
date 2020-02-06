@@ -370,13 +370,14 @@ export const NavbarDropdown = styled("ul", props)`
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "#f2f2f2"};
-  & * {
+  & li {
     color: ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].color.color
         : "#222"};
+    padding: 0.5rem 1.5rem;
   }
   border: 1px solid
     ${props =>
@@ -385,7 +386,7 @@ export const NavbarDropdown = styled("ul", props)`
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.hover
         : "#222"};
-  ${props => (!props.open ? `border: none` : "")}
+  ${props => (!props.open ? `border: none; ` : "padding: .25rem 0")}
   border-radius: 3px;
 `;
 export const NavbarDropdownCarat = styled("div", props)`
