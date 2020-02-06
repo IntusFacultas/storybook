@@ -165,7 +165,7 @@ export const NSidebarContainer = styled("aside", props)`
       : "#f2f2f2"};
   width: ${props => props.width}px;
   z-index: 1;
-  position: fixed;
+  position: absolute;
   left: 0px;
   top: ${props => props.topOffset};
   bottom: ${props => props.bottomOffset};
