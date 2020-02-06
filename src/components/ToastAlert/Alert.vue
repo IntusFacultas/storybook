@@ -75,6 +75,55 @@ const Alert = styled("div", props)`
   -ms-animation: fadein 0.5s; /* Internet Explorer */
   -o-animation: fadein 0.5s; /* Opera < 12.1 */
   animation: fadein 0.5s;
+  
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
+  }
+
+  /* Firefox < 16 */
+  @-moz-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
+  }
+
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
+  }
+
+  /* Internet Explorer */
+  @-ms-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
+  }
+
+  /* Opera < 12.1 */
+  @-o-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
+  }
   opacity: 0.85;
   & * {
     opacity: 1;
@@ -195,15 +244,16 @@ export const VueToast = {
     },
     removeToast(id) {
       var self = this;
-      let index = this.alerts.findIndex(a => a.id == id);
-      let alert = this.alerts[index];
+      let alert = this.alerts.filter(alert => alert.id == id)[0];
       if (alert && !alert.dying) {
         alert.dying = true;
         this.$forceUpdate();
         setTimeout(function() {
-          self.alerts.splice(index, 1);
+          self.alerts = self.alerts.filter(alert => alert.id != id);
           self.$forceUpdate();
         }, 501);
+      } else if (!alert) {
+        self.$nextTick(self.removeToast(id));
       }
     }
   }
