@@ -113,6 +113,8 @@ const Alert = styled("div", props)`
   font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: bold;
   & * {
     color: ${props =>
       props.theme && props.theme[props.flavor]
