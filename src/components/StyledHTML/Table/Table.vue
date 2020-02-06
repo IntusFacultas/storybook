@@ -332,7 +332,7 @@ export default VueTable;
   transform: rotate(45deg) !important;
 }
 .table-hoverable-row:hover {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .table-open-carat {
