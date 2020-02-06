@@ -229,12 +229,10 @@ export const Paginator = {
   },
   methods: {
     step(s) {
-      this.currentPage += s;
-      this.$emit("select", this.currentPage);
+      this.$emit("select", this.currentPage + s);
     },
     select(page) {
-      this.currentPage = page;
-      this.$emit("select", this.currentPage);
+      this.$emit("select", page);
     }
   },
   computed: {
