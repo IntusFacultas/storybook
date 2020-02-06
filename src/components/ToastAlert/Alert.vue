@@ -1,19 +1,33 @@
 <template>
-  <alert-container>
+  <alert-container :width="maxWidth">
     <alert
-      v-for="(alert, index) in alerts"
+      v-for="alert in alerts"
       :key="alert.id"
       :class="{dying: alert.dying}"
       :flavor="alert.type"
-      @click="removeToast(index)"
+      @click="removeToast(alert.id)"
     >
       <icon-container>
         <span v-if="alert.type == 'warning'">&#9888;</span>
         <span v-else-if="alert.type == 'success'">&#10004;</span>
         <span v-else-if="alert.type == 'info'">&#128712;</span>
         <div v-else-if="alert.type =='danger'">
-          <span>&#128737;</span>
-          <span>&#33;</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            xml:space="preserve"
+            viewBox="0 0 50 50"
+            style="fill: white;"
+            height="20px"
+          >
+            <g>
+              <path
+                d="M44.373,7.603c-10.137-10.137-26.632-10.138-36.77,0c-10.138,10.138-10.137,26.632,0,36.77s26.632,10.138,36.77,0   C54.51,34.235,54.51,17.74,44.373,7.603z M36.241,36.241c-0.781,0.781-2.047,0.781-2.828,0l-7.425-7.425l-7.778,7.778   c-0.781,0.781-2.047,0.781-2.828,0c-0.781-0.781-0.781-2.047,0-2.828l7.778-7.778l-7.425-7.425c-0.781-0.781-0.781-2.048,0-2.828   c0.781-0.781,2.047-0.781,2.828,0l7.425,7.425l7.071-7.071c0.781-0.781,2.047-0.781,2.828,0c0.781,0.781,0.781,2.047,0,2.828   l-7.071,7.071l7.425,7.425C37.022,34.194,37.022,35.46,36.241,36.241z"
+              />
+            </g>
+          </svg>
         </div>
       </icon-container>
       <alert-content v-html="alert.content"></alert-content>
@@ -25,21 +39,9 @@
 import styled from "vue-styled-components";
 import { ToastTheme } from "@intus/designsystem";
 require("@intus/fonts");
-const AlertContainer = styled.div`
-  max-width: 200px;
-  position: static;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  display: flex;
-  flex-direction: column;
-  opacity: 0.8;
-  & * {
-    opacity: 0.8;
-  }
-`;
 const props = {
   flavor: String,
+  width: Number,
   defaultTheme: {
     type: Object,
     default: function() {
@@ -47,13 +49,51 @@ const props = {
     }
   }
 };
-const IconContainer = styled("div", props)``;
+const AlertContainer = styled("div", props)`
+  max-width: ${props => props.width}px;
+  position: fixed;
+  right: 15px;
+  top: 30px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+`;
+const IconContainer = styled("div", props)`
+  padding-right: 0.5rem;
+  font-size: 25px;
+`;
 const AlertContent = styled.div``;
 const Alert = styled("div", props)`
   border-radius: 2px;
-  box-shadow: 0px 0px 5px 10px #222;
+  padding: 1rem;
+  margin-bottom: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 0.5s; /* Firefox < 16 */
+  -ms-animation: fadein 0.5s; /* Internet Explorer */
+  -o-animation: fadein 0.5s; /* Opera < 12.1 */
+  animation: fadein 0.5s;
+  opacity: 0.85;
+  & * {
+    opacity: 1;
+  }
+  box-shadow: 0px 0px 6px 1px
+    ${props =>
+      props.theme && props.theme[props.flavor]
+        ? props.theme[props.flavor].border.color
+        : props.defaultTheme[props.flavor]
+        ? props.defaultTheme[props.flavor].border.color
+        : "#f2f2f2"};
   &:hover {
-    box-shadow: 0px 0px 8px 10px #222;
+    box-shadow: 0px 0px 6px 2px
+      ${props =>
+        props.theme && props.theme[props.flavor]
+          ? props.theme[props.flavor].border.color
+          : props.defaultTheme[props.flavor]
+          ? props.defaultTheme[props.flavor].border.color
+          : "#f2f2f2"};
   }
   transition: 1s all;
   cursor: pointer;
@@ -84,15 +124,36 @@ const Alert = styled("div", props)`
 `;
 
 export const VueToast = {
+  components: {
+    AlertContainer,
+    IconContainer,
+    AlertContent,
+    Alert
+  },
   data() {
     return {
       alerts: [],
       validTypes: ["WARNING", "INFO", "DANGER", "SUCCESS"]
     };
   },
-  mounted() {
-    this.$parent.$toast = this.toast;
+  props: {
+    parentInstance: {
+      type: Object,
+      required: true
+    },
+    maxWidth: {
+      type: Number,
+      default: 300
+    },
+    delay: {
+      type: Number,
+      default: 5000
+    }
   },
+  mounted() {
+    this.parentInstance.$toast = this.toast;
+  },
+  computed: {},
   methods: {
     uuidv4() {
       // pulled from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -104,6 +165,7 @@ export const VueToast = {
       );
     },
     toast(options) {
+      let self = this;
       let alertType = "info";
       if (
         options.type &&
@@ -113,30 +175,43 @@ export const VueToast = {
       }
       let text = "This is an info toast";
       if (options.text) {
+        text = options.text;
       }
-      let id = uuidv4();
-      let timeAdded = getTime();
+      let id = this.uuidv4();
+      let timeAdded = Math.round(new Date().getTime() / 1000);
       let dying = false;
       this.alerts.push({
-        type: alertType
+        type: alertType,
+        content: text,
+        timeAdded: timeAdded,
+        id: id,
+        dying: dying
       });
+      setTimeout(function() {
+        self.removeToast(id);
+      }, this.delay);
     },
-    removeToast(index) {
+    removeToast(id) {
       var self = this;
+      let index = this.alerts.findIndex(a => a.id == id);
       let alert = this.alerts[index];
-      if (!alert.dying) {
-        this.alerts[index].dying = true;
+      if (alert && !alert.dying) {
+        alert.dying = true;
+        this.$forceUpdate();
         setTimeout(function() {
           self.alerts.splice(index, 1);
-        }, 1000);
+          self.$forceUpdate();
+        }, 501);
       }
     }
   }
 };
+export default VueToast;
 </script>
 
 <style>
 .dying {
+  transition: 0.5s all;
   opacity: 0;
 }
 </style>

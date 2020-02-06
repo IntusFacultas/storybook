@@ -233,26 +233,26 @@ export const TextTheme = {
 export const ToastTheme = {
     "warning": {
         color: {
-            color: "#B19E10",
-            hover: "#B19E10",
-            focus: "#B19E10",
+            color: "#222",
+            hover: "#222",
+            focus: "#222",
         },
         background: {
-            color: "#F4E04D",
-            hover: "#F4E04D",
-            focus: "#F4E04D"
+            color: "#fec700",
+            hover: "#fec700",
+            focus: "#fec700"
         },
         border: {
-            color: "#E2CC24",
-            hover: "#E2CC24",
-            focus: "#E2CC24",
+            color: "#fec700",
+            hover: "#fec700",
+            focus: "#fec700",
         }
     },
     "danger": {
         color: {
-            color: "#40000C",
-            hover: "#40000C",
-            focus: "#40000C",
+            color: "#fff",
+            hover: "#fff",
+            focus: "#fff",
         },
         background: {
             color: "#890620",
@@ -267,9 +267,9 @@ export const ToastTheme = {
     },
     "success": {
         color: {
-            color: "#11593F",
-            hover: "#11593F",
-            focus: "#11593F",
+            color: "#fff",
+            hover: "#fff",
+            focus: "#fff",
         },
         background: {
             color: "#4E937A",
@@ -283,10 +283,20 @@ export const ToastTheme = {
         }
     },
     "info": {
+        color: {
+            color: "#fff",
+            hover: "#fff",
+            focus: "#fff"
+        },
         background: {
             color: "#4E8098",
             hover: "#4E8098",
             focus: "#4E8098",
+        },
+        border: {
+            color: "#316780",
+            hover: "#316780",
+            focus: "#316780"
         }
     }
 }

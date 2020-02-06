@@ -3,7 +3,7 @@
 ## Type of Component
 Vue Component - https://v1.vuejs.org/guide/components.html
 
-## Installatoin
+## Installation
 
 ```bash
 npm install @intus/select-me --save
@@ -43,6 +43,7 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <th>Prop Name</th>
             <th>Type</th>
             <th>Default</th>
+            <td>Purpose</td>
         </tr>
     </thead>
     <tbody>

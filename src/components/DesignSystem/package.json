@@ -1,6 +1,6 @@
 {
   "name": "@intus/designsystem",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "Provides a default set of colors and themes for intus styled components",
   "main": "theme.js",
   "scripts": {
