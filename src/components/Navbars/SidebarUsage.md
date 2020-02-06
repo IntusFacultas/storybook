@@ -16,6 +16,9 @@ This creates a responsive sidebar for navigation purposes.
 
 ## Usage
 
+
+<b>IMPORTANT NOTE: MAKE SURE THAT BOTH THE SIDEBAR AND SIDEBAR OFFSET CONTENT ARE INSIDE A RELATIVE POSITIONED DIV OTHERWISE THE SIDEBAR WILL NOT USE THE FULL VERTICAL SPACE.</b>
+
 This is meant to be used in tandem with the `SidebarOffsetContent` component for displaying content on your website. A full usage example is provided below:
 
 ```html
