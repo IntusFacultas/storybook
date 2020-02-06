@@ -18,6 +18,8 @@
       :autocomplete="autocomplete"
       v-model="value"
       @input="oninput"
+      @change="onChange"
+      @focus="onFocus"
     ></n-input>
   </div>
 </template>
@@ -169,6 +171,12 @@ export const VueInput = {
     oninput: function() {
       var self = this;
       self.$emit("input", self.value);
+    },
+    onChange() {
+      this.$emit("change", this.value);
+    },
+    onFocus() {
+      this.$emit("focus");
     }
   }
 };
