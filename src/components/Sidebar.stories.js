@@ -115,7 +115,7 @@ export const Sidebar = () => ({
         },
     },
     template: `
-    <flex-row>
+    <div style="position: relative">
         <n-sidebar
             :flavor="flavor"
             :sidebar-title="sidebarTitle"
@@ -128,7 +128,7 @@ export const Sidebar = () => ({
         <sidebar-offset-content
             :width="width"
             :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
-    </flex-row>
+    </div>
     `
 })
 
@@ -155,7 +155,7 @@ export const RawSidebar = () => ({
         },
     },
     template: `
-    <flex-row>
+    <div style="position: relative">
         <n-raw-sidebar
             :flavor="flavor"
             :sidebar-title="sidebarTitle"
@@ -168,6 +168,6 @@ export const RawSidebar = () => ({
             <vue-input name="sampleInput" label="This is a label in my sidebar" type="text"></vue-input>
         </n-raw-sidebar>
         <sidebar-offset-content :width="width" :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
-    </flex-row>
+    </div>
     `
 })
