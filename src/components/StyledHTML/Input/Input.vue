@@ -45,19 +45,24 @@ export const NInput = styled("input", props)`
   height: 35px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid
-    ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].border.color
-        : props.defaultTheme[props.flavor] &&
-          props.defaultTheme[props.flavor].border.color
-        ? props.defaultTheme[props.flavor].border.color
-        : "#04040480"};
+  border-width: 1px;
+  border-style: solid;
   padding: 2px 5px 2px 5px;
-  font-family: "Roboto", sans-serif;
+  margin-top: 2px;
   box-sizing: border-box;
+  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
   transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
   &:focus {
+    border-color: 1px solid
+      ${props =>
+        props.theme && props.theme[props.flavor]
+          ? props.theme[props.flavor].border.color
+          : props.defaultTheme[props.flavor] &&
+            props.defaultTheme[props.flavor].border.color
+          ? props.defaultTheme[props.flavor].border.color
+          : "#04040480"};
     outline: none;
     box-shadow: 0px 0px 0px 3px
       ${props =>
@@ -74,6 +79,7 @@ export const NInput = styled("input", props)`
   }
   &:disabled {
     cursor: not-allowed;
+    pointer-events: none;
     color: #747474;
     background-color: #e2e2e2;
   }
