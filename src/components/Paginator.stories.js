@@ -48,7 +48,7 @@ export const ConfigurablePaginator = () => ({
         }
     },
     template: `
-        <div>
+        <div style="position: relative">
             <paginator 
                 :flavor="flavor"
                 :show-first-last="showFirstLast"

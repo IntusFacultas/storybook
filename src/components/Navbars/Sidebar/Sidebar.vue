@@ -127,6 +127,7 @@ const props = {
   disabled: Boolean,
   active: Boolean,
   raw: Boolean,
+  fixed: Boolean,
   width: {
     type: Number,
     default: 200
@@ -165,7 +166,7 @@ export const NSidebarContainer = styled("aside", props)`
       : "#f2f2f2"};
   width: ${props => props.width}px;
   z-index: 1;
-  position: absolute;
+  position: ${props => (props.fixed ? "fixed" : "absolute")};
   left: 0px;
   top: ${props => props.topOffset};
   bottom: ${props => props.bottomOffset};
@@ -414,6 +415,10 @@ export const NSidebar = {
     topOffset: {
       type: String,
       default: ""
+    },
+    fixed: {
+      type: Boolean,
+      default: false
     },
     width: {
       type: Number,

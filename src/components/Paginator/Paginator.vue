@@ -7,13 +7,17 @@
       <pagination-item>
         <pagination-button @click="step(-1)">&#10094;</pagination-button>
       </pagination-item>
-      <pagination-item v-for="page in leftMargin">
+      <pagination-item v-for="(page,index) in leftMargin" :key="'left' + index">
         <pagination-button @click="select(page)">{{page}}</pagination-button>
       </pagination-item>
       <pagination-item v-if="leftMargin.length == marginPages">
         <pagination-button :disabled="true">...</pagination-button>
       </pagination-item>
-      <pagination-item v-for="page in window" :active="currentPage == page">
+      <pagination-item
+        v-for="(page, index) in slide"
+        :active="currentPage == page"
+        :key="'slide' + index"
+      >
         <pagination-button
           @click="select(page)"
           :flavor="flavor"
@@ -23,7 +27,7 @@
       <pagination-item v-if="rightMargin.length == marginPages">
         <pagination-button :disabled="true">...</pagination-button>
       </pagination-item>
-      <pagination-item v-for="page in rightMargin">
+      <pagination-item v-for="(page,index) in rightMargin" :key="'right' + index">
         <pagination-button @click="select(page)">{{page}}</pagination-button>
       </pagination-item>
       <pagination-item>
@@ -153,7 +157,7 @@ const PaginationButton = styled("button", props)`
             ? props.theme[props.flavor].background.hover
             : props.defaultTheme[props.flavor]
             ? props.defaultTheme[props.flavor].background.hover
-            : "#b2caff"
+            : "#e8e8e8"
         } !important;
         color: ${
           props.theme && props.theme[props.flavor]
@@ -235,8 +239,16 @@ export const Paginator = {
       this.$emit("select", page);
     }
   },
+  watch: {
+    pageCount(newval, oldval) {
+      this.pages = [];
+      for (let page = 1; page < this.pageCount + 1; page++) {
+        this.pages.push(page);
+      }
+    }
+  },
   computed: {
-    window() {
+    slide() {
       let radius = Math.floor(this.pageRange / 2);
       let pageIndex = this.currentPage - 1;
       let bottom = pageIndex - radius;

@@ -51,10 +51,7 @@ export const NInput = styled("input", props)`
   padding: 2px 5px 2px 5px;
   margin-top: 2px;
   box-sizing: border-box;
-  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
+  font-family: "Roboto", sans-serif;
   &:focus {
     border-color: 1px solid
       ${props =>

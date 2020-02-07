@@ -99,6 +99,12 @@ let items = [
             <td>Sets the flavor of sidebar</td>
         </tr>
         <tr>
+            <td>fixed</td>
+            <td>`Boolean`</td>
+            <td>`false`</td>
+            <td>Toggles sidebar from absolute to fixed positioning</td>
+        </tr>
+        <tr>
             <td>sidebarTitle</td>
             <td>`String`</td>
             <td>`"Sidebar"`</td>

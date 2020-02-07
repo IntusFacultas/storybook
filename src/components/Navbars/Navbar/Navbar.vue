@@ -250,9 +250,7 @@ export const NavbarContainer = styled("nav", props)`
         ? props.defaultTheme[props.flavor].color.color
         : "#222"};
   }
-  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   display: flex;
   justify-content: space-between;
@@ -358,7 +356,7 @@ export const NavbarDropdown = styled("ul", props)`
   padding: 0px;
   margin-bottom: 0px;
   transition: 0.3s max-height;
-  margin-left: -8px;
+  margin-left: -13px;
   margin-right: -44px;
   ${props => (props.collapsed ? `margin-right: -8px; padding-left: 20px` : "")}
   margin-top: 11px;

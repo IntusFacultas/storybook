@@ -103,3 +103,25 @@ Special note: camelCase props need to be converted to kebab-case when being set.
         </tr>
     </tbody>
 </table>
+
+
+## Events
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <td>Bind Attribute</td>
+            <th>Payload</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>`input`</td>
+            <td>`@input`</td>
+            <td>Currently Selected Options</td>
+            <td>Fired on selectio</td>
+        </tr>
+    </tbody>
+</table>

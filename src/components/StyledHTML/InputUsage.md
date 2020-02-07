@@ -173,3 +173,36 @@ This provides a styleguide consistent and accessible input element that can be c
         </tr>
     </tbody>
 </table>
+
+## Events
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <td>Bind Attribute</td>
+            <th>Payload</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>`input`</td>
+            <td>`@input`</td>
+            <td>Value of the Input</td>
+            <td>Fired on input to the internal input field</td>
+        </tr>
+        <tr>
+            <td>`focus`</td>
+            <td>`@focus`</td>
+            <td>None</td>
+            <td>Fired on focus to the internal input field</td>
+        </tr>
+        <tr>
+            <td>`change`</td>
+            <td>`@change`</td>
+            <td>Value of the Input</td>
+            <td>Fired on change to the internal input field value</td>
+        </tr>
+    </tbody>
+</table>

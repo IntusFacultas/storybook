@@ -158,7 +158,7 @@ const SelectMe = {
     },
     options: {
       type: Array,
-      default: function() {
+      default() {
         return [];
       }
     },
@@ -172,26 +172,26 @@ const SelectMe = {
     },
     initialValues: {
       type: Array,
-      default: function() {
+      default() {
         return [];
       }
     }
   },
   computed: {
-    computedSpanClass: function() {
+    computedSpanClass() {
       var self = this;
       if (!self.multiSelect) return ["selectme-badge-single-span"];
       return [];
     },
-    computedCutOff: function() {
+    computedCutOff() {
       var self = this;
       return self.calculatedWidth - 100;
     },
-    showDropdown: function() {
+    showDropdown() {
       var self = this;
       return self.showOptions || self.debug;
     },
-    selectOptions: function() {
+    selectOptions() {
       var self = this;
       let options = self.options;
       function filter(fn, array) {
@@ -217,14 +217,14 @@ const SelectMe = {
     }
   },
   methods: {
-    deselectDropdownOption: function(option) {
+    deselectDropdownOption(option) {
       var self = this;
       self.deselectOption(option);
       window.requestAnimationFrame(self.setSelectBoxWidth);
       self.showSelected = false;
       self.$el.firstChild.focus();
     },
-    handleOffClick: function(event) {
+    handleOffClick(event) {
       var self = this;
       function isDescendant(parent, child) {
         var node = child.parentNode;
@@ -240,11 +240,11 @@ const SelectMe = {
         self.showSelected = false;
       }
     },
-    toggleSelectedDropdown: function() {
+    toggleSelectedDropdown() {
       var self = this;
       self.showSelected = !self.showSelected;
     },
-    selectHoveredOption: function() {
+    selectHoveredOption() {
       var self = this;
       if (self.showOptions) {
         if (Object.keys(self.hoveredOption).length > 0) {
@@ -259,7 +259,11 @@ const SelectMe = {
           self.hoveredIndex = -1;
           window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
-          self.$el.firstChild.focus();
+          if (self.multiSelect) {
+            self.$el.firstChild.focus();
+          } else {
+            self.closeDropdown();
+          }
         }
       } else if (self.showSelected) {
         self.deselectOption(self.hoveredSelectedOption);
@@ -274,7 +278,7 @@ const SelectMe = {
         }, 550);
       }
     },
-    hoverElement: function(e) {
+    hoverElement(e) {
       var self = this;
       clearTimeout(self.timeout);
       self.hoveredOption = self.selectOptions.filter(
@@ -286,11 +290,14 @@ const SelectMe = {
         .map(option => option[self.valueAttribute])
         .indexOf(self.hoveredOption[self.valueAttribute]);
     },
-    hoverOption: function(step) {
+    hoverOption(step) {
       var self = this;
       var proposedIndex = self.hoveredIndex + step;
       self.openDropdown();
-      if (proposedIndex >= self.selectOptions.length || proposedIndex < -1) {
+      if (proposedIndex >= self.selectOptions.length) {
+        self.hoveredIndex = 0;
+        self.hoveredOption = self.selectOptions[self.hoveredIndex];
+      } else if (proposedIndex < -1) {
         return;
       } else if (proposedIndex == -1) {
         self.hoveredIndex = proposedIndex;
@@ -303,7 +310,7 @@ const SelectMe = {
         self.$forceUpdate();
       }
     },
-    hoverSelectedOption: function(step) {
+    hoverSelectedOption(step) {
       var self = this;
       var proposedIndex = self.hoveredIndex + step;
       self.showSelected = true;
@@ -320,7 +327,7 @@ const SelectMe = {
         self.$forceUpdate();
       }
     },
-    contains: function(option, options) {
+    contains(option, options) {
       var self = this;
       for (var x = 0; x < options.length; x++) {
         let textMatches =
@@ -331,7 +338,7 @@ const SelectMe = {
       }
       return false;
     },
-    isHovered: function(option, hoverOption) {
+    isHovered(option, hoverOption) {
       var self = this;
       let textMatches =
         option[self.displayAttribute] == hoverOption[self.displayAttribute];
@@ -339,7 +346,7 @@ const SelectMe = {
         option[self.valueAttribute] == hoverOption[self.valueAttribute];
       return textMatches && valueMatches;
     },
-    handleUp: function() {
+    handleUp() {
       var self = this;
       if (self.showSelected) {
         self.hoverSelectedOption(-1);
@@ -349,7 +356,7 @@ const SelectMe = {
         self.hoverOption(-1);
       }
     },
-    handleDown: function() {
+    handleDown() {
       var self = this;
       if (self.showSelected) {
         self.hoverSelectedOption(1);
@@ -359,7 +366,7 @@ const SelectMe = {
         self.hoverOption(1);
       }
     },
-    handleLeft: function() {
+    handleLeft() {
       var self = this;
       if (
         self.optionSearch.length == 0 &&
@@ -370,7 +377,7 @@ const SelectMe = {
         self.showSelected = true;
       }
     },
-    handleRight: function() {
+    handleRight() {
       var self = this;
       if (self.showSelected) {
         self.showSelected = false;
@@ -378,7 +385,7 @@ const SelectMe = {
         self.$el.firstChild.focus();
       }
     },
-    handleBackspace: function() {
+    handleBackspace() {
       var self = this;
       if (
         self.optionSearch.length == 0 &&
@@ -392,11 +399,11 @@ const SelectMe = {
         self.optionSearch = el[self.displayAttribute];
       }
     },
-    contained: function(option) {
+    contained(option) {
       var self = this;
       return self.contains(option, self.selectedOptions);
     },
-    selectOption: function(option) {
+    selectOption(option) {
       var self = this;
       if (!self.contains(option, self.selectedOptions)) {
         if (!self.multiSelect) {
@@ -407,12 +414,14 @@ const SelectMe = {
         self.deselectOption(option);
       }
       self.optionSearch = "";
-      self.closeDropdown();
+      if (!self.multiSelect) {
+        self.closeDropdown();
+      }
       self.$emit("input", self.selectedOptions);
       window.requestAnimationFrame(self.setSelectBoxWidth);
       self.setCalculatedPadding();
     },
-    deselectOption: function(option, closeDropdown) {
+    deselectOption(option, closeDropdown) {
       var self = this;
       function findIndex(option, options) {
         for (var x = 0; x < options.length; x++) {
@@ -432,7 +441,7 @@ const SelectMe = {
       window.requestAnimationFrame(self.setSelectBoxWidth);
       self.setCalculatedPadding();
     },
-    closeDropdown: function() {
+    closeDropdown() {
       var self = this;
       var elements = Object.values(self.$refs).map(x => x[0]);
       self.hoveredIndex = -1;
@@ -440,8 +449,9 @@ const SelectMe = {
         self.showOptions = false;
       }, 200);
     },
-    openDropdown: function() {
+    openDropdown() {
       var self = this;
+      self.$emit("focus");
       clearTimeout(self.timeout);
       if (self.disabled) {
         return false;
@@ -451,13 +461,13 @@ const SelectMe = {
       self.showSelected = false;
       self.showOptions = true;
     },
-    setSelectBoxWidth: function() {
+    setSelectBoxWidth() {
       var self = this;
       if (self.$refs.selectBox)
         self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;
       window.requestAnimationFrame(self.setSelectBoxWidth);
     },
-    setCalculatedPadding: function() {
+    setCalculatedPadding() {
       var self = this;
       if (self.selectBoxWidth > self.computedCutOff) {
         self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;
@@ -466,7 +476,7 @@ const SelectMe = {
       }
       window.requestAnimationFrame(self.setCalculatedPadding);
     },
-    setCalculatedWidth: function() {
+    setCalculatedWidth() {
       var self = this;
       setTimeout(function() {
         try {
@@ -481,7 +491,7 @@ const SelectMe = {
       }, 50);
     }
   },
-  mounted: function() {
+  mounted() {
     var self = this;
     window.requestAnimationFrame(self.setCalculatedPadding);
     window.addEventListener("resize", self.setCalculatedWidth);
@@ -520,7 +530,6 @@ export default SelectMe;
 .selectme-badge {
   display: inline-block;
   padding: 0.25em 0.4em;
-  font-size: 75%;
   font-weight: 700;
   line-height: 1;
   text-align: center;
@@ -528,8 +537,87 @@ export default SelectMe;
   vertical-align: baseline;
   border-radius: 0.25rem;
   font-weight: 700 !important;
-  font-size: 12px !important;
+  font-size: 16px !important;
   font-family: "Segoe UI" !important;
 }
-@import "./selectme.css";
+.selectme-container * {
+  font-family: "Roboto", sans-serif;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.selectme-dropdown {
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0px 4px 7px -3px #dadada;
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.selectme-badge-single-span {
+  float: left;
+  padding-right: 8px;
+}
+.selectme-badge-transparent {
+  color: black;
+  font-size: 16px !important;
+  background-color: transparent !important;
+}
+.selectme-selected {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+.selectme-selected > button {
+  cursor: pointer;
+  padding: 7px;
+  margin-right: 2px;
+}
+.selectme-dropdown > ul {
+  list-style: none;
+  padding-left: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+.selectme-dropdown > ul > li {
+  padding: 2px 10px 2px 10px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0px;
+  font-size: 16px;
+  max-height: 200px;
+  margin-bottom: -2px;
+  overflow-y: auto;
+}
+.selectme-dropdown > ul > li.selectme-selected {
+  background-color: #007bff;
+  color: white;
+}
+.selectme-dropdown > ul > li.selectme-hovered {
+  background-color: #eeeeee;
+}
+.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {
+  background-color: #0069d9;
+  color: white;
+}
+.selectme-dropdown > ul > li:hover {
+  background-color: #eeeeee;
+}
+.selectme-dropdown > ul > li.selectme-selected:hover {
+  background-color: #0069d9;
+  color: white;
+}
 </style>

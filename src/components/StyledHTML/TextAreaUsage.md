@@ -129,3 +129,37 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
             <td>&nbsp;</td>
         </tr>
     </tbody>
+
+    
+## Events
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <td>Bind Attribute</td>
+            <th>Payload</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>`input`</td>
+            <td>`@input`</td>
+            <td>Value of the textarea</td>
+            <td>Fired on input to the internal textarea field</td>
+        </tr>
+        <tr>
+            <td>`focus`</td>
+            <td>`@focus`</td>
+            <td>None</td>
+            <td>Fired on focus to the internal textarea field</td>
+        </tr>
+        <tr>
+            <td>`change`</td>
+            <td>`@change`</td>
+            <td>Value of the textarea</td>
+            <td>Fired on change to the internal textarea field value</td>
+        </tr>
+    </tbody>
+</table>

@@ -93,7 +93,7 @@ export const NTable = styled("table", props)`
     ${props =>
       props.striped
         ? `
-            & tbody tr:nth-of-type(2n+1) td {
+             & > tbody > tr:nth-of-type(2n+1) > td {
                 background-color: rgba(0, 0, 0, .1);
             }
         `

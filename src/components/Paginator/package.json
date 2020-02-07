@@ -1,0 +1,25 @@
+{
+    "name": "@intus/paginator",
+    "version": "1.0.3",
+    "description": "Provides a paginator similar to VueJS-Pagination but with baked in flavors",
+    "main": "Paginator.vue",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "vue build --target lib --name Paginator --dest dist/Paginator Paginator.vue"
+    },
+    "dependencies": {
+        "vue-styled-components": "^1.4.14",
+        "@intus/designsystem": "^1.0.0",
+        "@intus/fonts": "^1.0.0"
+    },
+    "devDependencies": {
+        "@vue/cli": "^4.1.2"
+    },
+    "keywords": [
+        "pagination",
+        "paginator",
+        "vuejs-pagination"
+    ],
+    "author": "Pedro Del Moral Lopez",
+    "license": "ISC"
+}

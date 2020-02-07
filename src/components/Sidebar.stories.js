@@ -115,20 +115,20 @@ export const Sidebar = () => ({
         },
     },
     template: `
-    <div style="position: relative">
-        <n-sidebar
-            :flavor="flavor"
-            :sidebar-title="sidebarTitle"
-            :top-offset="topOffset"
-            :bottom-offset="bottomOffset"
-            :items="items"
-            :width="width"
-            :breakpoint="breakpoint">
-        </n-sidebar>
-        <sidebar-offset-content
-            :width="width"
-            :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
-    </div>
+        <div style="">
+            <n-sidebar
+                :flavor="flavor"
+                :sidebar-title="sidebarTitle"
+                :top-offset="topOffset"
+                :bottom-offset="bottomOffset"
+                :items="items"
+                :width="width"
+                :breakpoint="breakpoint">
+            </n-sidebar>
+            <sidebar-offset-content
+                :width="width"
+                :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
+        </div>
     `
 })
 

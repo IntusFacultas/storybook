@@ -5,7 +5,7 @@ import { withKnobs, array, text, boolean, object } from '@storybook/addon-knobs'
 import markdown from "Components/components/SelectMe/USAGE.md";
 
 export default {
-    title: 'Searchable Dropdown',
+    title: 'SelectMe',
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: { markdown }

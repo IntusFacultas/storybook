@@ -75,7 +75,7 @@ const Alert = styled("div", props)`
   -ms-animation: fadein 0.5s; /* Internet Explorer */
   -o-animation: fadein 0.5s; /* Opera < 12.1 */
   animation: fadein 0.5s;
-  
+
   @keyframes fadein {
     from {
       opacity: 0;
@@ -159,9 +159,7 @@ const Alert = styled("div", props)`
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "#f2f2f2"};
-  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: bold;
   & * {
