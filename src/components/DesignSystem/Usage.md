@@ -6,7 +6,7 @@ Configuration JS objects
 
 ## Installation
 ```bash
-npm install @intus/design-system --save
+npm install @intus/designsystem --save
 ```
 
 ## Purpose
@@ -17,4 +17,5 @@ This provides a set of themes used by a number of components. You can import the
 NIWSTheme
 TextTheme
 Theme
+ToastTheme
 ```
