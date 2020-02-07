@@ -2,14 +2,14 @@ import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 import { Paginator } from "Components/components/Paginator/Paginator.vue";
 import { action } from '@storybook/addon-actions';
-// import markdown from "Components/components/NASICHTML/CardUsage.md";
+import markdown from "Components/components/Paginator/Usage.md";
 
 export default {
     title: "Paginator",
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: {
-            // markdown
+            markdown
         }
     },
     excludeStories: /.*Data$/,
