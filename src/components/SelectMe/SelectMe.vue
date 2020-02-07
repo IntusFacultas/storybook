@@ -411,7 +411,7 @@ const SelectMe = {
         }
         self.selectedOptions.push(option);
       } else {
-        self.deselectOption(option);
+        self.deselectOption(option, !self.multiSelect);
       }
       self.optionSearch = "";
       if (!self.multiSelect) {

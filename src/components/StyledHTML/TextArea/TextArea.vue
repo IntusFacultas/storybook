@@ -48,6 +48,7 @@ export const NTextArea = styled("textarea", props)`
   padding: 2px 5px 2px 5px;
   margin-top: 2px;
   box-sizing: border-box;
+  transition: 0.2s box-shadow;
   font-family: "Roboto", sans-serif;
   &:focus {
     border-color: ${props =>

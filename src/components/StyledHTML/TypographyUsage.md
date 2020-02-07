@@ -11,17 +11,16 @@ These components functions similarly to a normal HTML5 text tags. You can place 
 
 
 ## Available Components
-- NSpan
-- NLabel
-- NP
 - NText
-- NSmall
-- NH1 - NH6
+- NLabel
+- NParagraph
+- NSmallText
+- NTopLevelTitle
 
 ## Usage
 
 ```html
-<n-span :flavor="Medium"></n-span>
+<n-text :flavor="Medium"></n-text>
 ```
 
 ## Configuration

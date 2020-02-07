@@ -50,6 +50,7 @@ export const NInput = styled("input", props)`
   border-style: solid;
   padding: 2px 5px 2px 5px;
   margin-top: 2px;
+  transition: 0.2s box-shadow;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   &:focus {

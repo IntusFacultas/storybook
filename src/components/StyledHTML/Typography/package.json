@@ -1,6 +1,6 @@
 {
   "name": "@intus/typography",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Provides styled text elements",
   "main": "Typography.vue",
   "scripts": {

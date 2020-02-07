@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { NH3 } from "@intus/typography";
+import { NSubSectionHeader } from "@intus/typography";
 import { DialogButton } from "@intus/button";
 import { VueInput } from "@intus/input";
 import { FlexRow, FlexColumn } from "@intus/layout";
@@ -7,7 +7,7 @@ import Theme from "@intus/designsystem";
 
 export const VueMeDialog = Vue.component('vueme-dialog', {
     components: {
-        NH3, DialogButton, VueInput, FlexRow, FlexColumn,
+        NSubSectionHeader, DialogButton, VueInput, FlexRow, FlexColumn,
     },
     data: function () {
         return {
@@ -58,7 +58,7 @@ export const VueMeDialog = Vue.component('vueme-dialog', {
                 <div class="vueme-dialog-content-container">
                     <div class="vueme-title-container">
                         <span v-html="dialogConfiguration.icon"></span>
-                        <n-h3 style="margin: 0px">{{dialogConfiguration.title}}</n-h3>
+                        <n-sub-section-header style="margin: 0px">{{dialogConfiguration.title}}</n-sub-section-header>
                     </div>
                     <div class="vueme-dialog-content">
                         <div v-html="dialogConfiguration.content"></div>
@@ -68,6 +68,7 @@ export const VueMeDialog = Vue.component('vueme-dialog', {
                                 :key="'field' + field.id"
                                 :name="'field' + field.id"
                                 :input-type="field.fieldType"
+                                :flavor="LightBlue"
                                 :label="field.label"
                                 @input="fieldValues[field.id] = $event">
                             </vue-input>

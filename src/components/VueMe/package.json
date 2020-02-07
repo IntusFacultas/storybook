@@ -1,6 +1,6 @@
 {
   "name": "@intus/vueme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A jQuery Confirm style configurable dialog for VueJS",
   "main": "vueMe.vue",
   "scripts": {

@@ -62,7 +62,9 @@ const IconContainer = styled("div", props)`
   padding-right: 0.5rem;
   font-size: 25px;
 `;
-const AlertContent = styled.div``;
+const AlertContent = styled.div`
+  word-break: break-word;
+`;
 const Alert = styled("div", props)`
   border-radius: 2px;
   padding: 1rem;
@@ -81,7 +83,7 @@ const Alert = styled("div", props)`
       opacity: 0;
     }
     to {
-      opacity: 0.85;
+      opacity: 1;
     }
   }
 
@@ -91,7 +93,7 @@ const Alert = styled("div", props)`
       opacity: 0;
     }
     to {
-      opacity: 0.85;
+      opacity: 1;
     }
   }
 
@@ -101,7 +103,7 @@ const Alert = styled("div", props)`
       opacity: 0;
     }
     to {
-      opacity: 0.85;
+      opacity: 1;
     }
   }
 
@@ -111,7 +113,7 @@ const Alert = styled("div", props)`
       opacity: 0;
     }
     to {
-      opacity: 0.85;
+      opacity: 1;
     }
   }
 
@@ -121,10 +123,10 @@ const Alert = styled("div", props)`
       opacity: 0;
     }
     to {
-      opacity: 0.85;
+      opacity: 1;
     }
   }
-  opacity: 0.85;
+  opacity: 1;
   & * {
     opacity: 1;
   }

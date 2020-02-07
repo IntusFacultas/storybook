@@ -16,7 +16,7 @@ const props = {
   }
 };
 
-export const NSpan = styled("span", props)`
+export const NText = styled("span", props)`
   color: ${props =>
     props.theme
       ? props.theme[props.flavor]
@@ -27,11 +27,10 @@ export const NSpan = styled("span", props)`
       : "#222"};
   font-family: "Roboto", sans-serif;
 `;
-export const NLabel = NSpan.withComponent("label", props);
-export const NP = NSpan.withComponent("p", props);
-export const NText = NSpan.withComponent("span", props);
-export const NSmall = NSpan.withComponent("small", props);
-export const NH1 = styled("h1", props)`
+export const NLabel = NText.withComponent("label", props);
+export const NParagraph = NText.withComponent("p", props);
+export const NSmallText = NText.withComponent("small", props);
+export const NTopLevelTitle = styled("h1", props)`
   color: ${props =>
     props.theme
       ? props.theme[props.flavor]
@@ -44,13 +43,78 @@ export const NH1 = styled("h1", props)`
   margin-top: 0px;
   margin-bottom: 5px;
 `;
-export const NH2 = NH1.withComponent("h2", props);
-export const NH3 = NH1.withComponent("h3", props);
-export const NH4 = NH1.withComponent("h4", props);
-export const NH5 = NH1.withComponent("h5", props);
-export const NH6 = NH1.withComponent("h6", props);
+export const NCategoryHeader = styled("h2", props)`
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 26px;
+`;
+export const NSubCategoryHeader = styled("h3", props)`
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 23px;
+`;
+export const NSectionHeader = styled("h4", props)`
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 19px;
+`;
+export const NSubSectionHeader = styled("h5", props)`
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 17px;
+`;
+export const NKeyword = styled("h6", props)`
+  color: ${props =>
+    props.theme
+      ? props.theme[props.flavor]
+        ? props.theme[props.flavor]
+        : props.colors[props.flavor]
+      : props.colors[props.flavor]
+      ? props.colors[props.flavor]
+      : "#222"};
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 16px;
+`;
 
-export default NSpan;
+export default NText;
 </script>
 
 <style scoped>

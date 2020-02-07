@@ -1,7 +1,7 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { NCard } from "Components/components/StyledHTML/Card/Card.vue";
-import { NH3, NText, NSmall } from "Components/components/StyledHTML/Typography/Typography.vue";
+import { NSubCategoryHeader, NText, NSmall } from "Components/components/StyledHTML/Typography/Typography.vue";
 import markdown from "Components/components/StyledHTML/CardUsage.md";
 
 export default {
@@ -16,7 +16,7 @@ export default {
 };
 
 export const ConfigurableCard = () => ({
-    components: { "n-card": NCard, NH3, NText, NSmall },
+    components: { "n-card": NCard, NSubCategoryHeader, NText, NSmall },
     props: {
         headerFlavor: {
             default: text("Header Flavor", "Primary"),
@@ -45,7 +45,7 @@ export const ConfigurableCard = () => ({
             :bordered="bordered"
             :header="header"
             :footer="footer">
-            <template v-slot:header><n-h3>Test Header</n-h3></template>
+            <template v-slot:header><n-sub-category-header>Test Header</n-sub-category-header></template>
             <template v-slot:body><n-text>Sample body</n-text></template>
             <template v-slot:footer><n-small>This is a footer</n-small></template>
         </n-card>

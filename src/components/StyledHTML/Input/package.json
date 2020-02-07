@@ -1,6 +1,6 @@
 {
   "name": "@intus/input",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Provides an accessible input component",
   "main": "Input.vue",
   "scripts": {

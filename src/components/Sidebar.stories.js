@@ -3,7 +3,7 @@ import { NRawSidebar } from "Components/components/Navbars/RawSidebar/RawSidebar
 import { FlexRow } from "Components/components/Layout/Layout.vue";
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, array, text, boolean, object, number } from '@storybook/addon-knobs';
-import { NText, NH1 } from "Components/components/StyledHTML/Typography/Typography.vue";
+import { NText, NTopLevelTitle } from "Components/components/StyledHTML/Typography/Typography.vue";
 import { VueInput } from "Components/components/StyledHTML/Input/Input.vue"
 import markdown from "Components/components/Navbars/SidebarUsage.md";
 import rawmarkdown from "Components/components/Navbars/RawSidebarUsage.md";
@@ -21,7 +21,7 @@ export default {
 };
 
 export const Sidebar = () => ({
-    components: { NSidebar, FlexRow, SidebarOffsetContent, NText, NH1 },
+    components: { NSidebar, FlexRow, SidebarOffsetContent, NText, NTopLevelTitle },
     props: {
         flavor: {
             default: text("Sidebar Flavor", "")
@@ -133,7 +133,7 @@ export const Sidebar = () => ({
 })
 
 export const RawSidebar = () => ({
-    components: { NRawSidebar, FlexRow, SidebarOffsetContent, NText, NH1, VueInput },
+    components: { NRawSidebar, FlexRow, SidebarOffsetContent, NText, NTopLevelTitle, VueInput },
     props: {
         flavor: {
             default: text("Sidebar Flavor", "")
@@ -164,7 +164,7 @@ export const RawSidebar = () => ({
             :width="width"
             :breakpoint="breakpoint"
         >
-            <n-h1>This is raw HTMl piped into my sidebar</n-h1>
+            <n-top-level-title>This is raw HTMl piped into my sidebar</n-top-level-title>
             <vue-input name="sampleInput" label="This is a label in my sidebar" type="text"></vue-input>
         </n-raw-sidebar>
         <sidebar-offset-content :width="width" :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>

@@ -1,7 +1,7 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { FlexRow, FlexColumn } from "Components/components/Layout/Layout.vue";
 import {
-    NSpan, NP, NH1, NH2, NH3, NH4, NH5, NH6, NSmall
+    NText, NParagraph, NTopLevelTitle, NCategoryHeader, NSubCategoryHeader, NSectionHeader, NSubSectionHeader, NKeyword, NSmallText
 } from "Components/components/StyledHTML/Typography/Typography.vue"
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
 import { Theme, TextTheme, ToastTheme } from "Components/components/DesignSystem/theme.js";
@@ -22,7 +22,7 @@ export default {
 export const DesignSystem = () => ({
     components: {
         FlexColumn, FlexRow, ColorSwatch,
-        NSpan, NP, NH1, NH2, NH3, NH4, NH5, NH6, NSmall
+        NText, NParagraph, NTopLevelTitle, NCategoryHeader, NSubCategoryHeader, NSectionHeader, NSubSectionHeader, NKeyword, NSmallText
     },
     data: function () {
         return {
@@ -69,7 +69,7 @@ export const DesignSystem = () => ({
     },
     template: `
         <div>
-            <n-h1>Color Swatches</n-h1>
+            <n-top-level-title>Color Swatches</n-top-level-title>
             <hr/>
             <flex-row v-for="list in splitArray(theme, limit)" style="padding-top:10px">
                 <div v-for="obj in list" style="display: flex">
@@ -85,7 +85,7 @@ export const DesignSystem = () => ({
                     </color-swatch>
                 </div>
             </flex-row>
-            <n-h1>Text Colors</n-h1>
+            <n-top-level-title>Text Colors</n-top-level-title>
             <hr/>
             <flex-row style="padding-top:10px">
                 <color-swatch 
@@ -94,7 +94,7 @@ export const DesignSystem = () => ({
                     :color="texts[obj]">
                 </color-swatch>
             </flex-row>
-            <n-h1>Toast Colors</n-h1>
+            <n-top-level-title>Toast Colors</n-top-level-title>
             <hr/>
             <flex-row v-for="list in splitArray(toast, 4)" style="padding-top:10px">
                 <div v-for="obj in list" style="display: flex">
@@ -105,50 +105,50 @@ export const DesignSystem = () => ({
                     </color-swatch>
                 </div>
             </flex-row>
-            <n-h1>Typography</n-h1><hr/>
+            <n-top-level-title>Typography</n-top-level-title><hr/>
             <flex-row>
                 <flex-column style="flex-direction: column; padding-top: 10px;">
-                    <n-h1>This is a normal h1 header</n-h1>
-                    <n-h2>This is a normal h2 header</n-h2>
-                    <n-h3>This is a normal h3 header</n-h3>
-                    <n-h4>This is a normal h4 header</n-h4>
-                    <n-h5>This is a normal h5 header</n-h5>
-                    <n-h6>This is a normal h6 header</n-h6>
-                    <n-h1 flavor="Medium">This is a medium h1 header</n-h1>
-                    <n-h2 flavor="Medium">This is a medium h2 header</n-h2>
-                    <n-h3 flavor="Medium">This is a medium h3 header</n-h3>
-                    <n-h4 flavor="Medium">This is a medium h4 header</n-h4>
-                    <n-h5 flavor="Medium">This is a medium h5 header</n-h5>
-                    <n-h6 flavor="Medium">This is a medium h6 header</n-h6>
-                    <n-h1 flavor="Light">This is a light h1 header</n-h1>
-                    <n-h2 flavor="Light">This is a light h2 header</n-h2>
-                    <n-h3 flavor="Light">This is a light h3 header</n-h3>
-                    <n-h4 flavor="Light">This is a light h4 header</n-h4>
-                    <n-h5 flavor="Light">This is a light h5 header</n-h5>
-                    <n-h6 flavor="Light">This is a light h6 header</n-h6>
+                    <n-top-level-title>This is a normal top level title</n-top-level-title>
+                    <n-category-header>This is a normal category header</n-category-header>
+                    <n-sub-category-header>This is a normal subcategory header</n-sub-category-header>
+                    <n-section-header>This is a normal section header</n-section-header>
+                    <n-sub-section-header>This is a normal subsection header</n-sub-section-header>
+                    <n-keyword>This is a normal keyword</n-keyword>
+                    <n-top-level-title flavor="Medium">This is a medium top level title</n-top-level-title>
+                    <n-category-header flavor="Medium">This is a medium category header</n-category-header>
+                    <n-sub-category-header flavor="Medium">This is a medium subcategory header</n-sub-category-header>
+                    <n-section-header flavor="Medium">This is a medium section header</n-section-header>
+                    <n-sub-section-header flavor="Medium">This is a medium subsection header</n-sub-section-header>
+                    <n-keyword flavor="Medium">This is a medium keyword</n-keyword>
+                    <n-top-level-title flavor="Light">This is a light top level title</n-top-level-title>
+                    <n-category-header flavor="Light">This is a light category header</n-category-header>
+                    <n-sub-category-header flavor="Light">This is a light subcategory header</n-sub-category-header>
+                    <n-section-header flavor="Light">This is a light section header</n-section-header>
+                    <n-sub-section-header flavor="Light">This is a light subsection header</n-sub-section-header>
+                    <n-keyword flavor="Light">This is a light keyword</n-keyword>
                     <div style="background-color: #222">
-                        <n-h1 flavor="White">This is a white h1 header</n-h1>
-                        <n-h2 flavor="White">This is a white h2 header</n-h2>
-                        <n-h3 flavor="White">This is a white h3 header</n-h3>
-                        <n-h4 flavor="White">This is a white h4 header</n-h4>
-                        <n-h5 flavor="White">This is a white h5 header</n-h5>
-                        <n-h6 flavor="White">This is a white h6 header</n-h6>
+                        <n-top-level-title flavor="White">This is a white top level title</n-top-level-title>
+                        <n-category-header flavor="White">This is a white category header</n-category-header>
+                        <n-sub-category-header flavor="White">This is a white subcategory header</n-sub-category-header>
+                        <n-section-header flavor="White">This is a white section header</n-section-header>
+                        <n-sub-section-header flavor="White">This is a white subsection header</n-sub-section-header>
+                        <n-keyword flavor="White">This is a white keyword</n-keyword>
                     </div>
-                    <n-span>This is a normal span</n-span>
-                    <n-p>This is a normal paragraph</n-p>
-                    <n-span flavor="Medium">This is a medium span</n-span>
-                    <n-p flavor="Medium">This is a medium paragraph</n-p>
-                    <n-span flavor="Light">This is a light span</n-span>
-                    <n-p flavor="Light">This is a light paragraph</n-p>
+                    <n-text>This is a normal text</n-text>
+                    <n-paragraph>This is a normal paragraph</n-paragraph>
+                    <n-text flavor="Medium">This is a medium text</n-text>
+                    <n-paragraph flavor="Medium">This is a medium paragraph</n-paragraph>
+                    <n-text flavor="Light">This is a light text</n-text>
+                    <n-paragraph flavor="Light">This is a light paragraph</n-paragraph>
                     <div style="background-color: #222">
-                        <n-span flavor="White">This is a white span</n-span>
-                        <n-p flavor="White">This is a white paragraph</n-p>
+                        <n-text flavor="White">This is a white text</n-text>
+                        <n-paragraph flavor="White">This is a white paragraph</n-paragraph>
                     </div>
-                    <n-small>This is a normal small</n-small>
-                    <n-small flavor="Medium">This is a medium small</n-small>
-                    <n-small flavor="Light">This is a light small</n-small>
+                    <n-small-text>This is a normal small</n-small-text>
+                    <n-small-text flavor="Medium">This is a medium small</n-small-text>
+                    <n-small-text flavor="Light">This is a light small</n-small-text>
                     <div style="background-color: #222">
-                        <n-small flavor="White">This is a white small</n-small>
+                        <n-small-text flavor="White">This is a white small</n-small-text>
                     </div>
                 </flex-column>
             </flex-row>

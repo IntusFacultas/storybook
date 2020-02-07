@@ -87,6 +87,23 @@ export const NIWSTheme = {
     }
 }
 export const Theme = {
+    "LightBlue": {
+        color: {
+            color: "#222",
+            hover: "#222",
+            focus: "#222"
+        },
+        background: {
+            color: "#08B2E3",
+            hover: "#02A4D2",
+            focus: "#08B2E3"
+        },
+        border: {
+            color: "#08B2E3",
+            hover: "#08B2E3",
+            focus: "#08B2E3",
+        }
+    },
     "Light": {
         color: {
             color: "#222",
@@ -238,14 +255,14 @@ export const ToastTheme = {
             focus: "#222",
         },
         background: {
-            color: "#fec700",
-            hover: "#fec700",
-            focus: "#fec700"
+            color: "#fbff00",
+            hover: "#fbff00",
+            focus: "#fbff00"
         },
         border: {
-            color: "#fec700",
-            hover: "#fec700",
-            focus: "#fec700",
+            color: "#eaee00",
+            hover: "#eaee00",
+            focus: "#eaee00",
         }
     },
     "danger": {
@@ -260,9 +277,9 @@ export const ToastTheme = {
             focus: "#890620",
         },
         border: {
-            color: "#670014",
-            hover: "#670014",
-            focus: "#670014",
+            color: "#40000d",
+            hover: "#40000d",
+            focus: "#40000d",
         }
     },
     "success": {
@@ -272,14 +289,14 @@ export const ToastTheme = {
             focus: "#fff",
         },
         background: {
-            color: "#4E937A",
-            hover: "#4E937A",
-            focus: "#4E937A"
+            color: "#006f13",
+            hover: "#006f13",
+            focus: "#006f13"
         },
         border: {
-            color: "#2B775C",
-            hover: "#2B775C",
-            focus: "#2B775C",
+            color: "#00460c",
+            hover: "#00460c",
+            focus: "#00460c",
         }
     },
     "info": {
@@ -289,14 +306,14 @@ export const ToastTheme = {
             focus: "#fff"
         },
         background: {
-            color: "#4E8098",
-            hover: "#4E8098",
-            focus: "#4E8098",
+            color: "#0068c2",
+            hover: "#0068c2",
+            focus: "#0068c2",
         },
         border: {
-            color: "#316780",
-            hover: "#316780",
-            focus: "#316780"
+            color: "#00427b",
+            hover: "#00427b",
+            focus: "#00427b"
         }
     }
 }
