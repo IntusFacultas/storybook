@@ -5,6 +5,14 @@
 
 These components overhaul the basic HTML text with styled text components
 
+## Installation
+
+```bash
+
+npm install @intus/typography --save
+
+```
+
 ## Usage
 
 These components functions similarly to a normal HTML5 text tags. You can place content inside of them as you normally would.

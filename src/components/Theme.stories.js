@@ -6,13 +6,15 @@ import {
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
 import { Theme, TextTheme, ToastTheme } from "Components/components/DesignSystem/theme.js";
 import markdown from 'Components/components/DesignSystem/Usage.md';
+import textmarkdown from 'Components/components/StyledHTML/TypographyUsage.md';
 
 export default {
     title: 'Design System',
     decorators: [withA11y],
     parameters: {
         notes: {
-            markdown
+            Colors: markdown,
+            Text: textmarkdown
         }
     },
     // Our exports that end in "Data" are not stories.
