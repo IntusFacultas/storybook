@@ -16,6 +16,11 @@ These components functions similarly to a normal HTML5 text tags. You can place 
 - NParagraph
 - NSmallText
 - NTopLevelTitle
+- NSectionTitle
+- NSubSectionTitle
+- NCategoryTitle
+- NSubCategoryTitle
+- NKeyword
 
 ## Usage
 
