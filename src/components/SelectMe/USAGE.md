@@ -121,7 +121,13 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <td>`input`</td>
             <td>`@input`</td>
             <td>Currently Selected Options</td>
-            <td>Fired on selectio</td>
+            <td>Fired on selection</td>
+        </tr>
+        <tr>
+            <td>`focus`</td>
+            <td>`@focus`</td>
+            <td>N/A</td>
+            <td>Fired on focus of input</td>
         </tr>
     </tbody>
 </table>
