@@ -25,7 +25,6 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
 ```
 
 ## Configuration
-
 <table>
     <thead>
         <tr>
@@ -129,7 +128,7 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
             <td>&nbsp;</td>
         </tr>
     </tbody>
-
+</table>
     
 ## Events
 
