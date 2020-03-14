@@ -8,7 +8,7 @@
     :breakpoint="breakpoint"
   >
     <sidebar-title :flavor="flavor">
-      <n-text :size="16">{{ sidebarTitle }}</text>
+      <text :size="16">{{ sidebarTitle }}</text>
       <sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </sidebar-hamburger-container>

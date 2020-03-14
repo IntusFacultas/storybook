@@ -3126,7 +3126,7 @@ var Paginator = (function () {
   var styled = _styled(_styledComponent(_componentStyle(generateAlphabeticName)));
 
   var NIWSTheme = {
-    "TASK": {
+    TASK: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
@@ -3143,7 +3143,7 @@ var Paginator = (function () {
         focus: "2px solid #51BAF4"
       }
     },
-    "REWORK": {
+    REWORK: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
@@ -3160,7 +3160,7 @@ var Paginator = (function () {
         focus: "2px solid #ED9406"
       }
     },
-    "START": {
+    START: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
@@ -3177,7 +3177,7 @@ var Paginator = (function () {
         focus: "2px solid #2EE591"
       }
     },
-    "COMPLETE": {
+    COMPLETE: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
@@ -3194,7 +3194,7 @@ var Paginator = (function () {
         focus: "2px solid #735D87"
       }
     },
-    "CANCEL": {
+    CANCEL: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
@@ -3213,7 +3213,7 @@ var Paginator = (function () {
     }
   };
   var AlertTheme = {
-    "warning": {
+    warning: {
       color: {
         color: "#222",
         hover: "#222",
@@ -3230,7 +3230,7 @@ var Paginator = (function () {
         focus: "#fec700"
       }
     },
-    "danger": {
+    danger: {
       color: {
         color: "#fff",
         hover: "#fff",
@@ -3247,7 +3247,7 @@ var Paginator = (function () {
         focus: "#670014"
       }
     },
-    "success": {
+    success: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3264,7 +3264,7 @@ var Paginator = (function () {
         focus: "#00642E"
       }
     },
-    "info": {
+    info: {
       color: {
         color: "#000",
         hover: "#000",
@@ -3282,8 +3282,9 @@ var Paginator = (function () {
       }
     }
   };
-  var NASICTheme = _objectSpread2({
-    "Light": {
+
+  var Theme = _objectSpread2({
+    Light: {
       color: {
         color: "#222",
         hover: "#222",
@@ -3300,7 +3301,7 @@ var Paginator = (function () {
         focus: "#DDE4E9"
       }
     },
-    "Secondary": {
+    Secondary: {
       color: {
         color: "#fff",
         hover: "#fff",
@@ -3317,7 +3318,7 @@ var Paginator = (function () {
         focus: "#525D67"
       }
     },
-    "Dark": {
+    Dark: {
       color: {
         color: "#fff",
         hover: "#fff",
@@ -3334,7 +3335,7 @@ var Paginator = (function () {
         focus: "#4F575E"
       }
     },
-    "Primary": {
+    Primary: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3351,7 +3352,7 @@ var Paginator = (function () {
         focus: "#2940A1"
       }
     },
-    "Info": {
+    Info: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3368,7 +3369,7 @@ var Paginator = (function () {
         focus: "#36938F"
       }
     },
-    "Warning": {
+    Warning: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3385,7 +3386,7 @@ var Paginator = (function () {
         focus: "#D15A14"
       }
     },
-    "Danger": {
+    Danger: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3402,7 +3403,7 @@ var Paginator = (function () {
         focus: "#560002"
       }
     },
-    "Success": {
+    Success: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3419,7 +3420,7 @@ var Paginator = (function () {
         focus: "#00642E"
       }
     },
-    "LightBlue": {
+    LightBlue: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3436,7 +3437,7 @@ var Paginator = (function () {
         focus: "#38a5ca"
       }
     },
-    "AirBlue": {
+    AirBlue: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3453,7 +3454,7 @@ var Paginator = (function () {
         focus: "#2386d7"
       }
     },
-    "MissileOrange": {
+    MissileOrange: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3470,7 +3471,7 @@ var Paginator = (function () {
         focus: "#C65800"
       }
     },
-    "CyberYellow": {
+    CyberYellow: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3487,7 +3488,7 @@ var Paginator = (function () {
         focus: "#D4A609"
       }
     },
-    "SpaceTeal": {
+    SpaceTeal: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3504,7 +3505,7 @@ var Paginator = (function () {
         focus: "#00BBAE"
       }
     },
-    "INTsMagenta": {
+    INTsMagenta: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3521,7 +3522,7 @@ var Paginator = (function () {
         focus: "#FA1FBD"
       }
     },
-    "RegionGreen": {
+    RegionGreen: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3538,7 +3539,7 @@ var Paginator = (function () {
         focus: "#B0CF2E"
       }
     },
-    "Sky": {
+    Sky: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3555,7 +3556,7 @@ var Paginator = (function () {
         focus: "#57BDFF"
       }
     },
-    "Apricot": {
+    Apricot: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3572,7 +3573,7 @@ var Paginator = (function () {
         focus: "#D88B51"
       }
     },
-    "Aqua": {
+    Aqua: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3589,7 +3590,7 @@ var Paginator = (function () {
         focus: "#25EEB1"
       }
     },
-    "Sunny": {
+    Sunny: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3606,7 +3607,7 @@ var Paginator = (function () {
         focus: "#D7C949"
       }
     },
-    "Moss": {
+    Moss: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3623,7 +3624,7 @@ var Paginator = (function () {
         focus: "#C5FF38"
       }
     },
-    "Pink": {
+    Pink: {
       color: {
         color: "#222",
         focus: "#222",
@@ -3640,7 +3641,7 @@ var Paginator = (function () {
         focus: "#E486EE"
       }
     },
-    "Deep": {
+    Deep: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3657,7 +3658,7 @@ var Paginator = (function () {
         focus: "#000B12"
       }
     },
-    "Bark": {
+    Bark: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3674,7 +3675,7 @@ var Paginator = (function () {
         focus: "#2B0E01"
       }
     },
-    "Jungle": {
+    Jungle: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3691,7 +3692,7 @@ var Paginator = (function () {
         focus: "#003933"
       }
     },
-    "Spice": {
+    Spice: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3708,7 +3709,7 @@ var Paginator = (function () {
         focus: "#4A3700"
       }
     },
-    "Olive": {
+    Olive: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3725,7 +3726,7 @@ var Paginator = (function () {
         focus: "#2F3703"
       }
     },
-    "Plum": {
+    Plum: {
       color: {
         color: "#fff",
         focus: "#fff",
@@ -3790,7 +3791,7 @@ var Paginator = (function () {
     defaultTheme: {
       type: Object,
       default: function _default() {
-        return NASICTheme;
+        return Theme;
       }
     }
   };
@@ -4261,7 +4262,7 @@ var Paginator = (function () {
     /* style */
     const __vue_inject_styles__ = function (inject) {
       if (!inject) return
-      inject("data-v-351d11af_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Paginator.vue"}, media: undefined });
+      inject("data-v-e4a5b640_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Paginator.vue"}, media: undefined });
 
     };
     /* scoped */

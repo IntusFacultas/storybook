@@ -15,6 +15,11 @@
     "start": "rollup -c --watch --environment SERVE:true",
     "build": "rollup -c"
   },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/IntusFacultas/NPM_REPO",
+    "directory": "packages/table-of-contents"
+  },
   "dependencies": {
     "@IntusFacultas/design-system": "^1.5.2",
     "core-js": "^3.2.1",
@@ -37,7 +42,8 @@
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",
-    "rollup-plugin-vue": "^5.1.6"
+    "rollup-plugin-vue": "^5.1.6",
+    "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {
     "vue": "^2.6.10"

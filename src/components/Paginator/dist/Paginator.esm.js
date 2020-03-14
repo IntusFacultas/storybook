@@ -1,26 +1,20 @@
-import styled from "vue-styled-components";
-import Theme from "@intus/design-system";
+import styled from 'vue-styled-components';
+import Theme from '@IntusFacultas/design-system';
 
 function _taggedTemplateLiteral(strings, raw) {
   if (!raw) {
     raw = strings.slice(0);
   }
 
-  return Object.freeze(
-    Object.defineProperties(strings, {
-      raw: {
-        value: Object.freeze(raw)
-      }
-    })
-  );
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral([
-    "\n  ",
-    "\n  ",
-    "\n  padding: 0.5rem 0.75rem;\n  border-width: 1px;\n  border-style: solid;\n  min-height: 39px;\n  display: block;\n  font-weight: bold;\n  font-size: 16px;\n  cursor: pointer;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n"
-  ]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  padding: 0.5rem 0.75rem;\n  border-width: 1px;\n  border-style: solid;\n  min-height: 39px;\n  display: block;\n  font-weight: bold;\n  font-size: 16px;\n  cursor: pointer;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40,9 +34,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral([
-    "\n  padding-left: 0px;\n  display: flex;\n  list-style: none;\n"
-  ]);
+  var data = _taggedTemplateLiteral(["\n  padding-left: 0px;\n  display: flex;\n  list-style: none;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -52,17 +44,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral([
-    '\n  & button {\n    font-family: "Roboto", sans-serif;\n    background-color: ',
-    ";\n    color: ",
-    ";\n    border-color: ",
-    ";\n  }\n  & button:focus {\n    outline: none;\n    box-shadow: 0 0 0 0.2rem\n      ",
-    ";\n    color: ",
-    ";\n  }\n  & button:hover {\n    background-color: ",
-    ";\n    color: ",
-    ";\n    border-color: ",
-    ";\n  }\n  & * {\n    -webkit-touch-callout: none; /* iOS Safari */\n    -webkit-user-select: none; /* Safari */\n    -khtml-user-select: none; /* Konqueror HTML */\n    -moz-user-select: none; /* Old versions of Firefox */\n    -ms-user-select: none; /* Internet Explorer/Edge */\n    user-select: none;\n  }\n"
-  ]);
+  var data = _taggedTemplateLiteral(["\n  & button {\n    font-family: \"Roboto\", sans-serif;\n    background-color: ", ";\n    color: ", ";\n    border-color: ", ";\n  }\n  & button:focus {\n    outline: none;\n    box-shadow: 0 0 0 0.2rem\n      ", ";\n    color: ", ";\n  }\n  & button:hover {\n    background-color: ", ";\n    color: ", ";\n    border-color: ", ";\n  }\n  & * {\n    -webkit-touch-callout: none; /* iOS Safari */\n    -webkit-user-select: none; /* Safari */\n    -khtml-user-select: none; /* Konqueror HTML */\n    -moz-user-select: none; /* Old versions of Firefox */\n    -ms-user-select: none; /* Internet Explorer/Edge */\n    user-select: none;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -81,108 +63,32 @@ var props = {
     }
   }
 };
-var PaginationContainer = styled("nav", props)(
-  _templateObject(),
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].background.color
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].background.color
-      : "#fff";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].color.color
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].color.color
-      : "#222";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].border.color
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].border.color
-      : "#d9d9d9";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].background.color + "80"
-      : props.defaultTheme[props.flavor] &&
-        props.defaultTheme[props.flavor].background.color
-      ? props.defaultTheme[props.flavor].background.color + "80"
-      : "#ddcccc80";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].color.focus
-      : props.defaultTheme[props.flavor] &&
-        props.defaultTheme[props.flavor].color.focus
-      ? props.defaultTheme[props.flavor].color.focus
-      : "#000";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].background.hover
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].background.hover
-      : "#d5d5d5";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].color.hover
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].color.hover
-      : "#222";
-  },
-  function(props) {
-    return props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].border.hover
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].border.hover
-      : "#d5d5d5";
-  }
-);
+var PaginationContainer = styled("nav", props)(_templateObject(), function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#fff";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.color : "#222";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.color : "#d9d9d9";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color + "80" : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color + "80" : "#ddcccc80";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.focus : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.focus ? props.defaultTheme[props.flavor].color.focus : "#000";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.hover : "#d5d5d5";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.hover : "#222";
+}, function (props) {
+  return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.hover : "#d5d5d5";
+});
 var PaginationList = styled("ul", props)(_templateObject2());
-var PaginationItem = styled("li", props)(_templateObject3(), function(props) {
+var PaginationItem = styled("li", props)(_templateObject3(), function (props) {
   return props.active ? "\n    background-color: rgba(0,0,0, .15)\n  " : "";
 });
-var PaginationButton = styled("button", props)(
-  _templateObject4(),
-  function(props) {
-    return props.disabled
-      ? "\n        opacity: 0.9;\n        cursor: not-allowed;\n        pointer-events: none;\n    "
-      : "";
-  },
-  function(props) {
-    return props.active
-      ? "\n        pointer-events: none;\n        border-bottom-width: 2px;\n        background-color: "
-          .concat(
-            props.theme && props.theme[props.flavor]
-              ? props.theme[props.flavor].background.hover
-              : props.defaultTheme[props.flavor]
-              ? props.defaultTheme[props.flavor].background.hover
-              : "#e8e8e8",
-            " !important;\n        color: "
-          )
-          .concat(
-            props.theme && props.theme[props.flavor]
-              ? props.theme[props.flavor].color.hover
-              : props.defaultTheme[props.flavor]
-              ? props.defaultTheme[props.flavor].color.hover
-              : "#222",
-            " !important;\n        border-color: "
-          )
-          .concat(
-            props.theme && props.theme[props.flavor]
-              ? props.theme[props.flavor].border.hover
-              : props.defaultTheme[props.flavor]
-              ? props.defaultTheme[props.flavor].border.hover
-              : "#d5d5d5",
-            " !important;\n    "
-          )
-      : "";
-  }
-);
+var PaginationButton = styled("button", props)(_templateObject4(), function (props) {
+  return props.disabled ? "\n        opacity: 0.9;\n        cursor: not-allowed;\n        pointer-events: none;\n    " : "";
+}, function (props) {
+  return props.active ? "\n        pointer-events: none;\n        border-bottom-width: 2px;\n        background-color: ".concat(props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.hover : "#e8e8e8", " !important;\n        color: ").concat(props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.hover : "#222", " !important;\n        border-color: ").concat(props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.hover : "#d5d5d5", " !important;\n    ") : "";
+});
 var Paginator = {
   components: {
     PaginationContainer: PaginationContainer,
@@ -284,149 +190,137 @@ var Paginator = {
         return this.pages.slice(this.rightFence, this.pageCount);
       }
 
-      return this.pages.slice(
-        this.pageCount - this.marginPages,
-        this.pageCount
-      );
+      return this.pages.slice(this.pageCount - this.marginPages, this.pageCount);
     }
   }
 };
 
-function normalizeComponent(
-  template,
-  style,
-  script,
-  scopeId,
-  isFunctionalTemplate,
-  moduleIdentifier /* server only */,
-  shadowMode,
-  createInjector,
-  createInjectorSSR,
-  createInjectorShadow
-) {
-  if (typeof shadowMode !== "boolean") {
-    createInjectorSSR = createInjector;
-    createInjector = shadowMode;
-    shadowMode = false;
-  }
-  // Vue.extend constructor export interop.
-  const options = typeof script === "function" ? script.options : script;
-  // render functions
-  if (template && template.render) {
-    options.render = template.render;
-    options.staticRenderFns = template.staticRenderFns;
-    options._compiled = true;
-    // functional template
-    if (isFunctionalTemplate) {
-      options.functional = true;
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+        createInjectorSSR = createInjector;
+        createInjector = shadowMode;
+        shadowMode = false;
     }
-  }
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId;
-  }
-  let hook;
-  if (moduleIdentifier) {
-    // server build
-    hook = function(context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-        context = __VUE_SSR_CONTEXT__;
-      }
-      // inject component styles
-      if (style) {
-        style.call(this, createInjectorSSR(context));
-      }
-      // register component module identifier for async chunk inference
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier);
-      }
-    };
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook;
-  } else if (style) {
-    hook = shadowMode
-      ? function(context) {
-          style.call(
-            this,
-            createInjectorShadow(context, this.$root.$options.shadowRoot)
-          );
+    // Vue.extend constructor export interop.
+    const options = typeof script === 'function' ? script.options : script;
+    // render functions
+    if (template && template.render) {
+        options.render = template.render;
+        options.staticRenderFns = template.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
         }
-      : function(context) {
-          style.call(this, createInjector(context));
-        };
-  }
-  if (hook) {
-    if (options.functional) {
-      // register for functional component in vue file
-      const originalRender = options.render;
-      options.render = function renderWithStyleInjection(h, context) {
-        hook.call(context);
-        return originalRender(h, context);
-      };
-    } else {
-      // inject component registration as beforeCreate hook
-      const existing = options.beforeCreate;
-      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-  }
-  return script;
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    let hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (style) {
+                style.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (style) {
+        hook = shadowMode
+            ? function (context) {
+                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                style.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            const originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            const existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return script;
 }
 
-const isOldIE =
-  typeof navigator !== "undefined" &&
-  /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+const isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
 function createInjector(context) {
-  return (id, style) => addStyle(id, style);
+    return (id, style) => addStyle(id, style);
 }
 let HEAD;
 const styles = {};
 function addStyle(id, css) {
-  const group = isOldIE ? css.media || "default" : id;
-  const style =
-    styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-  if (!style.ids.has(id)) {
-    style.ids.add(id);
-    let code = css.source;
-    if (css.map) {
-      // https://developer.chrome.com/devtools/docs/javascript-debugging
-      // this makes source maps inside style tags work properly in Chrome
-      code += "\n/*# sourceURL=" + css.map.sources[0] + " */";
-      // http://stackoverflow.com/a/26603875
-      code +=
-        "\n/*# sourceMappingURL=data:application/json;base64," +
-        btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-        " */";
+    const group = isOldIE ? css.media || 'default' : id;
+    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        let code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                style.element.setAttribute('media', css.media);
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            const index = style.ids.size - 1;
+            const textNode = document.createTextNode(code);
+            const nodes = style.element.childNodes;
+            if (nodes[index])
+                style.element.removeChild(nodes[index]);
+            if (nodes.length)
+                style.element.insertBefore(textNode, nodes[index]);
+            else
+                style.element.appendChild(textNode);
+        }
     }
-    if (!style.element) {
-      style.element = document.createElement("style");
-      style.element.type = "text/css";
-      if (css.media) style.element.setAttribute("media", css.media);
-      if (HEAD === undefined) {
-        HEAD = document.head || document.getElementsByTagName("head")[0];
-      }
-      HEAD.appendChild(style.element);
-    }
-    if ("styleSheet" in style.element) {
-      style.styles.push(code);
-      style.element.styleSheet.cssText = style.styles
-        .filter(Boolean)
-        .join("\n");
-    } else {
-      const index = style.ids.size - 1;
-      const textNode = document.createTextNode(code);
-      const nodes = style.element.childNodes;
-      if (nodes[index]) style.element.removeChild(nodes[index]);
-      if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-      else style.element.appendChild(textNode);
-    }
-  }
 }
 
 /* script */
@@ -453,7 +347,7 @@ var __vue_render__ = function() {
                     {
                       on: {
                         click: function($event) {
-                          return _vm.select(1);
+                          return _vm.select(1)
                         }
                       }
                     },
@@ -472,7 +366,7 @@ var __vue_render__ = function() {
                 {
                   on: {
                     click: function($event) {
-                      return _vm.step(-1);
+                      return _vm.step(-1)
                     }
                   }
                 },
@@ -492,7 +386,7 @@ var __vue_render__ = function() {
                   {
                     on: {
                       click: function($event) {
-                        return _vm.select(page);
+                        return _vm.select(page)
                       }
                     }
                   },
@@ -500,7 +394,7 @@ var __vue_render__ = function() {
                 )
               ],
               1
-            );
+            )
           }),
           _vm._v(" "),
           _vm.leftMargin.length == _vm.marginPages
@@ -532,7 +426,7 @@ var __vue_render__ = function() {
                     },
                     on: {
                       click: function($event) {
-                        return _vm.select(page);
+                        return _vm.select(page)
                       }
                     }
                   },
@@ -540,7 +434,7 @@ var __vue_render__ = function() {
                 )
               ],
               1
-            );
+            )
           }),
           _vm._v(" "),
           _vm.rightMargin.length == _vm.marginPages
@@ -565,7 +459,7 @@ var __vue_render__ = function() {
                   {
                     on: {
                       click: function($event) {
-                        return _vm.select(page);
+                        return _vm.select(page)
                       }
                     }
                   },
@@ -573,7 +467,7 @@ var __vue_render__ = function() {
                 )
               ],
               1
-            );
+            )
           }),
           _vm._v(" "),
           _c(
@@ -584,7 +478,7 @@ var __vue_render__ = function() {
                 {
                   on: {
                     click: function($event) {
-                      return _vm.step(1);
+                      return _vm.step(1)
                     }
                   }
                 },
@@ -603,7 +497,7 @@ var __vue_render__ = function() {
                     {
                       on: {
                         click: function($event) {
-                          return _vm.select(_vm.pageCount);
+                          return _vm.select(_vm.pageCount)
                         }
                       }
                     },
@@ -618,49 +512,41 @@ var __vue_render__ = function() {
       )
     ],
     1
-  );
+  )
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
 
-/* style */
-const __vue_inject_styles__ = function(inject) {
-  if (!inject) return;
-  inject("data-v-351d11af_0", {
-    source:
-      "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    map: {
-      version: 3,
-      sources: [],
-      names: [],
-      mappings: "",
-      file: "Paginator.vue"
-    },
-    media: undefined
-  });
-};
-/* scoped */
-const __vue_scope_id__ = undefined;
-/* module identifier */
-const __vue_module_identifier__ = undefined;
-/* functional template */
-const __vue_is_functional_template__ = false;
-/* style inject SSR */
+  /* style */
+  const __vue_inject_styles__ = function (inject) {
+    if (!inject) return
+    inject("data-v-e4a5b640_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Paginator.vue"}, media: undefined });
 
-/* style inject shadow dom */
+  };
+  /* scoped */
+  const __vue_scope_id__ = undefined;
+  /* module identifier */
+  const __vue_module_identifier__ = undefined;
+  /* functional template */
+  const __vue_is_functional_template__ = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
 
-const __vue_component__ = normalizeComponent(
-  { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-  __vue_inject_styles__,
-  __vue_script__,
-  __vue_scope_id__,
-  __vue_is_functional_template__,
-  __vue_module_identifier__,
-  false,
-  createInjector,
-  undefined,
-  undefined
-);
+  
+  const __vue_component__ = normalizeComponent(
+    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+    __vue_inject_styles__,
+    __vue_script__,
+    __vue_scope_id__,
+    __vue_is_functional_template__,
+    __vue_module_identifier__,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
 
 // Import vue component
 
@@ -669,6 +555,7 @@ var install = function installPaginator(Vue) {
   install.installed = true;
   Vue.component("Paginator", __vue_component__);
 }; // Create module definition for Vue.use()
+
 
 var plugin = {
   install: install
@@ -689,6 +576,7 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 } // Inject install function into component - allows component
 // to be registered via Vue.use() as well as Vue.component()
+
 
 __vue_component__.install = install; // Export component by default
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

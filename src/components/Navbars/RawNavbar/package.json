@@ -11,6 +11,11 @@
     "src/*.vue",
     "!src/serve-dev.*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/IntusFacultas/NPM_REPO",
+    "directory": "packages/raw-navbar"
+  },
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,7 +39,8 @@
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.1.3",
-    "rollup-plugin-vue": "^5.1.6"
+    "rollup-plugin-vue": "^5.1.6",
+    "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {
     "vue": "^2.6.10"

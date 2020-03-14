@@ -9,7 +9,7 @@
     ref="sidebar"
   >
     <sidebar-title :flavor="flavor">
-      <n-text :size="16">{{ sidebarTitle }}</text>
+      <text :size="16">{{ sidebarTitle }}</text>
       <sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </sidebar-hamburger-container>
@@ -30,7 +30,7 @@
         >
           <a v-if="item.type == 'item'" :href="item.url">
             <div class="sidebar-icon" v-html="item.icon"></div>
-            <n-text :size="13">{{ item.text }}</text>
+            <text :size="13">{{ item.text }}</text>
           </a>
           <div v-else>
             <vue-sidebar-dropdown
@@ -314,7 +314,7 @@ export const VueSidebarDropdown = {
         >
           <a :href="option.url" :tabindex="toggled ? 0 : -1">
             <div class="sidebar-icon" v-html="option.icon"></div>
-            <n-text :size="13">{{option.text}}</text>
+            <text :size="13">{{option.text}}</text>
           </a>
         </sidebar-item>
       </sidebar-dropdown>
