@@ -1,29 +1,54 @@
 # VueToast
 
 ## Type of Component
+
 Vue Component - https://v1.vuejs.org/guide/components.html
 
 ## Installation
 
 ```bash
-npm install @intus/vue-toast --save
+npm install @IntusFacultas/vue-toast@latest --save
 ```
 
 ## Purpose
+
 This provides a jQuery Toastr style alert system
 
 # Usage
 
-When instantiating your component, it is extremely important to bind a Vue instance to the parentInstance attribute, as that instance will be the instance that has the $toast method bound to it, by which you will call toasts.
+When instantiating your component, it is extremely important to bind a Vue instance to the parentInstance attribute, as that instance will be the instance that has the \$toast method bound to it, by which you will call toasts.
 
 ```html
-<vue-toast :max-width="maxWidth" :delay="delay" :parent-instance="this"></vue-toast>
+<vue-toast
+  :max-width="maxWidth"
+  :delay="delay"
+  :parent-instance="this"
+></vue-toast>
+```
+
+```javascript
+data: {
+    maxWidth: 300,
+    delay: 5000,
+    alertType: "success",
+    alertText: "This is a toast alert",
+},
+methods: {
+    fireToast: function() {
+        this.$toast({
+            type: this.alertType,
+            text: this.alertText,
+        })
+    }
+}
+
 ```
 
 ## Configuration
-Various Vue Component Props have been exposed for customizing the behavior of the component.
 
-Special note: camelCase props need to be converted to kebab-case when being set.
+- Various Vue Component Props have been exposed for customizing the behavior of the component.
+- The flavors are chosen from the AlertTheme in `@IntusFacultas/design-system`
+- Special note: camelCase props need to be converted to kebab-case when being set.
 
 <table>
     <thead>

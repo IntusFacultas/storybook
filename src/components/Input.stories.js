@@ -1,80 +1,96 @@
-import { withA11y } from '@storybook/addon-a11y';
-import { action } from '@storybook/addon-actions';
-import { VueInput } from "Components/components/StyledHTML/Input/Input.vue";
-import { VueTextArea } from "Components/components/StyledHTML/TextArea/TextArea.vue";
-import { NLabel } from "Components/components/StyledHTML/Typography/Typography.vue";
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
-import { FlexRow, FlexColumn } from "Components/components/Layout/Layout.vue";
+import { withA11y } from "@storybook/addon-a11y";
+import { action } from "@storybook/addon-actions";
+import { VueInput } from "Components/components/StyledHTML/Input/src/Input.vue";
+import { VueTextArea } from "Components/components/StyledHTML/TextArea/src/TextArea.vue";
+import { NumberRange } from "Components/components/StyledHTML/NumberRange/src/NumberRange.vue";
+import {
+  withKnobs,
+  text,
+  boolean,
+  number,
+  array
+} from "@storybook/addon-knobs";
+import {
+  FlexRow,
+  FlexColumn
+} from "Components/components/Layout/src/Layout.vue";
 import markdown from "Components/components/StyledHTML/InputUsage.md";
 import textareamarkdown from "Components/components/StyledHTML/TextAreaUsage.md";
+import numberrangemarkdown from "Components/components/StyledHTML/NumberRangeUsage.md";
 
 export default {
-    title: "StyledHTML/Input",
-    decorators: [withA11y, withKnobs],
-    parameters: {
-        notes: {
-            Input: markdown,
-            TextArea: textareamarkdown
-        }
-    },
-    excludeStories: /.*Data$/,
+  title: "NASIC HTML/Input",
+  decorators: [withA11y, withKnobs],
+  parameters: {
+    notes: {
+      Input: markdown,
+      TextArea: textareamarkdown,
+      "Number Range": numberrangemarkdown
+    }
+  },
+  excludeStories: /.*Data$/
 };
 
 const actionsData = {
-    onInput: action("onInput")
-}
+  onInput: action("@input"),
+  onFocus: action("@focus"),
+  onChange: action("@change")
+};
 
 export const Input = () => ({
-    components: { VueInput, FlexRow, NLabel, FlexColumn },
-    methods: actionsData,
-    props: {
-        readonly: {
-            default: boolean("Readonly", false)
-        },
-        placeholder: {
-            default: text("Placeholder", "")
-        },
-        pattern: {
-            default: text("Pattern", "")
-        },
-        multiple: {
-            default: boolean("Multiple", false)
-        },
-        min: {
-            default: text("Min", "")
-        },
-        max: {
-            default: text("Max", "")
-        },
-        name: {
-            default: text("Name", "inputName")
-        },
-        inputType: {
-            default: text("Type", "text")
-        },
-        required: {
-            default: boolean("Required", false)
-        },
-        disabled: {
-            default: boolean("Disabled", false)
-        },
-        labelType: {
-            default: text("Label Type", "normal")
-        },
-        label: {
-            default: text("Label Text", "This is a sample input")
-        },
-        autofocus: {
-            default: boolean("Autofocus", false)
-        },
-        autocomplete: {
-            default: text("Autocomplete", "off")
-        },
-        flavor: {
-            default: text("Flavor", "Info")
-        }
+  components: { VueInput, FlexRow, FlexColumn },
+  methods: actionsData,
+  props: {
+    flavor: {
+      default: text("Flavor", "LightBlue")
     },
-    template: `
+    readonly: {
+      default: boolean("Readonly", false)
+    },
+    placeholder: {
+      default: text("Placeholder", "")
+    },
+    pattern: {
+      default: text("Pattern", "")
+    },
+    multiple: {
+      default: boolean("Multiple", false)
+    },
+    min: {
+      default: text("Min", "")
+    },
+    max: {
+      default: text("Max", "")
+    },
+    name: {
+      default: text("Name", "inputName")
+    },
+    inputType: {
+      default: text("Type", "text")
+    },
+    required: {
+      default: boolean("Required", false)
+    },
+    disabled: {
+      default: boolean("Disabled", false)
+    },
+    labelFlavor: {
+      default: text("Label Flavor", "")
+    },
+    labelDark: {
+      default: boolean("Label Dark", false)
+    },
+    label: {
+      default: text("Label Text", "This is a sample input")
+    },
+    autofocus: {
+      default: boolean("Autofocus", false)
+    },
+    autocomplete: {
+      default: text("Autocomplete", "off")
+    }
+  },
+  template: `
     <flex-row>
         <flex-column>
             <vue-input
@@ -89,9 +105,12 @@ export const Input = () => ({
             :input-type="inputType"
             :required="required"
             :disabled="disabled"
-            :label-type="labelType"
+            :label-flavor="labelFlavor"
+            :label-dark="labelDark"
             :label="label"
             @input="onInput"
+            @focus="onFocus"
+            @change="onChange"
             :autofocus="autofocus"
             :autocomplete="autocomplete"></vue-input>
         </flex-column>
@@ -99,56 +118,149 @@ export const Input = () => ({
     `
 });
 
-export const TextArea = () => ({
-    components: { VueTextArea, FlexRow, FlexColumn },
-    methods: actionsData,
-    props: {
-        autofocus: {
-            default: boolean("Autofocus", false)
-        },
-        readonly: {
-            default: boolean("Read only", false)
-        },
-        placeholder: {
-            default: text("Placeholder", "")
-        },
-        maxlength: {
-            default: number("Max Length", '')
-        },
-        cols: {
-            default: number("Cols", "")
-        },
-        rows: {
-            default: number("Rows", "")
-        },
-        name: {
-            default: text("Name", "TextArea")
-        },
-        required: {
-            default: boolean("Required", false)
-        },
-        labelFlavor: {
-            default: text("Label Flavor", "")
-        },
-        labelDark: {
-            default: boolean("Label Dark", false)
-        },
-        label: {
-            default: text("Label Text", "This is a sample input")
-        },
-        disabled: {
-            default: boolean("Disabled", false)
-        },
-        flavor: {
-            default: text("Flavor", "Info")
-        }
+export const BasicNumberRange = () => ({
+  components: { NumberRange, FlexRow, FlexColumn },
+  data() {
+    return {
+      value: {
+        lowerValue: 0,
+        upperValue: 100
+      }
+    };
+  },
+  methods: {
+    onInput: action("@input"),
+    onChange: action("@change")
+  },
+  props: {
+    flavor: {
+      default: text("Flavor", "Primary")
     },
-    template: `
+    min: {
+      default: number("Minimum", 0)
+    },
+    max: {
+      default: number("Maximum", 100)
+    },
+    steps: {
+      default: array("Steps", [2])
+    },
+    type: {
+      default: text("Type", "range")
+    },
+    label: {
+      default: text("Label", "Number Range")
+    }
+  },
+  template: `
+    <div>
+      <number-range
+        :max="max"
+        :min="min"
+        :flavor="flavor"
+        :steps="steps"
+        :label="label"
+        :type="type"
+        v-model="value"
+        name="numberRange"
+        @change="onChange"
+        @input="onInput">
+      </number-range>
+    </div>
+  `
+});
+
+export const DiscreteNumberRange = () => ({
+  components: { NumberRange, FlexRow, FlexColumn },
+  methods: {
+    onInput: action("@input"),
+    onChange: action("@change")
+  },
+  props: {
+    min: {
+      default: number("Minimum", 0)
+    },
+    max: {
+      default: number("Maximum", 100)
+    },
+    steps: {
+      default: array("Steps", [0, 2, 15, 20, 25, 60, 100])
+    },
+    type: {
+      default: text("Type", "range")
+    },
+    label: {
+      default: text("Label", "Number Range")
+    },
+    labelFlavor: {
+      default: text("Label Flavor", "")
+    }
+  },
+  template: `
+    <number-range
+      :max="max"
+      :min="min"
+      :steps="steps"
+      :label="label"
+      :label-flavor="labelFlavor"
+      :type="type"
+      name="numberRange"
+      @change="onChange"
+      @input="onInput">
+    </number-range>
+  `
+});
+
+export const TextArea = () => ({
+  components: { VueTextArea, FlexRow, FlexColumn },
+  methods: actionsData,
+  props: {
+    flavor: {
+      default: text("Flavor", "LightBlue")
+    },
+    autofocus: {
+      default: boolean("Autofocus", false)
+    },
+    readonly: {
+      default: boolean("Read only", false)
+    },
+    placeholder: {
+      default: text("Placeholder", "")
+    },
+    maxlength: {
+      default: number("Max Length", "")
+    },
+    cols: {
+      default: number("Cols", "")
+    },
+    rows: {
+      default: number("Rows", "")
+    },
+    name: {
+      default: text("Name", "TextArea")
+    },
+    required: {
+      default: boolean("Required", false)
+    },
+    labelFlavor: {
+      default: text("Label Flavor", "")
+    },
+    labelDark: {
+      default: boolean("Label Dark", false)
+    },
+    label: {
+      default: text("Label Text", "This is a sample input")
+    },
+    disabled: {
+      default: boolean("Disabled", false)
+    }
+  },
+  template: `
     <flex-row>
         <flex-column>
             <vue-text-area
-                :readonly="readonly"
                 :flavor="flavor"
+                :readonly="readonly"
                 :placeholder="placeholder"
                 :name="name"
                 :rows="rows"
@@ -160,6 +272,8 @@ export const TextArea = () => ({
                 :label-dark="labelDark"
                 :label="label"
                 @input="onInput"
+                @focus="onFocus"
+                @change="onChange"
                 :autofocus="autofocus"
             ></vue-text-area>
         </flex-column>

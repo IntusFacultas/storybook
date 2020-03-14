@@ -16,6 +16,7 @@ export default {
 export const TaskStateBadge = () => ({
     components: { NiwsState },
     props: {
+
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -33,13 +34,14 @@ export const TaskStateBadge = () => ({
         }
     },
     template: `
-        <div style="max-width: 200px"><niws-state :class-mapping="classMapping" :data="data"></niws-state></div>
+        <div><niws-state :data="data"></niws-state></div>
     `
 });
 
 export const ReworkStateBadge = () => ({
     components: { NiwsState },
     props: {
+
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -57,13 +59,14 @@ export const ReworkStateBadge = () => ({
         }
     },
     template: `
-        <div style="max-width: 200px"><niws-state :class-mapping="classMapping" :data="data"></niws-state></div>
+        <div><niws-state :data="data"></niws-state></div>
     `
 });
 
 export const StartStateBadge = () => ({
     components: { NiwsState },
     props: {
+
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -81,13 +84,14 @@ export const StartStateBadge = () => ({
         }
     },
     template: `
-        <div style="max-width: 200px"><niws-state :class-mapping="classMapping" :data="data"></niws-state></div>
+        <div><niws-state :data="data"></niws-state></div>
     `
 });
 
 export const CompleteStateBadge = () => ({
     components: { NiwsState },
     props: {
+
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -105,13 +109,14 @@ export const CompleteStateBadge = () => ({
         }
     },
     template: `
-        <div style="max-width: 200px"><niws-state :class-mapping="classMapping" :data="data"></niws-state></div>
+        <div><niws-state :data="data"></niws-state></div>
     `
 });
 
 export const CancelStateBadge = () => ({
     components: { NiwsState },
     props: {
+
         /**
          * type: Object
          * default: a JS object similar to a NIWS state as defined in the NIWS API Documentation
@@ -129,6 +134,6 @@ export const CancelStateBadge = () => ({
         }
     },
     template: `
-        <div style="max-width: 200px"><niws-state :class-mapping="classMapping" :data="data"></niws-state></div>
+        <div><niws-state :data="data"></niws-state></div>
     `
 })

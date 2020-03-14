@@ -1,6 +1,6 @@
-import { VueToast } from "Components/components/ToastAlert/Alert.vue";
+import { VueToast } from "Components/components/ToastAlert/src/Alert.vue";
 import { withA11y } from '@storybook/addon-a11y';
-import NButton from "@intus/button";
+import NButton from "@nasic/button";
 import { withKnobs, number, text } from '@storybook/addon-knobs';
 import markdown from "Components/components/ToastAlert/Usage.md";
 

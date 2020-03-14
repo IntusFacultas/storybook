@@ -15,15 +15,6 @@ export default {
 };
 
 const propData = {
-    classMapping: {
-        default: object("State CSS Class Mapping", {
-            "TASK": ["niws-reviewer-task-button"],
-            "START": ["niws-reviewer-start-button"],
-            "CANCEL": ['niws-reviewer-cancel-button'],
-            "COMPLETE": ["niws-reviewer-complete-button"],
-            "REWORK": ["niws-reviewer-rework-button"],
-        })
-    },
     transitions: {
         default: object("NIWS Transitions", {})
     },
@@ -41,18 +32,18 @@ const propData = {
     }
 }
 
-// export const HorizontalReviewer = () => ({
-//     components: { NiwsReviewer },
-//     props: propData,
-//     template: `
-//         <niws-reviewer></niws-reviewer>
-//     `
-// });
+export const HorizontalReviewer = () => ({
+    components: { NiwsReviewer },
+    props: propData,
+    template: `
+        <niws-reviewer></niws-reviewer>
+    `
+});
 
-// export const StackedReviewer = () => ({
-//     components: { NiwsStackedReviewer },
-//     props: propData,
-//     template: `
-//         <niws-stacked-reviewer></niws-stacked-reviewer>
-//     `
-// })
+export const StackedReviewer = () => ({
+    components: { NiwsStackedReviewer },
+    props: propData,
+    template: `
+        <niws-stacked-reviewer></niws-stacked-reviewer>
+    `
+})

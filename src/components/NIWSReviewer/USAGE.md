@@ -49,11 +49,9 @@ function handleCallback(data) {
 ```
 
 
-## Special Configuration
-Various Vue Component Props have been exposed for customizing the behavior of the component.
-
-Special note: camelCase props need to be converted to kebab-case when being set.
-
+## Configuration
+- Various Vue Component Props have been exposed for customizing the behavior of the component.
+- Special note: camelCase props need to be converted to kebab-case when being set.
 
 <table>
     <thead>

@@ -1,28 +1,56 @@
 {
-  "name": "@intus/raw-sidebar",
-  "version": "1.0.1",
-  "description": "Provides a non-configurable raw sidebar for inputting straight HTML into",
-  "main": "RawSidebar.vue",
+  "name": "@IntusFacultas/raw-sidebar",
+  "version": "2.0.7",
+  "description": "A raw version of the sidebar that allows you to input HTML straight in without a configuration file",
+  "main": "src/RawSidebar.vue",
+  "browser": "dist/RawSidebar.esm.js",
+  "module": "dist/RawSidebar.esm.js",
+  "unpkg": "dist/RawSidebar.iife.min.js",
+  "files": [
+    "dist/*",
+    "src/*.vue",
+    "!src/serve-dev.*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vue build --target lib --name RawSidebar --dest dist/RawSidebar RawSidebar.vue"
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "raw",
+    "html",
     "sidebar",
-    "intus",
-    "responsive"
+    "styled"
   ],
-  "author": "Pedro Del Moral Lopez",
-  "license": "ISC",
   "dependencies": {
-    "vue-styled-components": "^1.4.14",
-    "@intus/designsystem": "^1.0.0",
-    "@intus/typography": "^1.0.0",
-    "@intus/button": "^1.0.0",
-    "@intus/sidebar": "^1.0.1"
+    "@IntusFacultas/button": "^1.0.7",
+    "@IntusFacultas/design-system": "^1.5.2",
+    "@IntusFacultas/sidebar": "^3.0.6",
+    "@IntusFacultas/typography": "^2.0.5",
+    "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {
-    "@vue/cli": "^4.1.2"
-  }
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@rollup/plugin-replace": "^2.3.1",
+    "@types/jest": "^24.0.24",
+    "babel-eslint": "^10.0.3",
+    "jest": "^24.9.0",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-livereload": "^1.0.4",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-vue": "^5.1.6"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "author": "Pedro Del Moral Lopez",
+  "license": "ISC"
 }

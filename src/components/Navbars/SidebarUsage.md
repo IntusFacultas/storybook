@@ -7,7 +7,7 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 ## Installation
 
 ```bash
-npm install @intus/sidebar --save
+npm install @IntusFacultas/sidebar@latest --save
 ```
 
 ## Purpose
@@ -16,68 +16,70 @@ This creates a responsive sidebar for navigation purposes.
 
 ## Usage
 
-
 <b>IMPORTANT NOTE: MAKE SURE THAT BOTH THE SIDEBAR AND SIDEBAR OFFSET CONTENT ARE INSIDE A RELATIVE POSITIONED DIV OTHERWISE THE SIDEBAR WILL NOT USE THE FULL VERTICAL SPACE.</b>
 
 This is meant to be used in tandem with the `SidebarOffsetContent` component for displaying content on your website. A full usage example is provided below:
 
 ```html
-
-<n-sidebar
-    :flavor="flavor"
-    :sidebar-title="sidebarTitle"
-    :top-offset="topOffset"
-    :bottom-offset="bottomOffset"
-    :items="items"
-    :width="width"
-    :breakpoint="breakpoint">
-</n-sidebar>
-<sidebar-offset-content 
-    :width="width"
-    :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>
+<sidebar
+  :flavor="flavor"
+  :sidebar-title="sidebarTitle"
+  :top-offset="topOffset"
+  :bottom-offset="bottomOffset"
+  :items="items"
+  :width="width"
+  :breakpoint="breakpoint"
+>
+</sidebar>
+<sidebar-offset-content :width="width" :breakpoint="breakpoint"
+  ><h2>Content!</h2></sidebar-offset-content
+>
 ```
 
 ```javascript
-let flavor = "Primary";
-let sidebarTitle = "Sidebar Title";
-// offset the sidebar from the top to make space for a navbar
-let topOffset = "10px";
-// offset the sidebar from the bottom to make space for a footer
+data: {
+    flavor: "Primary",
+    sidebarTitle: "Sidebar Title",
+    // offset the sidebar from the top to make space for a navbar
+    topOffset: "10px",
+    // offset the sidebar from the bottom to make space for a footer
 
-// width of the sidebar. Make sure to pass this to your SidebarOffsetContent component as well
-let width = 200;
+    // width of the sidebar. Make sure to pass this to your SidebarOffsetContent component as well
+    width: 200,
 
-// breakpoint for responsiveness
-let breakpoint = 576
-let bottomOffset = "10px";
-let items = [
-    {
-        type: "item",
-        text: "Link 1",
-        icon: "<i>Info!</i>",
-        url: "/url/to/place"
-    },
-    {
-        type: "dropdown",
-        text: "Dropdown",
-        icon: "",
-
-        items: [
-            {
-                type: "item",
-                text: "Link 98",
-                icon: "",
-                url: "/url/to/place"
-            },
-            {
-                type: "item",
-                text: "Link 10",
-                icon: "",
-                url: "/url/to/place"
-            },
-        ]
-    },
-]
+    // breakpoint for responsiveness
+    breakpoint: 576,
+    bottomOffset: "10px",
+    items: [
+        {
+            type: "item",
+            text: "Link 1",
+            icon: "<i>Info!</i>",
+            url: "/url/to/place",
+            disabled: false,
+        },
+        {
+            type: "dropdown",
+            text: "Dropdown",
+            icon: "",
+            disabled: false,
+            items: [
+                {
+                    type: "item",
+                    text: "Link 98",
+                    icon: "",
+                    url: "/url/to/place"
+                },
+                {
+                    type: "item",
+                    text: "Link 10",
+                    icon: "",
+                    url: "/url/to/place"
+                },
+            ]
+        },
+    ]
+}
 ```
 
 ## Configuration
@@ -97,12 +99,6 @@ let items = [
             <td>`String`</td>
             <td>`""`</td>
             <td>Sets the flavor of sidebar</td>
-        </tr>
-        <tr>
-            <td>fixed</td>
-            <td>`Boolean`</td>
-            <td>`false`</td>
-            <td>Toggles sidebar from absolute to fixed positioning</td>
         </tr>
         <tr>
             <td>sidebarTitle</td>

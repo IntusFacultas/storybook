@@ -1,31 +1,35 @@
 # Raw Table
 
 ## Type of Component
-Vue Component - https://v1.vuejs.org/guide/components.html
 
+Vue Component - https://v1.vuejs.org/guide/components.html
 
 ## Installation
 
 ```bash
-npm install @nasic/raw-table --save
+npm install @IntusFacultas/raw-table@latest --save
 ```
 
 ## Purpose
 
-This is a variation of the `@nasic/table` component, which allows you to construct your own custom table based on the same components as `@nasic/table`.
+This is a variation of the `@IntusFacultas/table` component, which allows you to construct your own custom table based on the same components as `@IntusFacultas/table`.
 
-Draws default themes from `@intus/designsystem`. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
-
+Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
 ```html
 <vue-raw-table :flavor="flavor" :striped="striped">
-    <template v-slot:header>
-    </template>
-    <template v-slot:body>
-    </template>
+  <template v-slot:header> </template>
+  <template v-slot:body> </template>
 </vue-raw-table>
+```
+
+```javascript
+data: {
+    flavor: "Primary",
+    striped: true
+}
 ```
 
 ## Configuration
@@ -45,10 +49,9 @@ Draws default themes from `@intus/designsystem`. You can override the theme by p
     </tbody>
 </table>
 
-
 ## Components Available for Use
 
-### NTr
+### TableRow
 
 #### Purpose
 
@@ -57,14 +60,14 @@ Provides a styled table row
 #### Usage
 
 ```html
-<n-tr></n-tr>
+<table-row></table-row>
 ```
 
 #### Configuration
 
 If you wish to make a row hoverable, bind `table-hoverable-row` class to it.
 
-### NTd
+### TableCell
 
 #### Purpose
 
@@ -72,14 +75,10 @@ Provides a styled table cell
 
 #### Usage
 
-
 ```html
-<n-td
-    :flavor="flavor"
-    :condensed="condensed"
-    :bordered="bordered">
-    {{item.text}}
-</n-td>
+<table-cell :flavor="flavor" :condensed="condensed" :bordered="bordered">
+  {{item.text}}
+</table-cell>
 ```
 
 #### Configuration
@@ -101,7 +100,7 @@ Provides a styled table cell
     </tbody>
 </table>
 
-### NTh
+### TableHeader
 
 #### Purpose
 
@@ -110,14 +109,15 @@ Provides a styled table header cell
 #### Usage
 
 ```html
-<n-th
-    :flavor="flavor"
-    :condensed="condensed"
-    :sortable="sortable"
-    :bordered="bordered"
-    :text-align="textAlign">
-    {{header.text}}
-</n-th>
+<table-header
+  :flavor="flavor"
+  :condensed="condensed"
+  :sortable="sortable"
+  :bordered="bordered"
+  :text-align="textAlign"
+>
+  {{header.text}}
+</table-header>
 ```
 
 #### Configuration
@@ -140,8 +140,6 @@ Provides a styled table header cell
     </tbody>
 </table>
 
-
-
 ### TableCarat
 
 #### Purpose
@@ -152,8 +150,8 @@ Provides an animated sorting direction indicator
 
 ```html
 <table-carat
-:flavor="headerFlavor ? headerFlavor : flavor"
-:class="sortingActive ? '': sortDescending ? 'table-open-carat' : 'table-not-shown'"
+  :flavor="headerFlavor ? headerFlavor : flavor"
+  :class="sortingActive ? '': sortDescending ? 'table-open-carat' : 'table-not-shown'"
 ></table-carat>
 ```
 

@@ -7,32 +7,43 @@ Vue Styled Component - https://github.com/styled-components/vue-styled-component
 ## Installation
 
 ```bash
-npm install @intus/card --save
+npm install @IntusFacultas/card@latest --save
 ```
 
 ## Purpose
-This provides a card component that can be configured to a variety of different appearances as necessary, and accepts any valid HTML in slots to allow displaying content in the card
 
+This provides a card component that can be configured to a variety of different appearances as necessary, and accepts any valid HTML in slots to allow displaying content in the card
 
 ## Usage
 
 ```html
-<n-card 
-    :header-flavor="headerFlavor"
-    :footer-flavor="footerFlavor"
-    :body-flavor="bodyFlavor"
-    :bordered="bordered"
-    :header="header"
-    :footer="footer">
-        <template v-slot:header>Header Content</template>
-        <template v-slot:body>Body Content</template>
-        <template v-slot:footer>Footer Content</template>
-</n-card>
+<card
+  :header-flavor="headerFlavor"
+  :footer-flavor="footerFlavor"
+  :body-flavor="bodyFlavor"
+  :bordered="bordered"
+  :header="header"
+  :footer="footer"
+>
+  <template v-slot:header>Header Content</template>
+  <template v-slot:body>Body Content</template>
+  <template v-slot:footer>Footer Content</template>
+</card>
+```
+
+```javascript
+data: {
+    headerFlavor: "Primary",
+    footerFlavor: "Primary",
+    bodyFlavor: "",
+    header: true,
+    footer: true,
+}
 ```
 
 ## Configuration
 
-The colors are pulled from `@intus/design-system` in the `Theme` Object.
+The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
 
 <table>
     <thead>

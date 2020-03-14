@@ -1,30 +1,67 @@
 # TextArea
 
+## Type of Component
+
+Vue Styled Component - https://github.com/styled-components/vue-styled-components
+
+## Installation
+
+```bash
+npm install @IntusFacultas/textarea@latest --save
+```
+
+## Purpose
+
 This provides a styleguide consistent and accessible textarea element that can be configured for most uses via a variety of props, listed below.
 
-On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`. 
+On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`.
 
 ## Usage
 
 ```html
 <vue-text-area
-    :readonly="readonly"
-    :placeholder="placeholder"
-    :name="name"
-    :rows="rows"
-    :cols="cols"
-    :maxlength="maxlength"
-    :required="required"
-    :disabled="disabled"
-    :label-flavor="labelFlavor"
-    :label-dark="labelDark"
-    :label="label"
-    @input="onInput"
-    :autofocus="autofocus"
+  :flavor="flavor"
+  :readonly="readonly"
+  :placeholder="placeholder"
+  :name="name"
+  :rows="rows"
+  :cols="cols"
+  :maxlength="maxlength"
+  :required="required"
+  :disabled="disabled"
+  :label-flavor="labelFlavor"
+  :label-dark="labelDark"
+  :label="label"
+  @input="onInput"
+  :autofocus="autofocus"
 ></vue-text-area>
 ```
 
+```javascript
+data: {
+    flavor: "Primary",
+    readonly: false,
+    placeholder: "This is a placeholder",
+    rows: 3,
+    cols: 50,
+    maxlength: 200,
+    name: "input1",
+    inputType: "text",
+    required: true,
+    disabled: false,
+    labelFlavor: "",
+    labelDark: false,
+    label: "Input a value",
+    autofocus: true,
+    autocomplete: false,
+},
+methods: {
+    onInput() {}
+}
+```
+
 ## Configuration
+
 <table>
     <thead>
         <tr>
@@ -129,14 +166,14 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
         </tr>
     </tbody>
 </table>
-    
+
 ## Events
 
 <table>
     <thead>
         <tr>
             <th>Event</th>
-            <td>Bind Attribute</td>
+            <th>Bind Attribute</th>
             <th>Payload</th>
             <th>Description</th>
         </tr>

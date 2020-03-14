@@ -1,11 +1,11 @@
-import SelectMe from "Components/components/SelectMe/SelectMe.vue"
-import { action } from '@storybook/addon-actions'
+import SelectMe from "Components/components/SelectMe/src/SelectMe.vue";
+import { action } from '@storybook/addon-actions';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs, array, text, boolean, object } from '@storybook/addon-knobs';
 import markdown from "Components/components/SelectMe/USAGE.md";
 
 export default {
-    title: 'SelectMe',
+    title: 'Composite Components/SelectMe',
     decorators: [withA11y, withKnobs],
     parameters: {
         notes: { markdown }
@@ -15,7 +15,7 @@ export default {
 };
 
 const actionsData = {
-    onInput: action("onInput")
+    onInput: action("@input")
 }
 
 export const MultipleSelect = () => ({
@@ -103,6 +103,7 @@ export const MultipleSelect = () => ({
          * disables the widget, disallowing selection
          */
         disabled: { default: boolean("Disable SelectMe", false) },
+        canBeEmpty: { default: boolean("Can Be Empty", true) },
 
         /**
          * type: Boolean,
@@ -124,8 +125,9 @@ export const MultipleSelect = () => ({
             <select-me
                 :flavor="flavor"
                 :badge-flavor="badgeFlavor"
+                :can-be-empty="canBeEmpty"
                 @input="onInput"
-                :id="id"
+                name="searchableDropdown"
                 :options="options"
                 :value-attribute="valueAttribute"
                 :display-attribute="displayAttribute"
@@ -141,9 +143,7 @@ export const SingleSelect = () => ({
     components: { SelectMe },
     methods: actionsData,
     props: {
-        badgeFlavor: {
-            default: text("Badge Flavor", "Primary")
-        },
+
         flavor: {
             default: text("Flavor", "LightBlue")
         },
@@ -155,6 +155,7 @@ export const SingleSelect = () => ({
         id: {
             default: text("Input ID", "selectInput")
         },
+        canBeEmpty: { default: boolean("Can Be Empty", true) },
 
         /**
          * type: Array,
@@ -242,8 +243,9 @@ export const SingleSelect = () => ({
             <select-me
                 :flavor="flavor"
                 :badge-flavor="badgeFlavor"
+                :can-be-empty="canBeEmpty"
                 @input="onInput"
-                :id="id"
+                name="searchableDropdown"
                 :options="options"
                 :value-attribute="valueAttribute"
                 :display-attribute="displayAttribute"

@@ -7,7 +7,7 @@ Vue Styled Component - https://github.com/styled-components/vue-styled-component
 ## Installation
 
 ```bash
-npm install @intus/layout --save
+npm install @IntusFacultas/layout@latest --save
 ```
 
 ## Purpose
@@ -20,11 +20,26 @@ The minimum configuration needed is passing a number to the `col` prop of the Fl
 
 ```html
 <flex-row>
-    <flex-column :col="col"></flex-column>
+  <flex-column
+    :col="col"
+    :xs="xs"
+    :sm="sm"
+    :md="md"
+    :lg="lg"
+    :xl="xl"
+  ></flex-column>
 </flex-row>
 ```
+
 ```javascript
-    let col = 1;
+data: {
+    col: 1,
+    xs: 1,
+    sm: 1,
+    md: 1,
+    lg: 1,
+    xl: 1,
+}
 ```
 
 ## Special Configuration
@@ -39,9 +54,20 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <th>Prop</th>
             <th>Type</th>
             <th>Default</th>
+            <th>Purpose</th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>xs</td>
+            <td>`Number`</td>
+            <td>
+                ```
+                1
+                ```
+            </td>
+            <td>The column size for an extra small viewport</td>
+        </tr>
         <tr>
             <td>sm</td>
             <td>`Number`</td>
@@ -49,8 +75,8 @@ Special note: camelCase props need to be converted to kebab-case when being set.
                 ```
                 1
                 ```
-                The column size for a small viewport
             </td>
+            <td>The column size for a small viewport</td>
         </tr>
         <tr>
             <td>md</td>
@@ -59,8 +85,8 @@ Special note: camelCase props need to be converted to kebab-case when being set.
                 ```
                 1
                 ```
-                The column size for a medium viewport
             </td>
+            <td>The column size for a medium viewport</td>
         </tr>
         <tr>
             <td>lg</td>
@@ -69,8 +95,8 @@ Special note: camelCase props need to be converted to kebab-case when being set.
                 ```
                 1
                 ```
-                The column size for a large viewport
             </td>
+            <td>The column size for a large viewport</td>
         </tr>
         <tr>
             <td>xl</td>
@@ -79,8 +105,8 @@ Special note: camelCase props need to be converted to kebab-case when being set.
                 ```
                 1
                 ```
-                The column size for a extra large viewport
             </td>
+            <td>The column size for a extra large viewport</td>
         </tr>
     </tbody>
 </table>

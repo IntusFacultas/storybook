@@ -6,10 +6,10 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 
 ## Installation
 
-On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`. 
+On mount, this component adds itself to the parent Vue component under `.$refs.inputs[namePropValue]`.
 
 ```bash
-    npm install @intus/input --save
+    npm install @IntusFacultas/input@latest --save
 ```
 
 ## Purpose
@@ -20,23 +20,49 @@ This provides a styleguide consistent and accessible input element that can be c
 
 ```html
 <vue-input
-    :readonly="readonly"
-    :placeholder="placeholder"
-    :pattern="pattern"
-    :multiple="multiple"
-    :min="min"
-    :max="max"
-    :name="name"
-    :input-type="inputType"
-    :required="required"
-    :disabled="disabled"
-    :label-flavor="labelFlavor"
-    :label-dark="labelDark"
-    :label="label"
-    @input="onInput"
-    :autofocus="autofocus"
-    :autocomplete="autocomplete">
+  :flavor="flavor"
+  :readonly="readonly"
+  :placeholder="placeholder"
+  :pattern="pattern"
+  :multiple="multiple"
+  :min="min"
+  :max="max"
+  :name="name"
+  :input-type="inputType"
+  :required="required"
+  :disabled="disabled"
+  :label-flavor="labelFlavor"
+  :label-dark="labelDark"
+  :label="label"
+  @input="onInput"
+  :autofocus="autofocus"
+  :autocomplete="autocomplete"
+>
 </vue-input>
+```
+
+```javascript
+data: {
+    flavor: "Primary",
+    readonly: false,
+    placeholder: "This is a placeholder",
+    pattern: "*",
+    multiple: false,
+    min: "",
+    max: "",
+    name: "input1",
+    inputType: "text",
+    required: true,
+    disabled: false,
+    labelFlavor: "",
+    labelDark: false,
+    label: "Input a value",
+    autofocus: true,
+    autocomplete: false,
+},
+methods: {
+    onInput() {}
+}
 ```
 
 ## Configuration
@@ -180,7 +206,7 @@ This provides a styleguide consistent and accessible input element that can be c
     <thead>
         <tr>
             <th>Event</th>
-            <td>Bind Attribute</td>
+            <th>Bind Attribute</th>
             <th>Payload</th>
             <th>Description</th>
         </tr>

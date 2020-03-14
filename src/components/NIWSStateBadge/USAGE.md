@@ -13,7 +13,7 @@ This allows a developer to easily display an individual state (such as the curre
 
 When you are instantiating your component instance, make sure to bind a variable with the format shown below
 ```html
-<niws-state v-else :data="item"></niws-state>
+<niws-state :data="item"></niws-state>
 ```
 
 ```javascript
@@ -54,36 +54,3 @@ var item = {
         }
     }; 
 ```
-
-## Special Configuration
-Various Vue Component Props have been exposed for customizing the behavior of the component.
-
-Special note: camelCase props need to be converted to kebab-case when being set.
-
-<table>
-    <thead>
-        <tr>
-            <th>Prop</th>
-            <th>Type</th>
-            <th>Default</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>classMapping</td>
-            <td>`Object`</td>
-            <td>
-                ```javascript
-                {
-                    "TASK": ["niws-tabular-task"],
-                    "START": ["niws-tabular-start"],
-                    "CANCEL": ['niws-tabular-cancel'],
-                    "COMPLETE": ["niws-tabular-complete"],
-                    "REWORK": ["niws-tabular-rework"],
-                }
-                ```
-                The keys must match the state type options provided by NIWS REST API Documentation , and the values must be arrays of classes to apply to the individual entries
-            </td>
-        </tr>
-    </tbody>
-</table>

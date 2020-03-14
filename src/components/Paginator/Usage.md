@@ -7,7 +7,7 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 ## Installation
 
 ```bash
-npm install @intus/paginator --save
+npm install @IntusFacultas/paginator@latest --save
 ```
 
 ## Purpose
@@ -17,15 +17,32 @@ This creates a configurable pagination component that returns what page is selec
 ## Usage
 
 ```html
- <paginator 
-    :flavor="flavor"
-    :show-first-last="showFirstLast"
-    :page-count="pageCount"
-    :current-page="currentPage"
-    :margin-pages="marginPages" 
-    :page-range="pageRange" 
-    @select="onSelect">
+<paginator
+  :flavor="flavor"
+  :show-first-last="showFirstLast"
+  :page-count="pageCount"
+  :current-page="currentPage"
+  :margin-pages="marginPages"
+  :page-range="pageRange"
+  @select="onSelect"
+>
 </paginator>
+```
+
+```javascript
+data: {
+    flavor: "Primary",
+    showFirstLast: true,
+    pageCount: 10,
+    currentPage: 1,
+    marginPages: 1,
+    pageRange: 3
+},
+methods: {
+    onSelect: function(page) {
+        this.currentPage = page;
+    }
+}
 ```
 
 ## Configuration
@@ -79,7 +96,7 @@ This creates a configurable pagination component that returns what page is selec
     <thead>
         <tr>
             <th>Event</th>
-            <td>Bind Attribute</td>
+            <th>Bind Attribute</th>
             <th>Payload</th>
             <th>Description</th>
         </tr>

@@ -7,56 +7,79 @@ Vue Component - https://vuejs.org/v2/guide/components.html
 ## Installation
 
 ```bash
-npm install @intus/navbar --save
+npm install @IntusFacultas/navbar@latest --save
 ```
+
 ## Purpose
 
-This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default Theme provided
+This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default NASIC provider
 
 ## Usage
 
 ```html
 <navbar
-    :title="title"
-    :fixed="fixed"
-    :flavor="flavor"
-    :left-items="leftItems"
-    :right-items="rightItems"
-    :center-items="centerItems"></navbar>
+  :title="title"
+  :fixed="fixed"
+  :flavor="flavor"
+  :left-items="leftItems"
+  :right-items="rightItems"
+  :center-items="centerItems"
+></navbar>
 ```
 
 ```javascript
-let title = {
-  "html": "",
-  "text": "Brand",
-  "url": "#"
+data: {
+    title: {
+        "html": "",
+        "text": "Brand",
+        "url": "#"
+    },
+    flavor: "Primary",
+    fixed: false,
+    leftItems: [
+        {
+            "html": "",
+            "text": "Navbar Link",
+            "url": "#"
+        },
+        {
+            "type": "dropdown"
+            "html": "",
+            "text": "",
+            "items": [
+                {
+                    "html": "",
+                    "text": "Dropdown Link",
+                    "url": "#"
+                },
+                {
+                    "html": "",
+                    "text": "Dropdown Link",
+                    "url": "#"
+                },
+            ],
+            "disabled": false,
+            "active": false
+        },
+        {
+            "html": "",
+            "text": "Navbar Link",
+            "url": "#"
+        },
+        {
+            "html": "",
+            "text": "Navbar Link",
+            "url": "#"
+        },
+        {
+            "html": "",
+            "text": "Navbar Link",
+            "url": "#"
+        }
+    ],
+    centerItems: [],
+    rightItems: [],
 }
-let flavor = "Primary"
-let fixed = false;
-let leftItems = [
-  {
-    "html": "",
-    "text": "Navbar Link",
-    "url": "#"
-  },
-  {
-    "html": "",
-    "text": "Navbar Link",
-    "url": "#"
-  },
-  {
-    "html": "",
-    "text": "Navbar Link",
-    "url": "#"
-  },
-  {
-    "html": "",
-    "text": "Navbar Link",
-    "url": "#"
-  }
-];
-let centerItems = [];
-let rightItems = [];
 ```
 
 ## Configuration
@@ -109,7 +132,7 @@ let rightItems = [];
             <pre>
                 <code>
                 {
-                    "type": "item"
+                    "type": "item",
                     "html": "", // rendered as HTML
                     "text": "",
                     "url": "",
@@ -141,7 +164,7 @@ let rightItems = [];
             <pre>
                 <code>
                 {
-                    "type": "item"
+                    "type": "item",
                     "html": "", // rendered as HTML
                     "text": "",
                     "url": "",
@@ -173,7 +196,7 @@ let rightItems = [];
             <pre>
                 <code>
                 {
-                    "type": "item"
+                    "type": "item",
                     "html": "", // rendered as HTML
                     "text": "",
                     "url": "",

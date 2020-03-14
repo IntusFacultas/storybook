@@ -1,45 +1,84 @@
 # Table
 
-
 ## Type of Component
+
 Vue Component - https://v1.vuejs.org/guide/components.html
 
 ## Installation
 
 ```bash
-npm install @nasic/table --save
+npm install @IntusFacultas/table@latest --save
 ```
 
 ## Purpose
 
 This provides a data driven table component as well as the building blocks for use with the Raw Table Component.
 
-
-Draws default themes from `@intus/designsystem`. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
+Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
-
 ```html
-<vue-table 
-    :flavor="flavor"
-    :header-flavor="headerFlavor"
-    :striped="striped"
-    :text-align="textAlign"
-    :hover="hover"
-    :bordered="bordered"
-    :numbered="numbered"
-    :condensed="condensed"
-    :sortable="sortable"
-    :items="items"
-    :headers="headers"
-    @sort="onSort"></vue-table>
+<vue-table
+  :flavor="flavor"
+  :header-flavor="headerFlavor"
+  :striped="striped"
+  :text-align="textAlign"
+  :hover="hover"
+  :bordered="bordered"
+  :numbered="numbered"
+  :condensed="condensed"
+  :sortable="sortable"
+  :items="items"
+  :headers="headers"
+  @sort="onSort"
+></vue-table>
 ```
 
+```javascript
+data: {
+    flavor: "",
+    headerFlavor: "Primary",
+    striped: true,
+    textAlign: "left",
+    hover: true,
+    bordered: false,
+    numbered: false,
+    condensed: true,
+    sortable: false,
+    items: [
+        {
+          data: {
+            first_name: "Pedro",
+            last_name: "Del Moral Lopez",
+            age: 24
+          },
+          flavor: ""
+        },
+        {
+          data: {
+            first_name: "Brent",
+            last_name: "Ropp",
+            age: 45
+          },
+          flavor: ""
+        },
+        {
+          data: {
+            first_name: "Ryan",
+            last_name: "Kelbley",
+            age: 28
+          },
+          flavor: ""
+        }
+    ],
+    headers: [],
+}
+```
 
 ## Configuration
 
-The colors are pulled from `@nasic/design-system` in the `Theme` Object.
+The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
 
 <table>
     <thead>
@@ -94,14 +133,13 @@ The colors are pulled from `@nasic/design-system` in the `Theme` Object.
     </tbody>
 </table>
 
-
 ## Events
 
 <table>
     <thead>
         <tr>
             <th>Event</th>
-            <td>Bind Attribute</td>
+            <th>Bind Attribute</th>
             <th>Payload</th>
             <th>Description</th>
         </tr>

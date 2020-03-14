@@ -7,25 +7,37 @@ Vue Styled Component - https://github.com/styled-components/vue-styled-component
 ## Installation
 
 ```bash
-npm install @intus/button --save
+npm install @IntusFacultas/button@latest --save
 ```
 
 ## Purpose
 
 This replaces the default HTML button with a styled button that contains styles for each color as described in the Design System:
 
-And draws default themes from DesignSystem/theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
-
+Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
+
 ```html
-<n-button :flavor="Primary"></n-button>>
+<n-button
+  flavor="Primary"
+  :small="small"
+  :large="large"
+  :block="block"
+></n-button>
 ```
 
+```javascript
+data: {
+    large: false,
+    small: false,
+    block: false,
+}
+```
 
 ## Configuration
 
-The colors are pulled from `@intus/design-system` in the `Theme` Object.
+The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
 
 <table>
     <thead>
@@ -41,4 +53,3 @@ The colors are pulled from `@intus/design-system` in the `Theme` Object.
         <tr><td>block</td><td>`false`</td><td>Sets the button to be a block button</td></tr>
     </tbody>
 </table>
-
