@@ -1,13 +1,15 @@
 <template>
   <theme-provider :theme="theme" style="width: 100%">
-    <niws-state-badge :title="data.stateDescription" :flavor="data.stateType">{{data.stateName}}</niws-state-badge>
+    <niws-state-badge :title="data.stateDescription" :flavor="data.stateType">{{
+      data.stateName
+    }}</niws-state-badge>
   </theme-provider>
 </template>
 
 <script>
 import styled from "vue-styled-components";
 import { ThemeProvider } from "vue-styled-components";
-import { NIWSTheme } from "Components/components/DesignSystem/nasic-theme.js";
+import { Theme } from "Components/components/DesignSystem/theme.js";
 const props = {
   flavor: String
 };

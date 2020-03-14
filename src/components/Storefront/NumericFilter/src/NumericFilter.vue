@@ -28,7 +28,7 @@
         @input="bubbleInput"
         @change="bubbleChange"
       ></number-range>
-      <n-text :flavor="textFlavor">{{ helpText }}</text>
+      <text :flavor="textFlavor">{{ helpText }}</text>
     </numeric-content-container>
   </numeric-container>
 </template>

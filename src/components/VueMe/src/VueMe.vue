@@ -23,11 +23,11 @@
 
 <script>
 import styled from "vue-styled-components";
-import { NASICTheme } from "@nasic/design-system";
-import { WebSubSectionTitle } from "@nasic/typography";
-import { DialogButton } from "@nasic/button";
-import { VueInput } from "@nasic/input";
-import { FlexRow, FlexColumn } from "@nasic/layout";
+import { Theme } from "@IntusFacultas/design-system";
+import { SubSectionTitle } from "@IntusFacultas/typography";
+import { DialogButton } from "@IntusFacultas/button";
+import { VueInput } from "@IntusFacultas/input";
+import { FlexRow, FlexColumn } from "@IntusFacultas/layout";
 const props = {
   zIndex: {
     type: Number,
@@ -41,7 +41,7 @@ const props = {
   defaultTheme: {
     type: Object,
     default: function() {
-      return NASICTheme;
+      return Theme;
     }
   }
 };
@@ -116,7 +116,7 @@ const VueMeDialog = {
     VueMeDialogContentContainer,
     VueMeDialogContent,
     VueMeDialogButtonContainer,
-    WebSubSectionTitle,
+    SubSectionTitle,
     DialogButton,
     VueInput,
     FlexRow,
@@ -301,7 +301,7 @@ const VueMeDialog = {
         <vue-me-dialog-content-container>
           <vue-me-title-container>
             <span v-html="icon"></span>
-            <web-sub-section-title class="vue-me-title">{{title}}</web-sub-section-title>
+            <sub-section-title class="vue-me-title">{{title}}</sub-section-title>
           </vue-me-title-container>
           <vue-me-dialog-content>
             <div v-html="content"></div>

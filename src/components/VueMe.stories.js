@@ -7,7 +7,7 @@ import {
   object,
   number
 } from "@storybook/addon-knobs";
-import Theme from "Components/components/DesignSystem/nasic-theme.js";
+import Theme from "Components/components/DesignSystem/theme.js";
 import { NButton } from "Components/components/StyledHTML/Button/src/Button.vue";
 import VueMe from "Components/components/VueMe/src/VueMe.vue";
 import Vue from "vue";

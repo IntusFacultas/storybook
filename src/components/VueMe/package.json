@@ -1,5 +1,5 @@
 {
-  "name": "@nasic/vue-me",
+  "name": "@IntusFacultas/vue-me",
   "version": "2.0.4",
   "description": "VueJS Dialog Component",
   "main": "src/vueMe.vue",
@@ -15,12 +15,17 @@
     "start": "rollup -c --watch --environment SERVE:true",
     "build": "rollup -c"
   },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/IntusFacultas/NPM_REPO",
+    "directory": "packages/vue-me"
+  },
   "dependencies": {
-    "@nasic/button": "^1.0.7",
-    "@nasic/design-system": "^1.5.2",
-    "@nasic/input": "^1.3.9",
-    "@nasic/layout": "^1.0.7",
-    "@nasic/typography": "^2.0.5",
+    "@IntusFacultas/button": "^1.0.7",
+    "@IntusFacultas/design-system": "^1.5.2",
+    "@IntusFacultas/input": "^1.3.9",
+    "@IntusFacultas/layout": "^1.0.7",
+    "@IntusFacultas/typography": "^2.0.5",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {
@@ -38,7 +43,8 @@
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",
-    "rollup-plugin-vue": "^5.1.6"
+    "rollup-plugin-vue": "^5.1.6",
+    "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {
     "vue": "^2.6.10"

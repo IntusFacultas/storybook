@@ -8,9 +8,9 @@ import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
 import {
   TextTheme,
   NIWSTheme,
-  NASICTheme,
+  Theme,
   AlertTheme
-} from "Components/components/DesignSystem/nasic-theme.js";
+} from "Components/components/DesignSystem/theme.js";
 import markdown from "Components/components/DesignSystem/Usage.md";
 export default {
   title: "Design System",
@@ -33,7 +33,7 @@ export const Colors = () => ({
   },
   data: function() {
     return {
-      nasic: NASICTheme,
+      nasic: Theme,
       text: TextTheme,
       niws: NIWSTheme,
       toast: AlertTheme,

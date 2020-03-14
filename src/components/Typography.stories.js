@@ -29,7 +29,7 @@ export default {
   excludeStories: /.*Data$/
 };
 
-export const Title = () => ({
+export const PageTitle = () => ({
   components: { Title },
   props: {
     flavor: {

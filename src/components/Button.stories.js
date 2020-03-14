@@ -3,7 +3,7 @@ import { NButton } from "Components/components/StyledHTML/Button/src/Button.vue"
 import { Text } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { ThemeProvider } from "vue-styled-components";
 import { withKnobs, object, text, boolean } from "@storybook/addon-knobs";
-import NASICTheme from "Components/components/DesignSystem/nasic-theme.js";
+import Theme from "Components/components/DesignSystem/theme.js";
 import {
   FlexRow,
   FlexColumn
@@ -31,7 +31,7 @@ export const Button = () => ({
   },
   data: function() {
     return {
-      theme: NASICTheme
+      theme: Theme
     };
   },
   props: {
@@ -42,7 +42,7 @@ export const Button = () => ({
       default: boolean("Small Button", false)
     },
     flavor: {
-      default: text("Flavor", Object.keys(NASICTheme)[0])
+      default: text("Flavor", Object.keys(Theme)[0])
     },
     disabled: {
       default: boolean("Disable Button", false)

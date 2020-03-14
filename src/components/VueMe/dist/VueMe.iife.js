@@ -3393,7 +3393,7 @@ var VueMe = (function () {
     }
   };
 
-  var NASICTheme = _objectSpread2({
+  var Theme = _objectSpread2({
     Light: {
       color: {
         color: "#222",
@@ -3855,28 +3855,20 @@ var VueMe = (function () {
     }
   }, NIWSTheme, {}, AlertTheme);
 
-  function _templateObject5() {
-    var data = _taggedTemplateLiteral(["\n  font-family: \"Open Sans Condensed Light\", sans-serif !important;\n  font-weight: 400;\n  margin: 0;\n  color: ", ";\n  line-height: 1.571;\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+  function _taggedTemplateLiteral$1(strings, raw) {
+    if (!raw) {
+      raw = strings.slice(0);
+    }
 
-    _templateObject5 = function _templateObject5() {
-      return data;
-    };
-
-    return data;
-  }
-
-  function _templateObject4() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
-
-    _templateObject4 = function _templateObject4() {
-      return data;
-    };
-
-    return data;
+    return Object.freeze(Object.defineProperties(strings, {
+      raw: {
+        value: Object.freeze(raw)
+      }
+    }));
   }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3886,7 +3878,7 @@ var VueMe = (function () {
   }
 
   function _templateObject2() {
-    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"PT Serif Regular\", serif;\n  color: ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject2 = function _templateObject2() {
       return data;
@@ -3896,7 +3888,7 @@ var VueMe = (function () {
   }
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n  ", "\n"]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3904,6 +3896,7 @@ var VueMe = (function () {
 
     return data;
   }
+
   var titleProps = {
     dark: Boolean,
     bold: Boolean,
@@ -3915,30 +3908,18 @@ var VueMe = (function () {
       }
     }
   };
-  var WebTitle = styled("h1", titleProps)(_templateObject(), function (props) {
+  var Title = styled("h1", titleProps)(_templateObject(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
     return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
   });
-  var WebSectionTitle = WebTitle.withComponent("h2", titleProps);
-  var WebSubSectionTitle = WebTitle.withComponent("h3", titleProps);
-  var WebCategoryTitle = WebTitle.withComponent("h4", titleProps);
-  var WebSubCategoryTitle = WebTitle.withComponent("h5", titleProps);
-  var WebKeyword = WebTitle.withComponent("h6", titleProps);
-  var ProductTitle = styled("h1", titleProps)(_templateObject2(), function (props) {
-    return props.bold ? "bold" : 500;
-  }, function (props) {
-    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-  }, function (props) {
-    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
-  });
-  var SectionTitle = ProductTitle.withComponent("h2", titleProps);
-  var SubSectionTitle = ProductTitle.withComponent("h3", titleProps);
-  var CategoryTitle = ProductTitle.withComponent("h4", titleProps);
-  var SubCategoryTitle = ProductTitle.withComponent("h5", titleProps);
-  var Keyword = ProductTitle.withComponent("h6", titleProps);
+  var SectionTitle = Title.withComponent("h2", titleProps);
+  var SubSectionTitle = Title.withComponent("h3", titleProps);
+  var CategoryTitle = Title.withComponent("h4", titleProps);
+  var SubCategoryTitle = Title.withComponent("h5", titleProps);
+  var Keyword = Title.withComponent("h6", titleProps);
   var props = {
     size: {
       type: Number,
@@ -3953,7 +3934,7 @@ var VueMe = (function () {
     },
     flavor: String
   };
-  var NText = styled("span", props)(_templateObject3(), function (props) {
+  var Text = styled("span", props)(_templateObject2(), function (props) {
     return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
   }, function (props) {
     return props.bold ? "bold" : 500;
@@ -3962,20 +3943,15 @@ var VueMe = (function () {
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var NPara = NText.withComponent("p", props);
-  var NSmall = styled("small", props)(_templateObject4(), function (props) {
+  var Paragraph = Text.withComponent("p", props);
+  var NSmall = styled("small", props)(_templateObject3(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
     return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var NLabel = NText.withComponent("label", props);
-  var PortionMarking = styled("span", props)(_templateObject5(), function (props) {
-    return props.dark ? props.textTheme.PortionMarkingDark.color : props.textTheme.Normal.color;
-  }, function (props) {
-    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
-  });
+  var NLabel = Text.withComponent("label", props);
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
@@ -4117,15 +4093,15 @@ var VueMe = (function () {
   /* script */
 
 
-  var __vue_script__ = NText;
+  var __vue_script__ = Text;
   /* template */
 
   /* style */
 
   var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-28957960_0", {
-      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    inject("data-v-8d534810_0", {
+      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       map: {
         "version": 3,
         "sources": [],
@@ -4153,26 +4129,8 @@ var VueMe = (function () {
   var __vue_component__ = normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
   var components = [{
-    label: "WebTitle",
-    component: WebTitle
-  }, {
-    label: "WebSectionTitle",
-    component: WebSectionTitle
-  }, {
-    label: "WebSubSectionTitle",
-    component: WebSubSectionTitle
-  }, {
-    label: "WebCategoryTitle",
-    component: WebCategoryTitle
-  }, {
-    label: "WebSubCategoryTitle",
-    component: WebSubCategoryTitle
-  }, {
-    label: "WebKeyword",
-    component: WebKeyword
-  }, {
-    label: "ProductTitle",
-    component: ProductTitle
+    label: "Title",
+    component: Title
   }, {
     label: "SectionTitle",
     component: SectionTitle
@@ -4189,27 +4147,23 @@ var VueMe = (function () {
     label: "Keyword",
     component: Keyword
   }, {
-    label: "NText",
-    component: NText
+    label: "Text",
+    component: Text
   }, {
-    label: "NPara",
-    component: NPara
+    label: "Paragraph",
+    component: Paragraph
   }, {
     label: "NSmall",
     component: NSmall
   }, {
     label: "NLabel",
     component: NLabel
-  }, {
-    label: "PortionMarking",
-    component: PortionMarking
   }];
   var GlobalVue = null;
 
   var _loop = function _loop() {
-    var component_obj = _components[_i];
+    var component_obj = _components[_i]; // install function executed by Vue.use()
 
-    // install function executed by Vue.use()
     var install = function installComponent(Vue) {
       if (install.installed) return;
       install.installed = true;
@@ -4241,9 +4195,9 @@ var VueMe = (function () {
 
   for (var _i = 0, _components = components; _i < _components.length; _i++) {
     _loop();
-  } // It's possible to expose named exports when writing components that can
+  } // Export component by default
 
-  function _taggedTemplateLiteral$1(strings, raw) {
+  function _taggedTemplateLiteral$2(strings, raw) {
     if (!raw) {
       raw = strings.slice(0);
     }
@@ -4256,7 +4210,7 @@ var VueMe = (function () {
   }
 
   function _templateObject2$1() {
-    var data = _taggedTemplateLiteral$1(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: Segoe UI, sans-serif;\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: Segoe UI, sans-serif;\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
 
     _templateObject2$1 = function _templateObject2() {
       return data;
@@ -4266,7 +4220,7 @@ var VueMe = (function () {
   }
 
   function _templateObject$1() {
-    var data = _taggedTemplateLiteral$1(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
 
     _templateObject$1 = function _templateObject() {
       return data;
@@ -4283,7 +4237,7 @@ var VueMe = (function () {
     defaultTheme: {
       type: Object,
       default: function _default() {
-        return NASICTheme;
+        return Theme;
       }
     }
   };
@@ -4295,7 +4249,7 @@ var VueMe = (function () {
     dialogTheme: {
       type: Object,
       default: function _default() {
-        return NASICTheme;
+        return Theme;
       }
     }
   };
@@ -4509,7 +4463,7 @@ var VueMe = (function () {
 
   DialogButton.install = dialogInstall; // Export component by default
 
-  function _taggedTemplateLiteral$2(strings, raw) {
+  function _taggedTemplateLiteral$3(strings, raw) {
     if (!raw) {
       raw = strings.slice(0);
     }
@@ -4522,7 +4476,7 @@ var VueMe = (function () {
   }
 
   function _templateObject$2() {
-    var data = _taggedTemplateLiteral$2(["\n  width: 100%;\n  height: 35px;\n  font-size: 16px;\n  border-radius: 5px;\n  border-width: 1px;\n  border-style: solid;\n  padding: 2px 5px 2px 5px;\n  margin-top: 2px;\n  box-sizing: border-box;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\n  &:focus {\n    border-color: 1px solid\n      ", ";\n    outline: none;\n    box-shadow: 0px 0px 0px 3px\n      ", ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n"]);
+    var data = _taggedTemplateLiteral$3(["\n  width: 100%;\n  height: 35px;\n  font-size: 16px;\n  border-radius: 5px;\n  border-width: 1px;\n  border-style: solid;\n  padding: 2px 5px 2px 5px;\n  margin-top: 2px;\n  box-sizing: border-box;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\n  &:focus {\n    border-color: 1px solid\n      ", ";\n    outline: none;\n    box-shadow: 0px 0px 0px 3px\n      ", ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n"]);
 
     _templateObject$2 = function _templateObject() {
       return data;
@@ -4539,7 +4493,7 @@ var VueMe = (function () {
     defaultTheme: {
       type: Object,
       default: function _default() {
-        return NASICTheme;
+        return Theme;
       }
     }
   };
@@ -4847,15 +4801,15 @@ var VueMe = (function () {
 
   var __vue_inject_styles__$2 = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-b35ff69c_0", {
+    inject("data-v-23064d4e_0", {
       source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n",
       map: {
         "version": 3,
-        "sources": ["C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\Input\\src\\Input.vue"],
+        "sources": ["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Input\\src\\Input.vue"],
         "names": [],
         "mappings": ";AAoMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA",
         "file": "Input.vue",
-        "sourcesContent": ["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :pattern=\"pattern\"\r\n      :multiple=\"multiple\"\r\n      :min=\"min\"\r\n      :max=\"max\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@nasic/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@nasic/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]
+        "sourcesContent": ["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :pattern=\"pattern\"\r\n      :multiple=\"multiple\"\r\n      :min=\"min\"\r\n      :max=\"max\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]
       },
       media: undefined
     });
@@ -4924,7 +4878,7 @@ var VueMe = (function () {
     _loop$1();
   } // Export component by default
 
-  function _taggedTemplateLiteral$3(strings, raw) {
+  function _taggedTemplateLiteral$4(strings, raw) {
     if (!raw) {
       raw = strings.slice(0);
     }
@@ -4937,7 +4891,7 @@ var VueMe = (function () {
   }
 
   function _templateObject2$2() {
-    var data = _taggedTemplateLiteral$3(["\n  display: flex;\n  width: 100%;\n  flex-wrap: wrap;\n"]);
+    var data = _taggedTemplateLiteral$4(["\n  display: flex;\n  width: 100%;\n  flex-wrap: wrap;\n"]);
 
     _templateObject2$2 = function _templateObject2() {
       return data;
@@ -4947,7 +4901,7 @@ var VueMe = (function () {
   }
 
   function _templateObject$3() {
-    var data = _taggedTemplateLiteral$3(["\n  flex: ", ";\n  width: 100%;\n  padding: 15px;\n  display: flex;\n  flex-wrap: wrap;\n  @media (min-width: 0px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 576px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 768px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 992px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 1200px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  box-sizing: border-box;\n"]);
+    var data = _taggedTemplateLiteral$4(["\n  flex: ", ";\n  width: 100%;\n  padding: 15px;\n  display: flex;\n  flex-wrap: wrap;\n  @media (min-width: 0px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 576px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 768px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 992px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  @media (min-width: 1200px) {\n    flex: ", ";\n    min-width: calc(\n      100% /\n        (\n          12 /\n            ", "\n        )\n    );\n  }\n  box-sizing: border-box;\n"]);
 
     _templateObject$3 = function _templateObject() {
       return data;
@@ -5163,20 +5117,20 @@ var VueMe = (function () {
     return data;
   }
 
-  function _templateObject5$1() {
+  function _templateObject5() {
     var data = _taggedTemplateLiteral(["\n  width: 100%;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  padding: 10px;\n  word-break: break-word;\n"]);
 
-    _templateObject5$1 = function _templateObject5() {
+    _templateObject5 = function _templateObject5() {
       return data;
     };
 
     return data;
   }
 
-  function _templateObject4$1() {
+  function _templateObject4() {
     var data = _taggedTemplateLiteral(["\n  z-index: ", ";\n  background-color: #fff;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-top: solid 7px\n    ", ";\n  border-radius: 0.25rem;\n  min-width: ", "px;\n  display: flex;\n  transition: all 0.4s;\n  transform: scale(0);\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\n"]);
 
-    _templateObject4$1 = function _templateObject4() {
+    _templateObject4 = function _templateObject4() {
       return data;
     };
 
@@ -5225,7 +5179,7 @@ var VueMe = (function () {
     defaultTheme: {
       type: Object,
       default: function _default() {
-        return NASICTheme;
+        return Theme;
       }
     }
   };
@@ -5236,14 +5190,14 @@ var VueMe = (function () {
     return props.zIndex + 1999;
   });
   var VueMeTitleContainer = styled.div(_templateObject3$1());
-  var VueMeDialogBox = styled("div", props$4)(_templateObject4$1(), function (props) {
+  var VueMeDialogBox = styled("div", props$4)(_templateObject4(), function (props) {
     return props.zIndex + 2000;
   }, function (props) {
     return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.color : "white";
   }, function (props) {
     return props.width;
   });
-  var VueMeDialogContentContainer = styled.div(_templateObject5$1());
+  var VueMeDialogContentContainer = styled.div(_templateObject5());
   var VueMeDialogContent = styled.div(_templateObject6());
   var VueMeDialogButtonContainer = styled.div(_templateObject7());
   var VueMeDialog = {
@@ -5255,7 +5209,7 @@ var VueMe = (function () {
       VueMeDialogContentContainer: VueMeDialogContentContainer,
       VueMeDialogContent: VueMeDialogContent,
       VueMeDialogButtonContainer: VueMeDialogButtonContainer,
-      WebSubSectionTitle: WebSubSectionTitle,
+      SubSectionTitle: SubSectionTitle,
       DialogButton: DialogButton,
       VueInput: VueInput,
       FlexRow: FlexRow,
@@ -5421,7 +5375,7 @@ var VueMe = (function () {
         }
       }
     },
-    template: "\n  <vue-me-dialog-container :z-index=\"zIndex\">\n    <vue-me-backdrop\n      ref=\"backdrop\"\n      :class=\"{'vueme-dialog-backdrop-open' : show}\"\n      :z-index=\"zIndex\"\n      @click=\"closeDialog\"\n    ></vue-me-backdrop>\n      <vue-me-dialog-box\n        ref=\"dialogBox\"\n        :flavor=\"flavor\"\n        :width=\"width\"\n      >\n        <vue-me-dialog-content-container>\n          <vue-me-title-container>\n            <span v-html=\"icon\"></span>\n            <web-sub-section-title class=\"vue-me-title\">{{title}}</web-sub-section-title>\n          </vue-me-title-container>\n          <vue-me-dialog-content>\n            <div v-html=\"content\"></div>\n            <form v-if=\"fields.length > 0\">\n              <vue-input\n                v-for=\"field in fields\"\n                :key=\"'field' + field.id\"\n                :name=\"'vueMeField' + field.id\"\n                :input-type=\"field.type\"\n                :label=\"field.label\"\n                v-model=\"fieldValues[field.id]\"\n              ></vue-input>\n            </form>\n            <vue-me-dialog-button-container>\n              <dialog-button\n                v-for=\"(button, index) in buttons\"\n                :key=\"'button' + button.id\"\n                @click=\"callFunction(button)\"\n                :flavor=\"button.flavor\"\n                :small=\"true\"\n                :disabled=\"shaking\"\n              >\n                {{button.text}}\n                <span v-if=\"index == autoCloseIndex\">({{internalCloseTime}})</span>\n              </dialog-button>\n            </vue-me-dialog-button-container>\n          </vue-me-dialog-content>\n        </vue-me-dialog-content-container>\n      </vue-me-dialog-box>\n  </vue-me-dialog-container>\n  "
+    template: "\n  <vue-me-dialog-container :z-index=\"zIndex\">\n    <vue-me-backdrop\n      ref=\"backdrop\"\n      :class=\"{'vueme-dialog-backdrop-open' : show}\"\n      :z-index=\"zIndex\"\n      @click=\"closeDialog\"\n    ></vue-me-backdrop>\n      <vue-me-dialog-box\n        ref=\"dialogBox\"\n        :flavor=\"flavor\"\n        :width=\"width\"\n      >\n        <vue-me-dialog-content-container>\n          <vue-me-title-container>\n            <span v-html=\"icon\"></span>\n            <sub-section-title class=\"vue-me-title\">{{title}}</sub-section-title>\n          </vue-me-title-container>\n          <vue-me-dialog-content>\n            <div v-html=\"content\"></div>\n            <form v-if=\"fields.length > 0\">\n              <vue-input\n                v-for=\"field in fields\"\n                :key=\"'field' + field.id\"\n                :name=\"'vueMeField' + field.id\"\n                :input-type=\"field.type\"\n                :label=\"field.label\"\n                v-model=\"fieldValues[field.id]\"\n              ></vue-input>\n            </form>\n            <vue-me-dialog-button-container>\n              <dialog-button\n                v-for=\"(button, index) in buttons\"\n                :key=\"'button' + button.id\"\n                @click=\"callFunction(button)\"\n                :flavor=\"button.flavor\"\n                :small=\"true\"\n                :disabled=\"shaking\"\n              >\n                {{button.text}}\n                <span v-if=\"index == autoCloseIndex\">({{internalCloseTime}})</span>\n              </dialog-button>\n            </vue-me-dialog-button-container>\n          </vue-me-dialog-content>\n        </vue-me-dialog-content-container>\n      </vue-me-dialog-box>\n  </vue-me-dialog-container>\n  "
   };
   var VueMe = {
     components: {
@@ -5855,7 +5809,7 @@ var VueMe = (function () {
     /* style */
     const __vue_inject_styles__$4 = function (inject) {
       if (!inject) return
-      inject("data-v-62dc4e83_0", { source: "\n.vue-me-title {\r\n  margin: 0px;\n}\n.vueme-dialog-backdrop-open {\r\n  opacity: 0.2;\n}\n.vueme-dialog-open {\r\n  transform: scale(1);\n}\n.vueme-dismiss-dialog {\r\n  transition: all 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transform: scale(0);\r\n  display: block;\n}\n.vueme-shake-dialog {\r\n  -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\n}\n@keyframes vueme-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 0.2;\n}\n}\n@keyframes shake {\n10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\n}\n20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\n}\n30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\n}\n40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\n}\n}\n@-ms-keyframes shake {\n10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\n}\n20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\n}\n30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\n}\n40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\n}\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\VueMe\\src\\VueMe.vue"],"names":[],"mappings":";AAugBA;EACA,WAAA;AACA;AACA;EACA,YAAA;AACA;AACA;EACA,mBAAA;AACA;AACA;EACA,oBAAA;EACA,6DAAA;EACA,mBAAA;EACA,cAAA;AACA;AACA;EACA,wEAAA;EACA,gEAAA;EACA,uCAAA;EACA,+BAAA;AACA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,YAAA;AACA;AACA;AACA;AACA;;IAEA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;;;IAGA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;AACA;AACA;;IAEA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;;;IAGA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA","file":"VueMe.vue","sourcesContent":["<template>\r\n  <div>\r\n    <vue-me-dialog\r\n      v-for=\"(alert, index) in alerts\"\r\n      :key=\"index\"\r\n      :flavor=\"alert.flavor\"\r\n      :id=\"alert.id\"\r\n      :parent=\"alert.parent\"\r\n      :zIndex=\"alert.zIndex\"\r\n      :closeTime=\"alert.closeTime\"\r\n      :autoCloseIndex=\"alert.autoCloseIndex\"\r\n      :autoClose=\"alert.autoClose\"\r\n      :title=\"alert.title\"\r\n      :icon=\"alert.icon\"\r\n      :width=\"alert.width\"\r\n      :content=\"alert.content\"\r\n      :fields=\"alert.fields\"\r\n      :backgroundDismiss=\"alert.backgroundDismiss\"\r\n      :buttons=\"alert.buttons\"\r\n    ></vue-me-dialog>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport { NASICTheme } from \"@nasic/design-system\";\r\nimport { WebSubSectionTitle } from \"@nasic/typography\";\r\nimport { DialogButton } from \"@nasic/button\";\r\nimport { VueInput } from \"@nasic/input\";\r\nimport { FlexRow, FlexColumn } from \"@nasic/layout\";\r\nconst props = {\r\n  zIndex: {\r\n    type: Number,\r\n    default: 0\r\n  },\r\n  width: {\r\n    type: Number,\r\n    default: 360\r\n  },\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return NASICTheme;\r\n    }\r\n  }\r\n};\r\nconst VueMeDialogContainer = styled(\"div\", props)`\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100%;\r\n  position: fixed;\r\n  width: 100%;\r\n  z-index: ${props => props.zIndex + 1999};\r\n  top: 0px;\r\n  bottom: 0px;\r\n  left: 0px;\r\n  right: 0px;\r\n`;\r\nconst VueMeBackdrop = styled(\"div\", props)`\r\n  background-color: #444;\r\n  opacity: 0;\r\n  z-index: ${props => props.zIndex + 1999};\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  transition-duration: 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transition-property: opacity;\r\n  animation: vueme-fadein 0.4s;\r\n`;\r\nconst VueMeTitleContainer = styled.div`\r\n  display: flex;\r\n`;\r\nconst VueMeDialogBox = styled(\"div\", props)`\r\n  z-index: ${props => props.zIndex + 2000};\r\n  background-color: #fff;\r\n  border: 1px solid rgba(0, 0, 0, 0.125);\r\n  border-top: solid 7px\r\n    ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"white\"};\r\n  border-radius: 0.25rem;\r\n  min-width: ${props => props.width}px;\r\n  display: flex;\r\n  transition: all 0.4s;\r\n  transform: scale(0);\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n`;\r\nconst VueMeDialogContentContainer = styled.div`\r\n  width: 100%;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  padding: 10px;\r\n  word-break: break-word;\r\n`;\r\nconst VueMeDialogContent = styled.div``;\r\nconst VueMeDialogButtonContainer = styled.div`\r\n  margin-top: 15px;\r\n  display: flex;\r\n  justify-content: flex-end;\r\n`;\r\nconst VueMeDialog = {\r\n  components: {\r\n    VueMeDialogContainer,\r\n    VueMeBackdrop,\r\n    VueMeTitleContainer,\r\n    VueMeDialogBox,\r\n    VueMeDialogContentContainer,\r\n    VueMeDialogContent,\r\n    VueMeDialogButtonContainer,\r\n    WebSubSectionTitle,\r\n    DialogButton,\r\n    VueInput,\r\n    FlexRow,\r\n    FlexColumn\r\n  },\r\n  data() {\r\n    return {\r\n      show: false,\r\n      intervalId: -1,\r\n      shaking: false,\r\n      enabled: false,\r\n      fieldValues: [],\r\n      internalCloseTime: 0\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    id: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    parent: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    zIndex: {\r\n      type: Number,\r\n      default: 0\r\n    },\r\n    closeTime: {\r\n      type: Number,\r\n      default: 0\r\n    },\r\n    autoCloseIndex: {\r\n      type: Number,\r\n      default: -1\r\n    },\r\n    autoClose: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    title: {\r\n      type: String,\r\n      default: \"Alert\"\r\n    },\r\n    icon: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 360\r\n    },\r\n    content: {\r\n      type: String,\r\n      default: \"You forgot to provide content\"\r\n    },\r\n    fields: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    backgroundDismiss: {\r\n      type: Boolean,\r\n      default: true\r\n    },\r\n    buttons: {\r\n      type: Array,\r\n      default() {\r\n        return [\r\n          {\r\n            id: 1,\r\n            flavor: \"\",\r\n            text: \"Close\",\r\n            action: function() {\r\n              // empty\r\n            }\r\n          }\r\n        ];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.$nextTick(function() {\r\n      self.open();\r\n    });\r\n  },\r\n  methods: {\r\n    open: function() {\r\n      this.show = true;\r\n      this.enabled = true;\r\n      this.internalCloseTime = this.closeTime;\r\n      if (this.autoClose) {\r\n        this.beginAutoClose();\r\n      }\r\n      let self = this;\r\n      setTimeout(function() {\r\n        self.$refs.backdrop.$el.classList.add(\"vueme-dialog-backdrop-open\");\r\n        self.$refs.dialogBox.$el.classList.add(\"vueme-dialog-open\");\r\n      }, 50);\r\n    },\r\n    handleAutoClose: function() {\r\n      if (this.internalCloseTime == 0) {\r\n        clearInterval(this.intervalId);\r\n        this.callFunction(this.buttons[this.autoCloseIndex]);\r\n      } else {\r\n        this.internalCloseTime--;\r\n      }\r\n    },\r\n    beginAutoClose: function() {\r\n      this.intervalId = setInterval(this.handleAutoClose, 1000);\r\n    },\r\n    callFunction: function(button) {\r\n      if (this.enabled) {\r\n        var close = button.action(this.fieldValues);\r\n        if (close !== false) {\r\n          this.close();\r\n        }\r\n      }\r\n    },\r\n    close: function() {\r\n      if (this.enabled && !this.shaking) {\r\n        this.enabled = false;\r\n        if (this && this.$refs && this.$refs.dialogBox) {\r\n          this.$refs.dialogBox.$el.classList.remove(\"vueme-dialog-open\");\r\n          this.$refs.dialogBox.$el.classList.add(\"vueme-dismiss-dialog\");\r\n        }\r\n        if (this && this.$refs && this.$refs.backdrop)\r\n          this.$refs.backdrop.$el.classList.remove(\r\n            \"vueme-dialog-backdrop-open\"\r\n          );\r\n        let self = this;\r\n        setTimeout(function() {\r\n          self.show = false;\r\n          self.show = false;\r\n          // destroy the vue listeners, etc\r\n          self.$destroy();\r\n\r\n          // remove the element from the DOM\r\n          self.$el.parentNode.removeChild(self.$el);\r\n          self.parent.close(self.id);\r\n        }, 420);\r\n      }\r\n    },\r\n    closeDialog: function() {\r\n      if (!this.enabled) {\r\n        return;\r\n      }\r\n      if (this.backgroundDismiss) {\r\n        this.close();\r\n      } else {\r\n        if (this && this.$refs && this.$refs.dialogBox)\r\n          this.$refs.dialogBox.$el.classList.add(\"vueme-shake-dialog\");\r\n        let self = this;\r\n        this.shaking = true;\r\n        setTimeout(function() {\r\n          self.shaking = false;\r\n          if (self && self.$refs && self.$refs.dialogBox)\r\n            self.$refs.dialogBox.$el.classList.remove(\"vueme-shake-dialog\");\r\n        }, 1000);\r\n      }\r\n    }\r\n  },\r\n  template: `\r\n  <vue-me-dialog-container :z-index=\"zIndex\">\r\n    <vue-me-backdrop\r\n      ref=\"backdrop\"\r\n      :class=\"{'vueme-dialog-backdrop-open' : show}\"\r\n      :z-index=\"zIndex\"\r\n      @click=\"closeDialog\"\r\n    ></vue-me-backdrop>\r\n      <vue-me-dialog-box\r\n        ref=\"dialogBox\"\r\n        :flavor=\"flavor\"\r\n        :width=\"width\"\r\n      >\r\n        <vue-me-dialog-content-container>\r\n          <vue-me-title-container>\r\n            <span v-html=\"icon\"></span>\r\n            <web-sub-section-title class=\"vue-me-title\">{{title}}</web-sub-section-title>\r\n          </vue-me-title-container>\r\n          <vue-me-dialog-content>\r\n            <div v-html=\"content\"></div>\r\n            <form v-if=\"fields.length > 0\">\r\n              <vue-input\r\n                v-for=\"field in fields\"\r\n                :key=\"'field' + field.id\"\r\n                :name=\"'vueMeField' + field.id\"\r\n                :input-type=\"field.type\"\r\n                :label=\"field.label\"\r\n                v-model=\"fieldValues[field.id]\"\r\n              ></vue-input>\r\n            </form>\r\n            <vue-me-dialog-button-container>\r\n              <dialog-button\r\n                v-for=\"(button, index) in buttons\"\r\n                :key=\"'button' + button.id\"\r\n                @click=\"callFunction(button)\"\r\n                :flavor=\"button.flavor\"\r\n                :small=\"true\"\r\n                :disabled=\"shaking\"\r\n              >\r\n                {{button.text}}\r\n                <span v-if=\"index == autoCloseIndex\">({{internalCloseTime}})</span>\r\n              </dialog-button>\r\n            </vue-me-dialog-button-container>\r\n          </vue-me-dialog-content>\r\n        </vue-me-dialog-content-container>\r\n      </vue-me-dialog-box>\r\n  </vue-me-dialog-container>\r\n  `\r\n};\r\nexport const VueMe = {\r\n  components: { VueMeDialog },\r\n  name: \"vue-me\",\r\n  data() {\r\n    return {\r\n      alerts: [],\r\n      availableId: 0,\r\n      availalbeAlertId: 0,\r\n      deletedAlerts: []\r\n    };\r\n  },\r\n  props: {\r\n    parentInstance: {\r\n      type: Object,\r\n      default: \"\"\r\n    }\r\n  },\r\n  mounted: function() {\r\n    this.parentInstance.$alert = this.alert;\r\n    if (typeof Object.assign !== \"function\") {\r\n      // Must be writable: true, enumerable: false, configurable: true\r\n      Object.defineProperty(Object, \"assign\", {\r\n        value: function assign(target, varArgs) {\r\n          // .length of function is 2\r\n          \"use strict\";\r\n          if (target === null || target === undefined) {\r\n            throw new TypeError(\"Cannot convert undefined or null to object\");\r\n          }\r\n\r\n          var to = Object(target);\r\n\r\n          for (var index = 1; index < arguments.length; index++) {\r\n            var nextSource = arguments[index];\r\n\r\n            if (nextSource !== null && nextSource !== undefined) {\r\n              for (var nextKey in nextSource) {\r\n                // Avoid bugs when hasOwnProperty is shadowed\r\n                if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {\r\n                  to[nextKey] = nextSource[nextKey];\r\n                }\r\n              }\r\n            }\r\n          }\r\n          return to;\r\n        },\r\n        writable: true,\r\n        configurable: true\r\n      });\r\n    }\r\n  },\r\n  watch: {\r\n    deletedAlerts(newVal, oldVal) {\r\n      // we do this because if we change the alerts array while we still have alerts visible, it causes a re render but\r\n      // not a re-mount so the alerts \"disappear\". So we wait to delete from array until all alerts are no longer visible\r\n      if (\r\n        this.deletedAlerts.length == this.alerts.length &&\r\n        this.deletedAlerts.length != 0\r\n      ) {\r\n        this.alerts = [];\r\n        this.deletedAlerts = [];\r\n      }\r\n    }\r\n  },\r\n  methods: {\r\n    close: function close(id) {\r\n      this.deletedAlerts.push(id);\r\n    },\r\n    formatField: function(field) {\r\n      var label = \"Label\";\r\n      if (field.label) {\r\n        label = field.label;\r\n      }\r\n      var fieldType = \"text\";\r\n      if (field.type) {\r\n        fieldType = field.type;\r\n      }\r\n      var id = label + \"-\" + fieldType;\r\n      if (field.id) {\r\n        id = field.id;\r\n      }\r\n      return {\r\n        id: id,\r\n        label: label,\r\n        type: fieldType\r\n      };\r\n    },\r\n    formatButton: function(button) {\r\n      var text = \"Button\";\r\n      if (button.text) {\r\n        text = button.text;\r\n      }\r\n      var flavor = \"Primary\";\r\n      if (button.flavor) {\r\n        flavor = button.flavor;\r\n      }\r\n      var action = function() {};\r\n      if (button.action) {\r\n        action = button.action;\r\n      }\r\n      var id = this.availableId++;\r\n      if (button.id) {\r\n        id = button.id;\r\n      }\r\n      return {\r\n        id: id,\r\n        text: text,\r\n        flavor: flavor,\r\n        action: action\r\n      };\r\n    },\r\n    alert: function(options) {\r\n      let dialogConfiguration = {\r\n        id: this.availalbeAlertId++,\r\n        parent: this\r\n      };\r\n      let flavor = \"\";\r\n      if (options.flavor) {\r\n        flavor = options.flavor;\r\n      }\r\n      dialogConfiguration.flavor = flavor;\r\n      let width = 360;\r\n      if (options.width) {\r\n        width = options.width;\r\n      }\r\n      dialogConfiguration.width = width;\r\n      let title = \"Alert\";\r\n      if (typeof options.title == \"string\") {\r\n        title = options.title;\r\n      }\r\n      dialogConfiguration.title = title;\r\n      let icon = \"\";\r\n      if (options.icon) {\r\n        icon = options.icon;\r\n      }\r\n      dialogConfiguration.icon = icon;\r\n      let content = \"This is an alert.\";\r\n      if (typeof options.content == \"string\") {\r\n        content = options.content;\r\n      }\r\n      dialogConfiguration.content = content;\r\n      let backgroundDismiss = false;\r\n      if (options.backgroundDismiss) {\r\n        backgroundDismiss = options.backgroundDismiss;\r\n      }\r\n      dialogConfiguration.backgroundDismiss = backgroundDismiss;\r\n      let buttons = [this.formatButton({})];\r\n      if (options.buttons && Array.isArray(options.buttons)) {\r\n        buttons = [];\r\n        for (let x = 0; x < options.buttons.length; x++) {\r\n          buttons.push(this.formatButton(options.buttons[x]));\r\n        }\r\n      }\r\n      dialogConfiguration.buttons = buttons;\r\n      let fields = [];\r\n      if (options.fields && Array.isArray(options.fields)) {\r\n        fields = [];\r\n        for (let field of options.fields) {\r\n          fields.push(this.formatField(field));\r\n        }\r\n      }\r\n      dialogConfiguration.fields = fields;\r\n      let autoClose = options.autoClose;\r\n      if (autoClose) {\r\n        dialogConfiguration.autoClose = true;\r\n        autoClose = autoClose.split(\"|\");\r\n        dialogConfiguration.closeTime = Math.ceil(\r\n          parseInt(autoClose[1]) / 1000\r\n        );\r\n        for (let [index, button] of dialogConfiguration.buttons.entries()) {\r\n          if (button.id == autoClose[0]) {\r\n            dialogConfiguration.autoCloseIndex = index;\r\n            break;\r\n          }\r\n        }\r\n      }\r\n      this.alerts.push(Object.assign({}, dialogConfiguration));\r\n    }\r\n  }\r\n};\r\nexport default VueMe;\r\n</script>\r\n\r\n<style>\r\n.vue-me-title {\r\n  margin: 0px;\r\n}\r\n.vueme-dialog-backdrop-open {\r\n  opacity: 0.2;\r\n}\r\n.vueme-dialog-open {\r\n  transform: scale(1);\r\n}\r\n.vueme-dismiss-dialog {\r\n  transition: all 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transform: scale(0);\r\n  display: block;\r\n}\r\n.vueme-shake-dialog {\r\n  -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n@keyframes vueme-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 0.2;\r\n  }\r\n}\r\n@keyframes shake {\r\n  10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\r\n  }\r\n  20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\r\n  }\r\n  30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\r\n  }\r\n  40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\r\n  }\r\n}\r\n@-ms-keyframes shake {\r\n  10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\r\n  }\r\n  20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\r\n  }\r\n  30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\r\n  }\r\n  40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\r\n  }\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-6f980367_0", { source: "\n.vue-me-title {\r\n  margin: 0px;\n}\n.vueme-dialog-backdrop-open {\r\n  opacity: 0.2;\n}\n.vueme-dialog-open {\r\n  transform: scale(1);\n}\n.vueme-dismiss-dialog {\r\n  transition: all 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transform: scale(0);\r\n  display: block;\n}\n.vueme-shake-dialog {\r\n  -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\n}\n@keyframes vueme-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 0.2;\n}\n}\n@keyframes shake {\n10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\n}\n20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\n}\n30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\n}\n40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\n}\n}\n@-ms-keyframes shake {\n10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\n}\n20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\n}\n30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\n}\n40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\n}\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\VueMe\\src\\VueMe.vue"],"names":[],"mappings":";AAugBA;EACA,WAAA;AACA;AACA;EACA,YAAA;AACA;AACA;EACA,mBAAA;AACA;AACA;EACA,oBAAA;EACA,6DAAA;EACA,mBAAA;EACA,cAAA;AACA;AACA;EACA,wEAAA;EACA,gEAAA;EACA,uCAAA;EACA,+BAAA;AACA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,YAAA;AACA;AACA;AACA;AACA;;IAEA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;;;IAGA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;AACA;AACA;;IAEA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA;;;IAGA,0CAAA;IACA,kCAAA;AACA;AACA;;IAEA,yCAAA;IACA,iCAAA;AACA;AACA","file":"VueMe.vue","sourcesContent":["<template>\r\n  <div>\r\n    <vue-me-dialog\r\n      v-for=\"(alert, index) in alerts\"\r\n      :key=\"index\"\r\n      :flavor=\"alert.flavor\"\r\n      :id=\"alert.id\"\r\n      :parent=\"alert.parent\"\r\n      :zIndex=\"alert.zIndex\"\r\n      :closeTime=\"alert.closeTime\"\r\n      :autoCloseIndex=\"alert.autoCloseIndex\"\r\n      :autoClose=\"alert.autoClose\"\r\n      :title=\"alert.title\"\r\n      :icon=\"alert.icon\"\r\n      :width=\"alert.width\"\r\n      :content=\"alert.content\"\r\n      :fields=\"alert.fields\"\r\n      :backgroundDismiss=\"alert.backgroundDismiss\"\r\n      :buttons=\"alert.buttons\"\r\n    ></vue-me-dialog>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport { Theme } from \"@IntusFacultas/design-system\";\r\nimport { SubSectionTitle } from \"@IntusFacultas/typography\";\r\nimport { DialogButton } from \"@IntusFacultas/button\";\r\nimport { VueInput } from \"@IntusFacultas/input\";\r\nimport { FlexRow, FlexColumn } from \"@IntusFacultas/layout\";\r\nconst props = {\r\n  zIndex: {\r\n    type: Number,\r\n    default: 0\r\n  },\r\n  width: {\r\n    type: Number,\r\n    default: 360\r\n  },\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst VueMeDialogContainer = styled(\"div\", props)`\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100%;\r\n  position: fixed;\r\n  width: 100%;\r\n  z-index: ${props => props.zIndex + 1999};\r\n  top: 0px;\r\n  bottom: 0px;\r\n  left: 0px;\r\n  right: 0px;\r\n`;\r\nconst VueMeBackdrop = styled(\"div\", props)`\r\n  background-color: #444;\r\n  opacity: 0;\r\n  z-index: ${props => props.zIndex + 1999};\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  transition-duration: 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transition-property: opacity;\r\n  animation: vueme-fadein 0.4s;\r\n`;\r\nconst VueMeTitleContainer = styled.div`\r\n  display: flex;\r\n`;\r\nconst VueMeDialogBox = styled(\"div\", props)`\r\n  z-index: ${props => props.zIndex + 2000};\r\n  background-color: #fff;\r\n  border: 1px solid rgba(0, 0, 0, 0.125);\r\n  border-top: solid 7px\r\n    ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"white\"};\r\n  border-radius: 0.25rem;\r\n  min-width: ${props => props.width}px;\r\n  display: flex;\r\n  transition: all 0.4s;\r\n  transform: scale(0);\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n`;\r\nconst VueMeDialogContentContainer = styled.div`\r\n  width: 100%;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  padding: 10px;\r\n  word-break: break-word;\r\n`;\r\nconst VueMeDialogContent = styled.div``;\r\nconst VueMeDialogButtonContainer = styled.div`\r\n  margin-top: 15px;\r\n  display: flex;\r\n  justify-content: flex-end;\r\n`;\r\nconst VueMeDialog = {\r\n  components: {\r\n    VueMeDialogContainer,\r\n    VueMeBackdrop,\r\n    VueMeTitleContainer,\r\n    VueMeDialogBox,\r\n    VueMeDialogContentContainer,\r\n    VueMeDialogContent,\r\n    VueMeDialogButtonContainer,\r\n    SubSectionTitle,\r\n    DialogButton,\r\n    VueInput,\r\n    FlexRow,\r\n    FlexColumn\r\n  },\r\n  data() {\r\n    return {\r\n      show: false,\r\n      intervalId: -1,\r\n      shaking: false,\r\n      enabled: false,\r\n      fieldValues: [],\r\n      internalCloseTime: 0\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    id: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    parent: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    zIndex: {\r\n      type: Number,\r\n      default: 0\r\n    },\r\n    closeTime: {\r\n      type: Number,\r\n      default: 0\r\n    },\r\n    autoCloseIndex: {\r\n      type: Number,\r\n      default: -1\r\n    },\r\n    autoClose: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    title: {\r\n      type: String,\r\n      default: \"Alert\"\r\n    },\r\n    icon: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 360\r\n    },\r\n    content: {\r\n      type: String,\r\n      default: \"You forgot to provide content\"\r\n    },\r\n    fields: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    backgroundDismiss: {\r\n      type: Boolean,\r\n      default: true\r\n    },\r\n    buttons: {\r\n      type: Array,\r\n      default() {\r\n        return [\r\n          {\r\n            id: 1,\r\n            flavor: \"\",\r\n            text: \"Close\",\r\n            action: function() {\r\n              // empty\r\n            }\r\n          }\r\n        ];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.$nextTick(function() {\r\n      self.open();\r\n    });\r\n  },\r\n  methods: {\r\n    open: function() {\r\n      this.show = true;\r\n      this.enabled = true;\r\n      this.internalCloseTime = this.closeTime;\r\n      if (this.autoClose) {\r\n        this.beginAutoClose();\r\n      }\r\n      let self = this;\r\n      setTimeout(function() {\r\n        self.$refs.backdrop.$el.classList.add(\"vueme-dialog-backdrop-open\");\r\n        self.$refs.dialogBox.$el.classList.add(\"vueme-dialog-open\");\r\n      }, 50);\r\n    },\r\n    handleAutoClose: function() {\r\n      if (this.internalCloseTime == 0) {\r\n        clearInterval(this.intervalId);\r\n        this.callFunction(this.buttons[this.autoCloseIndex]);\r\n      } else {\r\n        this.internalCloseTime--;\r\n      }\r\n    },\r\n    beginAutoClose: function() {\r\n      this.intervalId = setInterval(this.handleAutoClose, 1000);\r\n    },\r\n    callFunction: function(button) {\r\n      if (this.enabled) {\r\n        var close = button.action(this.fieldValues);\r\n        if (close !== false) {\r\n          this.close();\r\n        }\r\n      }\r\n    },\r\n    close: function() {\r\n      if (this.enabled && !this.shaking) {\r\n        this.enabled = false;\r\n        if (this && this.$refs && this.$refs.dialogBox) {\r\n          this.$refs.dialogBox.$el.classList.remove(\"vueme-dialog-open\");\r\n          this.$refs.dialogBox.$el.classList.add(\"vueme-dismiss-dialog\");\r\n        }\r\n        if (this && this.$refs && this.$refs.backdrop)\r\n          this.$refs.backdrop.$el.classList.remove(\r\n            \"vueme-dialog-backdrop-open\"\r\n          );\r\n        let self = this;\r\n        setTimeout(function() {\r\n          self.show = false;\r\n          self.show = false;\r\n          // destroy the vue listeners, etc\r\n          self.$destroy();\r\n\r\n          // remove the element from the DOM\r\n          self.$el.parentNode.removeChild(self.$el);\r\n          self.parent.close(self.id);\r\n        }, 420);\r\n      }\r\n    },\r\n    closeDialog: function() {\r\n      if (!this.enabled) {\r\n        return;\r\n      }\r\n      if (this.backgroundDismiss) {\r\n        this.close();\r\n      } else {\r\n        if (this && this.$refs && this.$refs.dialogBox)\r\n          this.$refs.dialogBox.$el.classList.add(\"vueme-shake-dialog\");\r\n        let self = this;\r\n        this.shaking = true;\r\n        setTimeout(function() {\r\n          self.shaking = false;\r\n          if (self && self.$refs && self.$refs.dialogBox)\r\n            self.$refs.dialogBox.$el.classList.remove(\"vueme-shake-dialog\");\r\n        }, 1000);\r\n      }\r\n    }\r\n  },\r\n  template: `\r\n  <vue-me-dialog-container :z-index=\"zIndex\">\r\n    <vue-me-backdrop\r\n      ref=\"backdrop\"\r\n      :class=\"{'vueme-dialog-backdrop-open' : show}\"\r\n      :z-index=\"zIndex\"\r\n      @click=\"closeDialog\"\r\n    ></vue-me-backdrop>\r\n      <vue-me-dialog-box\r\n        ref=\"dialogBox\"\r\n        :flavor=\"flavor\"\r\n        :width=\"width\"\r\n      >\r\n        <vue-me-dialog-content-container>\r\n          <vue-me-title-container>\r\n            <span v-html=\"icon\"></span>\r\n            <sub-section-title class=\"vue-me-title\">{{title}}</sub-section-title>\r\n          </vue-me-title-container>\r\n          <vue-me-dialog-content>\r\n            <div v-html=\"content\"></div>\r\n            <form v-if=\"fields.length > 0\">\r\n              <vue-input\r\n                v-for=\"field in fields\"\r\n                :key=\"'field' + field.id\"\r\n                :name=\"'vueMeField' + field.id\"\r\n                :input-type=\"field.type\"\r\n                :label=\"field.label\"\r\n                v-model=\"fieldValues[field.id]\"\r\n              ></vue-input>\r\n            </form>\r\n            <vue-me-dialog-button-container>\r\n              <dialog-button\r\n                v-for=\"(button, index) in buttons\"\r\n                :key=\"'button' + button.id\"\r\n                @click=\"callFunction(button)\"\r\n                :flavor=\"button.flavor\"\r\n                :small=\"true\"\r\n                :disabled=\"shaking\"\r\n              >\r\n                {{button.text}}\r\n                <span v-if=\"index == autoCloseIndex\">({{internalCloseTime}})</span>\r\n              </dialog-button>\r\n            </vue-me-dialog-button-container>\r\n          </vue-me-dialog-content>\r\n        </vue-me-dialog-content-container>\r\n      </vue-me-dialog-box>\r\n  </vue-me-dialog-container>\r\n  `\r\n};\r\nexport const VueMe = {\r\n  components: { VueMeDialog },\r\n  name: \"vue-me\",\r\n  data() {\r\n    return {\r\n      alerts: [],\r\n      availableId: 0,\r\n      availalbeAlertId: 0,\r\n      deletedAlerts: []\r\n    };\r\n  },\r\n  props: {\r\n    parentInstance: {\r\n      type: Object,\r\n      default: \"\"\r\n    }\r\n  },\r\n  mounted: function() {\r\n    this.parentInstance.$alert = this.alert;\r\n    if (typeof Object.assign !== \"function\") {\r\n      // Must be writable: true, enumerable: false, configurable: true\r\n      Object.defineProperty(Object, \"assign\", {\r\n        value: function assign(target, varArgs) {\r\n          // .length of function is 2\r\n          \"use strict\";\r\n          if (target === null || target === undefined) {\r\n            throw new TypeError(\"Cannot convert undefined or null to object\");\r\n          }\r\n\r\n          var to = Object(target);\r\n\r\n          for (var index = 1; index < arguments.length; index++) {\r\n            var nextSource = arguments[index];\r\n\r\n            if (nextSource !== null && nextSource !== undefined) {\r\n              for (var nextKey in nextSource) {\r\n                // Avoid bugs when hasOwnProperty is shadowed\r\n                if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {\r\n                  to[nextKey] = nextSource[nextKey];\r\n                }\r\n              }\r\n            }\r\n          }\r\n          return to;\r\n        },\r\n        writable: true,\r\n        configurable: true\r\n      });\r\n    }\r\n  },\r\n  watch: {\r\n    deletedAlerts(newVal, oldVal) {\r\n      // we do this because if we change the alerts array while we still have alerts visible, it causes a re render but\r\n      // not a re-mount so the alerts \"disappear\". So we wait to delete from array until all alerts are no longer visible\r\n      if (\r\n        this.deletedAlerts.length == this.alerts.length &&\r\n        this.deletedAlerts.length != 0\r\n      ) {\r\n        this.alerts = [];\r\n        this.deletedAlerts = [];\r\n      }\r\n    }\r\n  },\r\n  methods: {\r\n    close: function close(id) {\r\n      this.deletedAlerts.push(id);\r\n    },\r\n    formatField: function(field) {\r\n      var label = \"Label\";\r\n      if (field.label) {\r\n        label = field.label;\r\n      }\r\n      var fieldType = \"text\";\r\n      if (field.type) {\r\n        fieldType = field.type;\r\n      }\r\n      var id = label + \"-\" + fieldType;\r\n      if (field.id) {\r\n        id = field.id;\r\n      }\r\n      return {\r\n        id: id,\r\n        label: label,\r\n        type: fieldType\r\n      };\r\n    },\r\n    formatButton: function(button) {\r\n      var text = \"Button\";\r\n      if (button.text) {\r\n        text = button.text;\r\n      }\r\n      var flavor = \"Primary\";\r\n      if (button.flavor) {\r\n        flavor = button.flavor;\r\n      }\r\n      var action = function() {};\r\n      if (button.action) {\r\n        action = button.action;\r\n      }\r\n      var id = this.availableId++;\r\n      if (button.id) {\r\n        id = button.id;\r\n      }\r\n      return {\r\n        id: id,\r\n        text: text,\r\n        flavor: flavor,\r\n        action: action\r\n      };\r\n    },\r\n    alert: function(options) {\r\n      let dialogConfiguration = {\r\n        id: this.availalbeAlertId++,\r\n        parent: this\r\n      };\r\n      let flavor = \"\";\r\n      if (options.flavor) {\r\n        flavor = options.flavor;\r\n      }\r\n      dialogConfiguration.flavor = flavor;\r\n      let width = 360;\r\n      if (options.width) {\r\n        width = options.width;\r\n      }\r\n      dialogConfiguration.width = width;\r\n      let title = \"Alert\";\r\n      if (typeof options.title == \"string\") {\r\n        title = options.title;\r\n      }\r\n      dialogConfiguration.title = title;\r\n      let icon = \"\";\r\n      if (options.icon) {\r\n        icon = options.icon;\r\n      }\r\n      dialogConfiguration.icon = icon;\r\n      let content = \"This is an alert.\";\r\n      if (typeof options.content == \"string\") {\r\n        content = options.content;\r\n      }\r\n      dialogConfiguration.content = content;\r\n      let backgroundDismiss = false;\r\n      if (options.backgroundDismiss) {\r\n        backgroundDismiss = options.backgroundDismiss;\r\n      }\r\n      dialogConfiguration.backgroundDismiss = backgroundDismiss;\r\n      let buttons = [this.formatButton({})];\r\n      if (options.buttons && Array.isArray(options.buttons)) {\r\n        buttons = [];\r\n        for (let x = 0; x < options.buttons.length; x++) {\r\n          buttons.push(this.formatButton(options.buttons[x]));\r\n        }\r\n      }\r\n      dialogConfiguration.buttons = buttons;\r\n      let fields = [];\r\n      if (options.fields && Array.isArray(options.fields)) {\r\n        fields = [];\r\n        for (let field of options.fields) {\r\n          fields.push(this.formatField(field));\r\n        }\r\n      }\r\n      dialogConfiguration.fields = fields;\r\n      let autoClose = options.autoClose;\r\n      if (autoClose) {\r\n        dialogConfiguration.autoClose = true;\r\n        autoClose = autoClose.split(\"|\");\r\n        dialogConfiguration.closeTime = Math.ceil(\r\n          parseInt(autoClose[1]) / 1000\r\n        );\r\n        for (let [index, button] of dialogConfiguration.buttons.entries()) {\r\n          if (button.id == autoClose[0]) {\r\n            dialogConfiguration.autoCloseIndex = index;\r\n            break;\r\n          }\r\n        }\r\n      }\r\n      this.alerts.push(Object.assign({}, dialogConfiguration));\r\n    }\r\n  }\r\n};\r\nexport default VueMe;\r\n</script>\r\n\r\n<style>\r\n.vue-me-title {\r\n  margin: 0px;\r\n}\r\n.vueme-dialog-backdrop-open {\r\n  opacity: 0.2;\r\n}\r\n.vueme-dialog-open {\r\n  transform: scale(1);\r\n}\r\n.vueme-dismiss-dialog {\r\n  transition: all 0.4s;\r\n  transition-timing-function: cubic-bezier(0.36, 0.55, 0.19, 1);\r\n  transform: scale(0);\r\n  display: block;\r\n}\r\n.vueme-shake-dialog {\r\n  -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n@keyframes vueme-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 0.2;\r\n  }\r\n}\r\n@keyframes shake {\r\n  10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\r\n  }\r\n  20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\r\n  }\r\n  30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\r\n  }\r\n  40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\r\n  }\r\n}\r\n@-ms-keyframes shake {\r\n  10%,\r\n  90% {\r\n    -webkit-transform: translate3d(-2px, 0, 0);\r\n    transform: translate3d(-2px, 0, 0);\r\n  }\r\n  20%,\r\n  80% {\r\n    -webkit-transform: translate3d(4px, 0, 0);\r\n    transform: translate3d(4px, 0, 0);\r\n  }\r\n  30%,\r\n  50%,\r\n  70% {\r\n    -webkit-transform: translate3d(-8px, 0, 0);\r\n    transform: translate3d(-8px, 0, 0);\r\n  }\r\n  40%,\r\n  60% {\r\n    -webkit-transform: translate3d(8px, 0, 0);\r\n    transform: translate3d(8px, 0, 0);\r\n  }\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
