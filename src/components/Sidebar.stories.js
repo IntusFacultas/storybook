@@ -15,7 +15,7 @@ import {
 } from "@storybook/addon-knobs";
 import {
   WebText,
-  ProductTitle
+  PageTitle
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { VueInput } from "Components/components/StyledHTML/Input/src/Input.vue";
 import markdown from "Components/components/Navbars/SidebarUsage.md";
@@ -35,7 +35,7 @@ export default {
 };
 
 export const ConfigurableSidebar = () => ({
-  components: { Sidebar, FlexRow, SidebarOffsetContent, WebText, ProductTitle },
+  components: { Sidebar, FlexRow, SidebarOffsetContent, WebText, PageTitle },
   props: {
     flavor: {
       default: text("Sidebar Flavor", "")
@@ -151,7 +151,7 @@ export const RawInputSidebar = () => ({
     FlexRow,
     SidebarOffsetContent,
     WebText,
-    ProductTitle,
+    PageTitle,
     VueInput
   },
   props: {
@@ -184,7 +184,7 @@ export const RawInputSidebar = () => ({
             :width="width"
             :breakpoint="breakpoint"
         >
-            <product-title>This is raw HTMl piped into my sidebar</product-title>
+            <page-title>This is raw HTMl piped into my sidebar</page-title>
             <vue-input name="sampleInput" label="This is a label in my sidebar" type="text"></vue-input>
         </raw-sidebar>
         <sidebar-offset-content :width="width" :breakpoint="breakpoint"><h2>Content!</h2></sidebar-offset-content>

@@ -3,7 +3,7 @@ import {
   FlexRow,
   FlexColumn
 } from "Components/components/Layout/src/Layout.vue";
-import { ProductTitle } from "Components/components/StyledHTML/Typography/src/Typography.vue";
+import { PageTitle } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
 import {
   TextTheme,
@@ -28,7 +28,7 @@ export const Colors = () => ({
   components: {
     ColorSwatch,
     FlexRow,
-    ProductTitle,
+    PageTitle,
     FlexColumn
   },
   data: function() {
@@ -78,7 +78,7 @@ export const Colors = () => ({
   },
   template: `
         <div>
-            <product-title>Available Colors</product-title>
+            <page-title>Available Colors</page-title>
             <hr>
             <flex-row v-for="list in splitArray(nasic, limit)" style="padding-top:10px">
                 <flex-column>
@@ -96,7 +96,7 @@ export const Colors = () => ({
                     </div>
                 </flex-row>
                 </flex-column>
-            <product-title>NIWS Colors</product-title>
+            <page-title>NIWS Colors</page-title>
             <hr/>
             <flex-row v-for="list in splitArray(niws, 5)" style="padding-top:10px">
                 <flex-column>
@@ -109,7 +109,7 @@ export const Colors = () => ({
                     </div>
                 </flex-column>
             </flex-row>
-            <product-title>WebText Colors</product-title>
+            <page-title>WebText Colors</page-title>
             <hr/>
             <flex-row style="padding-top:10px">
                 <flex-column>
@@ -121,7 +121,7 @@ export const Colors = () => ({
                     </color-swatch>
                 </flex-column>
             </flex-row>
-            <product-title>Toast Colors</product-title>
+            <page-title>Toast Colors</page-title>
             <hr/>
             <flex-row v-for="list in splitArray(toast, 4)" style="padding-top:10px">
                 <flex-column>
