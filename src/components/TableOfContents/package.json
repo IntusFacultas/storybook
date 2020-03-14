@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/table-of-contents",
-  "version": "3.0.13",
+  "version": "3.0.16",
   "description": "Provides a dynamic table of contents generator with configurable styling",
   "main": "src/TableOfContents.vue",
   "browser": "dist/TableOfContents.esm.js",
@@ -21,7 +21,7 @@
     "directory": "packages/table-of-contents"
   },
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.2",
+    "@IntusFacultas/design-system": "^1.5.5",
     "core-js": "^3.2.1",
     "regenerator-runtime": "^0.13.5",
     "smoothscroll-polyfill": "^0.4.4",

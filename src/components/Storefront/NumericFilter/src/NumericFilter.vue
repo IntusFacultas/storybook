@@ -28,7 +28,7 @@
         @input="bubbleInput"
         @change="bubbleChange"
       ></number-range>
-      <text :flavor="textFlavor">{{ helpText }}</text>
+      <web-text :flavor="textFlavor">{{ helpText }}</web-text>
     </numeric-content-container>
   </numeric-container>
 </template>
@@ -36,7 +36,7 @@
 <script>
 import { NButton } from "@IntusFacultas/button";
 import Badge from "@IntusFacultas/badge";
-import { Text } from "@IntusFacultas/typography";
+import { WebText } from "@IntusFacultas/typography";
 import NumberRange from "@IntusFacultas/number-range";
 import styled from "vue-styled-components";
 import Theme from "@IntusFacultas/design-system";
@@ -90,7 +90,7 @@ export const NumericFilter = {
     NumericContentContainer,
     NumberRange,
     Badge,
-    Text
+    WebText
   },
   data() {
     return {

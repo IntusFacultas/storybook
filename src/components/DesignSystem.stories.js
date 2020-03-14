@@ -109,7 +109,7 @@ export const Colors = () => ({
                     </div>
                 </flex-column>
             </flex-row>
-            <product-title>Text Colors</product-title>
+            <product-title>WebText Colors</product-title>
             <hr/>
             <flex-row style="padding-top:10px">
                 <flex-column>

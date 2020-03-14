@@ -8,7 +8,7 @@
     :breakpoint="breakpoint"
   >
     <sidebar-title :flavor="flavor">
-      <text :size="16">{{ sidebarTitle }}</text>
+      <web-text :size="16">{{ sidebarTitle }}</web-text>
       <sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </sidebar-hamburger-container>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { Text } from "@IntusFacultas/typography";
+import { WebText } from "@IntusFacultas/typography";
 import { NButton } from "@IntusFacultas/button";
 import {
   SidebarHamburgerContainer,
@@ -40,7 +40,7 @@ export const RawSidebar = {
     SidebarHamburgerContainer,
     SidebarTitle,
     SidebarContent,
-    Text,
+    WebText,
     NButton
   },
   data: function() {

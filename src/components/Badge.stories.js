@@ -4,7 +4,7 @@ import { Badge } from "Components/components/StyledHTML/Badge/src/Badge.vue";
 import markdown from "Components/components/StyledHTML/BadgeUsage.md";
 
 export default {
-  title: "NASIC HTML/Badge", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Styled HTML/Badge", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {

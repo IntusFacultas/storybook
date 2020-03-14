@@ -70,6 +70,12 @@ const RadioAligner = styled.div`
 const SymbolHolder = styled("span", props)`
   cursor: pointer;
   margin-right: 4px;
+  outline: none;
+  &:focus {
+    & * {
+      stroke: #41bee8;
+    }
+  }
 `;
 export const Radio = {
   components: { NLabel, SymbolHolder, RadioContainer, RadioAligner },

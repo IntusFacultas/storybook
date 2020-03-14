@@ -1,6 +1,6 @@
 import { withA11y } from "@storybook/addon-a11y";
 import { NButton } from "Components/components/StyledHTML/Button/src/Button.vue";
-import { Text } from "Components/components/StyledHTML/Typography/src/Typography.vue";
+import { WebText } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { ThemeProvider } from "vue-styled-components";
 import { withKnobs, object, text, boolean } from "@storybook/addon-knobs";
 import Theme from "Components/components/DesignSystem/theme.js";
@@ -11,7 +11,7 @@ import {
 import markdown from "Components/components/StyledHTML/ButtonUsage.md";
 
 export default {
-  title: "NASIC HTML/Button", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Styled HTML/Button", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
@@ -27,7 +27,7 @@ export const Button = () => ({
     FlexRow,
     FlexColumn,
     "theme-provider": ThemeProvider,
-    Text
+    WebText
   },
   data: function() {
     return {
@@ -66,7 +66,7 @@ export const Button = () => ({
             </flex-row>
             <flex-row>
                 <flex-column>
-                    <text>Available Flavors on Design System</text>
+                    <web-text>Available Flavors on Design System</web-text>
                 </flex-column>
             </flex-row>
         </div>

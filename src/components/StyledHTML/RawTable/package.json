@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/raw-table",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Provides a raw-table component",
   "main": "src/RawTable.vue",
   "browser": "dist/RawTable.esm.js",
@@ -27,25 +27,25 @@
     "Styled"
   ],
   "dependencies": {
-    "vue-styled-components": "^1.4.14",
-    "@IntusFacultas/design-system": "^1.0.0",
-    "@IntusFacultas/table": "^1.0.8"
+    "@IntusFacultas/design-system": "^1.5.5",
+    "@IntusFacultas/table": "^1.0.10",
+    "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "@rollup/plugin-replace": "^2.3.1",
     "@types/jest": "^24.0.24",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "jest": "^24.9.0",
-    "rollup": "^1.27.13",
-    "rollup-plugin-babel": "^4.3.3",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-terser": "^5.1.3",
+    "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-vue": "^5.1.6",
     "vue-template-compiler": "^2.6.11"
   },

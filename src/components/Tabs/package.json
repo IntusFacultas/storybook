@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/tabs",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "A Navigation Tabs component",
   "main": "src/Tabs.vue",
   "browser": "dist/Tabs.esm.js",
@@ -21,7 +21,7 @@
     "directory": "packages/tabs"
   },
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.2",
+    "@IntusFacultas/design-system": "^1.5.5",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

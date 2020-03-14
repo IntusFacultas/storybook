@@ -4,7 +4,7 @@ import { Modal } from "Components/components/Modal/src/Modal.vue";
 import { NButton } from "@IntusFacultas/button";
 import {
   SubSectionTitle,
-  Text,
+  WebText,
   NSmall
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import markdown from "Components/components/Modal/Usage.md";
@@ -21,7 +21,7 @@ export default {
 };
 
 export const ConfigurableModal = () => ({
-  components: { Modal, SubSectionTitle, Text, NSmall, NButton },
+  components: { Modal, SubSectionTitle, WebText, NSmall, NButton },
   data() {
     return {
       modalId: "my-modal"
@@ -80,8 +80,8 @@ export const ConfigurableModal = () => ({
                 :background-dismiss="backgroundDismiss"
                 :header="header"
                 :footer="footer">
-                <template v-slot:header><b><n-text :size="16">Test Header</text></b></template>
-                <template v-slot:body><text>Sample body</text></template>
+                <template v-slot:header><b><n-text :size="16">Test Header</web-text></b></template>
+                <template v-slot:body><web-text>Sample body</web-text></template>
                 <template v-slot:footer><n-small>This is a footer.</n-small> <n-button @click="closeModal">Close Modal</n-button></template>
             </modal>
         </div>

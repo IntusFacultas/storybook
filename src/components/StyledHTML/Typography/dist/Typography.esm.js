@@ -53,18 +53,18 @@ var titleProps = {
     }
   }
 };
-var Title = styled("h1", titleProps)(_templateObject(), function (props) {
+var PageTitle = styled("h1", titleProps)(_templateObject(), function (props) {
   return props.bold ? "bold" : 500;
 }, function (props) {
   return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
 }, function (props) {
   return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
 });
-var SectionTitle = Title.withComponent("h2", titleProps);
-var SubSectionTitle = Title.withComponent("h3", titleProps);
-var CategoryTitle = Title.withComponent("h4", titleProps);
-var SubCategoryTitle = Title.withComponent("h5", titleProps);
-var Keyword = Title.withComponent("h6", titleProps);
+var SectionTitle = PageTitle.withComponent("h2", titleProps);
+var SubSectionTitle = PageTitle.withComponent("h3", titleProps);
+var CategoryTitle = PageTitle.withComponent("h4", titleProps);
+var SubCategoryTitle = PageTitle.withComponent("h5", titleProps);
+var Keyword = PageTitle.withComponent("h6", titleProps);
 var props = {
   size: {
     type: Number,
@@ -79,7 +79,7 @@ var props = {
   },
   flavor: String
 };
-var Text = styled("span", props)(_templateObject2(), function (props) {
+var WebText = styled("span", props)(_templateObject2(), function (props) {
   return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
 }, function (props) {
   return props.bold ? "bold" : 500;
@@ -88,7 +88,7 @@ var Text = styled("span", props)(_templateObject2(), function (props) {
 }, function (props) {
   return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
 });
-var Paragraph = Text.withComponent("p", props);
+var Paragraph = WebText.withComponent("p", props);
 var NSmall = styled("small", props)(_templateObject3(), function (props) {
   return props.bold ? "bold" : 500;
 }, function (props) {
@@ -96,7 +96,7 @@ var NSmall = styled("small", props)(_templateObject3(), function (props) {
 }, function (props) {
   return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
 });
-var NLabel = Text.withComponent("label", props);
+var NLabel = WebText.withComponent("label", props);
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
@@ -227,14 +227,14 @@ function addStyle(id, css) {
 }
 
 /* script */
-const __vue_script__ = Text;
+const __vue_script__ = WebText;
 
 /* template */
 
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-8d534810_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
+    inject("data-v-473a8904_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
 
   };
   /* scoped */
@@ -263,8 +263,8 @@ const __vue_script__ = Text;
   );
 
 var components = [{
-  label: "Title",
-  component: Title
+  label: "PageTitle",
+  component: PageTitle
 }, {
   label: "SectionTitle",
   component: SectionTitle
@@ -281,8 +281,8 @@ var components = [{
   label: "Keyword",
   component: Keyword
 }, {
-  label: "Text",
-  component: Text
+  label: "WebText",
+  component: WebText
 }, {
   label: "Paragraph",
   component: Paragraph
@@ -334,5 +334,5 @@ for (var _i = 0, _components = components; _i < _components.length; _i++) {
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
 
-export { CategoryTitle, Keyword, NLabel, NSmall, Paragraph, SectionTitle, SubCategoryTitle, SubSectionTitle, Text, Title };
+export { CategoryTitle, Keyword, NLabel, NSmall, PageTitle, Paragraph, SectionTitle, SubCategoryTitle, SubSectionTitle, WebText };
 //# sourceMappingURL=Typography.esm.js.map

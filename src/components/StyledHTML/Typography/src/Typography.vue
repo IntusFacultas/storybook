@@ -13,7 +13,7 @@ const titleProps = {
   }
 };
 
-export const Title = styled("h1", titleProps)`
+export const PageTitle = styled("h1", titleProps)`
   margin-top: 0;
   font-weight: ${props => (props.bold ? "bold" : 500)};
   line-height: 1.2;
@@ -30,11 +30,11 @@ export const Title = styled("h1", titleProps)`
         : ""
       : ""}
 `;
-export const SectionTitle = Title.withComponent("h2", titleProps);
-export const SubSectionTitle = Title.withComponent("h3", titleProps);
-export const CategoryTitle = Title.withComponent("h4", titleProps);
-export const SubCategoryTitle = Title.withComponent("h5", titleProps);
-export const Keyword = Title.withComponent("h6", titleProps);
+export const SectionTitle = PageTitle.withComponent("h2", titleProps);
+export const SubSectionTitle = PageTitle.withComponent("h3", titleProps);
+export const CategoryTitle = PageTitle.withComponent("h4", titleProps);
+export const SubCategoryTitle = PageTitle.withComponent("h5", titleProps);
+export const Keyword = PageTitle.withComponent("h6", titleProps);
 
 const props = {
   size: {
@@ -50,7 +50,7 @@ const props = {
   },
   flavor: String
 };
-export const Text = styled("span", props)`
+export const WebText = styled("span", props)`
   margin: 0;
   font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -71,7 +71,7 @@ export const Text = styled("span", props)`
         : ""
       : ""}
 `;
-export const Paragraph = Text.withComponent("p", props);
+export const Paragraph = WebText.withComponent("p", props);
 export const NSmall = styled("small", props)`
   margin: 0;
   font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
@@ -91,9 +91,9 @@ export const NSmall = styled("small", props)`
         : ""
       : ""}
 `;
-export const NLabel = Text.withComponent("label", props);
+export const NLabel = WebText.withComponent("label", props);
 
-export default Text;
+export default WebText;
 </script>
 
 <style></style>

@@ -3219,135 +3219,8 @@ var Radio = (function () {
     Dark: {
       color: "#e0e0e0"
     },
-    PortionMarkingDark: {
-      color: "#cbd5f4"
-    },
     LightBlue: {
       color: "#41BEE8"
-    },
-    AirBlue: {
-      color: "#2999F4"
-    },
-    MissileOrange: {
-      color: "#FF7200"
-    },
-    CyberYellow: {
-      color: "#F7C82C"
-    },
-    SpaceTeal: {
-      color: "#0AD1C3"
-    },
-    INTsMagenta: {
-      color: "#FC49C9"
-    },
-    RegionGreen: {
-      color: "#C8E552"
-    },
-    Sky: {
-      color: "#80CCFF"
-    },
-    Apricot: {
-      color: "#FCB681"
-    },
-    Aqua: {
-      color: "#77FCD5"
-    },
-    Sunny: {
-      color: "#F9EC75"
-    },
-    Moss: {
-      color: "#DFFF92"
-    },
-    Pink: {
-      color: "#F2B4F9"
-    },
-    Deep: {
-      color: "#002339"
-    },
-    Bark: {
-      color: "#481F0C"
-    },
-    Jungle: {
-      color: "#015149"
-    },
-    Spice: {
-      color: "#705405"
-    },
-    Olive: {
-      color: "#4C5612"
-    },
-    Plum: {
-      color: "#361329"
-    }
-  };
-  var AlertTheme = {
-    warning: {
-      color: {
-        color: "#222",
-        hover: "#222",
-        focus: "#222"
-      },
-      background: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      },
-      border: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      }
-    },
-    danger: {
-      color: {
-        color: "#fff",
-        hover: "#fff",
-        focus: "#fff"
-      },
-      background: {
-        color: "#890620",
-        hover: "#890620",
-        focus: "#890620"
-      },
-      border: {
-        color: "#670014",
-        hover: "#670014",
-        focus: "#670014"
-      }
-    },
-    success: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#0B7C40",
-        hover: "#00642E",
-        focus: "#0B7C40"
-      },
-      border: {
-        color: "#00642E",
-        hover: "#00642E",
-        focus: "#00642E"
-      }
-    },
-    info: {
-      color: {
-        color: "#000",
-        hover: "#000",
-        focus: "#000"
-      },
-      background: {
-        color: "#4E8098",
-        hover: "#4E8098",
-        focus: "#4E8098"
-      },
-      border: {
-        color: "#316780",
-        hover: "#316780",
-        focus: "#316780"
-      }
     }
   };
 
@@ -3504,314 +3377,15 @@ var Radio = (function () {
         hover: "#38a5ca",
         focus: "#38a5ca"
       }
-    },
-    AirBlue: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#2999F4",
-        hover: "#2386d7",
-        focus: "#2386d7"
-      },
-      border: {
-        color: "#2386d7",
-        hover: "#2386d7",
-        focus: "#2386d7"
-      }
-    },
-    MissileOrange: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FF7200",
-        hover: "#C65800",
-        focus: "#FF7200"
-      },
-      border: {
-        color: "#C65800",
-        hover: "#C65800",
-        focus: "#C65800"
-      }
-    },
-    CyberYellow: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F7C82C",
-        hover: "#D4A609",
-        focus: "#F7C82C"
-      },
-      border: {
-        color: "#D4A609",
-        hover: "#D4A609",
-        focus: "#D4A609"
-      }
-    },
-    SpaceTeal: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#0AD1C3",
-        hover: "#00BBAE",
-        focus: "#0AD1C3"
-      },
-      border: {
-        color: "#00BBAE",
-        hover: "#00BBAE",
-        focus: "#00BBAE"
-      }
-    },
-    INTsMagenta: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FC49C9",
-        hover: "#FA1FBD",
-        focus: "#FC49C9"
-      },
-      border: {
-        color: "#FA1FBD",
-        hover: "#FA1FBD",
-        focus: "#FA1FBD"
-      }
-    },
-    RegionGreen: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#C8E552",
-        hover: "#B0CF2E",
-        focus: "#C8E552"
-      },
-      border: {
-        color: "#B0CF2E",
-        hover: "#B0CF2E",
-        focus: "#B0CF2E"
-      }
-    },
-    Sky: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#80CCFF",
-        hover: "#57BDFF",
-        focus: "#80CCFF"
-      },
-      border: {
-        color: "#57BDFF",
-        hover: "#57BDFF",
-        focus: "#57BDFF"
-      }
-    },
-    Apricot: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FCB681",
-        hover: "#D88B51",
-        focus: "#FCB681"
-      },
-      border: {
-        color: "#D88B51",
-        hover: "#D88B51",
-        focus: "#D88B51"
-      }
-    },
-    Aqua: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#77FCD5",
-        hover: "#25EEB1",
-        focus: "#77FCD5"
-      },
-      border: {
-        color: "#25EEB1",
-        hover: "#25EEB1",
-        focus: "#25EEB1"
-      }
-    },
-    Sunny: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F9EC75",
-        hover: "#D7C949",
-        focus: "#F9EC75"
-      },
-      border: {
-        color: "#D7C949",
-        hover: "#D7C949",
-        focus: "#D7C949"
-      }
-    },
-    Moss: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#DFFF92",
-        hover: "#C5FF38",
-        focus: "#DFFF92"
-      },
-      border: {
-        color: "#C5FF38",
-        hover: "#C5FF38",
-        focus: "#C5FF38"
-      }
-    },
-    Pink: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F2B4F9",
-        hover: "#E486EE",
-        focus: "#F2B4F9"
-      },
-      border: {
-        color: "#E486EE",
-        hover: "#E486EE",
-        focus: "#E486EE"
-      }
-    },
-    Deep: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#002339",
-        hover: "#000B12",
-        focus: "#002339"
-      },
-      border: {
-        color: "#000B12",
-        hover: "#000B12",
-        focus: "#000B12"
-      }
-    },
-    Bark: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#481F0C",
-        hover: "#2B0E01",
-        focus: "#481F0C"
-      },
-      border: {
-        color: "#2B0E01",
-        hover: "#2B0E01",
-        focus: "#2B0E01"
-      }
-    },
-    Jungle: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#015149",
-        hover: "#003933",
-        focus: "#015149"
-      },
-      border: {
-        color: "#003933",
-        hover: "#003933",
-        focus: "#003933"
-      }
-    },
-    Spice: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#705405",
-        hover: "#4A3700",
-        focus: "#705405"
-      },
-      border: {
-        color: "#4A3700",
-        hover: "#4A3700",
-        focus: "#4A3700"
-      }
-    },
-    Olive: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#4C5612",
-        hover: "#2F3703",
-        focus: "#4C5612"
-      },
-      border: {
-        color: "#2F3703",
-        hover: "#2F3703",
-        focus: "#2F3703"
-      }
-    },
-    Plum: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#361329",
-        hover: "#26081B",
-        focus: "#361329"
-      },
-      border: {
-        color: "#26081B",
-        hover: "#26081B",
-        focus: "#26081B"
-      }
     }
-  }, NIWSTheme, {}, AlertTheme);
+  }, NIWSTheme);
+
+  var AlertTheme = {
+    warning: Theme["Warning"],
+    danger: Theme["Danger"],
+    success: Theme["Success"],
+    info: Theme["Info"]
+  };
 
   function _taggedTemplateLiteral$1(strings, raw) {
     if (!raw) {
@@ -3866,18 +3440,18 @@ var Radio = (function () {
       }
     }
   };
-  var Title = styled("h1", titleProps)(_templateObject(), function (props) {
+  var PageTitle = styled("h1", titleProps)(_templateObject(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
     return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
   });
-  var SectionTitle = Title.withComponent("h2", titleProps);
-  var SubSectionTitle = Title.withComponent("h3", titleProps);
-  var CategoryTitle = Title.withComponent("h4", titleProps);
-  var SubCategoryTitle = Title.withComponent("h5", titleProps);
-  var Keyword = Title.withComponent("h6", titleProps);
+  var SectionTitle = PageTitle.withComponent("h2", titleProps);
+  var SubSectionTitle = PageTitle.withComponent("h3", titleProps);
+  var CategoryTitle = PageTitle.withComponent("h4", titleProps);
+  var SubCategoryTitle = PageTitle.withComponent("h5", titleProps);
+  var Keyword = PageTitle.withComponent("h6", titleProps);
   var props = {
     size: {
       type: Number,
@@ -3892,7 +3466,7 @@ var Radio = (function () {
     },
     flavor: String
   };
-  var Text = styled("span", props)(_templateObject2(), function (props) {
+  var WebText = styled("span", props)(_templateObject2(), function (props) {
     return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
   }, function (props) {
     return props.bold ? "bold" : 500;
@@ -3901,7 +3475,7 @@ var Radio = (function () {
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var Paragraph = Text.withComponent("p", props);
+  var Paragraph = WebText.withComponent("p", props);
   var NSmall = styled("small", props)(_templateObject3(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
@@ -3909,7 +3483,7 @@ var Radio = (function () {
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var NLabel = Text.withComponent("label", props);
+  var NLabel = WebText.withComponent("label", props);
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
@@ -4051,14 +3625,14 @@ var Radio = (function () {
   /* script */
 
 
-  var __vue_script__ = Text;
+  var __vue_script__ = WebText;
   /* template */
 
   /* style */
 
   var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-8d534810_0", {
+    inject("data-v-473a8904_0", {
       source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       map: {
         "version": 3,
@@ -4087,8 +3661,8 @@ var Radio = (function () {
   var __vue_component__ = normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
   var components = [{
-    label: "Title",
-    component: Title
+    label: "PageTitle",
+    component: PageTitle
   }, {
     label: "SectionTitle",
     component: SectionTitle
@@ -4105,8 +3679,8 @@ var Radio = (function () {
     label: "Keyword",
     component: Keyword
   }, {
-    label: "Text",
-    component: Text
+    label: "WebText",
+    component: WebText
   }, {
     label: "Paragraph",
     component: Paragraph
@@ -4156,7 +3730,7 @@ var Radio = (function () {
   } // Export component by default
 
   function _templateObject3$1() {
-    var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  margin-right: 4px;\n"]);
+    var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  margin-right: 4px;\n  outline: none;\n  &:focus {\n    & * {\n      stroke: #41bee8;\n    }\n  }\n"]);
 
     _templateObject3$1 = function _templateObject3() {
       return data;
@@ -4480,7 +4054,7 @@ var Radio = (function () {
     /* style */
     const __vue_inject_styles__$1 = function (inject) {
       if (!inject) return
-      inject("data-v-bb5e44e2_0", { source: "\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\n}\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\n}\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\n}\n.radio-button:hover {\r\n  stroke: #41bee8;\n}\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Radio\\src\\Radio.vue"],"names":[],"mappings":";AAiHA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AACA;;EAEA,yBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA","file":"Radio.vue","sourcesContent":["<template>\r\n  <radio-container>\r\n    <symbol-holder\r\n      tabindex=\"0\"\r\n      :active=\"false\"\r\n      :size=\"size + 4\"\r\n      @click=\"emitValue\"\r\n      @keyup.enter=\"emitValue\"\r\n      @keyup.space=\"emitValue\"\r\n      class=\"radio-button-container\"\r\n    >\r\n      <svg\r\n        class=\"radio-button\"\r\n        fill=\"6c757d\"\r\n        preserveAspectRatio=\"xMidYMid meet\"\r\n        :height=\"size\"\r\n        :width=\"size\"\r\n        viewBox=\"0 0 30 30\"\r\n      >\r\n        <circle\r\n          class=\"radio-button\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"13\"\r\n          fill=\"white\"\r\n          stroke=\"#6c757d\"\r\n          stroke-width=\"2\"\r\n        />\r\n        <circle\r\n          v-if=\"value == inputValue\"\r\n          class=\"radio-button-inverse\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"6\"\r\n          fill=\"#6c757d\"\r\n        />\r\n      </svg>\r\n    </symbol-holder>\r\n    <n-label\r\n      @click=\"emitValue\"\r\n      :bold=\"bold\"\r\n      :flavor=\"flavor\"\r\n      :size=\"size\"\r\n      :dark=\"dark\"\r\n      >{{ label }}</n-label\r\n    >\r\n  </radio-container>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nconst props = {\r\n  size: {\r\n    type: Number,\r\n    default: 14\r\n  },\r\n  active: {\r\n    type: Boolean,\r\n    default: false\r\n  }\r\n};\r\nconst RadioContainer = styled.div`\r\n  display: inline;\r\n`;\r\nconst RadioAligner = styled.div`\r\n  display: flex;\r\n  align-content: center;\r\n`;\r\nconst SymbolHolder = styled(\"span\", props)`\r\n  cursor: pointer;\r\n  margin-right: 4px;\r\n`;\r\nexport const Radio = {\r\n  components: { NLabel, SymbolHolder, RadioContainer, RadioAligner },\r\n  props: {\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    value: {\r\n      required: true\r\n    },\r\n    inputValue: {\r\n      required: true\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    size: {\r\n      type: Number,\r\n      default: 14\r\n    },\r\n    dark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    bold: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  methods: {\r\n    emitValue() {\r\n      this.$emit(\"input\", this.inputValue);\r\n    }\r\n  }\r\n};\r\nexport default Radio;\r\n</script>\r\n\r\n<style>\r\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\r\n}\r\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\r\n}\r\n.radio-button:hover {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-5904b58b_0", { source: "\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\n}\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\n}\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\n}\n.radio-button:hover {\r\n  stroke: #41bee8;\n}\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Radio\\src\\Radio.vue"],"names":[],"mappings":";AAuHA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AACA;;EAEA,yBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA","file":"Radio.vue","sourcesContent":["<template>\r\n  <radio-container>\r\n    <symbol-holder\r\n      tabindex=\"0\"\r\n      :active=\"false\"\r\n      :size=\"size + 4\"\r\n      @click=\"emitValue\"\r\n      @keyup.enter=\"emitValue\"\r\n      @keyup.space=\"emitValue\"\r\n      class=\"radio-button-container\"\r\n    >\r\n      <svg\r\n        class=\"radio-button\"\r\n        fill=\"6c757d\"\r\n        preserveAspectRatio=\"xMidYMid meet\"\r\n        :height=\"size\"\r\n        :width=\"size\"\r\n        viewBox=\"0 0 30 30\"\r\n      >\r\n        <circle\r\n          class=\"radio-button\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"13\"\r\n          fill=\"white\"\r\n          stroke=\"#6c757d\"\r\n          stroke-width=\"2\"\r\n        />\r\n        <circle\r\n          v-if=\"value == inputValue\"\r\n          class=\"radio-button-inverse\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"6\"\r\n          fill=\"#6c757d\"\r\n        />\r\n      </svg>\r\n    </symbol-holder>\r\n    <n-label\r\n      @click=\"emitValue\"\r\n      :bold=\"bold\"\r\n      :flavor=\"flavor\"\r\n      :size=\"size\"\r\n      :dark=\"dark\"\r\n      >{{ label }}</n-label\r\n    >\r\n  </radio-container>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nconst props = {\r\n  size: {\r\n    type: Number,\r\n    default: 14\r\n  },\r\n  active: {\r\n    type: Boolean,\r\n    default: false\r\n  }\r\n};\r\nconst RadioContainer = styled.div`\r\n  display: inline;\r\n`;\r\nconst RadioAligner = styled.div`\r\n  display: flex;\r\n  align-content: center;\r\n`;\r\nconst SymbolHolder = styled(\"span\", props)`\r\n  cursor: pointer;\r\n  margin-right: 4px;\r\n  outline: none;\r\n  &:focus {\r\n    & * {\r\n      stroke: #41bee8;\r\n    }\r\n  }\r\n`;\r\nexport const Radio = {\r\n  components: { NLabel, SymbolHolder, RadioContainer, RadioAligner },\r\n  props: {\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    value: {\r\n      required: true\r\n    },\r\n    inputValue: {\r\n      required: true\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    size: {\r\n      type: Number,\r\n      default: 14\r\n    },\r\n    dark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    bold: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  methods: {\r\n    emitValue() {\r\n      this.$emit(\"input\", this.inputValue);\r\n    }\r\n  }\r\n};\r\nexport default Radio;\r\n</script>\r\n\r\n<style>\r\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\r\n}\r\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\r\n}\r\n.radio-button:hover {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */

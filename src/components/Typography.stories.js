@@ -1,10 +1,10 @@
 // import { action } from '@storybook/addon-actions';
 import {
-  Text,
+  WebText,
   NLabel,
   NSmall,
   Paragraph,
-  Title,
+  PageTitle,
   SectionTitle,
   SubSectionTitle,
   CategoryTitle,
@@ -17,7 +17,7 @@ import titlemarkdown from "Components/components/StyledHTML/StyledTitleUsage.md"
 import textmarkdown from "Components/components/StyledHTML/StyledBodyUsage.md";
 
 export default {
-  title: "NASIC HTML/Typography",
+  title: "Styled HTML/Typography",
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
@@ -29,8 +29,8 @@ export default {
   excludeStories: /.*Data$/
 };
 
-export const PageTitle = () => ({
-  components: { Title },
+export const Title = () => ({
+  components: { PageTitle },
   props: {
     flavor: {
       default: text("Flavor", "")
@@ -39,14 +39,14 @@ export const PageTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <title>This is a  title</title>
+    <page-title :flavor="flavor" :dark="dark" :bold="bold">This is a  title</page-title>
   `
 });
-export const SectionTitle = () => ({
+export const WebSectionTitle = () => ({
   components: { SectionTitle },
   props: {
     flavor: {
@@ -56,14 +56,14 @@ export const SectionTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <section-title>This is a  section title</section-title>
+    <section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  section title</section-title>
   `
 });
-export const SubSectionTitle = () => ({
+export const WebSubSectionTitle = () => ({
   components: { SubSectionTitle },
   props: {
     flavor: {
@@ -73,14 +73,14 @@ export const SubSectionTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <sub-section-title>This is a  subsection title</sub-section-title>
+    <sub-section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subsection title</sub-section-title>
   `
 });
-export const CategoryTitle = () => ({
+export const WebCategoryTitle = () => ({
   components: { CategoryTitle },
   props: {
     flavor: {
@@ -90,14 +90,14 @@ export const CategoryTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <category-title>This is a  category title</category-title>
+    <category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  category title</category-title>
   `
 });
-export const SubCategoryTitle = () => ({
+export const WebSubCategoryTitle = () => ({
   components: { SubCategoryTitle },
   props: {
     flavor: {
@@ -107,14 +107,14 @@ export const SubCategoryTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <sub-category-title>This is a  subcategory title</sub-category-title>
+    <sub-category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subcategory title</sub-category-title>
   `
 });
-export const Keyword = () => ({
+export const WebKeyword = () => ({
   components: { Keyword },
   props: {
     flavor: {
@@ -124,17 +124,17 @@ export const Keyword = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("Text Bold", false)
+      default: boolean("WebText Bold", false)
     }
   },
   template: `
-    <keyword>This is a  keyword</keyword>
+    <keyword :flavor="flavor" :dark="dark" :bold="bold">This is a  keyword</keyword>
   `
 });
 
 // body
 export const Text = () => ({
-  components: { NText },
+  components: { WebText },
   props: {
     dark: {
       default: boolean("Dark Mode", false)
@@ -150,7 +150,7 @@ export const Text = () => ({
    * Size prop must be a Number, and controls the font size of the body
    * Any number less than 14 will be set to 14, and number greater than 16 will be set to 16
    */
-  template: `<text :flavor="flavor" :size="size" :dark="dark">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </text>`
+  template: `<web-text :flavor="flavor" :size="size" :dark="dark">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </web-text>`
 });
 
 export const Label = () => ({
@@ -179,7 +179,7 @@ export const Small = () => ({
   template: `<n-small :flavor="flavor" :dark="dark">small</n-small>`
 });
 
-export const Paragraph = () => ({
+export const WebParagraph = () => ({
   components: { Paragraph },
   props: {
     size: {

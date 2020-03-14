@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/vue-toast",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "description": "Provides a toast alert function to Vue components",
   "main": "src/TableOfContents.vue",
   "browser": "dist/TableOfContents.esm.js",
@@ -25,7 +25,7 @@
     "toast"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.2",
+    "@IntusFacultas/design-system": "^1.5.5",
     "vue-styled-components": "^1.4.14"
   },
   "author": "Pedro Del Moral Lopez",

@@ -3702,77 +3702,8 @@ var StaticAlert = (function() {
       }
     }
   };
-  var AlertTheme = {
-    warning: {
-      color: {
-        color: "#222",
-        hover: "#222",
-        focus: "#222"
-      },
-      background: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      },
-      border: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      }
-    },
-    danger: {
-      color: {
-        color: "#fff",
-        hover: "#fff",
-        focus: "#fff"
-      },
-      background: {
-        color: "#890620",
-        hover: "#890620",
-        focus: "#890620"
-      },
-      border: {
-        color: "#670014",
-        hover: "#670014",
-        focus: "#670014"
-      }
-    },
-    success: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#0B7C40",
-        hover: "#00642E",
-        focus: "#0B7C40"
-      },
-      border: {
-        color: "#00642E",
-        hover: "#00642E",
-        focus: "#00642E"
-      }
-    },
-    info: {
-      color: {
-        color: "#000",
-        hover: "#000",
-        focus: "#000"
-      },
-      background: {
-        color: "#4E8098",
-        hover: "#4E8098",
-        focus: "#4E8098"
-      },
-      border: {
-        color: "#316780",
-        hover: "#316780",
-        focus: "#316780"
-      }
-    }
-  };
-  var NASICTheme = _objectSpread2(
+
+  var Theme = _objectSpread2(
     {
       Light: {
         color: {
@@ -3926,318 +3857,17 @@ var StaticAlert = (function() {
           hover: "#38a5ca",
           focus: "#38a5ca"
         }
-      },
-      AirBlue: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#2999F4",
-          hover: "#2386d7",
-          focus: "#2386d7"
-        },
-        border: {
-          color: "#2386d7",
-          hover: "#2386d7",
-          focus: "#2386d7"
-        }
-      },
-      MissileOrange: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#FF7200",
-          hover: "#C65800",
-          focus: "#FF7200"
-        },
-        border: {
-          color: "#C65800",
-          hover: "#C65800",
-          focus: "#C65800"
-        }
-      },
-      CyberYellow: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#F7C82C",
-          hover: "#D4A609",
-          focus: "#F7C82C"
-        },
-        border: {
-          color: "#D4A609",
-          hover: "#D4A609",
-          focus: "#D4A609"
-        }
-      },
-      SpaceTeal: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#0AD1C3",
-          hover: "#00BBAE",
-          focus: "#0AD1C3"
-        },
-        border: {
-          color: "#00BBAE",
-          hover: "#00BBAE",
-          focus: "#00BBAE"
-        }
-      },
-      INTsMagenta: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#FC49C9",
-          hover: "#FA1FBD",
-          focus: "#FC49C9"
-        },
-        border: {
-          color: "#FA1FBD",
-          hover: "#FA1FBD",
-          focus: "#FA1FBD"
-        }
-      },
-      RegionGreen: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#C8E552",
-          hover: "#B0CF2E",
-          focus: "#C8E552"
-        },
-        border: {
-          color: "#B0CF2E",
-          hover: "#B0CF2E",
-          focus: "#B0CF2E"
-        }
-      },
-      Sky: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#80CCFF",
-          hover: "#57BDFF",
-          focus: "#80CCFF"
-        },
-        border: {
-          color: "#57BDFF",
-          hover: "#57BDFF",
-          focus: "#57BDFF"
-        }
-      },
-      Apricot: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#FCB681",
-          hover: "#D88B51",
-          focus: "#FCB681"
-        },
-        border: {
-          color: "#D88B51",
-          hover: "#D88B51",
-          focus: "#D88B51"
-        }
-      },
-      Aqua: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#77FCD5",
-          hover: "#25EEB1",
-          focus: "#77FCD5"
-        },
-        border: {
-          color: "#25EEB1",
-          hover: "#25EEB1",
-          focus: "#25EEB1"
-        }
-      },
-      Sunny: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#F9EC75",
-          hover: "#D7C949",
-          focus: "#F9EC75"
-        },
-        border: {
-          color: "#D7C949",
-          hover: "#D7C949",
-          focus: "#D7C949"
-        }
-      },
-      Moss: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#DFFF92",
-          hover: "#C5FF38",
-          focus: "#DFFF92"
-        },
-        border: {
-          color: "#C5FF38",
-          hover: "#C5FF38",
-          focus: "#C5FF38"
-        }
-      },
-      Pink: {
-        color: {
-          color: "#222",
-          focus: "#222",
-          hover: "#222"
-        },
-        background: {
-          color: "#F2B4F9",
-          hover: "#E486EE",
-          focus: "#F2B4F9"
-        },
-        border: {
-          color: "#E486EE",
-          hover: "#E486EE",
-          focus: "#E486EE"
-        }
-      },
-      Deep: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#002339",
-          hover: "#000B12",
-          focus: "#002339"
-        },
-        border: {
-          color: "#000B12",
-          hover: "#000B12",
-          focus: "#000B12"
-        }
-      },
-      Bark: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#481F0C",
-          hover: "#2B0E01",
-          focus: "#481F0C"
-        },
-        border: {
-          color: "#2B0E01",
-          hover: "#2B0E01",
-          focus: "#2B0E01"
-        }
-      },
-      Jungle: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#015149",
-          hover: "#003933",
-          focus: "#015149"
-        },
-        border: {
-          color: "#003933",
-          hover: "#003933",
-          focus: "#003933"
-        }
-      },
-      Spice: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#705405",
-          hover: "#4A3700",
-          focus: "#705405"
-        },
-        border: {
-          color: "#4A3700",
-          hover: "#4A3700",
-          focus: "#4A3700"
-        }
-      },
-      Olive: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#4C5612",
-          hover: "#2F3703",
-          focus: "#4C5612"
-        },
-        border: {
-          color: "#2F3703",
-          hover: "#2F3703",
-          focus: "#2F3703"
-        }
-      },
-      Plum: {
-        color: {
-          color: "#fff",
-          focus: "#fff",
-          hover: "#fff"
-        },
-        background: {
-          color: "#361329",
-          hover: "#26081B",
-          focus: "#361329"
-        },
-        border: {
-          color: "#26081B",
-          hover: "#26081B",
-          focus: "#26081B"
-        }
       }
     },
-    NIWSTheme,
-    {},
-    AlertTheme
+    NIWSTheme
   );
+
+  var AlertTheme = {
+    warning: Theme["Warning"],
+    danger: Theme["Danger"],
+    success: Theme["Success"],
+    info: Theme["Info"]
+  };
 
   function _templateObject2() {
     var data = _taggedTemplateLiteral([
@@ -4587,20 +4217,20 @@ var StaticAlert = (function() {
   /* style */
   const __vue_inject_styles__ = function(inject) {
     if (!inject) return;
-    inject("data-v-2913851c_0", {
+    inject("data-v-d5f44ae4_0", {
       source:
         "\n@keyframes vue-static-alert-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\r\n\r\n/* Firefox < 16 */\n@-moz-keyframes vue-static-alert-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\r\n\r\n/* Safari, Chrome and Opera > 12.1 */\n@-webkit-keyframes vue-static-alert-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\r\n\r\n/* Internet Explorer */\n@-ms-keyframes vue-static-alert-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\r\n\r\n/* Opera < 12.1 */\n@-o-keyframes vue-static-alert-fadein {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n.vue-alert-dying {\r\n  opacity: 0 !important;\n}\r\n",
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\Alert\\src\\StaticAlert.vue"
+          "C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Alert\\src\\StaticAlert.vue"
         ],
         names: [],
         mappings:
           ";AAyJA;AACA;IACA,UAAA;AACA;AACA;IACA,UAAA;AACA;AACA;;AAEA,iBAAA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,UAAA;AACA;AACA;;AAEA,oCAAA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,UAAA;AACA;AACA;;AAEA,sBAAA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,UAAA;AACA;AACA;;AAEA,iBAAA;AACA;AACA;IACA,UAAA;AACA;AACA;IACA,UAAA;AACA;AACA;AACA;EACA,qBAAA;AACA",
         file: "StaticAlert.vue",
         sourcesContent: [
-          '<template>\r\n  <alert-container\r\n    v-if="showing"\r\n    aria-live="polite"\r\n    role="alert"\r\n    :animated="animated"\r\n    :closeable="closeable"\r\n    :flavor="flavor"\r\n    @click="closeAlert"\r\n    :class="computedClass"\r\n  >\r\n    <slot>I\'m an alert! Put HTML in me!</slot>\r\n    <close-container v-if="closeable">\r\n      <svg\r\n        class="svg-icon"\r\n        viewBox="0 0 20 20"\r\n        height="10"\r\n        :stroke="theme[flavor] ? theme[flavor].color.color : \'#222\'"\r\n      >\r\n        <path\r\n          :stroke="theme[flavor] ? theme[flavor].color.color : \'#222\'"\r\n          d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08\r\n\t\t\t\t\t\t\tc-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469\r\n\t\t\t\t\t\t\tc0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304\r\n\t\t\t\t\t\t\tc0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"\r\n        />\r\n      </svg>\r\n    </close-container>\r\n  </alert-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from "vue-styled-components";\r\nimport { AlertTheme } from "@intus/design-system";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return AlertTheme;\r\n    }\r\n  },\r\n  animated: Boolean,\r\n  closeable: Boolean\r\n};\r\nconst CloseContainer = styled("button")`\r\n  cursor: pointer;\r\n  float: right;\r\n  text-align: end;\r\n  background-color: transparent;\r\n  border: none;\r\n  width: 45px;\r\n  outline: none;\r\n`;\r\nconst AlertContainer = styled("div", props)`\r\n  padding: 1rem;\r\n  border-radius: 4px;\r\n  border: 2px solid\r\n    ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : "#e8e8e8"};\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : "#f2f2f2"};\r\n  ${props =>\r\n    props.animated\r\n      ? `\r\n        transition: .5s ease-in-out all;\r\n        -webkit-animation: vue-static-alert-fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */\r\n        -moz-animation: vue-static-alert-fadein 0.5s; /* Firefox < 16 */\r\n        -ms-animation: vue-static-alert-fadein 0.5s; /* Internet Explorer */\r\n        -o-animation: vue-static-alert-fadein 0.5s; /* Opera < 12.1 */\r\n        animation: vue-static-alert-fadein 0.5s;\r\n        `\r\n      : ``}\r\n  ${props => (props.closeable ? `cursor: pointer;` : ``)}\r\n  opacity: 1;\r\n  font-weight: bold;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  & * {\r\n    opacity: 1;\r\n    line-height: 1rem;\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : "#222"};\r\n  }\r\n`;\r\n\r\nexport const VueStaticAlert = {\r\n  components: { AlertContainer, CloseContainer },\r\n  data() {\r\n    return {\r\n      showing: true,\r\n      dying: false,\r\n      theme: AlertTheme\r\n    };\r\n  },\r\n  props: {\r\n    closeable: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    animated: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: ""\r\n    }\r\n  },\r\n  methods: {\r\n    closeAlert() {\r\n      let self = this;\r\n      if (this.closeable) {\r\n        if (this.animated) {\r\n          this.dying = true;\r\n          setTimeout(() => {\r\n            self.showing = false;\r\n          }, 501);\r\n        } else {\r\n          this.showing = false;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedClass() {\r\n      if (this.dying && this.animated) {\r\n        return ["vue-alert-dying"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default VueStaticAlert;\r\n</script>\r\n\r\n<style>\r\n@keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Firefox < 16 */\r\n@-moz-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Safari, Chrome and Opera > 12.1 */\r\n@-webkit-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Internet Explorer */\r\n@-ms-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Opera < 12.1 */\r\n@-o-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n.vue-alert-dying {\r\n  opacity: 0 !important;\r\n}\r\n</style>\r\n'
+          '<template>\r\n  <alert-container\r\n    v-if="showing"\r\n    aria-live="polite"\r\n    role="alert"\r\n    :animated="animated"\r\n    :closeable="closeable"\r\n    :flavor="flavor"\r\n    @click="closeAlert"\r\n    :class="computedClass"\r\n  >\r\n    <slot>I\'m an alert! Put HTML in me!</slot>\r\n    <close-container v-if="closeable">\r\n      <svg\r\n        class="svg-icon"\r\n        viewBox="0 0 20 20"\r\n        height="10"\r\n        :stroke="theme[flavor] ? theme[flavor].color.color : \'#222\'"\r\n      >\r\n        <path\r\n          :stroke="theme[flavor] ? theme[flavor].color.color : \'#222\'"\r\n          d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08\r\n\t\t\t\t\t\t\tc-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469\r\n\t\t\t\t\t\t\tc0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304\r\n\t\t\t\t\t\t\tc0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"\r\n        />\r\n      </svg>\r\n    </close-container>\r\n  </alert-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from "vue-styled-components";\r\nimport { AlertTheme } from "@IntusFacultas/design-system";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return AlertTheme;\r\n    }\r\n  },\r\n  animated: Boolean,\r\n  closeable: Boolean\r\n};\r\nconst CloseContainer = styled("button")`\r\n  cursor: pointer;\r\n  float: right;\r\n  text-align: end;\r\n  background-color: transparent;\r\n  border: none;\r\n  width: 45px;\r\n  outline: none;\r\n`;\r\nconst AlertContainer = styled("div", props)`\r\n  padding: 1rem;\r\n  border-radius: 4px;\r\n  border: 2px solid\r\n    ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : "#e8e8e8"};\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : "#f2f2f2"};\r\n  ${props =>\r\n    props.animated\r\n      ? `\r\n        transition: .5s ease-in-out all;\r\n        -webkit-animation: vue-static-alert-fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */\r\n        -moz-animation: vue-static-alert-fadein 0.5s; /* Firefox < 16 */\r\n        -ms-animation: vue-static-alert-fadein 0.5s; /* Internet Explorer */\r\n        -o-animation: vue-static-alert-fadein 0.5s; /* Opera < 12.1 */\r\n        animation: vue-static-alert-fadein 0.5s;\r\n        `\r\n      : ``}\r\n  ${props => (props.closeable ? `cursor: pointer;` : ``)}\r\n  opacity: 1;\r\n  font-weight: bold;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  & * {\r\n    opacity: 1;\r\n    line-height: 1rem;\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : "#222"};\r\n  }\r\n`;\r\n\r\nexport const VueStaticAlert = {\r\n  components: { AlertContainer, CloseContainer },\r\n  data() {\r\n    return {\r\n      showing: true,\r\n      dying: false,\r\n      theme: AlertTheme\r\n    };\r\n  },\r\n  props: {\r\n    closeable: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    animated: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: ""\r\n    }\r\n  },\r\n  methods: {\r\n    closeAlert() {\r\n      let self = this;\r\n      if (this.closeable) {\r\n        if (this.animated) {\r\n          this.dying = true;\r\n          setTimeout(() => {\r\n            self.showing = false;\r\n          }, 501);\r\n        } else {\r\n          this.showing = false;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedClass() {\r\n      if (this.dying && this.animated) {\r\n        return ["vue-alert-dying"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default VueStaticAlert;\r\n</script>\r\n\r\n<style>\r\n@keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Firefox < 16 */\r\n@-moz-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Safari, Chrome and Opera > 12.1 */\r\n@-webkit-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Internet Explorer */\r\n@-ms-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n/* Opera < 12.1 */\r\n@-o-keyframes vue-static-alert-fadein {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n.vue-alert-dying {\r\n  opacity: 0 !important;\r\n}\r\n</style>\r\n'
         ]
       },
       media: undefined

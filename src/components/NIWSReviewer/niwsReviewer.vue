@@ -10,7 +10,7 @@
       ></vue-text-area>
     </flex-column>
     <flex-column :lg="6" :sm="12">
-      <text>Send to:</text>
+      <web-text>Send to:</web-text>
       <button
         class="niws-reviewer-button"
         v-for="transition in transitions"
@@ -31,10 +31,10 @@ import {
 } from "Components/components/Layout/src/Layout.vue";
 import { NButton } from "Components/components/StyledHTML/Button/src/Button.vue";
 import { VueTextArea } from "Components/components/StyledHTML/TextArea/src/TextArea.vue";
-import { Text } from "Components/components/StyledHTML/Typography/src/Typography.vue";
+import { WebText } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 
 export const NiwsReviewer = {
-  components: { NButton, VueTextArea, Text, FlexRow, FlexColumn },
+  components: { NButton, VueTextArea, WebText, FlexRow, FlexColumn },
   data: function() {
     return {
       comment: ""

@@ -10,7 +10,7 @@ import { Radio } from "Components/components/StyledHTML/Radio/src/Radio.vue";
 import markdown from "Components/components/StyledHTML/RadioUsage.md";
 
 export default {
-  title: "NASIC HTML/Radio", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Styled HTML/Radio", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {

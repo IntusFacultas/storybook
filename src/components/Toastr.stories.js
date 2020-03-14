@@ -1,9 +1,9 @@
 import { VueToast } from "Components/components/ToastAlert/src/Alert.vue";
 import { withA11y } from "@storybook/addon-a11y";
-import NButton from "@IntusFacultas/button";
+import { NButton } from "@IntusFacultas/button";
 import { withKnobs, number, text } from "@storybook/addon-knobs";
 import markdown from "Components/components/ToastAlert/Usage.md";
-
+console.log(NButton);
 export default {
   title: "VueToast",
   decorators: [withA11y, withKnobs],
@@ -28,7 +28,7 @@ export const ToastrAlerts = () => ({
       default: text("Alert Type", "success")
     },
     alertText: {
-      default: text("Alert Text", "This is a toast alert")
+      default: text("Alert WebText", "This is a toast alert")
     }
   },
   methods: {

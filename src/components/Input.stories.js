@@ -19,7 +19,7 @@ import textareamarkdown from "Components/components/StyledHTML/TextAreaUsage.md"
 import numberrangemarkdown from "Components/components/StyledHTML/NumberRangeUsage.md";
 
 export default {
-  title: "NASIC HTML/Input",
+  title: "Styled HTML/Input",
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
@@ -81,7 +81,7 @@ export const Input = () => ({
       default: boolean("Label Dark", false)
     },
     label: {
-      default: text("Label Text", "This is a sample input")
+      default: text("Label WebText", "This is a sample input")
     },
     autofocus: {
       default: boolean("Autofocus", false)
@@ -249,7 +249,7 @@ export const TextArea = () => ({
       default: boolean("Label Dark", false)
     },
     label: {
-      default: text("Label Text", "This is a sample input")
+      default: text("Label WebText", "This is a sample input")
     },
     disabled: {
       default: boolean("Disabled", false)

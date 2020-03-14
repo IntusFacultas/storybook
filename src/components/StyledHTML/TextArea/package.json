@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/textarea",
-  "version": "1.1.8",
+  "version": "1.1.10",
   "description": "Provides an accessability audit passing textarea with baked in styling",
   "main": "src/TextArea.vue",
   "browser": "dist/TextArea.esm.js",
@@ -26,8 +26,8 @@
     "directory": "packages/textarea"
   },
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.2",
-    "@IntusFacultas/typography": "^2.0.5",
+    "@IntusFacultas/design-system": "^1.5.5",
+    "@IntusFacultas/typography": "^2.0.8",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

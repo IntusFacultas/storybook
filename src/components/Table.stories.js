@@ -3,16 +3,16 @@ import { withA11y } from "@storybook/addon-a11y";
 import { withKnobs, text, object, boolean } from "@storybook/addon-knobs";
 import {
   VueTable,
-  NTh,
-  NTd,
-  NTr
+  TableHeader,
+  TableCell,
+  TableRow
 } from "Components/components/StyledHTML/Table/src/Table.vue";
 import { VueRawTable } from "Components/components/StyledHTML/RawTable/src/RawTable.vue";
 import markdown from "Components/components/StyledHTML/TableUsage.md";
 import rawmarkdown from "Components/components/StyledHTML/RawTableUsage.md";
 
 export default {
-  title: "NASIC HTML/Table", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Styled HTML/Table", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
@@ -38,7 +38,7 @@ export const Table = () => ({
       default: text("Flavor", "")
     },
     textAlign: {
-      default: text("Text Align", "left")
+      default: text("WebText Align", "left")
     },
     striped: {
       default: boolean("Striped", false)
@@ -108,7 +108,7 @@ export const Table = () => ({
 });
 
 export const RawTable = () => ({
-  components: { VueRawTable, NTh, NTd, NTr },
+  components: { VueRawTable, TableHeader, TableCell, TableRow },
   props: {
     flavor: {
       default: text("Flavor", "")
@@ -120,24 +120,24 @@ export const RawTable = () => ({
   template: `
         <vue-raw-table :flavor="flavor" :striped="striped">
             <template v-slot:header>
-                <n-tr>
-                    <n-th>Column 1</n-th>
-                    <n-th>Column 2</n-th>
-                </n-tr>
+                <table-row>
+                    <table-header>Column 1</table-header>
+                    <table-header>Column 2</table-header>
+                </table-row>
             </template>
             <template v-slot:body>
-                <n-tr>
-                    <n-td><h1>CUSTOM HTML</h1></n-td>
-                    <n-td><ul><li>1</li><li>2</li><li>3</li></ul></n-td>
-                </n-tr>
-                <n-tr>
-                    <n-td><h1>CUSTOM HTML</h1></n-td>
-                    <n-td><ul><li>1</li><li>2</li><li>3</li></ul></n-td>
-                </n-tr>
-                <n-tr>
-                    <n-td><h1>CUSTOM HTML</h1></n-td>
-                    <n-td><ul><li>1</li><li>2</li><li>3</li></ul></n-td>
-                </n-tr>
+                <table-row>
+                    <table-cell><h1>CUSTOM HTML</h1></table-cell>
+                    <table-cell><ul><li>1</li><li>2</li><li>3</li></ul></table-cell>
+                </table-row>
+                <table-row>
+                    <table-cell><h1>CUSTOM HTML</h1></table-cell>
+                    <table-cell><ul><li>1</li><li>2</li><li>3</li></ul></table-cell>
+                </table-row>
+                <table-row>
+                    <table-cell><h1>CUSTOM HTML</h1></table-cell>
+                    <table-cell><ul><li>1</li><li>2</li><li>3</li></ul></table-cell>
+                </table-row>
             </template>
         </vue-raw-table>
     `

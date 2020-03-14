@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/radio",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "description": "Replaces the default radio inptus with a cross browser consistent radio",
   "main": "src/Radio.vue",
   "browser": "dist/Radio.esm.js",
@@ -21,7 +21,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "@IntusFacultas/typography": "^2.0.5",
+    "@IntusFacultas/typography": "^2.0.10",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

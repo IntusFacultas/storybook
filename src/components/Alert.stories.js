@@ -4,7 +4,7 @@ import { VueStaticAlert } from "Components/components/Alert/src/StaticAlert.vue"
 import markdown from "Components/components/Alert/Usage.md";
 
 export default {
-  title: "NASIC HTML/Alert", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Styled HTML/Alert", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {

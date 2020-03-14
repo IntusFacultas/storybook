@@ -1,16 +1,21 @@
-var Badge = (function () {
-  'use strict';
+var Badge = (function() {
+  "use strict";
 
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
+      _typeof = function(obj) {
         return typeof obj;
       };
     } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      _typeof = function(obj) {
+        return obj &&
+          typeof Symbol === "function" &&
+          obj.constructor === Symbol &&
+          obj !== Symbol.prototype
+          ? "symbol"
+          : typeof obj;
       };
     }
 
@@ -37,9 +42,10 @@ var Badge = (function () {
 
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
+      if (enumerableOnly)
+        symbols = symbols.filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
       keys.push.apply(keys, symbols);
     }
 
@@ -51,14 +57,21 @@ var Badge = (function () {
       var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
+        ownKeys(Object(source), true).forEach(function(key) {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        Object.defineProperties(
+          target,
+          Object.getOwnPropertyDescriptors(source)
+        );
       } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        ownKeys(Object(source)).forEach(function(key) {
+          Object.defineProperty(
+            target,
+            key,
+            Object.getOwnPropertyDescriptor(source, key)
+          );
         });
       }
     }
@@ -71,11 +84,13 @@ var Badge = (function () {
       raw = strings.slice(0);
     }
 
-    return Object.freeze(Object.defineProperties(strings, {
-      raw: {
-        value: Object.freeze(raw)
-      }
-    }));
+    return Object.freeze(
+      Object.defineProperties(strings, {
+        raw: {
+          value: Object.freeze(raw)
+        }
+      })
+    );
   }
 
   var NIWSTheme = {
@@ -165,550 +180,191 @@ var Badge = (function () {
       }
     }
   };
+
+  var Theme = _objectSpread2(
+    {
+      Light: {
+        color: {
+          color: "#222",
+          hover: "#222",
+          focus: "#222"
+        },
+        background: {
+          color: "#f8f9fa",
+          hover: "#DDE4E9",
+          focus: "#f8f9fa"
+        },
+        border: {
+          color: "#DDE4E9",
+          hover: "#DDE4E9",
+          focus: "#DDE4E9"
+        }
+      },
+      Secondary: {
+        color: {
+          color: "#fff",
+          hover: "#fff",
+          focus: "#fff"
+        },
+        background: {
+          color: "#6c757d",
+          hover: "#525D67",
+          focus: "#6c757d"
+        },
+        border: {
+          color: "#525D67",
+          hover: "#525D67",
+          focus: "#525D67"
+        }
+      },
+      Dark: {
+        color: {
+          color: "#fff",
+          hover: "#fff",
+          focus: "#fff"
+        },
+        background: {
+          color: "#343a40",
+          hover: "#23272b",
+          focus: "#343a40"
+        },
+        border: {
+          color: "#4F575E",
+          hover: "#4F575E",
+          focus: "#4F575E"
+        }
+      },
+      Primary: {
+        color: {
+          color: "#fff",
+          focus: "#fff",
+          hover: "#fff"
+        },
+        background: {
+          color: "#4357AD",
+          hover: "#2940A1",
+          focus: "#4357AD"
+        },
+        border: {
+          color: "#2940A1",
+          hover: "#2940A1",
+          focus: "#2940A1"
+        }
+      },
+      Info: {
+        color: {
+          color: "#222",
+          focus: "#222",
+          hover: "#222"
+        },
+        background: {
+          color: "#58B0AE",
+          hover: "#36938F",
+          focus: "#58B0AE"
+        },
+        border: {
+          color: "#36938F",
+          hover: "#36938F",
+          focus: "#36938F"
+        }
+      },
+      Warning: {
+        color: {
+          color: "#222",
+          focus: "#222",
+          hover: "#222"
+        },
+        background: {
+          color: "#ED7D3A",
+          hover: "#D15A14",
+          focus: "#ED7D3A"
+        },
+        border: {
+          color: "#D15A14",
+          hover: "#D15A14",
+          focus: "#D15A14"
+        }
+      },
+      Danger: {
+        color: {
+          color: "#fff",
+          focus: "#fff",
+          hover: "#fff"
+        },
+        background: {
+          color: "#7C0002",
+          hover: "#560002",
+          focus: "#7C0002"
+        },
+        border: {
+          color: "#560002",
+          hover: "#560002",
+          focus: "#560002"
+        }
+      },
+      Success: {
+        color: {
+          color: "#fff",
+          focus: "#fff",
+          hover: "#fff"
+        },
+        background: {
+          color: "#0B7C40",
+          hover: "#00642E",
+          focus: "#0B7C40"
+        },
+        border: {
+          color: "#00642E",
+          hover: "#00642E",
+          focus: "#00642E"
+        }
+      },
+      LightBlue: {
+        color: {
+          color: "#222",
+          focus: "#222",
+          hover: "#222"
+        },
+        background: {
+          color: "#41BEE8",
+          hover: "#38a5ca",
+          focus: "#38a5ca"
+        },
+        border: {
+          color: "#38a5ca",
+          hover: "#38a5ca",
+          focus: "#38a5ca"
+        }
+      }
+    },
+    NIWSTheme
+  );
+
   var AlertTheme = {
-    warning: {
-      color: {
-        color: "#222",
-        hover: "#222",
-        focus: "#222"
-      },
-      background: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      },
-      border: {
-        color: "#fec700",
-        hover: "#fec700",
-        focus: "#fec700"
-      }
-    },
-    danger: {
-      color: {
-        color: "#fff",
-        hover: "#fff",
-        focus: "#fff"
-      },
-      background: {
-        color: "#890620",
-        hover: "#890620",
-        focus: "#890620"
-      },
-      border: {
-        color: "#670014",
-        hover: "#670014",
-        focus: "#670014"
-      }
-    },
-    success: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#0B7C40",
-        hover: "#00642E",
-        focus: "#0B7C40"
-      },
-      border: {
-        color: "#00642E",
-        hover: "#00642E",
-        focus: "#00642E"
-      }
-    },
-    info: {
-      color: {
-        color: "#000",
-        hover: "#000",
-        focus: "#000"
-      },
-      background: {
-        color: "#4E8098",
-        hover: "#4E8098",
-        focus: "#4E8098"
-      },
-      border: {
-        color: "#316780",
-        hover: "#316780",
-        focus: "#316780"
-      }
-    }
+    warning: Theme["Warning"],
+    danger: Theme["Danger"],
+    success: Theme["Success"],
+    info: Theme["Info"]
   };
 
-  var Theme = _objectSpread2({
-    Light: {
-      color: {
-        color: "#222",
-        hover: "#222",
-        focus: "#222"
-      },
-      background: {
-        color: "#f8f9fa",
-        hover: "#DDE4E9",
-        focus: "#f8f9fa"
-      },
-      border: {
-        color: "#DDE4E9",
-        hover: "#DDE4E9",
-        focus: "#DDE4E9"
-      }
-    },
-    Secondary: {
-      color: {
-        color: "#fff",
-        hover: "#fff",
-        focus: "#fff"
-      },
-      background: {
-        color: "#6c757d",
-        hover: "#525D67",
-        focus: "#6c757d"
-      },
-      border: {
-        color: "#525D67",
-        hover: "#525D67",
-        focus: "#525D67"
-      }
-    },
-    Dark: {
-      color: {
-        color: "#fff",
-        hover: "#fff",
-        focus: "#fff"
-      },
-      background: {
-        color: "#343a40",
-        hover: "#23272b",
-        focus: "#343a40"
-      },
-      border: {
-        color: "#4F575E",
-        hover: "#4F575E",
-        focus: "#4F575E"
-      }
-    },
-    Primary: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#4357AD",
-        hover: "#2940A1",
-        focus: "#4357AD"
-      },
-      border: {
-        color: "#2940A1",
-        hover: "#2940A1",
-        focus: "#2940A1"
-      }
-    },
-    Info: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#58B0AE",
-        hover: "#36938F",
-        focus: "#58B0AE"
-      },
-      border: {
-        color: "#36938F",
-        hover: "#36938F",
-        focus: "#36938F"
-      }
-    },
-    Warning: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
-      },
-      border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
-      }
-    },
-    Danger: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#7C0002",
-        hover: "#560002",
-        focus: "#7C0002"
-      },
-      border: {
-        color: "#560002",
-        hover: "#560002",
-        focus: "#560002"
-      }
-    },
-    Success: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#0B7C40",
-        hover: "#00642E",
-        focus: "#0B7C40"
-      },
-      border: {
-        color: "#00642E",
-        hover: "#00642E",
-        focus: "#00642E"
-      }
-    },
-    LightBlue: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#41BEE8",
-        hover: "#38a5ca",
-        focus: "#38a5ca"
-      },
-      border: {
-        color: "#38a5ca",
-        hover: "#38a5ca",
-        focus: "#38a5ca"
-      }
-    },
-    AirBlue: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#2999F4",
-        hover: "#2386d7",
-        focus: "#2386d7"
-      },
-      border: {
-        color: "#2386d7",
-        hover: "#2386d7",
-        focus: "#2386d7"
-      }
-    },
-    MissileOrange: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FF7200",
-        hover: "#C65800",
-        focus: "#FF7200"
-      },
-      border: {
-        color: "#C65800",
-        hover: "#C65800",
-        focus: "#C65800"
-      }
-    },
-    CyberYellow: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F7C82C",
-        hover: "#D4A609",
-        focus: "#F7C82C"
-      },
-      border: {
-        color: "#D4A609",
-        hover: "#D4A609",
-        focus: "#D4A609"
-      }
-    },
-    SpaceTeal: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#0AD1C3",
-        hover: "#00BBAE",
-        focus: "#0AD1C3"
-      },
-      border: {
-        color: "#00BBAE",
-        hover: "#00BBAE",
-        focus: "#00BBAE"
-      }
-    },
-    INTsMagenta: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FC49C9",
-        hover: "#FA1FBD",
-        focus: "#FC49C9"
-      },
-      border: {
-        color: "#FA1FBD",
-        hover: "#FA1FBD",
-        focus: "#FA1FBD"
-      }
-    },
-    RegionGreen: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#C8E552",
-        hover: "#B0CF2E",
-        focus: "#C8E552"
-      },
-      border: {
-        color: "#B0CF2E",
-        hover: "#B0CF2E",
-        focus: "#B0CF2E"
-      }
-    },
-    Sky: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#80CCFF",
-        hover: "#57BDFF",
-        focus: "#80CCFF"
-      },
-      border: {
-        color: "#57BDFF",
-        hover: "#57BDFF",
-        focus: "#57BDFF"
-      }
-    },
-    Apricot: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#FCB681",
-        hover: "#D88B51",
-        focus: "#FCB681"
-      },
-      border: {
-        color: "#D88B51",
-        hover: "#D88B51",
-        focus: "#D88B51"
-      }
-    },
-    Aqua: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#77FCD5",
-        hover: "#25EEB1",
-        focus: "#77FCD5"
-      },
-      border: {
-        color: "#25EEB1",
-        hover: "#25EEB1",
-        focus: "#25EEB1"
-      }
-    },
-    Sunny: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F9EC75",
-        hover: "#D7C949",
-        focus: "#F9EC75"
-      },
-      border: {
-        color: "#D7C949",
-        hover: "#D7C949",
-        focus: "#D7C949"
-      }
-    },
-    Moss: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#DFFF92",
-        hover: "#C5FF38",
-        focus: "#DFFF92"
-      },
-      border: {
-        color: "#C5FF38",
-        hover: "#C5FF38",
-        focus: "#C5FF38"
-      }
-    },
-    Pink: {
-      color: {
-        color: "#222",
-        focus: "#222",
-        hover: "#222"
-      },
-      background: {
-        color: "#F2B4F9",
-        hover: "#E486EE",
-        focus: "#F2B4F9"
-      },
-      border: {
-        color: "#E486EE",
-        hover: "#E486EE",
-        focus: "#E486EE"
-      }
-    },
-    Deep: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#002339",
-        hover: "#000B12",
-        focus: "#002339"
-      },
-      border: {
-        color: "#000B12",
-        hover: "#000B12",
-        focus: "#000B12"
-      }
-    },
-    Bark: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#481F0C",
-        hover: "#2B0E01",
-        focus: "#481F0C"
-      },
-      border: {
-        color: "#2B0E01",
-        hover: "#2B0E01",
-        focus: "#2B0E01"
-      }
-    },
-    Jungle: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#015149",
-        hover: "#003933",
-        focus: "#015149"
-      },
-      border: {
-        color: "#003933",
-        hover: "#003933",
-        focus: "#003933"
-      }
-    },
-    Spice: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#705405",
-        hover: "#4A3700",
-        focus: "#705405"
-      },
-      border: {
-        color: "#4A3700",
-        hover: "#4A3700",
-        focus: "#4A3700"
-      }
-    },
-    Olive: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#4C5612",
-        hover: "#2F3703",
-        focus: "#4C5612"
-      },
-      border: {
-        color: "#2F3703",
-        hover: "#2F3703",
-        focus: "#2F3703"
-      }
-    },
-    Plum: {
-      color: {
-        color: "#fff",
-        focus: "#fff",
-        hover: "#fff"
-      },
-      background: {
-        color: "#361329",
-        hover: "#26081B",
-        focus: "#361329"
-      },
-      border: {
-        color: "#26081B",
-        hover: "#26081B",
-        focus: "#26081B"
-      }
-    }
-  }, NIWSTheme, {}, AlertTheme);
-
-  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   var generateAlphabeticName = function generateAlphabeticName(code) {
     var lastDigit = chars[code % chars.length];
-    return code > chars.length ? "".concat(generateAlphabeticName(Math.floor(code / chars.length))).concat(lastDigit) : lastDigit;
+    return code > chars.length
+      ? ""
+          .concat(generateAlphabeticName(Math.floor(code / chars.length)))
+          .concat(lastDigit)
+      : lastDigit;
   };
 
   var interleave = function interleave(strings, interpolations) {
-    return interpolations.reduce(function (array, interp, i) {
-      return array.concat(interp, strings[i + 1]);
-    }, [strings[0]]);
+    return interpolations.reduce(
+      function(array, interp, i) {
+        return array.concat(interp, strings[i + 1]);
+      },
+      [strings[0]]
+    );
   };
 
   function _classCallCheck(instance, Constructor) {
@@ -753,9 +409,10 @@ var Badge = (function () {
 
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
+      if (enumerableOnly)
+        symbols = symbols.filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
       keys.push.apply(keys, symbols);
     }
 
@@ -767,14 +424,21 @@ var Badge = (function () {
       var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys$1(source, true).forEach(function (key) {
+        ownKeys$1(source, true).forEach(function(key) {
           _defineProperty$1(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        Object.defineProperties(
+          target,
+          Object.getOwnPropertyDescriptors(source)
+        );
       } else {
-        ownKeys$1(source).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        ownKeys$1(source).forEach(function(key) {
+          Object.defineProperty(
+            target,
+            key,
+            Object.getOwnPropertyDescriptor(source, key)
+          );
         });
       }
     }
@@ -783,7 +447,9 @@ var Badge = (function () {
   }
 
   function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    return (
+      _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread()
+    );
   }
 
   function _arrayWithoutHoles(arr) {
@@ -797,7 +463,11 @@ var Badge = (function () {
   }
 
   function _iterableToArray(iter) {
-    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+    if (
+      Symbol.iterator in Object(iter) ||
+      Object.prototype.toString.call(iter) === "[object Arguments]"
+    )
+      return Array.from(iter);
   }
 
   function _nonIterableSpread() {
@@ -814,8 +484,7 @@ var Badge = (function () {
 
   /** `Object#toString` result references. */
 
-
-  var objectTag = '[object Object]';
+  var objectTag = "[object Object]";
   /**
    * Checks if `value` is a host object in IE < 9.
    *
@@ -829,9 +498,9 @@ var Badge = (function () {
     // despite having improperly defined `toString` methods.
     var result = false;
 
-    if (value != null && typeof value.toString != 'function') {
+    if (value != null && typeof value.toString != "function") {
       try {
-        result = !!(value + '');
+        result = !!(value + "");
       } catch (e) {}
     }
 
@@ -846,17 +515,15 @@ var Badge = (function () {
    * @returns {Function} Returns the new function.
    */
 
-
   function overArg(func, transform) {
-    return function (arg) {
+    return function(arg) {
       return func(transform(arg));
     };
   }
   /** Used for built-in method references. */
 
-
   var funcProto = Function.prototype,
-      objectProto = Object.prototype;
+    objectProto = Object.prototype;
   /** Used to resolve the decompiled source of functions. */
 
   var funcToString = funcProto.toString;
@@ -902,7 +569,7 @@ var Badge = (function () {
    */
 
   function isObjectLike(value) {
-    return !!value && _typeof(value) == 'object';
+    return !!value && _typeof(value) == "object";
   }
   /**
    * Checks if `value` is a plain object, that is, an object created by the
@@ -933,9 +600,12 @@ var Badge = (function () {
    * // => true
    */
 
-
   function isPlainObject(value) {
-    if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+    if (
+      !isObjectLike(value) ||
+      objectToString.call(value) != objectTag ||
+      isHostObject(value)
+    ) {
       return false;
     }
 
@@ -945,8 +615,12 @@ var Badge = (function () {
       return true;
     }
 
-    var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-    return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
+    var Ctor = hasOwnProperty.call(proto, "constructor") && proto.constructor;
+    return (
+      typeof Ctor == "function" &&
+      Ctor instanceof Ctor &&
+      funcToString.call(Ctor) == objectCtorString
+    );
   }
 
   var lodash_isplainobject = isPlainObject;
@@ -954,38 +628,65 @@ var Badge = (function () {
   var msPattern = /^ms-/;
 
   function hyphenate(string) {
-    return string.replace(_uppercasePattern, '-$1').toLowerCase();
+    return string.replace(_uppercasePattern, "-$1").toLowerCase();
   }
 
   function hyphenateStyleName(string) {
-    return hyphenate(string).replace(msPattern, '-ms-');
+    return hyphenate(string).replace(msPattern, "-ms-");
   }
 
   var hyphenateStyleName_1 = hyphenateStyleName;
 
   var objToCss = function objToCss(obj, prevKey) {
-    var css = Object.keys(obj).map(function (key) {
-      if (lodash_isplainobject(obj[key])) return objToCss(obj[key], key);
-      return "".concat(hyphenateStyleName_1(key), ": ").concat(obj[key], ";");
-    }).join(' ');
+    var css = Object.keys(obj)
+      .map(function(key) {
+        if (lodash_isplainobject(obj[key])) return objToCss(obj[key], key);
+        return "".concat(hyphenateStyleName_1(key), ": ").concat(obj[key], ";");
+      })
+      .join(" ");
     return prevKey ? "".concat(prevKey, " {\n  ").concat(css, "\n}") : css;
   };
 
   var flatten = function flatten(chunks, executionContext) {
-    return chunks.reduce(function (ruleSet, chunk) {
-      if (chunk === undefined || chunk === null || chunk === false || chunk === '') return ruleSet;
-      if (Array.isArray(chunk)) return [].concat(_toConsumableArray(ruleSet), _toConsumableArray(flatten(chunk, executionContext)));
+    return chunks.reduce(function(ruleSet, chunk) {
+      if (
+        chunk === undefined ||
+        chunk === null ||
+        chunk === false ||
+        chunk === ""
+      )
+        return ruleSet;
+      if (Array.isArray(chunk))
+        return [].concat(
+          _toConsumableArray(ruleSet),
+          _toConsumableArray(flatten(chunk, executionContext))
+        );
 
-      if (typeof chunk === 'function') {
-        return executionContext ? ruleSet.concat.apply(ruleSet, _toConsumableArray(flatten([chunk(executionContext)], executionContext))) : ruleSet.concat(chunk);
+      if (typeof chunk === "function") {
+        return executionContext
+          ? ruleSet.concat.apply(
+              ruleSet,
+              _toConsumableArray(
+                flatten([chunk(executionContext)], executionContext)
+              )
+            )
+          : ruleSet.concat(chunk);
       }
 
-      return ruleSet.concat(lodash_isplainobject(chunk) ? objToCss(chunk) : chunk.toString());
+      return ruleSet.concat(
+        lodash_isplainobject(chunk) ? objToCss(chunk) : chunk.toString()
+      );
     }, []);
   };
 
   var css = function css(rules) {
-    for (var _len = arguments.length, interpolations = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    for (
+      var _len = arguments.length,
+        interpolations = new Array(_len > 1 ? _len - 1 : 0),
+        _key = 1;
+      _key < _len;
+      _key++
+    ) {
       interpolations[_key - 1] = arguments[_key];
     }
 
@@ -1004,36 +705,46 @@ var Badge = (function () {
     }
   }
 
-  var isDev = function (x) {
-    return x === 'development' || !x;
-  }("development");
+  var isDev = (function(x) {
+    return x === "development" || !x;
+  })("development");
 
-  var isTest = "development" === 'test';
-  var isBrowser = typeof document !== 'undefined' && !isTest;
+  var isTest = "development" === "test";
+  var isBrowser = typeof document !== "undefined" && !isTest;
 
-  var oldIE = function () {
+  var oldIE = (function() {
     if (isBrowser) {
-      var div = document.createElement('div');
-      div.innerHTML = '<!--[if lt IE 10]><i></i><![endif]-->';
-      return div.getElementsByTagName('i').length === 1;
+      var div = document.createElement("div");
+      div.innerHTML = "<!--[if lt IE 10]><i></i><![endif]-->";
+      return div.getElementsByTagName("i").length === 1;
     }
-  }();
+  })();
 
   function makeStyleTag() {
-    var tag = document.createElement('style');
-    tag.type = 'text/css';
-    tag.appendChild(document.createTextNode(''));
-    (document.head || document.getElementsByTagName('head')[0]).appendChild(tag);
+    var tag = document.createElement("style");
+    tag.type = "text/css";
+    tag.appendChild(document.createTextNode(""));
+    (document.head || document.getElementsByTagName("head")[0]).appendChild(
+      tag
+    );
     return tag;
   }
 
-  var StyleSheet = function () {
+  var StyleSheet = (function() {
     function StyleSheet() {
-      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref$speedy = _ref.speedy,
-          speedy = _ref$speedy === void 0 ? !isDev && !isTest : _ref$speedy,
-          _ref$maxLength = _ref.maxLength,
-          maxLength = _ref$maxLength === void 0 ? isBrowser && oldIE ? 4000 : 65000 : _ref$maxLength;
+      var _ref =
+          arguments.length > 0 && arguments[0] !== undefined
+            ? arguments[0]
+            : {},
+        _ref$speedy = _ref.speedy,
+        speedy = _ref$speedy === void 0 ? !isDev && !isTest : _ref$speedy,
+        _ref$maxLength = _ref.maxLength,
+        maxLength =
+          _ref$maxLength === void 0
+            ? isBrowser && oldIE
+              ? 4000
+              : 65000
+            : _ref$maxLength;
 
       _classCallCheck(this, StyleSheet);
 
@@ -1044,130 +755,149 @@ var Badge = (function () {
       this.ctr = 0;
     }
 
-    _createClass(StyleSheet, [{
-      key: "inject",
-      value: function inject() {
-        var _this = this;
+    _createClass(StyleSheet, [
+      {
+        key: "inject",
+        value: function inject() {
+          var _this = this;
 
-        if (this.injected) {
-          throw new Error('already injected stylesheet!');
-        }
-
-        if (isBrowser) {
-          this.tags[0] = makeStyleTag();
-          this.sheet = sheetForTag(this.tags[0]);
-        } else {
-          this.sheet = {
-            cssRules: [],
-            insertRule: function insertRule(rule) {
-              var serverRule = {
-                cssText: rule
-              };
-
-              _this.sheet.cssRules.push(serverRule);
-
-              return {
-                serverRule: serverRule,
-                appendRule: function appendRule(newCss) {
-                  return serverRule.cssText += newCss;
-                }
-              };
-            }
-          };
-        }
-
-        this.injected = true;
-      }
-    }, {
-      key: "speedy",
-      value: function speedy(bool) {
-        if (this.ctr !== 0) {
-          throw new Error("cannot change speedy mode after inserting any rule to sheet. Either call speedy(".concat(bool, ") earlier in your app, or call flush() before speedy(").concat(bool, ")"));
-        }
-
-        this.isSpeedy = !!bool;
-      }
-    }, {
-      key: "_insert",
-      value: function _insert(rule) {
-        try {
-          this.sheet.insertRule(rule, this.sheet.cssRules.length);
-        } catch (e) {
-          if (isDev) {
-            console.warn('whoops, illegal rule inserted', rule);
+          if (this.injected) {
+            throw new Error("already injected stylesheet!");
           }
-        }
-      }
-    }, {
-      key: "insert",
-      value: function insert(rule) {
-        var insertedRule;
 
-        if (isBrowser) {
-          if (this.isSpeedy && this.sheet.insertRule) {
-            this._insert(rule);
+          if (isBrowser) {
+            this.tags[0] = makeStyleTag();
+            this.sheet = sheetForTag(this.tags[0]);
           } else {
-            var textNode = document.createTextNode(rule);
-            last(this.tags).appendChild(textNode);
-            insertedRule = {
-              textNode: textNode,
-              appendRule: function appendRule(newCss) {
-                return textNode.appendData(newCss);
+            this.sheet = {
+              cssRules: [],
+              insertRule: function insertRule(rule) {
+                var serverRule = {
+                  cssText: rule
+                };
+
+                _this.sheet.cssRules.push(serverRule);
+
+                return {
+                  serverRule: serverRule,
+                  appendRule: function appendRule(newCss) {
+                    return (serverRule.cssText += newCss);
+                  }
+                };
               }
             };
+          }
 
-            if (!this.isSpeedy) {
-              this.sheet = sheetForTag(last(this.tags));
+          this.injected = true;
+        }
+      },
+      {
+        key: "speedy",
+        value: function speedy(bool) {
+          if (this.ctr !== 0) {
+            throw new Error(
+              "cannot change speedy mode after inserting any rule to sheet. Either call speedy("
+                .concat(
+                  bool,
+                  ") earlier in your app, or call flush() before speedy("
+                )
+                .concat(bool, ")")
+            );
+          }
+
+          this.isSpeedy = !!bool;
+        }
+      },
+      {
+        key: "_insert",
+        value: function _insert(rule) {
+          try {
+            this.sheet.insertRule(rule, this.sheet.cssRules.length);
+          } catch (e) {
+            if (isDev) {
+              console.warn("whoops, illegal rule inserted", rule);
             }
           }
-        } else {
-          insertedRule = this.sheet.insertRule(rule);
         }
+      },
+      {
+        key: "insert",
+        value: function insert(rule) {
+          var insertedRule;
 
-        this.ctr++;
+          if (isBrowser) {
+            if (this.isSpeedy && this.sheet.insertRule) {
+              this._insert(rule);
+            } else {
+              var textNode = document.createTextNode(rule);
+              last(this.tags).appendChild(textNode);
+              insertedRule = {
+                textNode: textNode,
+                appendRule: function appendRule(newCss) {
+                  return textNode.appendData(newCss);
+                }
+              };
 
-        if (isBrowser && this.ctr % this.maxLength === 0) {
-          this.tags.push(makeStyleTag());
-          this.sheet = sheetForTag(last(this.tags));
+              if (!this.isSpeedy) {
+                this.sheet = sheetForTag(last(this.tags));
+              }
+            }
+          } else {
+            insertedRule = this.sheet.insertRule(rule);
+          }
+
+          this.ctr++;
+
+          if (isBrowser && this.ctr % this.maxLength === 0) {
+            this.tags.push(makeStyleTag());
+            this.sheet = sheetForTag(last(this.tags));
+          }
+
+          return insertedRule;
         }
+      },
+      {
+        key: "flush",
+        value: function flush() {
+          if (isBrowser) {
+            this.tags.forEach(function(tag) {
+              return tag.parentNode.removeChild(tag);
+            });
+            this.tags = [];
+            this.sheet = null;
+            this.ctr = 0;
+          } else {
+            this.sheet.cssRules = [];
+          }
 
-        return insertedRule;
-      }
-    }, {
-      key: "flush",
-      value: function flush() {
-        if (isBrowser) {
-          this.tags.forEach(function (tag) {
-            return tag.parentNode.removeChild(tag);
+          this.injected = false;
+        }
+      },
+      {
+        key: "rules",
+        value: function rules() {
+          if (!isBrowser) {
+            return this.sheet.cssRules;
+          }
+
+          var arr = [];
+          this.tags.forEach(function(tag) {
+            return arr.splice.apply(
+              arr,
+              [arr.length, 0].concat(
+                _toConsumableArray(Array.from(sheetForTag(tag).cssRules))
+              )
+            );
           });
-          this.tags = [];
-          this.sheet = null;
-          this.ctr = 0;
-        } else {
-          this.sheet.cssRules = [];
+          return arr;
         }
-
-        this.injected = false;
       }
-    }, {
-      key: "rules",
-      value: function rules() {
-        if (!isBrowser) {
-          return this.sheet.cssRules;
-        }
-
-        var arr = [];
-        this.tags.forEach(function (tag) {
-          return arr.splice.apply(arr, [arr.length, 0].concat(_toConsumableArray(Array.from(sheetForTag(tag).cssRules))));
-        });
-        return arr;
-      }
-    }]);
+    ]);
 
     return StyleSheet;
-  }();
+  })();
 
-  var StyleSheet$1 = function () {
+  var StyleSheet$1 = (function() {
     function StyleSheet$1() {
       _classCallCheck(this, StyleSheet$1);
 
@@ -1180,55 +910,78 @@ var Badge = (function () {
       });
     }
 
-    _createClass(StyleSheet$1, [{
-      key: "inject",
-      value: function inject() {
-        this.globalStyleSheet.inject();
-        this.componentStyleSheet.inject();
+    _createClass(StyleSheet$1, [
+      {
+        key: "inject",
+        value: function inject() {
+          this.globalStyleSheet.inject();
+          this.componentStyleSheet.inject();
+        }
+      },
+      {
+        key: "flush",
+        value: function flush() {
+          if (this.globalStyleSheet.sheet) this.globalStyleSheet.flush();
+          if (this.componentStyleSheet.sheet) this.componentStyleSheet.flush();
+        }
+      },
+      {
+        key: "insert",
+        value: function insert(rule) {
+          var opts =
+            arguments.length > 1 && arguments[1] !== undefined
+              ? arguments[1]
+              : {
+                  global: false
+                };
+          var sheet = opts.global
+            ? this.globalStyleSheet
+            : this.componentStyleSheet;
+          return sheet.insert(rule);
+        }
+      },
+      {
+        key: "rules",
+        value: function rules() {
+          return this.globalStyleSheet
+            .rules()
+            .concat(this.componentStyleSheet.rules());
+        }
+      },
+      {
+        key: "injected",
+        get: function get() {
+          return (
+            this.globalStyleSheet.injected && this.componentStyleSheet.injected
+          );
+        }
       }
-    }, {
-      key: "flush",
-      value: function flush() {
-        if (this.globalStyleSheet.sheet) this.globalStyleSheet.flush();
-        if (this.componentStyleSheet.sheet) this.componentStyleSheet.flush();
-      }
-    }, {
-      key: "insert",
-      value: function insert(rule) {
-        var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-          global: false
-        };
-        var sheet = opts.global ? this.globalStyleSheet : this.componentStyleSheet;
-        return sheet.insert(rule);
-      }
-    }, {
-      key: "rules",
-      value: function rules() {
-        return this.globalStyleSheet.rules().concat(this.componentStyleSheet.rules());
-      }
-    }, {
-      key: "injected",
-      get: function get() {
-        return this.globalStyleSheet.injected && this.componentStyleSheet.injected;
-      }
-    }]);
+    ]);
 
     return StyleSheet$1;
-  }();
+  })();
 
   var styleSheet = new StyleSheet$1();
 
   function unwrapExports(x) {
-    return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+    return x &&
+      x.__esModule &&
+      Object.prototype.hasOwnProperty.call(x, "default")
+      ? x["default"]
+      : x;
   }
 
   function createCommonjsModule(fn, module) {
-    return module = {
-      exports: {}
-    }, fn(module, module.exports), module.exports;
+    return (
+      (module = {
+        exports: {}
+      }),
+      fn(module, module.exports),
+      module.exports
+    );
   }
 
-  var hash = createCommonjsModule(function (module, exports) {
+  var hash = createCommonjsModule(function(module, exports) {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
@@ -1277,7 +1030,12 @@ var Badge = (function () {
     }
 
     function UInt32(str, pos) {
-      return str.charCodeAt(pos++) + (str.charCodeAt(pos++) << 8) + (str.charCodeAt(pos++) << 16) + (str.charCodeAt(pos) << 24);
+      return (
+        str.charCodeAt(pos++) +
+        (str.charCodeAt(pos++) << 8) +
+        (str.charCodeAt(pos++) << 16) +
+        (str.charCodeAt(pos) << 24)
+      );
     }
 
     function UInt16(str, pos) {
@@ -1289,13 +1047,13 @@ var Badge = (function () {
       m = m | 0;
       var nlo = n & 0xffff;
       var nhi = n >>> 16;
-      var res = nlo * m + ((nhi * m & 0xffff) << 16) | 0;
+      var res = (nlo * m + (((nhi * m) & 0xffff) << 16)) | 0;
       return res;
     }
   });
   var hashStr = unwrapExports(hash);
 
-  var stylis = createCommonjsModule(function (module, exports) {
+  var stylis = createCommonjsModule(function(module, exports) {
     /*
      *          __        ___
      *    _____/ /___  __/ (_)____
@@ -1306,470 +1064,464 @@ var Badge = (function () {
      *
      * light - weight css preprocessor @licence MIT
      */
-    (function (factory) {
+    (function(factory) {
       /* eslint-disable */
-      module['exports'] = factory(null);
+      module["exports"] = factory(null);
     })(
-    /** @param {*=} options */
-    function factory(options) {
-      /**
-       * Notes
-       *
-       * The ['<method name>'] pattern is used to support closure compiler
-       * the jsdoc signatures are also used to the same effect
-       *
-       * ----
-       *
-       * int + int + int === n4 [faster]
-       *
-       * vs
-       *
-       * int === n1 && int === n2 && int === n3
-       *
-       * ----
-       *
-       * switch (int) { case ints...} [faster]
-       *
-       * vs
-       *
-       * if (int == 1 && int === 2 ...)
-       *
-       * ----
-       *
-       * The (first*n1 + second*n2 + third*n3) format used in the property parser
-       * is a simple way to hash the sequence of characters
-       * taking into account the index they occur in
-       * since any number of 3 character sequences could produce duplicates.
-       *
-       * On the other hand sequences that are directly tied to the index of the character
-       * resolve a far more accurate measure, it's also faster
-       * to evaluate one condition in a switch statement
-       * than three in an if statement regardless of the added math.
-       *
-       * This allows the vendor prefixer to be both small and fast.
-       */
-      var nullptn = /^\0+/g;
-      /* matches leading null characters */
-
-      var formatptn = /[\0\r\f]/g;
-      /* matches new line, null and formfeed characters */
-
-      var colonptn = /: */g;
-      /* splits animation rules */
-
-      var cursorptn = /zoo|gra/;
-      /* assert cursor varient */
-
-      var transformptn = /([,: ])(transform)/g;
-      /* vendor prefix transform, older webkit */
-
-      var animationptn = /,+\s*(?![^(]*[)])/g;
-      /* splits multiple shorthand notation animations */
-
-      var propertiesptn = / +\s*(?![^(]*[)])/g;
-      /* animation properties */
-
-      var elementptn = / *[\0] */g;
-      /* selector elements */
-
-      var selectorptn = /,\r+?/g;
-      /* splits selectors */
+      /** @param {*=} options */
+      function factory(options) {
+        /**
+         * Notes
+         *
+         * The ['<method name>'] pattern is used to support closure compiler
+         * the jsdoc signatures are also used to the same effect
+         *
+         * ----
+         *
+         * int + int + int === n4 [faster]
+         *
+         * vs
+         *
+         * int === n1 && int === n2 && int === n3
+         *
+         * ----
+         *
+         * switch (int) { case ints...} [faster]
+         *
+         * vs
+         *
+         * if (int == 1 && int === 2 ...)
+         *
+         * ----
+         *
+         * The (first*n1 + second*n2 + third*n3) format used in the property parser
+         * is a simple way to hash the sequence of characters
+         * taking into account the index they occur in
+         * since any number of 3 character sequences could produce duplicates.
+         *
+         * On the other hand sequences that are directly tied to the index of the character
+         * resolve a far more accurate measure, it's also faster
+         * to evaluate one condition in a switch statement
+         * than three in an if statement regardless of the added math.
+         *
+         * This allows the vendor prefixer to be both small and fast.
+         */
+        var nullptn = /^\0+/g;
+        /* matches leading null characters */
+
+        var formatptn = /[\0\r\f]/g;
+        /* matches new line, null and formfeed characters */
+
+        var colonptn = /: */g;
+        /* splits animation rules */
+
+        var cursorptn = /zoo|gra/;
+        /* assert cursor varient */
+
+        var transformptn = /([,: ])(transform)/g;
+        /* vendor prefix transform, older webkit */
+
+        var animationptn = /,+\s*(?![^(]*[)])/g;
+        /* splits multiple shorthand notation animations */
+
+        var propertiesptn = / +\s*(?![^(]*[)])/g;
+        /* animation properties */
+
+        var elementptn = / *[\0] */g;
+        /* selector elements */
+
+        var selectorptn = /,\r+?/g;
+        /* splits selectors */
 
-      var andptn = /([\t\r\n ])*\f?&/g;
-      /* match & */
+        var andptn = /([\t\r\n ])*\f?&/g;
+        /* match & */
 
-      var escapeptn = /:global\(((?:[^\(\)\[\]]*|\[.*\]|\([^\(\)]*\))*)\)/g;
-      /* matches :global(.*) */
+        var escapeptn = /:global\(((?:[^\(\)\[\]]*|\[.*\]|\([^\(\)]*\))*)\)/g;
+        /* matches :global(.*) */
 
-      var invalidptn = /\W+/g;
-      /* removes invalid characters from keyframes */
+        var invalidptn = /\W+/g;
+        /* removes invalid characters from keyframes */
 
-      var keyframeptn = /@(k\w+)\s*(\S*)\s*/;
-      /* matches @keyframes $1 */
+        var keyframeptn = /@(k\w+)\s*(\S*)\s*/;
+        /* matches @keyframes $1 */
 
-      var plcholdrptn = /::(place)/g;
-      /* match ::placeholder varient */
+        var plcholdrptn = /::(place)/g;
+        /* match ::placeholder varient */
 
-      var readonlyptn = /:(read-only)/g;
-      /* match :read-only varient */
+        var readonlyptn = /:(read-only)/g;
+        /* match :read-only varient */
 
-      var beforeptn = /\s+(?=[{\];=:>])/g;
-      /* matches \s before ] ; = : */
+        var beforeptn = /\s+(?=[{\];=:>])/g;
+        /* matches \s before ] ; = : */
 
-      var afterptn = /([[}=:>])\s+/g;
-      /* matches \s after characters [ } = : */
+        var afterptn = /([[}=:>])\s+/g;
+        /* matches \s after characters [ } = : */
 
-      var tailptn = /(\{[^{]+?);(?=\})/g;
-      /* matches tail semi-colons ;} */
+        var tailptn = /(\{[^{]+?);(?=\})/g;
+        /* matches tail semi-colons ;} */
 
-      var whiteptn = /\s{2,}/g;
-      /* matches repeating whitespace */
+        var whiteptn = /\s{2,}/g;
+        /* matches repeating whitespace */
 
-      var pseudoptn = /([^\(])(:+) */g;
-      /* pseudo element */
+        var pseudoptn = /([^\(])(:+) */g;
+        /* pseudo element */
 
-      var writingptn = /[svh]\w+-[tblr]{2}/;
-      /* match *gradient property */
+        var writingptn = /[svh]\w+-[tblr]{2}/;
+        /* match *gradient property */
 
-      var supportsptn = /\(\s*(.*)\s*\)/g;
-      /* match supports (groups) */
+        var supportsptn = /\(\s*(.*)\s*\)/g;
+        /* match supports (groups) */
 
-      var propertyptn = /([\s\S]*?);/g;
-      /* match properties leading semicolon */
+        var propertyptn = /([\s\S]*?);/g;
+        /* match properties leading semicolon */
 
-      var selfptn = /-self|flex-/g;
-      /* match flex- and -self in align-self: flex-*; */
+        var selfptn = /-self|flex-/g;
+        /* match flex- and -self in align-self: flex-*; */
 
-      var pseudofmt = /[^]*?(:[rp][el]a[\w-]+)[^]*/;
-      /* match tail whitspace */
+        var pseudofmt = /[^]*?(:[rp][el]a[\w-]+)[^]*/;
+        /* match tail whitspace */
 
-      var dimensionptn = /stretch|:\s*\w+\-(?:conte|avail)/;
-      /* match max/min/fit-content, fill-available */
+        var dimensionptn = /stretch|:\s*\w+\-(?:conte|avail)/;
+        /* match max/min/fit-content, fill-available */
 
-      var imgsrcptn = /([^-])(image-set\()/;
-      /* vendors */
+        var imgsrcptn = /([^-])(image-set\()/;
+        /* vendors */
 
-      var webkit = '-webkit-';
-      var moz = '-moz-';
-      var ms = '-ms-';
-      /* character codes */
+        var webkit = "-webkit-";
+        var moz = "-moz-";
+        var ms = "-ms-";
+        /* character codes */
 
-      var SEMICOLON = 59;
-      /* ; */
+        var SEMICOLON = 59;
+        /* ; */
 
-      var CLOSEBRACES = 125;
-      /* } */
+        var CLOSEBRACES = 125;
+        /* } */
 
-      var OPENBRACES = 123;
-      /* { */
+        var OPENBRACES = 123;
+        /* { */
 
-      var OPENPARENTHESES = 40;
-      /* ( */
+        var OPENPARENTHESES = 40;
+        /* ( */
 
-      var CLOSEPARENTHESES = 41;
-      /* ) */
+        var CLOSEPARENTHESES = 41;
+        /* ) */
 
-      var OPENBRACKET = 91;
-      /* [ */
+        var OPENBRACKET = 91;
+        /* [ */
 
-      var CLOSEBRACKET = 93;
-      /* ] */
+        var CLOSEBRACKET = 93;
+        /* ] */
 
-      var NEWLINE = 10;
-      /* \n */
+        var NEWLINE = 10;
+        /* \n */
 
-      var CARRIAGE = 13;
-      /* \r */
+        var CARRIAGE = 13;
+        /* \r */
 
-      var TAB = 9;
-      /* \t */
+        var TAB = 9;
+        /* \t */
 
-      var AT = 64;
-      /* @ */
+        var AT = 64;
+        /* @ */
 
-      var SPACE = 32;
-      /*   */
+        var SPACE = 32;
+        /*   */
 
-      var AND = 38;
-      /* & */
+        var AND = 38;
+        /* & */
 
-      var DASH = 45;
-      /* - */
+        var DASH = 45;
+        /* - */
 
-      var UNDERSCORE = 95;
-      /* _ */
+        var UNDERSCORE = 95;
+        /* _ */
 
-      var STAR = 42;
-      /* * */
+        var STAR = 42;
+        /* * */
 
-      var COMMA = 44;
-      /* , */
+        var COMMA = 44;
+        /* , */
 
-      var COLON = 58;
-      /* : */
+        var COLON = 58;
+        /* : */
 
-      var SINGLEQUOTE = 39;
-      /* ' */
+        var SINGLEQUOTE = 39;
+        /* ' */
 
-      var DOUBLEQUOTE = 34;
-      /* " */
+        var DOUBLEQUOTE = 34;
+        /* " */
 
-      var FOWARDSLASH = 47;
-      /* / */
+        var FOWARDSLASH = 47;
+        /* / */
 
-      var GREATERTHAN = 62;
-      /* > */
+        var GREATERTHAN = 62;
+        /* > */
 
-      var PLUS = 43;
-      /* + */
+        var PLUS = 43;
+        /* + */
 
-      var TILDE = 126;
-      /* ~ */
+        var TILDE = 126;
+        /* ~ */
 
-      var NULL = 0;
-      /* \0 */
+        var NULL = 0;
+        /* \0 */
 
-      var FORMFEED = 12;
-      /* \f */
+        var FORMFEED = 12;
+        /* \f */
 
-      var VERTICALTAB = 11;
-      /* \v */
+        var VERTICALTAB = 11;
+        /* \v */
 
-      /* special identifiers */
+        /* special identifiers */
 
-      var KEYFRAME = 107;
-      /* k */
+        var KEYFRAME = 107;
+        /* k */
 
-      var MEDIA = 109;
-      /* m */
+        var MEDIA = 109;
+        /* m */
 
-      var SUPPORTS = 115;
-      /* s */
+        var SUPPORTS = 115;
+        /* s */
 
-      var PLACEHOLDER = 112;
-      /* p */
+        var PLACEHOLDER = 112;
+        /* p */
 
-      var READONLY = 111;
-      /* o */
+        var READONLY = 111;
+        /* o */
 
-      var IMPORT = 105;
-      /* <at>i */
+        var IMPORT = 105;
+        /* <at>i */
 
-      var CHARSET = 99;
-      /* <at>c */
+        var CHARSET = 99;
+        /* <at>c */
 
-      var DOCUMENT = 100;
-      /* <at>d */
+        var DOCUMENT = 100;
+        /* <at>d */
 
-      var PAGE = 112;
-      /* <at>p */
+        var PAGE = 112;
+        /* <at>p */
 
-      var column = 1;
-      /* current column */
+        var column = 1;
+        /* current column */
 
-      var line = 1;
-      /* current line numebr */
+        var line = 1;
+        /* current line numebr */
 
-      var pattern = 0;
-      /* :pattern */
+        var pattern = 0;
+        /* :pattern */
 
-      var cascade = 1;
-      /* #id h1 h2 vs h1#id h2#id  */
+        var cascade = 1;
+        /* #id h1 h2 vs h1#id h2#id  */
 
-      var prefix = 1;
-      /* vendor prefix */
+        var prefix = 1;
+        /* vendor prefix */
 
-      var escape = 1;
-      /* escape :global() pattern */
+        var escape = 1;
+        /* escape :global() pattern */
 
-      var compress = 0;
-      /* compress output */
+        var compress = 0;
+        /* compress output */
 
-      var semicolon = 0;
-      /* no/semicolon option */
+        var semicolon = 0;
+        /* no/semicolon option */
 
-      var preserve = 0;
-      /* preserve empty selectors */
+        var preserve = 0;
+        /* preserve empty selectors */
 
-      /* empty reference */
+        /* empty reference */
 
-      var array = [];
-      /* plugins */
+        var array = [];
+        /* plugins */
 
-      var plugins = [];
-      var plugged = 0;
-      var should = null;
-      /* plugin context */
+        var plugins = [];
+        var plugged = 0;
+        var should = null;
+        /* plugin context */
 
-      var POSTS = -2;
-      var PREPS = -1;
-      var UNKWN = 0;
-      var PROPS = 1;
-      var BLCKS = 2;
-      var ATRUL = 3;
-      /* plugin newline context */
+        var POSTS = -2;
+        var PREPS = -1;
+        var UNKWN = 0;
+        var PROPS = 1;
+        var BLCKS = 2;
+        var ATRUL = 3;
+        /* plugin newline context */
 
-      var unkwn = 0;
-      /* keyframe animation */
+        var unkwn = 0;
+        /* keyframe animation */
 
-      var keyed = 1;
-      var key = '';
-      /* selector namespace */
+        var keyed = 1;
+        var key = "";
+        /* selector namespace */
 
-      var nscopealt = '';
-      var nscope = '';
-      /**
-       * Compile
-       *
-       * @param {Array<string>} parent
-       * @param {Array<string>} current
-       * @param {string} body
-       * @param {number} id
-       * @param {number} depth
-       * @return {string}
-       */
+        var nscopealt = "";
+        var nscope = "";
+        /**
+         * Compile
+         *
+         * @param {Array<string>} parent
+         * @param {Array<string>} current
+         * @param {string} body
+         * @param {number} id
+         * @param {number} depth
+         * @return {string}
+         */
 
-      function compile(parent, current, body, id, depth) {
-        var bracket = 0;
-        /* brackets [] */
+        function compile(parent, current, body, id, depth) {
+          var bracket = 0;
+          /* brackets [] */
 
-        var comment = 0;
-        /* comments /* // or /* */
+          var comment = 0;
+          /* comments /* // or /* */
 
-        var parentheses = 0;
-        /* functions () */
+          var parentheses = 0;
+          /* functions () */
 
-        var quote = 0;
-        /* quotes '', "" */
+          var quote = 0;
+          /* quotes '', "" */
 
-        var first = 0;
-        /* first character code */
+          var first = 0;
+          /* first character code */
 
-        var second = 0;
-        /* second character code */
+          var second = 0;
+          /* second character code */
 
-        var code = 0;
-        /* current character code */
+          var code = 0;
+          /* current character code */
 
-        var tail = 0;
-        /* previous character code */
+          var tail = 0;
+          /* previous character code */
 
-        var trail = 0;
-        /* character before previous code */
+          var trail = 0;
+          /* character before previous code */
 
-        var peak = 0;
-        /* previous non-whitespace code */
+          var peak = 0;
+          /* previous non-whitespace code */
 
-        var counter = 0;
-        /* count sequence termination */
+          var counter = 0;
+          /* count sequence termination */
 
-        var context = 0;
-        /* track current context */
+          var context = 0;
+          /* track current context */
 
-        var atrule = 0;
-        /* track @at-rule context */
+          var atrule = 0;
+          /* track @at-rule context */
 
-        var pseudo = 0;
-        /* track pseudo token index */
+          var pseudo = 0;
+          /* track pseudo token index */
 
-        var caret = 0;
-        /* current character index */
+          var caret = 0;
+          /* current character index */
 
-        var format = 0;
-        /* control character formating context */
+          var format = 0;
+          /* control character formating context */
 
-        var insert = 0;
-        /* auto semicolon insertion */
+          var insert = 0;
+          /* auto semicolon insertion */
 
-        var invert = 0;
-        /* inverted selector pattern */
+          var invert = 0;
+          /* inverted selector pattern */
 
-        var length = 0;
-        /* generic length address */
+          var length = 0;
+          /* generic length address */
 
-        var eof = body.length;
-        /* end of file(length) */
+          var eof = body.length;
+          /* end of file(length) */
 
-        var eol = eof - 1;
-        /* end of file(characters) */
+          var eol = eof - 1;
+          /* end of file(characters) */
 
-        var char = '';
-        /* current character */
+          var char = "";
+          /* current character */
 
-        var chars = '';
-        /* current buffer of characters */
+          var chars = "";
+          /* current buffer of characters */
 
-        var child = '';
-        /* next buffer of characters */
+          var child = "";
+          /* next buffer of characters */
 
-        var out = '';
-        /* compiled body */
+          var out = "";
+          /* compiled body */
 
-        var children = '';
-        /* compiled children */
+          var children = "";
+          /* compiled children */
 
-        var flat = '';
-        /* compiled leafs */
+          var flat = "";
+          /* compiled leafs */
 
-        var selector;
-        /* generic selector address */
+          var selector;
+          /* generic selector address */
 
-        var result;
-        /* generic address */
-        // ...build body
+          var result;
+          /* generic address */
+          // ...build body
 
-        while (caret < eof) {
-          code = body.charCodeAt(caret); // eof varient
+          while (caret < eof) {
+            code = body.charCodeAt(caret); // eof varient
 
-          if (caret === eol) {
-            // last character + noop context, add synthetic padding for noop context to terminate
-            if (comment + quote + parentheses + bracket !== 0) {
-              if (comment !== 0) {
-                code = comment === FOWARDSLASH ? NEWLINE : FOWARDSLASH;
-              }
-
-              quote = parentheses = bracket = 0;
-              eof++;
-              eol++;
-            }
-          }
-
-          if (comment + quote + parentheses + bracket === 0) {
-            // eof varient
             if (caret === eol) {
-              if (format > 0) {
-                chars = chars.replace(formatptn, '');
-              }
+              // last character + noop context, add synthetic padding for noop context to terminate
+              if (comment + quote + parentheses + bracket !== 0) {
+                if (comment !== 0) {
+                  code = comment === FOWARDSLASH ? NEWLINE : FOWARDSLASH;
+                }
 
-              if (chars.trim().length > 0) {
-                switch (code) {
-                  case SPACE:
-                  case TAB:
-                  case SEMICOLON:
-                  case CARRIAGE:
-                  case NEWLINE:
-                    {
+                quote = parentheses = bracket = 0;
+                eof++;
+                eol++;
+              }
+            }
+
+            if (comment + quote + parentheses + bracket === 0) {
+              // eof varient
+              if (caret === eol) {
+                if (format > 0) {
+                  chars = chars.replace(formatptn, "");
+                }
+
+                if (chars.trim().length > 0) {
+                  switch (code) {
+                    case SPACE:
+                    case TAB:
+                    case SEMICOLON:
+                    case CARRIAGE:
+                    case NEWLINE: {
                       break;
                     }
 
-                  default:
-                    {
+                    default: {
                       chars += body.charAt(caret);
                     }
+                  }
+
+                  code = SEMICOLON;
                 }
+              } // auto semicolon insertion
 
-                code = SEMICOLON;
-              }
-            } // auto semicolon insertion
-
-
-            if (insert === 1) {
-              switch (code) {
-                // false flags
-                case OPENBRACES:
-                case CLOSEBRACES:
-                case SEMICOLON:
-                case DOUBLEQUOTE:
-                case SINGLEQUOTE:
-                case OPENPARENTHESES:
-                case CLOSEPARENTHESES:
-                case COMMA:
-                  {
+              if (insert === 1) {
+                switch (code) {
+                  // false flags
+                  case OPENBRACES:
+                  case CLOSEBRACES:
+                  case SEMICOLON:
+                  case DOUBLEQUOTE:
+                  case SINGLEQUOTE:
+                  case OPENPARENTHESES:
+                  case CLOSEPARENTHESES:
+                  case COMMA: {
                     insert = 0;
                   }
-                // ignore
+                  // ignore
 
-                case TAB:
-                case CARRIAGE:
-                case NEWLINE:
-                case SPACE:
-                  {
+                  case TAB:
+                  case CARRIAGE:
+                  case NEWLINE:
+                  case SPACE: {
                     break;
                   }
-                // valid
+                  // valid
 
-                default:
-                  {
+                  default: {
                     insert = 0;
                     length = caret;
                     first = code;
@@ -1780,92 +1532,80 @@ var Badge = (function () {
                       switch (body.charCodeAt(length++)) {
                         case NEWLINE:
                         case CARRIAGE:
-                        case SEMICOLON:
-                          {
+                        case SEMICOLON: {
+                          ++caret;
+                          code = first;
+                          length = eof;
+                          break;
+                        }
+
+                        case COLON: {
+                          if (format > 0) {
                             ++caret;
                             code = first;
-                            length = eof;
-                            break;
                           }
+                        }
 
-                        case COLON:
-                          {
-                            if (format > 0) {
-                              ++caret;
-                              code = first;
-                            }
-                          }
-
-                        case OPENBRACES:
-                          {
-                            length = eof;
-                          }
+                        case OPENBRACES: {
+                          length = eof;
+                        }
                       }
                     }
                   }
-              }
-            } // token varient
+                }
+              } // token varient
 
-
-            switch (code) {
-              case OPENBRACES:
-                {
+              switch (code) {
+                case OPENBRACES: {
                   chars = chars.trim();
                   first = chars.charCodeAt(0);
                   counter = 1;
                   length = ++caret;
 
                   while (caret < eof) {
-                    switch (code = body.charCodeAt(caret)) {
-                      case OPENBRACES:
-                        {
-                          counter++;
-                          break;
-                        }
+                    switch ((code = body.charCodeAt(caret))) {
+                      case OPENBRACES: {
+                        counter++;
+                        break;
+                      }
 
-                      case CLOSEBRACES:
-                        {
-                          counter--;
-                          break;
-                        }
+                      case CLOSEBRACES: {
+                        counter--;
+                        break;
+                      }
 
-                      case FOWARDSLASH:
-                        {
-                          switch (second = body.charCodeAt(caret + 1)) {
-                            // /*, //
-                            case STAR:
-                            case FOWARDSLASH:
-                              {
-                                caret = delimited(second, caret, eol, body);
-                              }
+                      case FOWARDSLASH: {
+                        switch ((second = body.charCodeAt(caret + 1))) {
+                          // /*, //
+                          case STAR:
+                          case FOWARDSLASH: {
+                            caret = delimited(second, caret, eol, body);
                           }
-
-                          break;
                         }
+
+                        break;
+                      }
                       // given "[" === 91 & "]" === 93 hence forth 91 + 1 + 1 === 93
 
-                      case OPENBRACKET:
-                        {
-                          code++;
-                        }
+                      case OPENBRACKET: {
+                        code++;
+                      }
                       // given "(" === 40 & ")" === 41 hence forth 40 + 1 === 41
 
-                      case OPENPARENTHESES:
-                        {
-                          code++;
-                        }
+                      case OPENPARENTHESES: {
+                        code++;
+                      }
                       // quote tail delimiter is identical to the head delimiter hence noop,
                       // fallthrough clauses have been shifted to the correct tail delimiter
 
                       case DOUBLEQUOTE:
-                      case SINGLEQUOTE:
-                        {
-                          while (caret++ < eol) {
-                            if (body.charCodeAt(caret) === code) {
-                              break;
-                            }
+                      case SINGLEQUOTE: {
+                        while (caret++ < eol) {
+                          if (body.charCodeAt(caret) === code) {
+                            break;
                           }
                         }
+                      }
                     }
 
                     if (counter === 0) {
@@ -1878,106 +1618,128 @@ var Badge = (function () {
                   child = body.substring(length, caret);
 
                   if (first === NULL) {
-                    first = (chars = chars.replace(nullptn, '').trim()).charCodeAt(0);
+                    first = (chars = chars
+                      .replace(nullptn, "")
+                      .trim()).charCodeAt(0);
                   }
 
                   switch (first) {
                     // @at-rule
-                    case AT:
-                      {
-                        if (format > 0) {
-                          chars = chars.replace(formatptn, '');
+                    case AT: {
+                      if (format > 0) {
+                        chars = chars.replace(formatptn, "");
+                      }
+
+                      second = chars.charCodeAt(1);
+
+                      switch (second) {
+                        case DOCUMENT:
+                        case MEDIA:
+                        case SUPPORTS:
+                        case DASH: {
+                          selector = current;
+                          break;
                         }
 
-                        second = chars.charCodeAt(1);
+                        default: {
+                          selector = array;
+                        }
+                      }
 
+                      child = compile(
+                        current,
+                        selector,
+                        child,
+                        second,
+                        depth + 1
+                      );
+                      length = child.length; // preserve empty @at-rule
+
+                      if (preserve > 0 && length === 0) {
+                        length = chars.length;
+                      } // execute plugins, @at-rule context
+
+                      if (plugged > 0) {
+                        selector = select(array, chars, invert);
+                        result = proxy(
+                          ATRUL,
+                          child,
+                          selector,
+                          current,
+                          line,
+                          column,
+                          length,
+                          second,
+                          depth,
+                          id
+                        );
+                        chars = selector.join("");
+
+                        if (result !== void 0) {
+                          if ((length = (child = result.trim()).length) === 0) {
+                            second = 0;
+                            child = "";
+                          }
+                        }
+                      }
+
+                      if (length > 0) {
                         switch (second) {
+                          case SUPPORTS: {
+                            chars = chars.replace(supportsptn, supports);
+                          }
+
                           case DOCUMENT:
                           case MEDIA:
-                          case SUPPORTS:
-                          case DASH:
-                            {
-                              selector = current;
-                              break;
+                          case DASH: {
+                            child = chars + "{" + child + "}";
+                            break;
+                          }
+
+                          case KEYFRAME: {
+                            chars = chars.replace(
+                              keyframeptn,
+                              "$1 $2" + (keyed > 0 ? key : "")
+                            );
+                            child = chars + "{" + child + "}";
+
+                            if (
+                              prefix === 1 ||
+                              (prefix === 2 && vendor("@" + child, 3))
+                            ) {
+                              child = "@" + webkit + child + "@" + child;
+                            } else {
+                              child = "@" + child;
                             }
 
-                          default:
-                            {
-                              selector = array;
-                            }
-                        }
+                            break;
+                          }
 
-                        child = compile(current, selector, child, second, depth + 1);
-                        length = child.length; // preserve empty @at-rule
+                          default: {
+                            child = chars + child;
 
-                        if (preserve > 0 && length === 0) {
-                          length = chars.length;
-                        } // execute plugins, @at-rule context
-
-
-                        if (plugged > 0) {
-                          selector = select(array, chars, invert);
-                          result = proxy(ATRUL, child, selector, current, line, column, length, second, depth, id);
-                          chars = selector.join('');
-
-                          if (result !== void 0) {
-                            if ((length = (child = result.trim()).length) === 0) {
-                              second = 0;
-                              child = '';
+                            if (id === PAGE) {
+                              child = ((out += child), "");
                             }
                           }
                         }
-
-                        if (length > 0) {
-                          switch (second) {
-                            case SUPPORTS:
-                              {
-                                chars = chars.replace(supportsptn, supports);
-                              }
-
-                            case DOCUMENT:
-                            case MEDIA:
-                            case DASH:
-                              {
-                                child = chars + '{' + child + '}';
-                                break;
-                              }
-
-                            case KEYFRAME:
-                              {
-                                chars = chars.replace(keyframeptn, '$1 $2' + (keyed > 0 ? key : ''));
-                                child = chars + '{' + child + '}';
-
-                                if (prefix === 1 || prefix === 2 && vendor('@' + child, 3)) {
-                                  child = '@' + webkit + child + '@' + child;
-                                } else {
-                                  child = '@' + child;
-                                }
-
-                                break;
-                              }
-
-                            default:
-                              {
-                                child = chars + child;
-
-                                if (id === PAGE) {
-                                  child = (out += child, '');
-                                }
-                              }
-                          }
-                        } else {
-                          child = '';
-                        }
-
-                        break;
+                      } else {
+                        child = "";
                       }
+
+                      break;
+                    }
                     // selector
 
-                    default:
-                      {
-                        child = compile(current, select(current, chars, invert), child, id, depth + 1);
-                      }
+                    default: {
+                      child = compile(
+                        current,
+                        select(current, chars, invert),
+                        child,
+                        id,
+                        depth + 1
+                      );
+                    }
                   }
 
                   children += child; // reset
@@ -1988,32 +1750,46 @@ var Badge = (function () {
                   format = 0;
                   invert = 0;
                   atrule = 0;
-                  chars = '';
-                  child = '';
+                  chars = "";
+                  child = "";
                   code = body.charCodeAt(++caret);
                   break;
                 }
 
-              case CLOSEBRACES:
-              case SEMICOLON:
-                {
-                  chars = (format > 0 ? chars.replace(formatptn, '') : chars).trim();
+                case CLOSEBRACES:
+                case SEMICOLON: {
+                  chars = (format > 0
+                    ? chars.replace(formatptn, "")
+                    : chars
+                  ).trim();
 
                   if ((length = chars.length) > 1) {
                     // monkey-patch missing colon
                     if (pseudo === 0) {
                       first = chars.charCodeAt(0); // first character is a letter or dash, buffer has a space character
 
-                      if (first === DASH || first > 96 && first < 123) {
-                        length = (chars = chars.replace(' ', ':')).length;
+                      if (first === DASH || (first > 96 && first < 123)) {
+                        length = (chars = chars.replace(" ", ":")).length;
                       }
                     } // execute plugins, property context
 
-
                     if (plugged > 0) {
-                      if ((result = proxy(PROPS, chars, current, parent, line, column, out.length, id, depth, id)) !== void 0) {
+                      if (
+                        (result = proxy(
+                          PROPS,
+                          chars,
+                          current,
+                          parent,
+                          line,
+                          column,
+                          out.length,
+                          id,
+                          depth,
+                          id
+                        )) !== void 0
+                      ) {
                         if ((length = (chars = result.trim()).length) === 0) {
-                          chars = '\0\0';
+                          chars = "\0\0";
                         }
                       }
                     }
@@ -2022,48 +1798,47 @@ var Badge = (function () {
                     second = chars.charCodeAt(1);
 
                     switch (first) {
-                      case NULL:
-                        {
+                      case NULL: {
+                        break;
+                      }
+
+                      case AT: {
+                        if (second === IMPORT || second === CHARSET) {
+                          flat += chars + body.charAt(caret);
+                          break;
+                        }
+                      }
+
+                      default: {
+                        if (chars.charCodeAt(length - 1) === COLON) {
                           break;
                         }
 
-                      case AT:
-                        {
-                          if (second === IMPORT || second === CHARSET) {
-                            flat += chars + body.charAt(caret);
-                            break;
-                          }
-                        }
-
-                      default:
-                        {
-                          if (chars.charCodeAt(length - 1) === COLON) {
-                            break;
-                          }
-
-                          out += property(chars, first, second, chars.charCodeAt(2));
-                        }
+                        out += property(
+                          chars,
+                          first,
+                          second,
+                          chars.charCodeAt(2)
+                        );
+                      }
                     }
                   } // reset
-
 
                   context = 0;
                   insert = 0;
                   pseudo = 0;
                   format = 0;
                   invert = 0;
-                  chars = '';
+                  chars = "";
                   code = body.charCodeAt(++caret);
                   break;
                 }
-            }
-          } // parse characters
+              }
+            } // parse characters
 
-
-          switch (code) {
-            case CARRIAGE:
-            case NEWLINE:
-              {
+            switch (code) {
+              case CARRIAGE:
+              case NEWLINE: {
                 // auto insert semicolon
                 if (comment + quote + parentheses + bracket + semicolon === 0) {
                   // valid non-whitespace characters that
@@ -2083,51 +1858,59 @@ var Badge = (function () {
                     case COMMA:
                     case SEMICOLON:
                     case OPENBRACES:
-                    case CLOSEBRACES:
-                      {
-                        break;
-                      }
+                    case CLOSEBRACES: {
+                      break;
+                    }
 
-                    default:
-                      {
-                        // current buffer has a colon
-                        if (pseudo > 0) {
-                          insert = 1;
-                        }
+                    default: {
+                      // current buffer has a colon
+                      if (pseudo > 0) {
+                        insert = 1;
                       }
+                    }
                   }
                 } // terminate line comment
 
-
                 if (comment === FOWARDSLASH) {
                   comment = 0;
-                } else if (cascade + context === 0 && id !== KEYFRAME && chars.length > 0) {
+                } else if (
+                  cascade + context === 0 &&
+                  id !== KEYFRAME &&
+                  chars.length > 0
+                ) {
                   format = 1;
-                  chars += '\0';
+                  chars += "\0";
                 } // execute plugins, newline context
 
-
                 if (plugged * unkwn > 0) {
-                  proxy(UNKWN, chars, current, parent, line, column, out.length, id, depth, id);
+                  proxy(
+                    UNKWN,
+                    chars,
+                    current,
+                    parent,
+                    line,
+                    column,
+                    out.length,
+                    id,
+                    depth,
+                    id
+                  );
                 } // next line, reset column position
-
 
                 column = 1;
                 line++;
                 break;
               }
 
-            case SEMICOLON:
-            case CLOSEBRACES:
-              {
+              case SEMICOLON:
+              case CLOSEBRACES: {
                 if (comment + quote + parentheses + bracket === 0) {
                   column++;
                   break;
                 }
               }
 
-            default:
-              {
+              default: {
                 // increment column position
                 column++; // current character
 
@@ -2135,327 +1918,314 @@ var Badge = (function () {
 
                 switch (code) {
                   case TAB:
-                  case SPACE:
-                    {
-                      if (quote + bracket + comment === 0) {
-                        switch (tail) {
-                          case COMMA:
-                          case COLON:
-                          case TAB:
-                          case SPACE:
-                            {
-                              char = '';
-                              break;
-                            }
+                  case SPACE: {
+                    if (quote + bracket + comment === 0) {
+                      switch (tail) {
+                        case COMMA:
+                        case COLON:
+                        case TAB:
+                        case SPACE: {
+                          char = "";
+                          break;
+                        }
 
-                          default:
-                            {
-                              if (code !== SPACE) {
-                                char = ' ';
-                              }
-                            }
+                        default: {
+                          if (code !== SPACE) {
+                            char = " ";
+                          }
                         }
                       }
-
-                      break;
                     }
+
+                    break;
+                  }
                   // escape breaking control characters
 
-                  case NULL:
-                    {
-                      char = '\\0';
-                      break;
-                    }
+                  case NULL: {
+                    char = "\\0";
+                    break;
+                  }
 
-                  case FORMFEED:
-                    {
-                      char = '\\f';
-                      break;
-                    }
+                  case FORMFEED: {
+                    char = "\\f";
+                    break;
+                  }
 
-                  case VERTICALTAB:
-                    {
-                      char = '\\v';
-                      break;
-                    }
+                  case VERTICALTAB: {
+                    char = "\\v";
+                    break;
+                  }
                   // &
 
-                  case AND:
-                    {
-                      // inverted selector pattern i.e html &
-                      if (quote + comment + bracket === 0 && cascade > 0) {
-                        invert = 1;
-                        format = 1;
-                        char = '\f' + char;
-                      }
-
-                      break;
+                  case AND: {
+                    // inverted selector pattern i.e html &
+                    if (quote + comment + bracket === 0 && cascade > 0) {
+                      invert = 1;
+                      format = 1;
+                      char = "\f" + char;
                     }
+
+                    break;
+                  }
                   // ::p<l>aceholder, l
                   // :read-on<l>y, l
 
-                  case 108:
-                    {
-                      if (quote + comment + bracket + pattern === 0 && pseudo > 0) {
-                        switch (caret - pseudo) {
-                          // ::placeholder
-                          case 2:
-                            {
-                              if (tail === PLACEHOLDER && body.charCodeAt(caret - 3) === COLON) {
-                                pattern = tail;
-                              }
-                            }
-                          // :read-only
+                  case 108: {
+                    if (
+                      quote + comment + bracket + pattern === 0 &&
+                      pseudo > 0
+                    ) {
+                      switch (caret - pseudo) {
+                        // ::placeholder
+                        case 2: {
+                          if (
+                            tail === PLACEHOLDER &&
+                            body.charCodeAt(caret - 3) === COLON
+                          ) {
+                            pattern = tail;
+                          }
+                        }
+                        // :read-only
 
-                          case 8:
-                            {
-                              if (trail === READONLY) {
-                                pattern = trail;
-                              }
-                            }
+                        case 8: {
+                          if (trail === READONLY) {
+                            pattern = trail;
+                          }
                         }
                       }
-
-                      break;
                     }
+
+                    break;
+                  }
                   // :<pattern>
 
-                  case COLON:
-                    {
-                      if (quote + comment + bracket === 0) {
-                        pseudo = caret;
-                      }
-
-                      break;
+                  case COLON: {
+                    if (quote + comment + bracket === 0) {
+                      pseudo = caret;
                     }
+
+                    break;
+                  }
                   // selectors
 
-                  case COMMA:
-                    {
-                      if (comment + parentheses + quote + bracket === 0) {
-                        format = 1;
-                        char += '\r';
-                      }
-
-                      break;
+                  case COMMA: {
+                    if (comment + parentheses + quote + bracket === 0) {
+                      format = 1;
+                      char += "\r";
                     }
+
+                    break;
+                  }
                   // quotes
 
                   case DOUBLEQUOTE:
-                  case SINGLEQUOTE:
-                    {
-                      if (comment === 0) {
-                        quote = quote === code ? 0 : quote === 0 ? code : quote;
-                      }
-
-                      break;
+                  case SINGLEQUOTE: {
+                    if (comment === 0) {
+                      quote = quote === code ? 0 : quote === 0 ? code : quote;
                     }
+
+                    break;
+                  }
                   // attributes
 
-                  case OPENBRACKET:
-                    {
-                      if (quote + comment + parentheses === 0) {
-                        bracket++;
-                      }
-
-                      break;
+                  case OPENBRACKET: {
+                    if (quote + comment + parentheses === 0) {
+                      bracket++;
                     }
 
-                  case CLOSEBRACKET:
-                    {
-                      if (quote + comment + parentheses === 0) {
-                        bracket--;
-                      }
+                    break;
+                  }
 
-                      break;
+                  case CLOSEBRACKET: {
+                    if (quote + comment + parentheses === 0) {
+                      bracket--;
                     }
+
+                    break;
+                  }
                   // functions
 
-                  case CLOSEPARENTHESES:
-                    {
-                      if (quote + comment + bracket === 0) {
-                        parentheses--;
-                      }
-
-                      break;
+                  case CLOSEPARENTHESES: {
+                    if (quote + comment + bracket === 0) {
+                      parentheses--;
                     }
 
-                  case OPENPARENTHESES:
-                    {
-                      if (quote + comment + bracket === 0) {
-                        if (context === 0) {
-                          switch (tail * 2 + trail * 3) {
-                            // :matches
-                            case 533:
-                              {
-                                break;
-                              }
-                            // :global, :not, :nth-child etc...
+                    break;
+                  }
 
-                            default:
-                              {
-                                counter = 0;
-                                context = 1;
-                              }
+                  case OPENPARENTHESES: {
+                    if (quote + comment + bracket === 0) {
+                      if (context === 0) {
+                        switch (tail * 2 + trail * 3) {
+                          // :matches
+                          case 533: {
+                            break;
+                          }
+                          // :global, :not, :nth-child etc...
+
+                          default: {
+                            counter = 0;
+                            context = 1;
                           }
                         }
-
-                        parentheses++;
                       }
 
-                      break;
+                      parentheses++;
                     }
 
-                  case AT:
-                    {
-                      if (comment + parentheses + quote + bracket + pseudo + atrule === 0) {
-                        atrule = 1;
-                      }
+                    break;
+                  }
 
-                      break;
+                  case AT: {
+                    if (
+                      comment +
+                        parentheses +
+                        quote +
+                        bracket +
+                        pseudo +
+                        atrule ===
+                      0
+                    ) {
+                      atrule = 1;
                     }
+
+                    break;
+                  }
                   // block/line comments
 
                   case STAR:
-                  case FOWARDSLASH:
-                    {
-                      if (quote + bracket + parentheses > 0) {
-                        break;
-                      }
+                  case FOWARDSLASH: {
+                    if (quote + bracket + parentheses > 0) {
+                      break;
+                    }
 
-                      switch (comment) {
-                        // initialize line/block comment context
-                        case 0:
-                          {
-                            switch (code * 2 + body.charCodeAt(caret + 1) * 3) {
-                              // //
-                              case 235:
-                                {
-                                  comment = FOWARDSLASH;
-                                  break;
-                                }
-                              // /*
-
-                              case 220:
-                                {
-                                  length = caret;
-                                  comment = STAR;
-                                  break;
-                                }
-                            }
-
+                    switch (comment) {
+                      // initialize line/block comment context
+                      case 0: {
+                        switch (code * 2 + body.charCodeAt(caret + 1) * 3) {
+                          // //
+                          case 235: {
+                            comment = FOWARDSLASH;
                             break;
                           }
-                        // end block comment context
+                          // /*
 
-                        case STAR:
-                          {
-                            if (code === FOWARDSLASH && tail === STAR && length + 2 !== caret) {
-                              // /*<!> ... */, !
-                              if (body.charCodeAt(length + 2) === 33) {
-                                out += body.substring(length, caret + 1);
-                              }
-
-                              char = '';
-                              comment = 0;
-                            }
+                          case 220: {
+                            length = caret;
+                            comment = STAR;
+                            break;
                           }
+                        }
+
+                        break;
+                      }
+                      // end block comment context
+
+                      case STAR: {
+                        if (
+                          code === FOWARDSLASH &&
+                          tail === STAR &&
+                          length + 2 !== caret
+                        ) {
+                          // /*<!> ... */, !
+                          if (body.charCodeAt(length + 2) === 33) {
+                            out += body.substring(length, caret + 1);
+                          }
+
+                          char = "";
+                          comment = 0;
+                        }
                       }
                     }
+                  }
                 } // ignore comment blocks
-
 
                 if (comment === 0) {
                   // aggressive isolation mode, divide each individual selector
                   // including selectors in :not function but excluding selectors in :global function
-                  if (cascade + quote + bracket + atrule === 0 && id !== KEYFRAME && code !== SEMICOLON) {
+                  if (
+                    cascade + quote + bracket + atrule === 0 &&
+                    id !== KEYFRAME &&
+                    code !== SEMICOLON
+                  ) {
                     switch (code) {
                       case COMMA:
                       case TILDE:
                       case GREATERTHAN:
                       case PLUS:
                       case CLOSEPARENTHESES:
-                      case OPENPARENTHESES:
-                        {
-                          if (context === 0) {
-                            // outside of an isolated context i.e nth-child(<...>)
-                            switch (tail) {
-                              case TAB:
-                              case SPACE:
-                              case NEWLINE:
-                              case CARRIAGE:
-                                {
-                                  char = char + '\0';
-                                  break;
-                                }
-
-                              default:
-                                {
-                                  char = '\0' + char + (code === COMMA ? '' : '\0');
-                                }
-                            }
-
-                            format = 1;
-                          } else {
-                            // within an isolated context, sleep untill it's terminated
-                            switch (code) {
-                              case OPENPARENTHESES:
-                                {
-                                  // :globa<l>(
-                                  if (pseudo + 7 === caret && tail === 108) {
-                                    pseudo = 0;
-                                  }
-
-                                  context = ++counter;
-                                  break;
-                                }
-
-                              case CLOSEPARENTHESES:
-                                {
-                                  if ((context = --counter) === 0) {
-                                    format = 1;
-                                    char += '\0';
-                                  }
-
-                                  break;
-                                }
-                            }
-                          }
-
-                          break;
-                        }
-
-                      case TAB:
-                      case SPACE:
-                        {
+                      case OPENPARENTHESES: {
+                        if (context === 0) {
+                          // outside of an isolated context i.e nth-child(<...>)
                           switch (tail) {
-                            case NULL:
-                            case OPENBRACES:
-                            case CLOSEBRACES:
-                            case SEMICOLON:
-                            case COMMA:
-                            case FORMFEED:
                             case TAB:
                             case SPACE:
                             case NEWLINE:
-                            case CARRIAGE:
-                              {
-                                break;
+                            case CARRIAGE: {
+                              char = char + "\0";
+                              break;
+                            }
+
+                            default: {
+                              char = "\0" + char + (code === COMMA ? "" : "\0");
+                            }
+                          }
+
+                          format = 1;
+                        } else {
+                          // within an isolated context, sleep untill it's terminated
+                          switch (code) {
+                            case OPENPARENTHESES: {
+                              // :globa<l>(
+                              if (pseudo + 7 === caret && tail === 108) {
+                                pseudo = 0;
                               }
 
-                            default:
-                              {
-                                // ignore in isolated contexts
-                                if (context === 0) {
-                                  format = 1;
-                                  char += '\0';
-                                }
+                              context = ++counter;
+                              break;
+                            }
+
+                            case CLOSEPARENTHESES: {
+                              if ((context = --counter) === 0) {
+                                format = 1;
+                                char += "\0";
                               }
+
+                              break;
+                            }
                           }
                         }
+
+                        break;
+                      }
+
+                      case TAB:
+                      case SPACE: {
+                        switch (tail) {
+                          case NULL:
+                          case OPENBRACES:
+                          case CLOSEBRACES:
+                          case SEMICOLON:
+                          case COMMA:
+                          case FORMFEED:
+                          case TAB:
+                          case SPACE:
+                          case NEWLINE:
+                          case CARRIAGE: {
+                            break;
+                          }
+
+                          default: {
+                            // ignore in isolated contexts
+                            if (context === 0) {
+                              format = 1;
+                              char += "\0";
+                            }
+                          }
+                        }
+                      }
                     }
                   } // concat buffer of characters
-
 
                   chars += char; // previous non-whitespace character code
 
@@ -2464,760 +2234,899 @@ var Badge = (function () {
                   }
                 }
               }
-          } // tail character codes
+            } // tail character codes
 
+            trail = tail;
+            tail = code; // visit every character
 
-          trail = tail;
-          tail = code; // visit every character
-
-          caret++;
-        }
-
-        length = out.length; // preserve empty selector
-
-        if (preserve > 0) {
-          if (length === 0 && children.length === 0 && current[0].length === 0 === false) {
-            if (id !== MEDIA || current.length === 1 && (cascade > 0 ? nscopealt : nscope) === current[0]) {
-              length = current.join(',').length + 2;
-            }
+            caret++;
           }
-        }
 
-        if (length > 0) {
-          // cascade isolation mode?
-          selector = cascade === 0 && id !== KEYFRAME ? isolate(current) : current; // execute plugins, block context
+          length = out.length; // preserve empty selector
 
-          if (plugged > 0) {
-            result = proxy(BLCKS, out, selector, parent, line, column, length, id, depth, id);
-
-            if (result !== void 0 && (out = result).length === 0) {
-              return flat + out + children;
+          if (preserve > 0) {
+            if (
+              length === 0 &&
+              children.length === 0 &&
+              (current[0].length === 0) === false
+            ) {
+              if (
+                id !== MEDIA ||
+                (current.length === 1 &&
+                  (cascade > 0 ? nscopealt : nscope) === current[0])
+              ) {
+                length = current.join(",").length + 2;
+              }
             }
           }
 
-          out = selector.join(',') + '{' + out + '}';
+          if (length > 0) {
+            // cascade isolation mode?
+            selector =
+              cascade === 0 && id !== KEYFRAME ? isolate(current) : current; // execute plugins, block context
 
-          if (prefix * pattern !== 0) {
-            if (prefix === 2 && !vendor(out, 2)) pattern = 0;
+            if (plugged > 0) {
+              result = proxy(
+                BLCKS,
+                out,
+                selector,
+                parent,
+                line,
+                column,
+                length,
+                id,
+                depth,
+                id
+              );
 
-            switch (pattern) {
-              // ::read-only
-              case READONLY:
-                {
-                  out = out.replace(readonlyptn, ':' + moz + '$1') + out;
+              if (result !== void 0 && (out = result).length === 0) {
+                return flat + out + children;
+              }
+            }
+
+            out = selector.join(",") + "{" + out + "}";
+
+            if (prefix * pattern !== 0) {
+              if (prefix === 2 && !vendor(out, 2)) pattern = 0;
+
+              switch (pattern) {
+                // ::read-only
+                case READONLY: {
+                  out = out.replace(readonlyptn, ":" + moz + "$1") + out;
                   break;
                 }
-              // ::placeholder
+                // ::placeholder
 
-              case PLACEHOLDER:
-                {
-                  out = out.replace(plcholdrptn, '::' + webkit + 'input-$1') + out.replace(plcholdrptn, '::' + moz + '$1') + out.replace(plcholdrptn, ':' + ms + 'input-$1') + out;
+                case PLACEHOLDER: {
+                  out =
+                    out.replace(plcholdrptn, "::" + webkit + "input-$1") +
+                    out.replace(plcholdrptn, "::" + moz + "$1") +
+                    out.replace(plcholdrptn, ":" + ms + "input-$1") +
+                    out;
                   break;
                 }
+              }
+
+              pattern = 0;
             }
-
-            pattern = 0;
           }
+
+          return flat + out + children;
         }
+        /**
+         * Select
+         *
+         * @param {Array<string>} parent
+         * @param {string} current
+         * @param {number} invert
+         * @return {Array<string>}
+         */
 
-        return flat + out + children;
-      }
-      /**
-       * Select
-       *
-       * @param {Array<string>} parent
-       * @param {string} current
-       * @param {number} invert
-       * @return {Array<string>}
-       */
+        function select(parent, current, invert) {
+          var selectors = current.trim().split(selectorptn);
+          var out = selectors;
+          var length = selectors.length;
+          var l = parent.length;
 
-
-      function select(parent, current, invert) {
-        var selectors = current.trim().split(selectorptn);
-        var out = selectors;
-        var length = selectors.length;
-        var l = parent.length;
-
-        switch (l) {
-          // 0-1 parent selectors
-          case 0:
-          case 1:
-            {
-              for (var i = 0, selector = l === 0 ? '' : parent[0] + ' '; i < length; ++i) {
+          switch (l) {
+            // 0-1 parent selectors
+            case 0:
+            case 1: {
+              for (
+                var i = 0, selector = l === 0 ? "" : parent[0] + " ";
+                i < length;
+                ++i
+              ) {
                 out[i] = scope(selector, out[i], invert, l).trim();
               }
 
               break;
             }
-          // >2 parent selectors, nested
+            // >2 parent selectors, nested
 
-          default:
-            {
+            default: {
               for (var i = 0, j = 0, out = []; i < length; ++i) {
                 for (var k = 0; k < l; ++k) {
-                  out[j++] = scope(parent[k] + ' ', selectors[i], invert, l).trim();
+                  out[j++] = scope(
+                    parent[k] + " ",
+                    selectors[i],
+                    invert,
+                    l
+                  ).trim();
                 }
               }
             }
+          }
+
+          return out;
         }
+        /**
+         * Scope
+         *
+         * @param {string} parent
+         * @param {string} current
+         * @param {number} invert
+         * @param {number} level
+         * @return {string}
+         */
 
-        return out;
-      }
-      /**
-       * Scope
-       *
-       * @param {string} parent
-       * @param {string} current
-       * @param {number} invert
-       * @param {number} level
-       * @return {string}
-       */
+        function scope(parent, current, invert, level) {
+          var selector = current;
+          var code = selector.charCodeAt(0); // trim leading whitespace
 
+          if (code < 33) {
+            code = (selector = selector.trim()).charCodeAt(0);
+          }
 
-      function scope(parent, current, invert, level) {
-        var selector = current;
-        var code = selector.charCodeAt(0); // trim leading whitespace
-
-        if (code < 33) {
-          code = (selector = selector.trim()).charCodeAt(0);
-        }
-
-        switch (code) {
-          // &
-          case AND:
-            {
+          switch (code) {
+            // &
+            case AND: {
               switch (cascade + level) {
                 case 0:
-                case 1:
-                  {
-                    if (parent.trim().length === 0) {
-                      break;
-                    }
+                case 1: {
+                  if (parent.trim().length === 0) {
+                    break;
                   }
+                }
 
-                default:
-                  {
-                    return selector.replace(andptn, '$1' + parent.trim());
-                  }
+                default: {
+                  return selector.replace(andptn, "$1" + parent.trim());
+                }
               }
 
               break;
             }
-          // :
+            // :
 
-          case COLON:
-            {
+            case COLON: {
               switch (selector.charCodeAt(1)) {
                 // g in :global
-                case 103:
-                  {
-                    if (escape > 0 && cascade > 0) {
-                      return selector.replace(escapeptn, '$1').replace(andptn, '$1' + nscope);
-                    }
-
-                    break;
+                case 103: {
+                  if (escape > 0 && cascade > 0) {
+                    return selector
+                      .replace(escapeptn, "$1")
+                      .replace(andptn, "$1" + nscope);
                   }
 
-                default:
-                  {
-                    // :hover
-                    return parent.trim() + selector.replace(andptn, '$1' + parent.trim());
-                  }
+                  break;
+                }
+
+                default: {
+                  // :hover
+                  return (
+                    parent.trim() +
+                    selector.replace(andptn, "$1" + parent.trim())
+                  );
+                }
               }
             }
 
-          default:
-            {
+            default: {
               // html &
-              if (invert * cascade > 0 && selector.indexOf('\f') > 0) {
-                return selector.replace(andptn, (parent.charCodeAt(0) === COLON ? '' : '$1') + parent.trim());
+              if (invert * cascade > 0 && selector.indexOf("\f") > 0) {
+                return selector.replace(
+                  andptn,
+                  (parent.charCodeAt(0) === COLON ? "" : "$1") + parent.trim()
+                );
               }
             }
+          }
+
+          return parent + selector;
         }
+        /**
+         * Property
+         *
+         * @param {string} input
+         * @param {number} first
+         * @param {number} second
+         * @param {number} third
+         * @return {string}
+         */
 
-        return parent + selector;
-      }
-      /**
-       * Property
-       *
-       * @param {string} input
-       * @param {number} first
-       * @param {number} second
-       * @param {number} third
-       * @return {string}
-       */
+        function property(input, first, second, third) {
+          var index = 0;
+          var out = input + ";";
+          var hash = first * 2 + second * 3 + third * 4;
+          var cache; // animation: a, n, i characters
 
+          if (hash === 944) {
+            return animation(out);
+          } else if (prefix === 0 || (prefix === 2 && !vendor(out, 1))) {
+            return out;
+          } // vendor prefix
 
-      function property(input, first, second, third) {
-        var index = 0;
-        var out = input + ';';
-        var hash = first * 2 + second * 3 + third * 4;
-        var cache; // animation: a, n, i characters
-
-        if (hash === 944) {
-          return animation(out);
-        } else if (prefix === 0 || prefix === 2 && !vendor(out, 1)) {
-          return out;
-        } // vendor prefix
-
-
-        switch (hash) {
-          // text-decoration/text-size-adjust/text-shadow/text-align/text-transform: t, e, x
-          case 1015:
-            {
+          switch (hash) {
+            // text-decoration/text-size-adjust/text-shadow/text-align/text-transform: t, e, x
+            case 1015: {
               // text-shadow/text-align/text-transform, a
               return out.charCodeAt(10) === 97 ? webkit + out + out : out;
             }
-          // filter/fill f, i, l
+            // filter/fill f, i, l
 
-          case 951:
-            {
+            case 951: {
               // filter, t
               return out.charCodeAt(3) === 116 ? webkit + out + out : out;
             }
-          // color/column, c, o, l
+            // color/column, c, o, l
 
-          case 963:
-            {
+            case 963: {
               // column, n
               return out.charCodeAt(5) === 110 ? webkit + out + out : out;
             }
-          // box-decoration-break, b, o, x
+            // box-decoration-break, b, o, x
 
-          case 1009:
-            {
+            case 1009: {
               if (out.charCodeAt(4) !== 100) {
                 break;
               }
             }
-          // mask, m, a, s
-          // clip-path, c, l, i
+            // mask, m, a, s
+            // clip-path, c, l, i
 
-          case 969:
-          case 942:
-            {
+            case 969:
+            case 942: {
               return webkit + out + out;
             }
-          // appearance: a, p, p
+            // appearance: a, p, p
 
-          case 978:
-            {
+            case 978: {
               return webkit + out + moz + out + out;
             }
-          // hyphens: h, y, p
-          // user-select: u, s, e
+            // hyphens: h, y, p
+            // user-select: u, s, e
 
-          case 1019:
-          case 983:
-            {
+            case 1019:
+            case 983: {
               return webkit + out + moz + out + ms + out + out;
             }
-          // background/backface-visibility, b, a, c
+            // background/backface-visibility, b, a, c
 
-          case 883:
-            {
+            case 883: {
               // backface-visibility, -
               if (out.charCodeAt(8) === DASH) {
                 return webkit + out + out;
               } // image-set(...)
 
-
-              if (out.indexOf('image-set(', 11) > 0) {
-                return out.replace(imgsrcptn, '$1' + webkit + '$2') + out;
+              if (out.indexOf("image-set(", 11) > 0) {
+                return out.replace(imgsrcptn, "$1" + webkit + "$2") + out;
               }
 
               return out;
             }
-          // flex: f, l, e
+            // flex: f, l, e
 
-          case 932:
-            {
+            case 932: {
               if (out.charCodeAt(4) === DASH) {
                 switch (out.charCodeAt(5)) {
                   // flex-grow, g
-                  case 103:
-                    {
-                      return webkit + 'box-' + out.replace('-grow', '') + webkit + out + ms + out.replace('grow', 'positive') + out;
-                    }
+                  case 103: {
+                    return (
+                      webkit +
+                      "box-" +
+                      out.replace("-grow", "") +
+                      webkit +
+                      out +
+                      ms +
+                      out.replace("grow", "positive") +
+                      out
+                    );
+                  }
                   // flex-shrink, s
 
-                  case 115:
-                    {
-                      return webkit + out + ms + out.replace('shrink', 'negative') + out;
-                    }
+                  case 115: {
+                    return (
+                      webkit +
+                      out +
+                      ms +
+                      out.replace("shrink", "negative") +
+                      out
+                    );
+                  }
                   // flex-basis, b
 
-                  case 98:
-                    {
-                      return webkit + out + ms + out.replace('basis', 'preferred-size') + out;
-                    }
+                  case 98: {
+                    return (
+                      webkit +
+                      out +
+                      ms +
+                      out.replace("basis", "preferred-size") +
+                      out
+                    );
+                  }
                 }
               }
 
               return webkit + out + ms + out + out;
             }
-          // order: o, r, d
+            // order: o, r, d
 
-          case 964:
-            {
-              return webkit + out + ms + 'flex' + '-' + out + out;
+            case 964: {
+              return webkit + out + ms + "flex" + "-" + out + out;
             }
-          // justify-items/justify-content, j, u, s
+            // justify-items/justify-content, j, u, s
 
-          case 1023:
-            {
+            case 1023: {
               // justify-content, c
               if (out.charCodeAt(8) !== 99) {
                 break;
               }
 
-              cache = out.substring(out.indexOf(':', 15)).replace('flex-', '').replace('space-between', 'justify');
-              return webkit + 'box-pack' + cache + webkit + out + ms + 'flex-pack' + cache + out;
+              cache = out
+                .substring(out.indexOf(":", 15))
+                .replace("flex-", "")
+                .replace("space-between", "justify");
+              return (
+                webkit +
+                "box-pack" +
+                cache +
+                webkit +
+                out +
+                ms +
+                "flex-pack" +
+                cache +
+                out
+              );
             }
-          // cursor, c, u, r
+            // cursor, c, u, r
 
-          case 1005:
-            {
-              return cursorptn.test(out) ? out.replace(colonptn, ':' + webkit) + out.replace(colonptn, ':' + moz) + out : out;
+            case 1005: {
+              return cursorptn.test(out)
+                ? out.replace(colonptn, ":" + webkit) +
+                    out.replace(colonptn, ":" + moz) +
+                    out
+                : out;
             }
-          // writing-mode, w, r, i
+            // writing-mode, w, r, i
 
-          case 1000:
-            {
+            case 1000: {
               cache = out.substring(13).trim();
-              index = cache.indexOf('-') + 1;
+              index = cache.indexOf("-") + 1;
 
               switch (cache.charCodeAt(0) + cache.charCodeAt(index)) {
                 // vertical-lr
-                case 226:
-                  {
-                    cache = out.replace(writingptn, 'tb');
-                    break;
-                  }
+                case 226: {
+                  cache = out.replace(writingptn, "tb");
+                  break;
+                }
                 // vertical-rl
 
-                case 232:
-                  {
-                    cache = out.replace(writingptn, 'tb-rl');
-                    break;
-                  }
+                case 232: {
+                  cache = out.replace(writingptn, "tb-rl");
+                  break;
+                }
                 // horizontal-tb
 
-                case 220:
-                  {
-                    cache = out.replace(writingptn, 'lr');
-                    break;
-                  }
+                case 220: {
+                  cache = out.replace(writingptn, "lr");
+                  break;
+                }
 
-                default:
-                  {
-                    return out;
-                  }
+                default: {
+                  return out;
+                }
               }
 
               return webkit + out + ms + cache + out;
             }
-          // position: sticky
+            // position: sticky
 
-          case 1017:
-            {
-              if (out.indexOf('sticky', 9) === -1) {
+            case 1017: {
+              if (out.indexOf("sticky", 9) === -1) {
                 return out;
               }
             }
-          // display(flex/inline-flex/inline-box): d, i, s
+            // display(flex/inline-flex/inline-box): d, i, s
 
-          case 975:
-            {
+            case 975: {
               index = (out = input).length - 10;
-              cache = (out.charCodeAt(index) === 33 ? out.substring(0, index) : out).substring(input.indexOf(':', 7) + 1).trim();
+              cache = (out.charCodeAt(index) === 33
+                ? out.substring(0, index)
+                : out
+              )
+                .substring(input.indexOf(":", 7) + 1)
+                .trim();
 
-              switch (hash = cache.charCodeAt(0) + (cache.charCodeAt(7) | 0)) {
+              switch (
+                (hash = cache.charCodeAt(0) + (cache.charCodeAt(7) | 0))
+              ) {
                 // inline-
-                case 203:
-                  {
-                    // inline-box
-                    if (cache.charCodeAt(8) < 111) {
-                      break;
-                    }
-                  }
-                // inline-box/sticky
-
-                case 115:
-                  {
-                    out = out.replace(cache, webkit + cache) + ';' + out;
+                case 203: {
+                  // inline-box
+                  if (cache.charCodeAt(8) < 111) {
                     break;
                   }
+                }
+                // inline-box/sticky
+
+                case 115: {
+                  out = out.replace(cache, webkit + cache) + ";" + out;
+                  break;
+                }
                 // inline-flex
                 // flex
 
                 case 207:
-                case 102:
-                  {
-                    out = out.replace(cache, webkit + (hash > 102 ? 'inline-' : '') + 'box') + ';' + out.replace(cache, webkit + cache) + ';' + out.replace(cache, ms + cache + 'box') + ';' + out;
-                  }
+                case 102: {
+                  out =
+                    out.replace(
+                      cache,
+                      webkit + (hash > 102 ? "inline-" : "") + "box"
+                    ) +
+                    ";" +
+                    out.replace(cache, webkit + cache) +
+                    ";" +
+                    out.replace(cache, ms + cache + "box") +
+                    ";" +
+                    out;
+                }
               }
 
-              return out + ';';
+              return out + ";";
             }
-          // align-items, align-center, align-self: a, l, i, -
+            // align-items, align-center, align-self: a, l, i, -
 
-          case 938:
-            {
+            case 938: {
               if (out.charCodeAt(5) === DASH) {
                 switch (out.charCodeAt(6)) {
                   // align-items, i
-                  case 105:
-                    {
-                      cache = out.replace('-items', '');
-                      return webkit + out + webkit + 'box-' + cache + ms + 'flex-' + cache + out;
-                    }
+                  case 105: {
+                    cache = out.replace("-items", "");
+                    return (
+                      webkit +
+                      out +
+                      webkit +
+                      "box-" +
+                      cache +
+                      ms +
+                      "flex-" +
+                      cache +
+                      out
+                    );
+                  }
                   // align-self, s
 
-                  case 115:
-                    {
-                      return webkit + out + ms + 'flex-item-' + out.replace(selfptn, '') + out;
-                    }
+                  case 115: {
+                    return (
+                      webkit +
+                      out +
+                      ms +
+                      "flex-item-" +
+                      out.replace(selfptn, "") +
+                      out
+                    );
+                  }
                   // align-content
 
-                  default:
-                    {
-                      return webkit + out + ms + 'flex-line-pack' + out.replace('align-content', '').replace(selfptn, '') + out;
-                    }
+                  default: {
+                    return (
+                      webkit +
+                      out +
+                      ms +
+                      "flex-line-pack" +
+                      out.replace("align-content", "").replace(selfptn, "") +
+                      out
+                    );
+                  }
                 }
               }
 
               break;
             }
-          // min/max
+            // min/max
 
-          case 973:
-          case 989:
-            {
+            case 973:
+            case 989: {
               // min-/max- height/width/block-size/inline-size
               if (out.charCodeAt(3) !== DASH || out.charCodeAt(4) === 122) {
                 break;
               }
             }
-          // height/width: min-content / width: max-content
+            // height/width: min-content / width: max-content
 
-          case 931:
-          case 953:
-            {
+            case 931:
+            case 953: {
               if (dimensionptn.test(input) === true) {
                 // stretch
-                if ((cache = input.substring(input.indexOf(':') + 1)).charCodeAt(0) === 115) return property(input.replace('stretch', 'fill-available'), first, second, third).replace(':fill-available', ':stretch');else return out.replace(cache, webkit + cache) + out.replace(cache, moz + cache.replace('fill-', '')) + out;
+                if (
+                  (cache = input.substring(input.indexOf(":") + 1)).charCodeAt(
+                    0
+                  ) === 115
+                )
+                  return property(
+                    input.replace("stretch", "fill-available"),
+                    first,
+                    second,
+                    third
+                  ).replace(":fill-available", ":stretch");
+                else
+                  return (
+                    out.replace(cache, webkit + cache) +
+                    out.replace(cache, moz + cache.replace("fill-", "")) +
+                    out
+                  );
               }
 
               break;
             }
-          // transform, transition: t, r, a
+            // transform, transition: t, r, a
 
-          case 962:
-            {
-              out = webkit + out + (out.charCodeAt(5) === 102 ? ms + out : '') + out; // transitions
+            case 962: {
+              out =
+                webkit +
+                out +
+                (out.charCodeAt(5) === 102 ? ms + out : "") +
+                out; // transitions
 
-              if (second + third === 211 && out.charCodeAt(13) === 105 && out.indexOf('transform', 10) > 0) {
-                return out.substring(0, out.indexOf(';', 27) + 1).replace(transformptn, '$1' + webkit + '$2') + out;
+              if (
+                second + third === 211 &&
+                out.charCodeAt(13) === 105 &&
+                out.indexOf("transform", 10) > 0
+              ) {
+                return (
+                  out
+                    .substring(0, out.indexOf(";", 27) + 1)
+                    .replace(transformptn, "$1" + webkit + "$2") + out
+                );
               }
 
               break;
             }
+          }
+
+          return out;
         }
+        /**
+         * Vendor
+         *
+         * @param {string} content
+         * @param {number} context
+         * @return {boolean}
+         */
 
-        return out;
-      }
-      /**
-       * Vendor
-       *
-       * @param {string} content
-       * @param {number} context
-       * @return {boolean}
-       */
+        function vendor(content, context) {
+          var index = content.indexOf(context === 1 ? ":" : "{");
+          var key = content.substring(0, context !== 3 ? index : 10);
+          var value = content.substring(index + 1, content.length - 1);
+          return should(
+            context !== 2 ? key : key.replace(pseudofmt, "$1"),
+            value,
+            context
+          );
+        }
+        /**
+         * Supports
+         *
+         * @param {string} match
+         * @param {string} group
+         * @return {string}
+         */
 
+        function supports(match, group) {
+          var out = property(
+            group,
+            group.charCodeAt(0),
+            group.charCodeAt(1),
+            group.charCodeAt(2)
+          );
+          return out !== group + ";"
+            ? out.replace(propertyptn, " or ($1)").substring(4)
+            : "(" + group + ")";
+        }
+        /**
+         * Animation
+         *
+         * @param {string} input
+         * @return {string}
+         */
 
-      function vendor(content, context) {
-        var index = content.indexOf(context === 1 ? ':' : '{');
-        var key = content.substring(0, context !== 3 ? index : 10);
-        var value = content.substring(index + 1, content.length - 1);
-        return should(context !== 2 ? key : key.replace(pseudofmt, '$1'), value, context);
-      }
-      /**
-       * Supports
-       *
-       * @param {string} match
-       * @param {string} group
-       * @return {string}
-       */
+        function animation(input) {
+          var length = input.length;
+          var index = input.indexOf(":", 9) + 1;
+          var declare = input.substring(0, index).trim();
+          var out = input.substring(index, length - 1).trim();
 
-
-      function supports(match, group) {
-        var out = property(group, group.charCodeAt(0), group.charCodeAt(1), group.charCodeAt(2));
-        return out !== group + ';' ? out.replace(propertyptn, ' or ($1)').substring(4) : '(' + group + ')';
-      }
-      /**
-       * Animation
-       *
-       * @param {string} input
-       * @return {string}
-       */
-
-
-      function animation(input) {
-        var length = input.length;
-        var index = input.indexOf(':', 9) + 1;
-        var declare = input.substring(0, index).trim();
-        var out = input.substring(index, length - 1).trim();
-
-        switch (input.charCodeAt(9) * keyed) {
-          case 0:
-            {
+          switch (input.charCodeAt(9) * keyed) {
+            case 0: {
               break;
             }
-          // animation-*, -
+            // animation-*, -
 
-          case DASH:
-            {
+            case DASH: {
               // animation-name, n
               if (input.charCodeAt(10) !== 110) {
                 break;
               }
             }
-          // animation/animation-name
+            // animation/animation-name
 
-          default:
-            {
+            default: {
               // split in case of multiple animations
-              var list = out.split((out = '', animationptn));
+              var list = out.split(((out = ""), animationptn));
 
-              for (var i = 0, index = 0, length = list.length; i < length; index = 0, ++i) {
+              for (
+                var i = 0, index = 0, length = list.length;
+                i < length;
+                index = 0, ++i
+              ) {
                 var value = list[i];
                 var items = value.split(propertiesptn);
 
-                while (value = items[index]) {
+                while ((value = items[index])) {
                   var peak = value.charCodeAt(0);
 
-                  if (keyed === 1 && ( // letters
-                  peak > AT && peak < 90 || peak > 96 && peak < 123 || peak === UNDERSCORE || // dash but not in sequence i.e --
-                  peak === DASH && value.charCodeAt(1) !== DASH)) {
+                  if (
+                    keyed === 1 && // letters
+                    ((peak > AT && peak < 90) ||
+                    (peak > 96 && peak < 123) ||
+                    peak === UNDERSCORE || // dash but not in sequence i.e --
+                      (peak === DASH && value.charCodeAt(1) !== DASH))
+                  ) {
                     // not a number/function
-                    switch (isNaN(parseFloat(value)) + (value.indexOf('(') !== -1)) {
-                      case 1:
-                        {
-                          switch (value) {
-                            // not a valid reserved keyword
-                            case 'infinite':
-                            case 'alternate':
-                            case 'backwards':
-                            case 'running':
-                            case 'normal':
-                            case 'forwards':
-                            case 'both':
-                            case 'none':
-                            case 'linear':
-                            case 'ease':
-                            case 'ease-in':
-                            case 'ease-out':
-                            case 'ease-in-out':
-                            case 'paused':
-                            case 'reverse':
-                            case 'alternate-reverse':
-                            case 'inherit':
-                            case 'initial':
-                            case 'unset':
-                            case 'step-start':
-                            case 'step-end':
-                              {
-                                break;
-                              }
+                    switch (
+                      isNaN(parseFloat(value)) +
+                      (value.indexOf("(") !== -1)
+                    ) {
+                      case 1: {
+                        switch (value) {
+                          // not a valid reserved keyword
+                          case "infinite":
+                          case "alternate":
+                          case "backwards":
+                          case "running":
+                          case "normal":
+                          case "forwards":
+                          case "both":
+                          case "none":
+                          case "linear":
+                          case "ease":
+                          case "ease-in":
+                          case "ease-out":
+                          case "ease-in-out":
+                          case "paused":
+                          case "reverse":
+                          case "alternate-reverse":
+                          case "inherit":
+                          case "initial":
+                          case "unset":
+                          case "step-start":
+                          case "step-end": {
+                            break;
+                          }
 
-                            default:
-                              {
-                                value += key;
-                              }
+                          default: {
+                            value += key;
                           }
                         }
+                      }
                     }
                   }
 
                   items[index++] = value;
                 }
 
-                out += (i === 0 ? '' : ',') + items.join(' ');
+                out += (i === 0 ? "" : ",") + items.join(" ");
               }
             }
+          }
+
+          out = declare + out + ";";
+          if (prefix === 1 || (prefix === 2 && vendor(out, 1)))
+            return webkit + out + out;
+          return out;
         }
+        /**
+         * Isolate
+         *
+         * @param {Array<string>} current
+         */
 
-        out = declare + out + ';';
-        if (prefix === 1 || prefix === 2 && vendor(out, 1)) return webkit + out + out;
-        return out;
-      }
-      /**
-       * Isolate
-       *
-       * @param {Array<string>} current
-       */
+        function isolate(current) {
+          for (
+            var i = 0,
+              length = current.length,
+              selector = Array(length),
+              padding,
+              element;
+            i < length;
+            ++i
+          ) {
+            // split individual elements in a selector i.e h1 h2 === [h1, h2]
+            var elements = current[i].split(elementptn);
+            var out = "";
 
+            for (
+              var j = 0, size = 0, tail = 0, code = 0, l = elements.length;
+              j < l;
+              ++j
+            ) {
+              // empty element
+              if ((size = (element = elements[j]).length) === 0 && l > 1) {
+                continue;
+              }
 
-      function isolate(current) {
-        for (var i = 0, length = current.length, selector = Array(length), padding, element; i < length; ++i) {
-          // split individual elements in a selector i.e h1 h2 === [h1, h2]
-          var elements = current[i].split(elementptn);
-          var out = '';
+              tail = out.charCodeAt(out.length - 1);
+              code = element.charCodeAt(0);
+              padding = "";
 
-          for (var j = 0, size = 0, tail = 0, code = 0, l = elements.length; j < l; ++j) {
-            // empty element
-            if ((size = (element = elements[j]).length) === 0 && l > 1) {
-              continue;
-            }
+              if (j !== 0) {
+                // determine if we need padding
+                switch (tail) {
+                  case STAR:
+                  case TILDE:
+                  case GREATERTHAN:
+                  case PLUS:
+                  case SPACE:
+                  case OPENPARENTHESES: {
+                    break;
+                  }
 
-            tail = out.charCodeAt(out.length - 1);
-            code = element.charCodeAt(0);
-            padding = '';
+                  default: {
+                    padding = " ";
+                  }
+                }
+              }
 
-            if (j !== 0) {
-              // determine if we need padding
-              switch (tail) {
-                case STAR:
+              switch (code) {
+                case AND: {
+                  element = padding + nscopealt;
+                }
+
                 case TILDE:
                 case GREATERTHAN:
                 case PLUS:
                 case SPACE:
-                case OPENPARENTHESES:
-                  {
-                    break;
-                  }
-
-                default:
-                  {
-                    padding = ' ';
-                  }
-              }
-            }
-
-            switch (code) {
-              case AND:
-                {
-                  element = padding + nscopealt;
-                }
-
-              case TILDE:
-              case GREATERTHAN:
-              case PLUS:
-              case SPACE:
-              case CLOSEPARENTHESES:
-              case OPENPARENTHESES:
-                {
+                case CLOSEPARENTHESES:
+                case OPENPARENTHESES: {
                   break;
                 }
 
-              case OPENBRACKET:
-                {
+                case OPENBRACKET: {
                   element = padding + element + nscopealt;
                   break;
                 }
 
-              case COLON:
-                {
-                  switch (element.charCodeAt(1) * 2 + element.charCodeAt(2) * 3) {
+                case COLON: {
+                  switch (
+                    element.charCodeAt(1) * 2 +
+                    element.charCodeAt(2) * 3
+                  ) {
                     // :global
-                    case 530:
-                      {
-                        if (escape > 0) {
-                          element = padding + element.substring(8, size - 1);
-                          break;
-                        }
+                    case 530: {
+                      if (escape > 0) {
+                        element = padding + element.substring(8, size - 1);
+                        break;
                       }
+                    }
                     // :hover, :nth-child(), ...
 
-                    default:
-                      {
-                        if (j < 1 || elements[j - 1].length < 1) {
-                          element = padding + nscopealt + element;
-                        }
+                    default: {
+                      if (j < 1 || elements[j - 1].length < 1) {
+                        element = padding + nscopealt + element;
                       }
+                    }
                   }
 
                   break;
                 }
 
-              case COMMA:
-                {
-                  padding = '';
+                case COMMA: {
+                  padding = "";
                 }
 
-              default:
-                {
-                  if (size > 1 && element.indexOf(':') > 0) {
-                    element = padding + element.replace(pseudoptn, '$1' + nscopealt + '$2');
+                default: {
+                  if (size > 1 && element.indexOf(":") > 0) {
+                    element =
+                      padding +
+                      element.replace(pseudoptn, "$1" + nscopealt + "$2");
                   } else {
                     element = padding + element + nscopealt;
                   }
                 }
+              }
+
+              out += element;
             }
 
-            out += element;
+            selector[i] = out.replace(formatptn, "").trim();
           }
 
-          selector[i] = out.replace(formatptn, '').trim();
+          return selector;
         }
+        /**
+         * Proxy
+         *
+         * @param {number} context
+         * @param {string} content
+         * @param {Array<string>} selectors
+         * @param {Array<string>} parents
+         * @param {number} line
+         * @param {number} column
+         * @param {number} length
+         * @param {number} id
+         * @param {number} depth
+         * @param {number} at
+         * @return {(string|void|*)}
+         */
 
-        return selector;
-      }
-      /**
-       * Proxy
-       *
-       * @param {number} context
-       * @param {string} content
-       * @param {Array<string>} selectors
-       * @param {Array<string>} parents
-       * @param {number} line
-       * @param {number} column
-       * @param {number} length
-       * @param {number} id
-       * @param {number} depth
-       * @param {number} at
-       * @return {(string|void|*)}
-       */
-
-
-      function proxy(context, content, selectors, parents, line, column, length, id, depth, at) {
-        for (var i = 0, out = content, next; i < plugged; ++i) {
-          switch (next = plugins[i].call(stylis, context, out, selectors, parents, line, column, length, id, depth, at)) {
-            case void 0:
-            case false:
-            case true:
-            case null:
-              {
+        function proxy(
+          context,
+          content,
+          selectors,
+          parents,
+          line,
+          column,
+          length,
+          id,
+          depth,
+          at
+        ) {
+          for (var i = 0, out = content, next; i < plugged; ++i) {
+            switch (
+              (next = plugins[i].call(
+                stylis,
+                context,
+                out,
+                selectors,
+                parents,
+                line,
+                column,
+                length,
+                id,
+                depth,
+                at
+              ))
+            ) {
+              case void 0:
+              case false:
+              case true:
+              case null: {
                 break;
               }
 
-            default:
-              {
+              default: {
                 out = next;
               }
+            }
+          }
+
+          if (out !== content) {
+            return out;
           }
         }
+        /**
+         * @param {number} code
+         * @param {number} index
+         * @param {number} length
+         * @param {string} body
+         * @return {number}
+         */
 
-        if (out !== content) {
-          return out;
-        }
-      }
-      /**
-       * @param {number} code
-       * @param {number} index
-       * @param {number} length
-       * @param {string} body
-       * @return {number}
-       */
-
-
-      function delimited(code, index, length, body) {
-        for (var i = index + 1; i < length; ++i) {
-          switch (body.charCodeAt(i)) {
-            // /*
-            case FOWARDSLASH:
-              {
+        function delimited(code, index, length, body) {
+          for (var i = index + 1; i < length; ++i) {
+            switch (body.charCodeAt(i)) {
+              // /*
+              case FOWARDSLASH: {
                 if (code === STAR) {
                   if (body.charCodeAt(i - 1) === STAR && index + 2 !== i) {
                     return i + 1;
@@ -3226,51 +3135,51 @@ var Badge = (function () {
 
                 break;
               }
-            // //
+              // //
 
-            case NEWLINE:
-              {
+              case NEWLINE: {
                 if (code === FOWARDSLASH) {
                   return i + 1;
                 }
               }
+            }
           }
+
+          return i;
         }
+        /**
+         * Minify
+         *
+         * @param {(string|*)} output
+         * @return {string}
+         */
 
-        return i;
-      }
-      /**
-       * Minify
-       *
-       * @param {(string|*)} output
-       * @return {string}
-       */
+        function minify(output) {
+          return output
+            .replace(formatptn, "")
+            .replace(beforeptn, "")
+            .replace(afterptn, "$1")
+            .replace(tailptn, "$1")
+            .replace(whiteptn, " ");
+        }
+        /**
+         * Use
+         *
+         * @param {(Array<function(...?)>|function(...?)|number|void)?} plugin
+         */
 
-
-      function minify(output) {
-        return output.replace(formatptn, '').replace(beforeptn, '').replace(afterptn, '$1').replace(tailptn, '$1').replace(whiteptn, ' ');
-      }
-      /**
-       * Use
-       *
-       * @param {(Array<function(...?)>|function(...?)|number|void)?} plugin
-       */
-
-
-      function use(plugin) {
-        switch (plugin) {
-          case void 0:
-          case null:
-            {
+        function use(plugin) {
+          switch (plugin) {
+            case void 0:
+            case null: {
               plugged = plugins.length = 0;
               break;
             }
 
-          default:
-            {
-              if (typeof plugin === 'function') {
+            default: {
+              if (typeof plugin === "function") {
                 plugins[plugged++] = plugin;
-              } else if (_typeof(plugin) === 'object') {
+              } else if (_typeof(plugin) === "object") {
                 for (var i = 0, length = plugin.length; i < length; ++i) {
                   use(plugin[i]);
                 }
@@ -3278,143 +3187,158 @@ var Badge = (function () {
                 unkwn = !!plugin | 0;
               }
             }
+          }
+
+          return use;
+        }
+        /**
+         * Set
+         *
+         * @param {*} options
+         */
+
+        function set(options) {
+          for (var name in options) {
+            var value = options[name];
+
+            switch (name) {
+              case "keyframe":
+                keyed = value | 0;
+                break;
+
+              case "global":
+                escape = value | 0;
+                break;
+
+              case "cascade":
+                cascade = value | 0;
+                break;
+
+              case "compress":
+                compress = value | 0;
+                break;
+
+              case "semicolon":
+                semicolon = value | 0;
+                break;
+
+              case "preserve":
+                preserve = value | 0;
+                break;
+
+              case "prefix":
+                should = null;
+
+                if (!value) {
+                  prefix = 0;
+                } else if (typeof value !== "function") {
+                  prefix = 1;
+                } else {
+                  prefix = 2;
+                  should = value;
+                }
+            }
+          }
+
+          return set;
+        }
+        /**
+         * Stylis
+         *
+         * @param {string} selector
+         * @param {string} input
+         * @return {*}
+         */
+
+        function stylis(selector, input) {
+          if (this !== void 0 && this.constructor === stylis) {
+            return factory(selector);
+          } // setup
+
+          var ns = selector;
+          var code = ns.charCodeAt(0); // trim leading whitespace
+
+          if (code < 33) {
+            code = (ns = ns.trim()).charCodeAt(0);
+          } // keyframe/animation namespace
+
+          if (keyed > 0) {
+            key = ns.replace(invalidptn, code === OPENBRACKET ? "" : "-");
+          } // reset, used to assert if a plugin is moneky-patching the return value
+
+          code = 1; // cascade/isolate
+
+          if (cascade === 1) {
+            nscope = ns;
+          } else {
+            nscopealt = ns;
+          }
+
+          var selectors = [nscope];
+          var result; // execute plugins, pre-process context
+
+          if (plugged > 0) {
+            result = proxy(
+              PREPS,
+              input,
+              selectors,
+              selectors,
+              line,
+              column,
+              0,
+              0,
+              0,
+              0
+            );
+
+            if (result !== void 0 && typeof result === "string") {
+              input = result;
+            }
+          } // build
+
+          var output = compile(array, selectors, input, 0, 0); // execute plugins, post-process context
+
+          if (plugged > 0) {
+            result = proxy(
+              POSTS,
+              output,
+              selectors,
+              selectors,
+              line,
+              column,
+              output.length,
+              0,
+              0,
+              0
+            ); // bypass minification
+
+            if (result !== void 0 && typeof (output = result) !== "string") {
+              code = 0;
+            }
+          } // reset
+
+          key = "";
+          nscope = "";
+          nscopealt = "";
+          pattern = 0;
+          line = 1;
+          column = 1;
+          return compress * code === 0 ? output : minify(output);
         }
 
-        return use;
-      }
-      /**
-       * Set
-       *
-       * @param {*} options
-       */
+        stylis["use"] = use;
+        stylis["set"] = set;
 
-
-      function set(options) {
-        for (var name in options) {
-          var value = options[name];
-
-          switch (name) {
-            case 'keyframe':
-              keyed = value | 0;
-              break;
-
-            case 'global':
-              escape = value | 0;
-              break;
-
-            case 'cascade':
-              cascade = value | 0;
-              break;
-
-            case 'compress':
-              compress = value | 0;
-              break;
-
-            case 'semicolon':
-              semicolon = value | 0;
-              break;
-
-            case 'preserve':
-              preserve = value | 0;
-              break;
-
-            case 'prefix':
-              should = null;
-
-              if (!value) {
-                prefix = 0;
-              } else if (typeof value !== 'function') {
-                prefix = 1;
-              } else {
-                prefix = 2;
-                should = value;
-              }
-
-          }
+        if (options !== void 0) {
+          set(options);
         }
 
-        return set;
+        return stylis;
       }
-      /**
-       * Stylis
-       *
-       * @param {string} selector
-       * @param {string} input
-       * @return {*}
-       */
-
-
-      function stylis(selector, input) {
-        if (this !== void 0 && this.constructor === stylis) {
-          return factory(selector);
-        } // setup
-
-
-        var ns = selector;
-        var code = ns.charCodeAt(0); // trim leading whitespace
-
-        if (code < 33) {
-          code = (ns = ns.trim()).charCodeAt(0);
-        } // keyframe/animation namespace
-
-
-        if (keyed > 0) {
-          key = ns.replace(invalidptn, code === OPENBRACKET ? '' : '-');
-        } // reset, used to assert if a plugin is moneky-patching the return value
-
-
-        code = 1; // cascade/isolate
-
-        if (cascade === 1) {
-          nscope = ns;
-        } else {
-          nscopealt = ns;
-        }
-
-        var selectors = [nscope];
-        var result; // execute plugins, pre-process context
-
-        if (plugged > 0) {
-          result = proxy(PREPS, input, selectors, selectors, line, column, 0, 0, 0, 0);
-
-          if (result !== void 0 && typeof result === 'string') {
-            input = result;
-          }
-        } // build
-
-
-        var output = compile(array, selectors, input, 0, 0); // execute plugins, post-process context
-
-        if (plugged > 0) {
-          result = proxy(POSTS, output, selectors, selectors, line, column, output.length, 0, 0, 0); // bypass minification
-
-          if (result !== void 0 && typeof (output = result) !== 'string') {
-            code = 0;
-          }
-        } // reset
-
-
-        key = '';
-        nscope = '';
-        nscopealt = '';
-        pattern = 0;
-        line = 1;
-        column = 1;
-        return compress * code === 0 ? output : minify(output);
-      }
-
-      stylis['use'] = use;
-      stylis['set'] = set;
-
-      if (options !== void 0) {
-        set(options);
-      }
-
-      return stylis;
-    });
+    );
   });
 
-  var ComponentStyle = function () {
+  var ComponentStyle = (function() {
     function ComponentStyle(rules, selector) {
       _classCallCheck(this, ComponentStyle);
 
@@ -3422,21 +3346,25 @@ var Badge = (function () {
       this.selector = selector;
     }
 
-    _createClass(ComponentStyle, [{
-      key: "generateAndInject",
-      value: function generateAndInject() {
-        if (!styleSheet.injected) styleSheet.inject();
-        var flatCSS = flatten(this.rules).join('');
-        var cssString = this.selector ? "".concat(this.selector, " { ").concat(flatCSS, " }") : flatCSS;
-        var css = stylis('', cssString, false, false);
-        styleSheet.insert(css, {
-          global: true
-        });
+    _createClass(ComponentStyle, [
+      {
+        key: "generateAndInject",
+        value: function generateAndInject() {
+          if (!styleSheet.injected) styleSheet.inject();
+          var flatCSS = flatten(this.rules).join("");
+          var cssString = this.selector
+            ? "".concat(this.selector, " { ").concat(flatCSS, " }")
+            : flatCSS;
+          var css = stylis("", cssString, false, false);
+          styleSheet.insert(css, {
+            global: true
+          });
+        }
       }
-    }]);
+    ]);
 
     return ComponentStyle;
-  }();
+  })();
   /**
    * lodash 4.1.3 (Custom Build) <https://lodash.com/>
    * Build: `lodash modularize exports="npm" -o ./`
@@ -3466,7 +3394,10 @@ var Badge = (function () {
   function assignValue(object, key, value) {
     var objValue = object[key];
 
-    if (!(hasOwnProperty$1.call(object, key) && eq(objValue, value)) || value === undefined && !(key in object)) {
+    if (
+      !(hasOwnProperty$1.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))
+    ) {
       object[key] = value;
     }
   }
@@ -3480,12 +3411,11 @@ var Badge = (function () {
    * @returns {Object} Returns the new object.
    */
 
-
   function baseZipObject(props, values, assignFunc) {
     var index = -1,
-        length = props.length,
-        valsLength = values.length,
-        result = {};
+      length = props.length,
+      valsLength = values.length,
+      result = {};
 
     while (++index < length) {
       var value = index < valsLength ? values[index] : undefined;
@@ -3510,7 +3440,6 @@ var Badge = (function () {
    * _.zipObject(['a', 'b'], [1, 2]);
    * // => { 'a': 1, 'b': 2 }
    */
-
 
   function zipObject(props, values) {
     return baseZipObject(props || [], values || [], assignValue);
@@ -3548,15 +3477,15 @@ var Badge = (function () {
    * // => true
    */
 
-
   function eq(value, other) {
-    return value === other || value !== value && other !== other;
+    return value === other || (value !== value && other !== other);
   }
 
   var lodash_zipobject = zipObject;
 
   function normalizeProps() {
-    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var props =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     if (Array.isArray(props)) {
       return lodash_zipobject(props);
@@ -3566,23 +3495,32 @@ var Badge = (function () {
   }
 
   var _styledComponent = function _styledComponent(ComponentStyle) {
-    var createStyledComponent = function createStyledComponent(target, rules, props) {
+    var createStyledComponent = function createStyledComponent(
+      target,
+      rules,
+      props
+    ) {
       var componentStyle = new ComponentStyle(rules);
       var currentProps = normalizeProps(props);
       var prevProps = normalizeProps(target.props);
       var StyledComponent = {
         inject: {
           $theme: {
-            "default": function _default() {
-              return function () {
+            default: function _default() {
+              return function() {
                 return {};
               };
             }
           }
         },
-        props: _objectSpread2$1({
-          value: null
-        }, currentProps, {}, prevProps),
+        props: _objectSpread2$1(
+          {
+            value: null
+          },
+          currentProps,
+          {},
+          prevProps
+        ),
         data: function data() {
           return {
             localValue: this.value
@@ -3594,41 +3532,56 @@ var Badge = (function () {
           var children = [];
 
           for (var slot in this.$slots) {
-            if (slot === 'default') {
+            if (slot === "default") {
               children.push(this.$slots[slot]);
             } else {
-              children.push(createElement('template', {
-                slot: slot
-              }, this.$slots[slot]));
+              children.push(
+                createElement(
+                  "template",
+                  {
+                    slot: slot
+                  },
+                  this.$slots[slot]
+                )
+              );
             }
           }
 
-          return createElement(target, {
-            "class": [this.generatedClassName],
-            props: this.$props,
-            domProps: {
-              value: this.localValue
-            },
-            on: _objectSpread2$1({}, this.$listeners, {
-              input: function input(event) {
-                if (event && event.target) {
-                  _this.localValue = event.target.value;
+          return createElement(
+            target,
+            {
+              class: [this.generatedClassName],
+              props: this.$props,
+              domProps: {
+                value: this.localValue
+              },
+              on: _objectSpread2$1({}, this.$listeners, {
+                input: function input(event) {
+                  if (event && event.target) {
+                    _this.localValue = event.target.value;
+                  }
                 }
-              }
-            }),
-            scopedSlots: this.$scopedSlots
-          }, children);
+              }),
+              scopedSlots: this.$scopedSlots
+            },
+            children
+          );
         },
         methods: {
-          generateAndInjectStyles: function generateAndInjectStyles(componentProps) {
+          generateAndInjectStyles: function generateAndInjectStyles(
+            componentProps
+          ) {
             return componentStyle.generateAndInjectStyles(componentProps);
           }
         },
         computed: {
           generatedClassName: function generatedClassName() {
-            var componentProps = _objectSpread2$1({
-              theme: this.theme
-            }, this.$props);
+            var componentProps = _objectSpread2$1(
+              {
+                theme: this.theme
+              },
+              this.$props
+            );
 
             return this.generateAndInjectStyles(componentProps);
           },
@@ -3641,16 +3594,29 @@ var Badge = (function () {
             this.localValue = newValue;
           },
           localValue: function localValue() {
-            this.$emit('input', this.localValue);
+            this.$emit("input", this.localValue);
           }
         },
         extend: function extend(cssRules) {
-          for (var _len = arguments.length, interpolations = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          for (
+            var _len = arguments.length,
+              interpolations = new Array(_len > 1 ? _len - 1 : 0),
+              _key = 1;
+            _key < _len;
+            _key++
+          ) {
             interpolations[_key - 1] = arguments[_key];
           }
 
-          var extendedRules = css.apply(void 0, [cssRules].concat(interpolations));
-          return createStyledComponent(target, rules.concat(extendedRules), props);
+          var extendedRules = css.apply(
+            void 0,
+            [cssRules].concat(interpolations)
+          );
+          return createStyledComponent(
+            target,
+            rules.concat(extendedRules),
+            props
+          );
         },
         withComponent: function withComponent(newTarget) {
           return createStyledComponent(newTarget, rules, props);
@@ -3665,7 +3631,7 @@ var Badge = (function () {
   var _componentStyle = function _componentStyle(nameGenerator) {
     var inserted = {};
 
-    var ComponentStyle = function () {
+    var ComponentStyle = (function() {
       function ComponentStyle(rules) {
         _classCallCheck(this, ComponentStyle);
 
@@ -3674,46 +3640,191 @@ var Badge = (function () {
           keyframe: false
         });
         if (!styleSheet.injected) styleSheet.inject();
-        this.insertedRule = styleSheet.insert('');
+        this.insertedRule = styleSheet.insert("");
       }
 
-      _createClass(ComponentStyle, [{
-        key: "generateAndInjectStyles",
-        value: function generateAndInjectStyles(executionContext) {
-          var flatCSS = flatten(this.rules, executionContext).join('').replace(/^\s*\/\/.*$/gm, '');
-          var hash = hashStr(flatCSS);
+      _createClass(ComponentStyle, [
+        {
+          key: "generateAndInjectStyles",
+          value: function generateAndInjectStyles(executionContext) {
+            var flatCSS = flatten(this.rules, executionContext)
+              .join("")
+              .replace(/^\s*\/\/.*$/gm, "");
+            var hash = hashStr(flatCSS);
 
-          if (!inserted[hash]) {
-            var selector = nameGenerator(hash);
-            inserted[hash] = selector;
-            var css = stylis(".".concat(selector), flatCSS);
-            this.insertedRule.appendRule(css);
+            if (!inserted[hash]) {
+              var selector = nameGenerator(hash);
+              inserted[hash] = selector;
+              var css = stylis(".".concat(selector), flatCSS);
+              this.insertedRule.appendRule(css);
+            }
+
+            return inserted[hash];
           }
-
-          return inserted[hash];
         }
-      }]);
+      ]);
 
       return ComponentStyle;
-    }();
+    })();
 
     return ComponentStyle;
   };
 
-  var domElements = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
+  var domElements = [
+    "a",
+    "abbr",
+    "address",
+    "area",
+    "article",
+    "aside",
+    "audio",
+    "b",
+    "base",
+    "bdi",
+    "bdo",
+    "big",
+    "blockquote",
+    "body",
+    "br",
+    "button",
+    "canvas",
+    "caption",
+    "cite",
+    "code",
+    "col",
+    "colgroup",
+    "data",
+    "datalist",
+    "dd",
+    "del",
+    "details",
+    "dfn",
+    "dialog",
+    "div",
+    "dl",
+    "dt",
+    "em",
+    "embed",
+    "fieldset",
+    "figcaption",
+    "figure",
+    "footer",
+    "form",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "head",
+    "header",
+    "hgroup",
+    "hr",
+    "html",
+    "i",
+    "iframe",
+    "img",
+    "input",
+    "ins",
+    "kbd",
+    "keygen",
+    "label",
+    "legend",
+    "li",
+    "link",
+    "main",
+    "map",
+    "mark",
+    "menu",
+    "menuitem",
+    "meta",
+    "meter",
+    "nav",
+    "noscript",
+    "object",
+    "ol",
+    "optgroup",
+    "option",
+    "output",
+    "p",
+    "param",
+    "picture",
+    "pre",
+    "progress",
+    "q",
+    "rp",
+    "rt",
+    "ruby",
+    "s",
+    "samp",
+    "script",
+    "section",
+    "select",
+    "small",
+    "source",
+    "span",
+    "strong",
+    "style",
+    "sub",
+    "summary",
+    "sup",
+    "table",
+    "tbody",
+    "td",
+    "textarea",
+    "tfoot",
+    "th",
+    "thead",
+    "time",
+    "title",
+    "tr",
+    "track",
+    "u",
+    "ul",
+    "var",
+    "video",
+    "wbr",
+    "circle",
+    "clipPath",
+    "defs",
+    "ellipse",
+    "g",
+    "image",
+    "line",
+    "linearGradient",
+    "mask",
+    "path",
+    "pattern",
+    "polygon",
+    "polyline",
+    "radialGradient",
+    "rect",
+    "stop",
+    "svg",
+    "text",
+    "tspan"
+  ];
 
   function isTag(target) {
-    if (typeof target === 'string') {
+    if (typeof target === "string") {
       return domElements.indexOf(target) !== -1;
     }
   }
 
   function isVueComponent(target) {
-    return target && (typeof target.render === 'function' || typeof target.template === 'string');
+    return (
+      target &&
+      (typeof target.render === "function" ||
+        typeof target.template === "string")
+    );
   }
 
   function isStyledComponent(target) {
-    return target && target.methods && typeof target.methods.generateAndInjectStyles === 'function';
+    return (
+      target &&
+      target.methods &&
+      typeof target.methods.generateAndInjectStyles === "function"
+    );
   }
 
   function isValidElementType(target) {
@@ -3722,31 +3833,48 @@ var Badge = (function () {
 
   var _styled = function _styled(createStyledComponent) {
     var styled = function styled(tagName) {
-      var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var props =
+        arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (!isValidElementType(tagName)) {
-        throw new Error(tagName + ' is not allowed for styled tag type.');
+        throw new Error(tagName + " is not allowed for styled tag type.");
       }
 
-      return function (cssRules) {
-        for (var _len = arguments.length, interpolations = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      return function(cssRules) {
+        for (
+          var _len = arguments.length,
+            interpolations = new Array(_len > 1 ? _len - 1 : 0),
+            _key = 1;
+          _key < _len;
+          _key++
+        ) {
           interpolations[_key - 1] = arguments[_key];
         }
 
-        return createStyledComponent(tagName, css.apply(void 0, [cssRules].concat(interpolations)), props);
+        return createStyledComponent(
+          tagName,
+          css.apply(void 0, [cssRules].concat(interpolations)),
+          props
+        );
       };
     };
 
-    domElements.forEach(function (domElement) {
+    domElements.forEach(function(domElement) {
       styled[domElement] = styled(domElement);
     });
     return styled;
   };
 
-  var styled = _styled(_styledComponent(_componentStyle(generateAlphabeticName)));
+  var styled = _styled(
+    _styledComponent(_componentStyle(generateAlphabeticName))
+  );
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  color: ", "\n        background-color: ", ";\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n"]);
+    var data = _taggedTemplateLiteral([
+      "\n  color: ",
+      "\n        background-color: ",
+      ';\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n'
+    ]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3763,23 +3891,46 @@ var Badge = (function () {
       }
     }
   };
-  var Badge = styled("div", props)(_templateObject(), function (props) {
-    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.color ? props.defaultTheme[props.flavor].color.color : "#040404";
-  }, function (props) {
-    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color : "#f0f0f0";
-  });
+  var Badge = styled("div", props)(
+    _templateObject(),
+    function(props) {
+      return props.theme && props.theme[props.flavor]
+        ? props.theme[props.flavor].color.color
+        : props.defaultTheme[props.flavor] &&
+          props.defaultTheme[props.flavor].color.color
+        ? props.defaultTheme[props.flavor].color.color
+        : "#040404";
+    },
+    function(props) {
+      return props.theme && props.theme[props.flavor]
+        ? props.theme[props.flavor].background.color
+        : props.defaultTheme[props.flavor] &&
+          props.defaultTheme[props.flavor].background.color
+        ? props.defaultTheme[props.flavor].background.color
+        : "#f0f0f0";
+    }
+  );
 
-  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
-  /* server only */
-  , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
+  function normalizeComponent(
+    template,
+    style,
+    script,
+    scopeId,
+    isFunctionalTemplate,
+    moduleIdentifier,
+    /* server only */
+    shadowMode,
+    createInjector,
+    createInjectorSSR,
+    createInjectorShadow
+  ) {
+    if (typeof shadowMode !== "boolean") {
       createInjectorSSR = createInjector;
       createInjector = shadowMode;
       shadowMode = false;
     } // Vue.extend constructor export interop.
 
-
-    var options = typeof script === 'function' ? script.options : script; // render functions
+    var options = typeof script === "function" ? script.options : script; // render functions
 
     if (template && template.render) {
       options.render = template.render;
@@ -3791,7 +3942,6 @@ var Badge = (function () {
       }
     } // scopedId
 
-
     if (scopeId) {
       options._scopeId = scopeId;
     }
@@ -3802,20 +3952,19 @@ var Badge = (function () {
       // server build
       hook = function hook(context) {
         // 2.3 injection
-        context = context || // cached call
-        this.$vnode && this.$vnode.ssrContext || // stateful
-        this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+        context =
+          context || // cached call
+          (this.$vnode && this.$vnode.ssrContext) || // stateful
+          (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
         // 2.2 with runInNewContext: true
 
-        if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
           context = __VUE_SSR_CONTEXT__;
         } // inject component styles
-
 
         if (style) {
           style.call(this, createInjectorSSR(context));
         } // register component module identifier for async chunk inference
-
 
         if (context && context._registeredComponents) {
           context._registeredComponents.add(moduleIdentifier);
@@ -3823,14 +3972,18 @@ var Badge = (function () {
       }; // used by ssr in case component is cached and beforeCreate
       // never gets called
 
-
       options._ssrRegister = hook;
     } else if (style) {
-      hook = shadowMode ? function (context) {
-        style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-      } : function (context) {
-        style.call(this, createInjector(context));
-      };
+      hook = shadowMode
+        ? function(context) {
+            style.call(
+              this,
+              createInjectorShadow(context, this.$root.$options.shadowRoot)
+            );
+          }
+        : function(context) {
+            style.call(this, createInjector(context));
+          };
     }
 
     if (hook) {
@@ -3857,34 +4010,32 @@ var Badge = (function () {
 
   /* template */
 
-    /* style */
-    const __vue_inject_styles__ = undefined;
-    /* scoped */
-    const __vue_scope_id__ = undefined;
-    /* module identifier */
-    const __vue_module_identifier__ = undefined;
-    /* functional template */
-    const __vue_is_functional_template__ = undefined;
-    /* style inject */
-    
-    /* style inject SSR */
-    
-    /* style inject shadow dom */
-    
+  /* style */
+  const __vue_inject_styles__ = undefined;
+  /* scoped */
+  const __vue_scope_id__ = undefined;
+  /* module identifier */
+  const __vue_module_identifier__ = undefined;
+  /* functional template */
+  const __vue_is_functional_template__ = undefined;
+  /* style inject */
 
-    
-    const __vue_component__ = normalizeComponent(
-      {},
-      __vue_inject_styles__,
-      __vue_script__,
-      __vue_scope_id__,
-      __vue_is_functional_template__,
-      __vue_module_identifier__,
-      false,
-      undefined,
-      undefined,
-      undefined
-    );
+  /* style inject SSR */
+
+  /* style inject shadow dom */
+
+  const __vue_component__ = normalizeComponent(
+    {},
+    __vue_inject_styles__,
+    __vue_script__,
+    __vue_scope_id__,
+    __vue_is_functional_template__,
+    __vue_module_identifier__,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
 
   // Import vue component
 
@@ -3893,7 +4044,6 @@ var Badge = (function () {
     install.installed = true;
     Vue.component("Badge", __vue_component__);
   }; // Create module definition for Vue.use()
-
 
   var plugin = {
     install: install
@@ -3915,12 +4065,10 @@ var Badge = (function () {
   } // Inject install function into component - allows component
   // to be registered via Vue.use() as well as Vue.component()
 
-
   __vue_component__.install = install; // Export component by default
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 
   return __vue_component__;
-
-}());
+})();
 //# sourceMappingURL=Badge.iife.js.map

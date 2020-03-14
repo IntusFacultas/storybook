@@ -1,24 +1,24 @@
 import {
-  Title,
+  PageTitle,
   SectionTitle,
   SubSectionTitle,
   CategoryTitle,
   SubCategoryTitle,
   Keyword,
-  Text,
+  WebText,
   Paragraph,
   NSmall,
   NLabel
 } from "./Typography.vue";
 
 let components = [
-  { label: "Title", component: Title },
+  { label: "PageTitle", component: PageTitle },
   { label: "SectionTitle", component: SectionTitle },
   { label: "SubSectionTitle", component: SubSectionTitle },
   { label: "CategoryTitle", component: CategoryTitle },
   { label: "SubCategoryTitle", component: SubCategoryTitle },
   { label: "Keyword", component: Keyword },
-  { label: "Text", component: Text },
+  { label: "WebText", component: WebText },
   { label: "Paragraph", component: Paragraph },
   { label: "NSmall", component: NSmall },
   { label: "NLabel", component: NLabel }
@@ -57,13 +57,13 @@ for (let component_obj of components) {
 
 // Export component by default
 export {
-  Title,
+  PageTitle,
   SectionTitle,
   SubSectionTitle,
   CategoryTitle,
   SubCategoryTitle,
   Keyword,
-  Text,
+  WebText,
   Paragraph,
   NSmall,
   NLabel

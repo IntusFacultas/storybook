@@ -14,7 +14,7 @@ import {
   number
 } from "@storybook/addon-knobs";
 import {
-  Text,
+  WebText,
   ProductTitle
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { VueInput } from "Components/components/StyledHTML/Input/src/Input.vue";
@@ -35,7 +35,7 @@ export default {
 };
 
 export const ConfigurableSidebar = () => ({
-  components: { Sidebar, FlexRow, SidebarOffsetContent, Text, ProductTitle },
+  components: { Sidebar, FlexRow, SidebarOffsetContent, WebText, ProductTitle },
   props: {
     flavor: {
       default: text("Sidebar Flavor", "")
@@ -150,7 +150,7 @@ export const RawInputSidebar = () => ({
     RawSidebar,
     FlexRow,
     SidebarOffsetContent,
-    Text,
+    WebText,
     ProductTitle,
     VueInput
   },
