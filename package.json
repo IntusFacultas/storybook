@@ -40,6 +40,7 @@
     "@storybook/vue": "^5.3.17",
     "babel-loader": "^8.0.6",
     "babel-preset-vue": "^2.0.2",
+    "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-is": "^16.13.0",
     "vue-loader": "^15.9.0",

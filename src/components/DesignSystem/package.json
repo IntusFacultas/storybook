@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/design-system",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "design colors",
   "main": "theme.js",
   "module": "theme.js",

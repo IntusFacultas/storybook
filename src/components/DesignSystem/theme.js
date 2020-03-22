@@ -1,3 +1,33 @@
+if (typeof Object.assign !== "function") {
+  // Must be writable: true, enumerable: false, configurable: true
+  Object.defineProperty(Object, "assign", {
+    value: function assign(target, varArgs) {
+      // .length of function is 2
+      "use strict";
+      if (target === null || target === undefined) {
+        throw new TypeError("Cannot convert undefined or null to object");
+      }
+
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource !== null && nextSource !== undefined) {
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true
+  });
+}
 var NIWSTheme = {
   TASK: {
     color: {
@@ -244,15 +274,14 @@ var Theme = {
       hover: "#38a5ca",
       focus: "#38a5ca"
     }
-  },
-  ...NIWSTheme
+  }
 };
-
 var AlertTheme = {
   warning: Theme["Warning"],
   danger: Theme["Danger"],
   success: Theme["Success"],
   info: Theme["Info"]
 };
+var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
 export default Theme;
 export { NIWSTheme, TextTheme, AlertTheme, Theme };
