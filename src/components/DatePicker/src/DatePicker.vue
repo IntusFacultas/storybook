@@ -296,7 +296,7 @@ const ContentContainer = styled.div`
   position: relative;
 `;
 const DatePickerContainer = styled("div", props)`
-  width: 320px;
+  width: 280px;
   position: absolute;
   padding: 10px 10px;
   border-radius: 4px;
