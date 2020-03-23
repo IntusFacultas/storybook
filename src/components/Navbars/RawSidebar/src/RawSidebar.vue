@@ -5,6 +5,7 @@
     :bottom-offset="bottomOffset"
     id="sidebar"
     :width="width"
+    :height="height"
     :breakpoint="breakpoint"
   >
     <sidebar-title :flavor="flavor">
@@ -162,6 +163,10 @@ export const RawSidebar = {
     topOffset: {
       type: String,
       default: ""
+    },
+    height: {
+      type: [Number, Object],
+      default: null
     },
     width: {
       type: Number,

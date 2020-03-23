@@ -43,6 +43,9 @@ export const ConfigurableSidebar = () => ({
     width: {
       default: number("Sidebar width", 200)
     },
+    height: {
+      default: object("Sidebar height", null)
+    },
     breakpoint: {
       default: number("Sidebar collapse breakpoint", 576)
     },
@@ -136,6 +139,7 @@ export const ConfigurableSidebar = () => ({
                 :bottom-offset="bottomOffset"
                 :items="items"
                 :width="width"
+                :height="height"
                 :breakpoint="breakpoint">
             </sidebar>
             <sidebar-offset-content
@@ -167,6 +171,9 @@ export const RawInputSidebar = () => ({
     bottomOffset: {
       default: text("Bottom Offset", 0)
     },
+    height: {
+      default: object("Sidebar height", null)
+    },
     width: {
       default: number("Sidebar width", 200)
     },
@@ -182,6 +189,7 @@ export const RawInputSidebar = () => ({
             :top-offset="topOffset"
             :bottom-offset="bottomOffset"
             :width="width"
+            :height="height"
             :breakpoint="breakpoint"
         >
             <page-title>This is raw HTMl piped into my sidebar</page-title>

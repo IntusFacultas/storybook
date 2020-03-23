@@ -3,7 +3,9 @@
     <input-container>
       <input-group-container class="number-range-min-input-container">
         <input-field-container>
-          <n-label :flavor="labelFlavor" :for="name + 'LowerValue'">{{ label }} Lower</n-label>
+          <n-label :flavor="labelFlavor" :for="name + 'LowerValue'"
+            >{{ label }} Lower</n-label
+          >
           <n-input
             @keydown.up="increment($event, 'lowerValue')"
             @keydown.down="decrement($event, 'lowerValue')"
@@ -39,7 +41,8 @@
             :flavor="labelFlavor"
             class="number-range-max-label"
             :for="name + 'UpperValue'"
-          >{{ label }} Upper</n-label>
+            >{{ label }} Upper</n-label
+          >
           <n-input
             @keydown.up="increment($event, 'upperValue')"
             @keydown.down="decrement($event, 'upperValue')"
@@ -96,7 +99,7 @@ const InputGroupContainer = styled.div`
   margin-right: 2px;
   display: flex;
   position: relative;
-  min-width: 50%;
+  min-width: calc(50% - 4px);
 `;
 const InputContainer = styled.div`
   display: flex;

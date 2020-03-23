@@ -70,6 +70,12 @@ data: {
             <td>Offsets the sidebar from the top</td>
         </tr>
         <tr>
+            <td>height</td>
+            <td>`Number` or `null`</td>
+            <td>`null`</td>
+            <td>Overrides the height of the sidebar</td>
+        </tr>
+        <tr>
             <td>bottomOffset</td>
             <td>`String`</td>
             <td>`"0px"`</td>

@@ -5,6 +5,7 @@
     :bottom-offset="bottomOffset"
     id="sidebar"
     :width="width"
+    :height="height"
     :breakpoint="breakpoint"
     ref="sidebar"
   >
@@ -60,6 +61,10 @@ const props = {
     type: Number,
     default: 200
   },
+  height: {
+    type: Number,
+    default: null
+  },
   breakpoint: {
     type: Number,
     default: 576
@@ -98,11 +103,13 @@ export const SidebarContainer = styled("aside", props)`
   left: 0px;
   top: ${props => props.topOffset};
   bottom: ${props => props.bottomOffset};
+  ${props => (!isNaN(props.height) ? `height: ${props.height}px` : ``)}
   @media (max-width: ${props => props.breakpoint}px) {
     position: relative;
     width: 100%;
     padding-left: auto;
     top: initial;
+    height: initial
   }
   & * {
     webkit-touch-callout: none; /* iOS Safari */
@@ -450,6 +457,10 @@ export const Sidebar = {
     width: {
       type: Number,
       default: 200
+    },
+    height: {
+      type: [Number, Object],
+      default: null
     },
     breakpoint: {
       type: Number,
