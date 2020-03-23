@@ -2,41 +2,75 @@
   <number-container>
     <input-container>
       <input-group-container class="number-range-min-input-container">
-        <n-label :flavor="labelFlavor" :for="name + 'LowerValue'"
-          >{{ label }} Lower</n-label
-        >
-        <n-input
-          @keydown.up="increment($event, 'lowerValue')"
-          @keydown.down="decrement($event, 'lowerValue')"
-          type="number"
-          v-model="lowerValue"
-          @change="validateValue"
-          :name="name + 'LowerValue'"
-          :id="name + 'LowerValue'"
-          ref="minInput"
-          :min="min"
-          :max="upperValue"
-        ></n-input>
+        <input-field-container>
+          <n-label :flavor="labelFlavor" :for="name + 'LowerValue'"
+            >{{ label }} Lower</n-label
+          >
+          <n-input
+            @keydown.up="increment($event, 'lowerValue')"
+            @keydown.down="decrement($event, 'lowerValue')"
+            type="number"
+            v-model="lowerValue"
+            @change="validateValue"
+            :name="name + 'LowerValue'"
+            :id="name + 'LowerValue'"
+            ref="minInput"
+            :min="min"
+            :max="upperValue"
+            class="number-range number-range"
+          ></n-input>
+        </input-field-container>
+        <button-container>
+          <increment-button
+            @keydown.space="increment($event, 'lowerValue')"
+            @click="increment($event, 'lowerValue')"
+          >
+            <span>&#8250;</span>
+          </increment-button>
+          <decrement-button
+            @keydown.space="decrement($event, 'lowerValue')"
+            @click="decrement($event, 'lowerValue')"
+          >
+            <span>&#8250;</span>
+          </decrement-button>
+        </button-container>
       </input-group-container>
       <input-group-container>
-        <n-label
-          :flavor="labelFlavor"
-          class="number-range-max-label"
-          :for="name + 'UpperValue'"
-          >{{ label }} Upper</n-label
-        >
-        <n-input
-          @keydown.up="increment($event, 'upperValue')"
-          @keydown.down="decrement($event, 'upperValue')"
-          type="number"
-          v-model="upperValue"
-          @change="validateValue"
-          :name="name + 'UpperValue'"
-          :id="name + 'UpperValue'"
-          ref="maxInput"
-          :min="lowerValue"
-          :max="max"
-        ></n-input>
+        <input-field-container>
+          <n-label
+            :flavor="labelFlavor"
+            class="number-range-max-label"
+            :for="name + 'UpperValue'"
+            >{{ label }} Upper</n-label
+          >
+          <n-input
+            @keydown.up="increment($event, 'upperValue')"
+            @keydown.down="decrement($event, 'upperValue')"
+            class="number-range"
+            type="number"
+            v-model="upperValue"
+            @change="validateValue"
+            :name="name + 'UpperValue'"
+            :id="name + 'UpperValue'"
+            ref="maxInput"
+            :min="lowerValue"
+            :max="max"
+          ></n-input>
+        </input-field-container>
+        <button-container>
+          <increment-button
+            @keydown.space="increment($event, 'upperValue')"
+            @click="increment($event, 'upperValue')"
+          >
+            <span>&#8250;</span>
+          </increment-button>
+          <decrement-button
+            @keydown.space="decrement($event, 'upperValue')"
+            @click="decrement($event, 'upperValue')"
+          >
+            <span>&#8250;</span>
+          </decrement-button>
+        </button-container>
       </input-group-container>
     </input-container>
   </number-container>
@@ -63,19 +97,76 @@ const NumberContainer = styled.div`
 const InputGroupContainer = styled.div`
   margin-left: 2px;
   margin-right: 2px;
+  display: flex;
+  position: relative;
+  min-width: 50%;
 `;
 const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
+const InputFieldContainer = styled.div`
+  min-width: 100%;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  margin-left: -22px;
+`;
+const IncrementButton = styled.button`
+  height: 18px;
+  & span {
+    display: inline-block;
+    transform: rotate(-90deg);
+    margin-right: 3px;
+  }
+  border-radius: 0px 5px 0px 0px;
+  border: 1px solid transparent;
+  border-top-color: #222;
+  border-right-color: #222;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,
+    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  &:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+  }
+`;
+const DecrementButton = styled.button`
+  height: 17px;
+  & span {
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+  border-radius: 0px 0px 5px 0px;
+  border: 1px solid transparent;
+  border-bottom-color: #222;
+  border-right-color: #222;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 0;
+  background-color: #f0f0f0;
+  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,
+    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  &:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+  }
+`;
 export const NumberRange = {
   components: {
     NumberContainer,
     InputContainer,
     InputGroupContainer,
     NLabel,
-    NInput
+    NInput,
+    ButtonContainer,
+    IncrementButton,
+    DecrementButton,
+    InputFieldContainer
   },
   data() {
     return {
@@ -337,5 +428,19 @@ export default NumberRange;
 .number-range-max-label {
   float: right;
   text-align: end;
+}
+.number-range {
+  border-right-color: transparent;
+}
+/* Chrome, Safari, Edge, Opera */
+input.number-range::-webkit-outer-spin-button,
+input.number-range::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"].number-range {
+  -moz-appearance: textfield;
 }
 </style>

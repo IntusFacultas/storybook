@@ -15,6 +15,46 @@ function _taggedTemplateLiteral(strings, raw) {
   }));
 }
 
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  height: 17px;\n  & span {\n    display: inline-block;\n    transform: rotate(90deg);\n  }\n  border-radius: 0px 0px 5px 0px;\n  border: 1px solid transparent;\n  border-bottom-color: #222;\n  border-right-color: #222;\n  font-weight: bold;\n  font-size: 16px;\n  line-height: 0;\n  background-color: #f0f0f0;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n  &:hover {\n    background-color: #e1e1e1;\n    cursor: pointer;\n  }\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  height: 18px;\n  & span {\n    display: inline-block;\n    transform: rotate(-90deg);\n    margin-right: 3px;\n  }\n  border-radius: 0px 5px 0px 0px;\n  border: 1px solid transparent;\n  border-top-color: #222;\n  border-right-color: #222;\n  font-weight: bold;\n  font-size: 16px;\n  background-color: #f0f0f0;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n  &:hover {\n    background-color: #e1e1e1;\n    cursor: pointer;\n  }\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  margin-top: 25px;\n  margin-left: -22px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  min-width: 100%;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: row;\n"]);
 
@@ -26,7 +66,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: 2px;\n  margin-right: 2px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-left: 2px;\n  margin-right: 2px;\n  display: flex;\n  position: relative;\n  min-width: 50%;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -47,13 +87,21 @@ function _templateObject() {
 var NumberContainer = styled.div(_templateObject());
 var InputGroupContainer = styled.div(_templateObject2());
 var InputContainer = styled.div(_templateObject3());
+var InputFieldContainer = styled.div(_templateObject4());
+var ButtonContainer = styled.div(_templateObject5());
+var IncrementButton = styled.button(_templateObject6());
+var DecrementButton = styled.button(_templateObject7());
 var NumberRange = {
   components: {
     NumberContainer: NumberContainer,
     InputContainer: InputContainer,
     InputGroupContainer: InputGroupContainer,
     NLabel: NLabel,
-    NInput: NInput
+    NInput: NInput,
+    ButtonContainer: ButtonContainer,
+    IncrementButton: IncrementButton,
+    DecrementButton: DecrementButton,
+    InputFieldContainer: InputFieldContainer
   },
   data: function data() {
     return {
@@ -491,62 +539,123 @@ var __vue_render__ = function() {
             { staticClass: "number-range-min-input-container" },
             [
               _c(
-                "n-label",
-                {
-                  attrs: {
-                    flavor: _vm.labelFlavor,
-                    for: _vm.name + "LowerValue"
-                  }
-                },
-                [_vm._v(_vm._s(_vm.label) + " Lower")]
+                "input-field-container",
+                [
+                  _c(
+                    "n-label",
+                    {
+                      attrs: {
+                        flavor: _vm.labelFlavor,
+                        for: _vm.name + "LowerValue"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.label) + " Lower")]
+                  ),
+                  _vm._v(" "),
+                  _c("n-input", {
+                    ref: "minInput",
+                    staticClass: "number-range number-range",
+                    attrs: {
+                      type: "number",
+                      name: _vm.name + "LowerValue",
+                      id: _vm.name + "LowerValue",
+                      min: _vm.min,
+                      max: _vm.upperValue
+                    },
+                    on: {
+                      keydown: [
+                        function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "up", 38, $event.key, [
+                              "Up",
+                              "ArrowUp"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.increment($event, "lowerValue")
+                        },
+                        function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "down", 40, $event.key, [
+                              "Down",
+                              "ArrowDown"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.decrement($event, "lowerValue")
+                        }
+                      ],
+                      change: _vm.validateValue
+                    },
+                    model: {
+                      value: _vm.lowerValue,
+                      callback: function($$v) {
+                        _vm.lowerValue = $$v;
+                      },
+                      expression: "lowerValue"
+                    }
+                  })
+                ],
+                1
               ),
               _vm._v(" "),
-              _c("n-input", {
-                ref: "minInput",
-                attrs: {
-                  type: "number",
-                  name: _vm.name + "LowerValue",
-                  id: _vm.name + "LowerValue",
-                  min: _vm.min,
-                  max: _vm.upperValue
-                },
-                on: {
-                  keydown: [
-                    function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "up", 38, $event.key, [
-                          "Up",
-                          "ArrowUp"
-                        ])
-                      ) {
-                        return null
+              _c(
+                "button-container",
+                [
+                  _c(
+                    "increment-button",
+                    {
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "space", 32, $event.key, [
+                              " ",
+                              "Spacebar"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.increment($event, "lowerValue")
+                        },
+                        click: function($event) {
+                          return _vm.increment($event, "lowerValue")
+                        }
                       }
-                      return _vm.increment($event, "lowerValue")
                     },
-                    function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "down", 40, $event.key, [
-                          "Down",
-                          "ArrowDown"
-                        ])
-                      ) {
-                        return null
+                    [_c("span", [_vm._v("›")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "decrement-button",
+                    {
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "space", 32, $event.key, [
+                              " ",
+                              "Spacebar"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.decrement($event, "lowerValue")
+                        },
+                        click: function($event) {
+                          return _vm.decrement($event, "lowerValue")
+                        }
                       }
-                      return _vm.decrement($event, "lowerValue")
-                    }
-                  ],
-                  change: _vm.validateValue
-                },
-                model: {
-                  value: _vm.lowerValue,
-                  callback: function($$v) {
-                    _vm.lowerValue = $$v;
-                  },
-                  expression: "lowerValue"
-                }
-              })
+                    },
+                    [_c("span", [_vm._v("›")])]
+                  )
+                ],
+                1
+              )
             ],
             1
           ),
@@ -555,63 +664,124 @@ var __vue_render__ = function() {
             "input-group-container",
             [
               _c(
-                "n-label",
-                {
-                  staticClass: "number-range-max-label",
-                  attrs: {
-                    flavor: _vm.labelFlavor,
-                    for: _vm.name + "UpperValue"
-                  }
-                },
-                [_vm._v(_vm._s(_vm.label) + " Upper")]
+                "input-field-container",
+                [
+                  _c(
+                    "n-label",
+                    {
+                      staticClass: "number-range-max-label",
+                      attrs: {
+                        flavor: _vm.labelFlavor,
+                        for: _vm.name + "UpperValue"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.label) + " Upper")]
+                  ),
+                  _vm._v(" "),
+                  _c("n-input", {
+                    ref: "maxInput",
+                    staticClass: "number-range",
+                    attrs: {
+                      type: "number",
+                      name: _vm.name + "UpperValue",
+                      id: _vm.name + "UpperValue",
+                      min: _vm.lowerValue,
+                      max: _vm.max
+                    },
+                    on: {
+                      keydown: [
+                        function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "up", 38, $event.key, [
+                              "Up",
+                              "ArrowUp"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.increment($event, "upperValue")
+                        },
+                        function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "down", 40, $event.key, [
+                              "Down",
+                              "ArrowDown"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.decrement($event, "upperValue")
+                        }
+                      ],
+                      change: _vm.validateValue
+                    },
+                    model: {
+                      value: _vm.upperValue,
+                      callback: function($$v) {
+                        _vm.upperValue = $$v;
+                      },
+                      expression: "upperValue"
+                    }
+                  })
+                ],
+                1
               ),
               _vm._v(" "),
-              _c("n-input", {
-                ref: "maxInput",
-                attrs: {
-                  type: "number",
-                  name: _vm.name + "UpperValue",
-                  id: _vm.name + "UpperValue",
-                  min: _vm.lowerValue,
-                  max: _vm.max
-                },
-                on: {
-                  keydown: [
-                    function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "up", 38, $event.key, [
-                          "Up",
-                          "ArrowUp"
-                        ])
-                      ) {
-                        return null
+              _c(
+                "button-container",
+                [
+                  _c(
+                    "increment-button",
+                    {
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "space", 32, $event.key, [
+                              " ",
+                              "Spacebar"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.increment($event, "upperValue")
+                        },
+                        click: function($event) {
+                          return _vm.increment($event, "upperValue")
+                        }
                       }
-                      return _vm.increment($event, "upperValue")
                     },
-                    function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "down", 40, $event.key, [
-                          "Down",
-                          "ArrowDown"
-                        ])
-                      ) {
-                        return null
+                    [_c("span", [_vm._v("›")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "decrement-button",
+                    {
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "space", 32, $event.key, [
+                              " ",
+                              "Spacebar"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.decrement($event, "upperValue")
+                        },
+                        click: function($event) {
+                          return _vm.decrement($event, "upperValue")
+                        }
                       }
-                      return _vm.decrement($event, "upperValue")
-                    }
-                  ],
-                  change: _vm.validateValue
-                },
-                model: {
-                  value: _vm.upperValue,
-                  callback: function($$v) {
-                    _vm.upperValue = $$v;
-                  },
-                  expression: "upperValue"
-                }
-              })
+                    },
+                    [_c("span", [_vm._v("›")])]
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -628,7 +798,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-5e6c59a1_0", { source: "\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\NumberRange\\src\\NumberRange.vue"],"names":[],"mappings":";AAgVA;EACA,YAAA;EACA,eAAA;AACA","file":"NumberRange.vue","sourcesContent":["<template>\r\n  <number-container>\r\n    <input-container>\r\n      <input-group-container class=\"number-range-min-input-container\">\r\n        <n-label :flavor=\"labelFlavor\" :for=\"name + 'LowerValue'\"\r\n          >{{ label }} Lower</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up=\"increment($event, 'lowerValue')\"\r\n          @keydown.down=\"decrement($event, 'lowerValue')\"\r\n          type=\"number\"\r\n          v-model=\"lowerValue\"\r\n          @change=\"validateValue\"\r\n          :name=\"name + 'LowerValue'\"\r\n          :id=\"name + 'LowerValue'\"\r\n          ref=\"minInput\"\r\n          :min=\"min\"\r\n          :max=\"upperValue\"\r\n        ></n-input>\r\n      </input-group-container>\r\n      <input-group-container>\r\n        <n-label\r\n          :flavor=\"labelFlavor\"\r\n          class=\"number-range-max-label\"\r\n          :for=\"name + 'UpperValue'\"\r\n          >{{ label }} Upper</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up=\"increment($event, 'upperValue')\"\r\n          @keydown.down=\"decrement($event, 'upperValue')\"\r\n          type=\"number\"\r\n          v-model=\"upperValue\"\r\n          @change=\"validateValue\"\r\n          :name=\"name + 'UpperValue'\"\r\n          :id=\"name + 'UpperValue'\"\r\n          ref=\"maxInput\"\r\n          :min=\"lowerValue\"\r\n          :max=\"max\"\r\n        ></n-input>\r\n      </input-group-container>\r\n    </input-container>\r\n  </number-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { NInput } from \"@IntusFacultas/input\";\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumberContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n`;\r\nconst InputGroupContainer = styled.div`\r\n  margin-left: 2px;\r\n  margin-right: 2px;\r\n`;\r\nconst InputContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: row;\r\n`;\r\n\r\nexport const NumberRange = {\r\n  components: {\r\n    NumberContainer,\r\n    InputContainer,\r\n    InputGroupContainer,\r\n    NLabel,\r\n    NInput\r\n  },\r\n  data() {\r\n    return {\r\n      lowerValue: 0,\r\n      upperValue: 0,\r\n      internalSteps: []\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    max: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    min: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    steps: {\r\n      type: Array,\r\n      default() {\r\n        return [1];\r\n      }\r\n    }\r\n  },\r\n  watch: {\r\n    steps() {\r\n      this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    }\r\n  },\r\n  mounted() {\r\n    this.lowerValue = this.min;\r\n    this.upperValue = this.max;\r\n    let self = this;\r\n    self.$watch(\r\n      \"value\",\r\n      function() {\r\n        if (self.lowerValue != self.value.lowerValue) {\r\n          self.lowerValue = self.value.lowerValue;\r\n          self.validateValue();\r\n        }\r\n        if (self.upperValue != self.value.upperValue) {\r\n          self.upperValue = self.value.upperValue;\r\n          self.validateValue();\r\n        }\r\n      },\r\n      { deep: true }\r\n    );\r\n    if (this.steps.length == 0) {\r\n      throw \"Steps must have at least one value\";\r\n    }\r\n    if (this.steps.length > 1) {\r\n      if (this.steps[0] != this.min) {\r\n        throw \"Discrete steps must have a first value equal to the minimum\";\r\n      }\r\n      if (this.steps[this.steps.length - 1] != this.max) {\r\n        throw \"Discrete steps must have a last value equal to the maximum\";\r\n      }\r\n    }\r\n    this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    if (!Array.prototype.findIndex) {\r\n      Object.defineProperty(Array.prototype, \"findIndex\", {\r\n        value: function(predicate) {\r\n          // 1. Let O be ? ToObject(this value).\r\n          if (this == null) {\r\n            throw new TypeError('\"this\" is null or not defined');\r\n          }\r\n\r\n          var o = Object(this);\r\n\r\n          // 2. Let len be ? ToLength(? Get(O, \"length\")).\r\n          var len = o.length >>> 0;\r\n\r\n          // 3. If IsCallable(predicate) is false, throw a TypeError exception.\r\n          if (typeof predicate !== \"function\") {\r\n            throw new TypeError(\"predicate must be a function\");\r\n          }\r\n\r\n          // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.\r\n          var thisArg = arguments[1];\r\n\r\n          // 5. Let k be 0.\r\n          var k = 0;\r\n\r\n          // 6. Repeat, while k < len\r\n          while (k < len) {\r\n            // a. Let Pk be ! ToString(k).\r\n            // b. Let kValue be ? Get(O, Pk).\r\n            // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).\r\n            // d. If testResult is true, return k.\r\n            var kValue = o[k];\r\n            if (predicate.call(thisArg, kValue, k, o)) {\r\n              return k;\r\n            }\r\n            // e. Increase k by 1.\r\n            k++;\r\n          }\r\n\r\n          // 7. Return -1.\r\n          return -1;\r\n        },\r\n        configurable: true,\r\n        writable: true\r\n      });\r\n    }\r\n  },\r\n  beforeDestroy() {},\r\n  methods: {\r\n    increment(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.max) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) + 1;\r\n        if (nextIndex >= this.internalSteps.length) {\r\n          nextIndex = this.internalSteps.length - 1;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] += parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    decrement(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.min) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) - 1;\r\n        if (nextIndex <= 0) {\r\n          nextIndex = 0;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] -= parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    roundValues(value) {\r\n      let copy = this.internalSteps.slice();\r\n      copy.push(parseFloat(value));\r\n      copy.sort((x, y) => x >= y);\r\n      let index = copy.findIndex(x => x == parseFloat(value));\r\n      let lowerBound = index - 1;\r\n      let upperBound = index + 1;\r\n      if (lowerBound < 0) {\r\n        lowerBound = 0;\r\n      }\r\n      if (upperBound >= copy.length) {\r\n        upperBound = copy.length - 1;\r\n      }\r\n      copy = copy.slice(lowerBound, upperBound + 1);\r\n      return copy;\r\n    },\r\n    roundToNearestDiscreteStep(values, value) {\r\n      let lowerDelta = Math.abs(values[0] - value);\r\n      let upperDelta = Math.abs(values[values.length - 1] - value);\r\n      if (upperDelta < lowerDelta) {\r\n        // round up\r\n        return values[values.length - 1];\r\n      } else {\r\n        return values[0];\r\n      }\r\n    },\r\n    roundToNearestBasicStep(value, base) {\r\n      let distanceToBottom = 0;\r\n      let distanceToTop = 0;\r\n      let tracker = value;\r\n      let bottom = 0;\r\n      let top = 0;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToBottom++;\r\n        tracker--;\r\n      }\r\n      bottom = tracker;\r\n      tracker = value;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToTop++;\r\n        tracker++;\r\n      }\r\n      top = tracker;\r\n      if (distanceToBottom <= distanceToTop) {\r\n        return bottom;\r\n      }\r\n      return top;\r\n    },\r\n    validateValue() {\r\n      if (this.internalSteps.length != 1) {\r\n        if (this.internalSteps.indexOf(this.lowerValue) == -1) {\r\n          let copy = this.roundValues(this.lowerValue);\r\n          this.lowerValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.lowerValue)\r\n          );\r\n        }\r\n        if (this.internalSteps.indexOf(this.upperValue) == -1) {\r\n          let copy = this.roundValues(this.upperValue);\r\n          this.upperValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.upperValue)\r\n          );\r\n        }\r\n      } else {\r\n        if (Math.abs(this.lowerValue - this.min) % this.internalSteps[0] != 0) {\r\n          this.lowerValue = this.roundToNearestBasicStep(\r\n            this.lowerValue,\r\n            this.min\r\n          );\r\n        }\r\n        if (Math.abs(this.upperValue - this.max) % this.internalSteps[0] != 0) {\r\n          this.upperValue = this.roundToNearestBasicStep(\r\n            this.upperValue,\r\n            this.max\r\n          );\r\n        }\r\n      }\r\n      if (this.upperValue > this.max) {\r\n        this.upperValue = this.max;\r\n      }\r\n      if (this.lowerValue < this.min) {\r\n        this.lowerValue = this.min;\r\n      }\r\n      if (this.lowerValue > this.upperValue) {\r\n        this.lowerValue = parseFloat(this.upperValue);\r\n      }\r\n      this.lowerValue = parseFloat(this.lowerValue);\r\n      this.upperValue = parseFloat(this.upperValue);\r\n      this.$emit(\"change\", {\r\n        lowerValue: this.lowerValue,\r\n        upperValue: this.upperValue\r\n      });\r\n    }\r\n  }\r\n};\r\nexport default NumberRange;\r\n</script>\r\n\r\n<style>\r\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-df937db6_0", { source: "\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\n}\n.number-range {\r\n  border-right-color: transparent;\n}\r\n/* Chrome, Safari, Edge, Opera */\ninput.number-range::-webkit-outer-spin-button,\r\ninput.number-range::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\n}\r\n\r\n/* Firefox */\ninput[type=\"number\"].number-range {\r\n  -moz-appearance: textfield;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\NumberRange\\src\\NumberRange.vue"],"names":[],"mappings":";AA2aA;EACA,YAAA;EACA,eAAA;AACA;AACA;EACA,+BAAA;AACA;AACA,gCAAA;AACA;;EAEA,wBAAA;EACA,SAAA;AACA;;AAEA,YAAA;AACA;EACA,0BAAA;AACA","file":"NumberRange.vue","sourcesContent":["<template>\r\n  <number-container>\r\n    <input-container>\r\n      <input-group-container class=\"number-range-min-input-container\">\r\n        <input-field-container>\r\n          <n-label :flavor=\"labelFlavor\" :for=\"name + 'LowerValue'\"\r\n            >{{ label }} Lower</n-label\r\n          >\r\n          <n-input\r\n            @keydown.up=\"increment($event, 'lowerValue')\"\r\n            @keydown.down=\"decrement($event, 'lowerValue')\"\r\n            type=\"number\"\r\n            v-model=\"lowerValue\"\r\n            @change=\"validateValue\"\r\n            :name=\"name + 'LowerValue'\"\r\n            :id=\"name + 'LowerValue'\"\r\n            ref=\"minInput\"\r\n            :min=\"min\"\r\n            :max=\"upperValue\"\r\n            class=\"number-range number-range\"\r\n          ></n-input>\r\n        </input-field-container>\r\n        <button-container>\r\n          <increment-button\r\n            @keydown.space=\"increment($event, 'lowerValue')\"\r\n            @click=\"increment($event, 'lowerValue')\"\r\n          >\r\n            <span>&#8250;</span>\r\n          </increment-button>\r\n          <decrement-button\r\n            @keydown.space=\"decrement($event, 'lowerValue')\"\r\n            @click=\"decrement($event, 'lowerValue')\"\r\n          >\r\n            <span>&#8250;</span>\r\n          </decrement-button>\r\n        </button-container>\r\n      </input-group-container>\r\n      <input-group-container>\r\n        <input-field-container>\r\n          <n-label\r\n            :flavor=\"labelFlavor\"\r\n            class=\"number-range-max-label\"\r\n            :for=\"name + 'UpperValue'\"\r\n            >{{ label }} Upper</n-label\r\n          >\r\n          <n-input\r\n            @keydown.up=\"increment($event, 'upperValue')\"\r\n            @keydown.down=\"decrement($event, 'upperValue')\"\r\n            class=\"number-range\"\r\n            type=\"number\"\r\n            v-model=\"upperValue\"\r\n            @change=\"validateValue\"\r\n            :name=\"name + 'UpperValue'\"\r\n            :id=\"name + 'UpperValue'\"\r\n            ref=\"maxInput\"\r\n            :min=\"lowerValue\"\r\n            :max=\"max\"\r\n          ></n-input>\r\n        </input-field-container>\r\n        <button-container>\r\n          <increment-button\r\n            @keydown.space=\"increment($event, 'upperValue')\"\r\n            @click=\"increment($event, 'upperValue')\"\r\n          >\r\n            <span>&#8250;</span>\r\n          </increment-button>\r\n          <decrement-button\r\n            @keydown.space=\"decrement($event, 'upperValue')\"\r\n            @click=\"decrement($event, 'upperValue')\"\r\n          >\r\n            <span>&#8250;</span>\r\n          </decrement-button>\r\n        </button-container>\r\n      </input-group-container>\r\n    </input-container>\r\n  </number-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { NInput } from \"@IntusFacultas/input\";\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumberContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n`;\r\nconst InputGroupContainer = styled.div`\r\n  margin-left: 2px;\r\n  margin-right: 2px;\r\n  display: flex;\r\n  position: relative;\r\n  min-width: 50%;\r\n`;\r\nconst InputContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: row;\r\n`;\r\nconst InputFieldContainer = styled.div`\r\n  min-width: 100%;\r\n`;\r\nconst ButtonContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-top: 25px;\r\n  margin-left: -22px;\r\n`;\r\nconst IncrementButton = styled.button`\r\n  height: 18px;\r\n  & span {\r\n    display: inline-block;\r\n    transform: rotate(-90deg);\r\n    margin-right: 3px;\r\n  }\r\n  border-radius: 0px 5px 0px 0px;\r\n  border: 1px solid transparent;\r\n  border-top-color: #222;\r\n  border-right-color: #222;\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  background-color: #f0f0f0;\r\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\r\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\r\n  &:hover {\r\n    background-color: #e1e1e1;\r\n    cursor: pointer;\r\n  }\r\n`;\r\nconst DecrementButton = styled.button`\r\n  height: 17px;\r\n  & span {\r\n    display: inline-block;\r\n    transform: rotate(90deg);\r\n  }\r\n  border-radius: 0px 0px 5px 0px;\r\n  border: 1px solid transparent;\r\n  border-bottom-color: #222;\r\n  border-right-color: #222;\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 0;\r\n  background-color: #f0f0f0;\r\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\r\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\r\n  &:hover {\r\n    background-color: #e1e1e1;\r\n    cursor: pointer;\r\n  }\r\n`;\r\nexport const NumberRange = {\r\n  components: {\r\n    NumberContainer,\r\n    InputContainer,\r\n    InputGroupContainer,\r\n    NLabel,\r\n    NInput,\r\n    ButtonContainer,\r\n    IncrementButton,\r\n    DecrementButton,\r\n    InputFieldContainer\r\n  },\r\n  data() {\r\n    return {\r\n      lowerValue: 0,\r\n      upperValue: 0,\r\n      internalSteps: []\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    max: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    min: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    steps: {\r\n      type: Array,\r\n      default() {\r\n        return [1];\r\n      }\r\n    }\r\n  },\r\n  watch: {\r\n    steps() {\r\n      this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    }\r\n  },\r\n  mounted() {\r\n    this.lowerValue = this.min;\r\n    this.upperValue = this.max;\r\n    let self = this;\r\n    self.$watch(\r\n      \"value\",\r\n      function() {\r\n        if (self.lowerValue != self.value.lowerValue) {\r\n          self.lowerValue = self.value.lowerValue;\r\n          self.validateValue();\r\n        }\r\n        if (self.upperValue != self.value.upperValue) {\r\n          self.upperValue = self.value.upperValue;\r\n          self.validateValue();\r\n        }\r\n      },\r\n      { deep: true }\r\n    );\r\n    if (this.steps.length == 0) {\r\n      throw \"Steps must have at least one value\";\r\n    }\r\n    if (this.steps.length > 1) {\r\n      if (this.steps[0] != this.min) {\r\n        throw \"Discrete steps must have a first value equal to the minimum\";\r\n      }\r\n      if (this.steps[this.steps.length - 1] != this.max) {\r\n        throw \"Discrete steps must have a last value equal to the maximum\";\r\n      }\r\n    }\r\n    this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    if (!Array.prototype.findIndex) {\r\n      Object.defineProperty(Array.prototype, \"findIndex\", {\r\n        value: function(predicate) {\r\n          // 1. Let O be ? ToObject(this value).\r\n          if (this == null) {\r\n            throw new TypeError('\"this\" is null or not defined');\r\n          }\r\n\r\n          var o = Object(this);\r\n\r\n          // 2. Let len be ? ToLength(? Get(O, \"length\")).\r\n          var len = o.length >>> 0;\r\n\r\n          // 3. If IsCallable(predicate) is false, throw a TypeError exception.\r\n          if (typeof predicate !== \"function\") {\r\n            throw new TypeError(\"predicate must be a function\");\r\n          }\r\n\r\n          // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.\r\n          var thisArg = arguments[1];\r\n\r\n          // 5. Let k be 0.\r\n          var k = 0;\r\n\r\n          // 6. Repeat, while k < len\r\n          while (k < len) {\r\n            // a. Let Pk be ! ToString(k).\r\n            // b. Let kValue be ? Get(O, Pk).\r\n            // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).\r\n            // d. If testResult is true, return k.\r\n            var kValue = o[k];\r\n            if (predicate.call(thisArg, kValue, k, o)) {\r\n              return k;\r\n            }\r\n            // e. Increase k by 1.\r\n            k++;\r\n          }\r\n\r\n          // 7. Return -1.\r\n          return -1;\r\n        },\r\n        configurable: true,\r\n        writable: true\r\n      });\r\n    }\r\n  },\r\n  beforeDestroy() {},\r\n  methods: {\r\n    increment(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.max) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) + 1;\r\n        if (nextIndex >= this.internalSteps.length) {\r\n          nextIndex = this.internalSteps.length - 1;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] += parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    decrement(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.min) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) - 1;\r\n        if (nextIndex <= 0) {\r\n          nextIndex = 0;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] -= parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    roundValues(value) {\r\n      let copy = this.internalSteps.slice();\r\n      copy.push(parseFloat(value));\r\n      copy.sort((x, y) => x >= y);\r\n      let index = copy.findIndex(x => x == parseFloat(value));\r\n      let lowerBound = index - 1;\r\n      let upperBound = index + 1;\r\n      if (lowerBound < 0) {\r\n        lowerBound = 0;\r\n      }\r\n      if (upperBound >= copy.length) {\r\n        upperBound = copy.length - 1;\r\n      }\r\n      copy = copy.slice(lowerBound, upperBound + 1);\r\n      return copy;\r\n    },\r\n    roundToNearestDiscreteStep(values, value) {\r\n      let lowerDelta = Math.abs(values[0] - value);\r\n      let upperDelta = Math.abs(values[values.length - 1] - value);\r\n      if (upperDelta < lowerDelta) {\r\n        // round up\r\n        return values[values.length - 1];\r\n      } else {\r\n        return values[0];\r\n      }\r\n    },\r\n    roundToNearestBasicStep(value, base) {\r\n      let distanceToBottom = 0;\r\n      let distanceToTop = 0;\r\n      let tracker = value;\r\n      let bottom = 0;\r\n      let top = 0;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToBottom++;\r\n        tracker--;\r\n      }\r\n      bottom = tracker;\r\n      tracker = value;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToTop++;\r\n        tracker++;\r\n      }\r\n      top = tracker;\r\n      if (distanceToBottom <= distanceToTop) {\r\n        return bottom;\r\n      }\r\n      return top;\r\n    },\r\n    validateValue() {\r\n      if (this.internalSteps.length != 1) {\r\n        if (this.internalSteps.indexOf(this.lowerValue) == -1) {\r\n          let copy = this.roundValues(this.lowerValue);\r\n          this.lowerValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.lowerValue)\r\n          );\r\n        }\r\n        if (this.internalSteps.indexOf(this.upperValue) == -1) {\r\n          let copy = this.roundValues(this.upperValue);\r\n          this.upperValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.upperValue)\r\n          );\r\n        }\r\n      } else {\r\n        if (Math.abs(this.lowerValue - this.min) % this.internalSteps[0] != 0) {\r\n          this.lowerValue = this.roundToNearestBasicStep(\r\n            this.lowerValue,\r\n            this.min\r\n          );\r\n        }\r\n        if (Math.abs(this.upperValue - this.max) % this.internalSteps[0] != 0) {\r\n          this.upperValue = this.roundToNearestBasicStep(\r\n            this.upperValue,\r\n            this.max\r\n          );\r\n        }\r\n      }\r\n      if (this.upperValue > this.max) {\r\n        this.upperValue = this.max;\r\n      }\r\n      if (this.lowerValue < this.min) {\r\n        this.lowerValue = this.min;\r\n      }\r\n      if (this.lowerValue > this.upperValue) {\r\n        this.lowerValue = parseFloat(this.upperValue);\r\n      }\r\n      this.lowerValue = parseFloat(this.lowerValue);\r\n      this.upperValue = parseFloat(this.upperValue);\r\n      this.$emit(\"change\", {\r\n        lowerValue: this.lowerValue,\r\n        upperValue: this.upperValue\r\n      });\r\n    }\r\n  }\r\n};\r\nexport default NumberRange;\r\n</script>\r\n\r\n<style>\r\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\r\n}\r\n.number-range {\r\n  border-right-color: transparent;\r\n}\r\n/* Chrome, Safari, Edge, Opera */\r\ninput.number-range::-webkit-outer-spin-button,\r\ninput.number-range::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n\r\n/* Firefox */\r\ninput[type=\"number\"].number-range {\r\n  -moz-appearance: textfield;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */
