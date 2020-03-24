@@ -24,7 +24,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border-radius: 0px 0px 5px 5px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n  & * {\n    color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border-radius: 0px 0px 5px 5px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -34,7 +34,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  border-width: 0px 1px 0px 1px;\n  border-style: solid;\n  & * {\n    color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  border-width: 0px 1px 0px 1px;\n  border-style: solid;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -44,7 +44,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 5px 5px 0px 0px;\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n  & * {\n    color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border-radius: 5px 5px 0px 0px;\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -71,15 +71,11 @@ var NCardHeader = styled("div", props)(_templateObject(), function (props) {
   return !props.bordered ? props.theme && props.theme[props.flavor] ? "background-color:" + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "background-color:" + props.defaultTheme[props.flavor].background.color + ";" : "background-color: #f4f4f4;" : props.theme && props.theme[props.flavor] ? "border: 1px solid " + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "border: 1px solid " + props.defaultTheme[props.flavor].background.color + ";" : "border: 1px solid #aaa;";
 }, function (props) {
   return props.bordered ? "background-color: #f4f4f4;" : "";
-}, function (props) {
-  return !props.bordered ? props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.color : "#444" : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
 });
 var NCardBody = styled("div", props)(_templateObject2(), function (props) {
   return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.hover : "#aaa";
 }, function (props) {
   return !props.bordered ? props.theme && props.theme[props.flavor] ? "background-color:" + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "background-color:" + props.defaultTheme[props.flavor].background.color + ";" : "background-color: white;" : props.theme && props.theme[props.flavor] ? "border-color: " + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "border-color: " + props.defaultTheme[props.flavor].background.color + ";" : "border-color: #aaa;";
-}, function (props) {
-  return !props.bordered ? props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.color : "#444" : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
 });
 var NCardFooter = styled("div", props)(_templateObject3(), function (props) {
   return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].border.hover : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].border.hover : "#aaa";
@@ -87,8 +83,6 @@ var NCardFooter = styled("div", props)(_templateObject3(), function (props) {
   return !props.bordered ? props.theme && props.theme[props.flavor] ? "background-color:" + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "background-color:" + props.defaultTheme[props.flavor].background.color + ";" : "background-color: #f4f4f4;" : props.theme && props.theme[props.flavor] ? "border: 1px solid " + props.theme[props.flavor].background.color + ";" : props.defaultTheme[props.flavor] ? "border: 1px solid " + props.defaultTheme[props.flavor].background.color + ";" : "border: 1px solid #aaa;";
 }, function (props) {
   return props.bordered ? "background-color: #f4f4f4;" : "";
-}, function (props) {
-  return !props.bordered ? props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.color : "#444" : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
 });
 var NCardContainer = styled("div", props)(_templateObject4());
 var Card = {

@@ -23,13 +23,17 @@
         <button-container>
           <increment-button
             @keydown.space="increment($event, 'lowerValue')"
-            @click="increment($event, 'lowerValue')"
+            @mousedown="startIncrement($event, 'lowerValue')"
+            @mouseup="stopIncrement()"
+            @mouseleave="stopIncrement()"
           >
             <span>&#8250;</span>
           </increment-button>
           <decrement-button
             @keydown.space="decrement($event, 'lowerValue')"
-            @click="decrement($event, 'lowerValue')"
+            @mousedown="startDecrement($event, 'lowerValue')"
+            @mouseup="stopDecrement()"
+            @mouseleave="stopDecrement()"
           >
             <span>&#8250;</span>
           </decrement-button>
@@ -60,13 +64,17 @@
         <button-container>
           <increment-button
             @keydown.space="increment($event, 'upperValue')"
-            @click="increment($event, 'upperValue')"
+            @mousedown="startIncrement($event, 'upperValue')"
+            @mouseup="stopIncrement()"
+            @mouseleave="stopIncrement()"
           >
             <span>&#8250;</span>
           </increment-button>
           <decrement-button
             @keydown.space="decrement($event, 'upperValue')"
-            @click="decrement($event, 'upperValue')"
+            @mousedown="startDecrement($event, 'upperValue')"
+            @mouseup="stopDecrement()"
+            @mouseleave="stopDecrement()"
           >
             <span>&#8250;</span>
           </decrement-button>
@@ -172,6 +180,8 @@ export const NumberRange = {
     return {
       lowerValue: 0,
       upperValue: 0,
+      incrementID: 0,
+      decrementID: 0,
       internalSteps: []
     };
   },
@@ -295,6 +305,16 @@ export const NumberRange = {
   },
   beforeDestroy() {},
   methods: {
+    startIncrement(event, value) {
+      this.increment(event, value);
+      this.incrementID = setTimeout(() => {
+        this.incrementID = setInterval(() => this.increment(event, value), 60);
+      }, 60);
+    },
+    stopIncrement() {
+      clearTimeout(this.incrementID);
+      clearInterval(this.incrementID);
+    },
     increment(event, value) {
       event.preventDefault();
       if (this[value] == this.max) {
@@ -310,6 +330,16 @@ export const NumberRange = {
         this[value] += parseFloat(this.internalSteps[0]);
       }
       this.validateValue();
+    },
+    startDecrement(event, value) {
+      this.decrement(event, value);
+      this.decrementID = setTimeout(() => {
+        this.decrementID = setInterval(() => this.decrement(event, value), 60);
+      }, 60);
+    },
+    stopDecrement() {
+      clearTimeout(this.decrementID);
+      clearInterval(this.decrementID);
     },
     decrement(event, value) {
       event.preventDefault();
