@@ -1,6 +1,12 @@
 import { action } from "@storybook/addon-actions";
 import { withA11y } from "@storybook/addon-a11y";
-import { withKnobs, text, object, boolean } from "@storybook/addon-knobs";
+import {
+  withKnobs,
+  text,
+  object,
+  array,
+  boolean
+} from "@storybook/addon-knobs";
 import {
   VueTable,
   TableHeader,
