@@ -333,25 +333,32 @@ export const VueTable = {
       }
     }
   },
+  mounted() {
+    this.internalSort = this.sort;
+  },
   methods: {
     sortBy(header) {
       if (!this.sortable) {
         return false;
       }
+      let proposedSort = "";
       if (this.internalSort == header) {
         if (this.internalSort.indexOf("-") == -1) {
-          this.internalSort = "-" + this.internalSort;
+          proposedSort = "-" + this.internalSort;
         } else {
-          this.internalSort = "";
+          proposedSort = "";
         }
       } else if (this.internalSort == "") {
-        this.internalSort = header;
+        proposedSort = header;
       } else if (this.internalSort == "-" + header) {
-        this.internalSort = "";
+        proposedSort = "";
       } else {
-        this.internalSort = header;
+        proposedSort = header;
       }
-      this.$emit("sort", this.internalSort);
+      if (this.sort == "") {
+        this.internalSort = proposedSort;
+      }
+      this.$emit("sort", proposedSort);
       this.$forceUpdate();
     },
     camelCaseToTitleCase(in_camelCaseString) {
