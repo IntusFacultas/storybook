@@ -24,7 +24,8 @@ export default {
 };
 
 const actionsData = {
-  onSort: action("@sort")
+  onSort: action("@sort"),
+  onSelect: action("@select")
 };
 
 export const Table = () => ({
@@ -54,6 +55,18 @@ export const Table = () => ({
     },
     sortable: {
       default: boolean("Sortable", false)
+    },
+    selectable: {
+      default: boolean("Selectable", false)
+    },
+    selectFlavor: {
+      default: text("Select Flavor", "Primary")
+    },
+    tableTitles: {
+      default: array("Table Titles", [])
+    },
+    selectHtml: {
+      default: text("Select HTML", "Select")
     },
     bordered: {
       default: boolean("Bordered", false)
@@ -92,18 +105,23 @@ export const Table = () => ({
   },
   template: `
         <vue-table 
-            :flavor="flavor"
-            :header-flavor="headerFlavor"
-            :striped="striped"
-            :text-align="textAlign"
-            :hover="hover"
-            :bordered="bordered"
-            :numbered="numbered"
-            :condensed="condensed"
-            :sortable="sortable"
-            :items="items"
-            @sort="onSort"
-            :headers="headers"></vue-table>
+          :table-titles="tableTitles"
+          :flavor="flavor"
+          :header-flavor="headerFlavor"
+          :striped="striped"
+          :text-align="textAlign"
+          :hover="hover"
+          :bordered="bordered"
+          :numbered="numbered"
+          :condensed="condensed"
+          :sortable="sortable"
+          :selectable="selectable"
+          :select-flavor="selectFlavor"
+          :select-html="selectHtml"
+          :items="items"
+          @sort="onSort"
+          @select="onSelect"
+          :headers="headers"></vue-table>
     `
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/table",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Provides a data-driven table component as well as components for the raw-table component",
   "main": "src/Table.vue",
   "browser": "dist/Table.esm.js",

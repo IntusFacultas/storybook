@@ -1,6 +1,22 @@
 <template>
   <n-table :flavor="flavor" :striped="striped">
     <table-headers>
+      <table-row v-for="(title, index) in tableTitles" :key="`title${index}`">
+        <table-header
+          :flavor="headerFlavor ? headerFlavor : flavor"
+          :condensed="condensed"
+          :bordered="bordered"
+          text-align="center"
+          :colspan="
+            numbered && selectable
+              ? tableHeaders.length + 2
+              : numbered || selectable
+              ? tableHeaders.length + 1
+              : tableHeaders.length
+          "
+          >{{ title }}</table-header
+        >
+      </table-row>
       <table-row>
         <table-header
           :flavor="headerFlavor ? headerFlavor : flavor"
@@ -8,7 +24,8 @@
           :bordered="bordered"
           :text-align="textAlign"
           v-if="numbered"
-        >#</table-header>
+          >#</table-header
+        >
         <table-header
           v-for="(header, index) in tableHeaders"
           :key="'header' + index"
@@ -37,7 +54,8 @@
           :bordered="bordered"
           :text-align="textAlign"
           v-if="selectable"
-        >&nbsp;</table-header>
+          >&nbsp;</table-header
+        >
       </table-row>
     </table-headers>
     <table-body>
@@ -46,13 +64,18 @@
         :key="'item' + index"
         :class="{ 'table-hoverable-row': hover }"
       >
-        <table-cell v-if="numbered" :flavor="flavor" :condensed="condensed" :bordered="bordered">
+        <table-cell
+          v-if="numbered"
+          :flavor="flavor"
+          :condensed="condensed"
+          :bordered="bordered"
+        >
           {{
-          item.data.id
-          ? item.data.id
-          : item.data.pk
-          ? item.data.pk
-          : index + 1
+            item.data.id
+              ? item.data.id
+              : item.data.pk
+              ? item.data.pk
+              : index + 1
           }}
         </table-cell>
         <table-cell
@@ -62,9 +85,19 @@
           :condensed="condensed"
           :bordered="bordered"
           :text-align="textAlign"
-        >{{ item.data[header.key] }}</table-cell>
-        <table-cell v-if="selectable" :flavor="flavor" :condensed="condensed" :bordered="bordered">
-          <n-button :small="condensed" :flavor="selectFlavor" @click="select(item)">
+          >{{ item.data[header.key] }}</table-cell
+        >
+        <table-cell
+          v-if="selectable"
+          :flavor="flavor"
+          :condensed="condensed"
+          :bordered="bordered"
+        >
+          <n-button
+            :small="condensed"
+            :flavor="selectFlavor"
+            @click="select(item)"
+          >
             <span v-html="selectHtml"></span>
           </n-button>
         </table-cell>
@@ -276,6 +309,12 @@ export const VueTable = {
       }
     },
     headers: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    tableTitles: {
       type: Array,
       default() {
         return [];

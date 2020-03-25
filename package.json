@@ -19,7 +19,7 @@
     "@IntusFacultas/number-range": "^1.1.11",
     "@IntusFacultas/select-me": "^1.3.10",
     "@IntusFacultas/sidebar": "^3.0.12",
-    "@IntusFacultas/table": "^1.1.0",
+    "@IntusFacultas/table": "^1.2.0",
     "@IntusFacultas/textarea": "^1.1.10",
     "@IntusFacultas/typography": "^2.0.10",
     "@vue/cli": "^4.2.2",
