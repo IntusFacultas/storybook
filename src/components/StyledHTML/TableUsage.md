@@ -121,6 +121,13 @@ The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
             <td>Displayed as raw html inside the select button</td>
         </tr>
         <tr>
+            <td>sort</td>
+            <td>`String`</td>
+            <td>`""`</td>
+            <td>Allows you to programmatically set the active sorting direction and column.
+            Expects a string matching the key to be sorted on. "-{key}" for descending, "{key}" for ascending.</td>
+        </tr>
+        <tr>
             <td>headerFlavor</td>
             <td>`String`</td>
             <td>`""`</td>

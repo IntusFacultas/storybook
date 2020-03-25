@@ -40,9 +40,9 @@
           <table-carat
             :flavor="headerFlavor ? headerFlavor : flavor"
             :class="
-              sort == header.key
+              internalSort == header.key
                 ? ''
-                : sort == '-' + header.key
+                : internalSort == '-' + header.key
                 ? 'table-open-carat'
                 : 'table-not-shown'
             "
@@ -250,13 +250,25 @@ export const VueTable = {
   },
   data() {
     return {
-      sort: ""
+      internalSort: ""
     };
+  },
+  watch: {
+    sort(newVal) {
+      if (newVal != this.internalSort) {
+        this.internalSort = newVal;
+        this.$forceUpdate();
+      }
+    }
   },
   props: {
     textAlign: {
       type: String,
       default: "left"
+    },
+    sort: {
+      type: String,
+      default: ""
     },
     headerFlavor: {
       type: String,
@@ -326,20 +338,20 @@ export const VueTable = {
       if (!this.sortable) {
         return false;
       }
-      if (this.sort == header) {
-        if (this.sort.indexOf("-") == -1) {
-          this.sort = "-" + this.sort;
+      if (this.internalSort == header) {
+        if (this.internalSort.indexOf("-") == -1) {
+          this.internalSort = "-" + this.internalSort;
         } else {
-          this.sort = "";
+          this.internalSort = "";
         }
-      } else if (this.sort == "") {
-        this.sort = header;
-      } else if (this.sort == "-" + header) {
-        this.sort = "";
+      } else if (this.internalSort == "") {
+        this.internalSort = header;
+      } else if (this.internalSort == "-" + header) {
+        this.internalSort = "";
       } else {
-        this.sort = "-" + header;
+        this.internalSort = header;
       }
-      this.$emit("sort", this.sort);
+      this.$emit("sort", this.internalSort);
       this.$forceUpdate();
     },
     camelCaseToTitleCase(in_camelCaseString) {

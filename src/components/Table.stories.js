@@ -47,6 +47,9 @@ export const Table = () => ({
     textAlign: {
       default: text("WebText Align", "left")
     },
+    sort: {
+      default: text("Sort", "")
+    },
     striped: {
       default: boolean("Striped", false)
     },
@@ -115,6 +118,7 @@ export const Table = () => ({
           :flavor="flavor"
           :header-flavor="headerFlavor"
           :striped="striped"
+          :sort="sort"
           :text-align="textAlign"
           :hover="hover"
           :bordered="bordered"
