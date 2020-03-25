@@ -24,7 +24,8 @@
     "vue-styled-components": "^1.4.14"
   },
   "keywords": [
-    "placeholder"
+    "placeholder",
+    "configurable"
   ],
   "author": "Pedro Del Moral Lopez",
   "license": "ISC",
