@@ -91,6 +91,9 @@ The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
     </thead>
     <tbody>
         <tr><td>flavor</td><td>`String`</td><td>`""`</td><td>Sets the flavor for the entire table</td></tr>
+        <tr><td>selectable</td><td>`Boolean`</td><td>`false`</td><td>When set to true, a column with a button for selecting the row will be added</td></tr>
+        <tr><td>selectFlavor</td><td>`String`</td><td>`"Primary"`</td><td>Controls the flavor of the select button</td></tr>
+        <tr><td>selectHtml</td><td>`String`</td><td>`"Select"`</td><td>Displayed as raw html inside the select button</td></tr>
         <tr><td>headerFlavor</td><td>`String`</td><td>`""`</td><td>Sets the flavor for the header (overrides base flavor)</td></tr>
         <tr><td>striped</td><td>`Boolean`</td><td>`false`</td><td>Stripes the `tbody` rows</td></tr>
         <tr><td>textAlign</td><td>`String`</td><td>`"left"`</td><td>Sets the text-align property for `th` and `td` cells</td></tr>
@@ -150,6 +153,12 @@ The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
             <td>`@sort`</td>
             <td>Sort attribute (in the form used by Django, so `-header` or `header`)</td>
             <td>Fired on click of a header</td>
+        </tr>
+        <tr>
+            <td>`select`</td>
+            <td>`@select`</td>
+            <td>The item data on that row</td>
+            <td>Fired on select button click</td>
         </tr>
     </tbody>
 </table>

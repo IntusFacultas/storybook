@@ -1,5 +1,6 @@
 import styled from 'vue-styled-components';
 import Theme from '@IntusFacultas/design-system';
+import { NButton } from '@IntusFacultas/button';
 
 function _taggedTemplateLiteral(strings, raw) {
   if (!raw) {
@@ -11,6 +12,78 @@ function _taggedTemplateLiteral(strings, raw) {
       value: Object.freeze(raw)
     }
   }));
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _createForOfIteratorHelper(o) {
+  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+      var i = 0;
+
+      var F = function () {};
+
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var it,
+      normalCompletion = true,
+      didErr = false,
+      err;
+  return {
+    s: function () {
+      it = o[Symbol.iterator]();
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
 }
 
 function _templateObject7() {
@@ -148,7 +221,8 @@ var VueTable = {
     TableRow: TableRow,
     TableHeader: TableHeader,
     TableCell: TableCell,
-    TableCarat: TableCarat
+    TableCarat: TableCarat,
+    NButton: NButton
   },
   data: function data() {
     return {
@@ -175,6 +249,18 @@ var VueTable = {
     hover: {
       type: Boolean,
       default: false
+    },
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    selectFlavor: {
+      type: String,
+      default: "Primary"
+    },
+    selectHtml: {
+      type: String,
+      default: "Select"
     },
     condensed: {
       type: Boolean,
@@ -268,12 +354,12 @@ var VueTable = {
 
         if (handledKeys.length == keys.length && titles.length == handledKeys.length) {
           var valid = true;
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
+
+          var _iterator = _createForOfIteratorHelper(handledKeys),
+              _step;
 
           try {
-            for (var _iterator = handledKeys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var key = _step.value;
 
               if (keys.indexOf(key) == -1) {
@@ -282,18 +368,9 @@ var VueTable = {
               }
             }
           } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
+            _iterator.e(err);
           } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
+            _iterator.f();
           }
 
           if (valid) {
@@ -514,7 +591,24 @@ var __vue_render__ = function() {
                   ],
                   1
                 )
-              })
+              }),
+              _vm._v(" "),
+              _vm.selectable
+                ? _c(
+                    "table-header",
+                    {
+                      attrs: {
+                        flavor: _vm.headerFlavor
+                          ? _vm.headerFlavor
+                          : _vm.flavor,
+                        condensed: _vm.condensed,
+                        bordered: _vm.bordered,
+                        "text-align": _vm.textAlign
+                      }
+                    },
+                    [_vm._v(" ")]
+                  )
+                : _vm._e()
             ],
             2
           )
@@ -544,13 +638,15 @@ var __vue_render__ = function() {
                     },
                     [
                       _vm._v(
-                        _vm._s(
-                          item.data.id
-                            ? item.data.id
-                            : item.data.pk
-                            ? item.data.pk
-                            : index + 1
-                        )
+                        "\n        " +
+                          _vm._s(
+                            item.data.id
+                              ? item.data.id
+                              : item.data.pk
+                              ? item.data.pk
+                              : index + 1
+                          ) +
+                          "\n      "
                       )
                     ]
                   )
@@ -570,7 +666,42 @@ var __vue_render__ = function() {
                   },
                   [_vm._v(_vm._s(item.data[header.key]))]
                 )
-              })
+              }),
+              _vm._v(" "),
+              _vm.selectable
+                ? _c(
+                    "table-cell",
+                    {
+                      attrs: {
+                        flavor: _vm.flavor,
+                        condensed: _vm.condensed,
+                        bordered: _vm.bordered
+                      }
+                    },
+                    [
+                      _c(
+                        "n-button",
+                        {
+                          attrs: {
+                            small: _vm.condensed,
+                            flavor: _vm.selectFlavor
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.select(item)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            domProps: { innerHTML: _vm._s(_vm.selectHtml) }
+                          })
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             2
           )
@@ -587,7 +718,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-29ba1314_0", { source: "\n.table-not-shown {\r\n  opacity: 0;\r\n  transform: rotate(45deg) !important;\n}\n.table-hoverable-row:hover {\r\n  background-color: rgba(0, 0, 0, 0.05);\n}\n.table-open-carat {\r\n  transform: rotate(135deg) !important;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Table\\src\\Table.vue"],"names":[],"mappings":";AAiWA;EACA,UAAA;EACA,mCAAA;AACA;AACA;EACA,qCAAA;AACA;AAEA;EACA,oCAAA;AACA","file":"Table.vue","sourcesContent":["<template>\r\n  <n-table :flavor=\"flavor\" :striped=\"striped\">\r\n    <table-headers>\r\n      <table-row>\r\n        <table-header\r\n          :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n          v-if=\"numbered\"\r\n          >#</table-header\r\n        >\r\n        <table-header\r\n          v-for=\"(header, index) in tableHeaders\"\r\n          :key=\"'header' + index\"\r\n          @click=\"sortBy(header.key)\"\r\n          :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n          :condensed=\"condensed\"\r\n          :sortable=\"sortable\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n        >\r\n          {{ header.text }}\r\n          <table-carat\r\n            :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n            :class=\"\r\n              sort == header.key\r\n                ? ''\r\n                : sort == '-' + header.key\r\n                ? 'table-open-carat'\r\n                : 'table-not-shown'\r\n            \"\r\n          ></table-carat>\r\n        </table-header>\r\n      </table-row>\r\n    </table-headers>\r\n    <table-body>\r\n      <table-row\r\n        v-for=\"(item, index) in items\"\r\n        :key=\"'item' + index\"\r\n        :class=\"{ 'table-hoverable-row': hover }\"\r\n      >\r\n        <table-cell\r\n          v-if=\"numbered\"\r\n          :flavor=\"flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          >{{\r\n            item.data.id\r\n              ? item.data.id\r\n              : item.data.pk\r\n              ? item.data.pk\r\n              : index + 1\r\n          }}</table-cell\r\n        >\r\n        <table-cell\r\n          v-for=\"header in tableHeaders\"\r\n          :key=\"'item' + index + 'key' + header.key\"\r\n          :flavor=\"flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n          >{{ item.data[header.key] }}</table-cell\r\n        >\r\n      </table-row>\r\n    </table-body>\r\n  </n-table>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\n\r\nconst props = {\r\n  flavor: String,\r\n  active: Boolean,\r\n  textAlign: {\r\n    type: String,\r\n    default: \"left\"\r\n  },\r\n  striped: Boolean,\r\n  bordered: Boolean,\r\n  sortable: Boolean,\r\n  hover: Boolean,\r\n  condensed: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NTable = styled(\"table\", props)`\r\n    & * {\r\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n        \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n        \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n    }\r\n    border-collapse: collapse;\r\n    width: 100%;\r\n    max-width: 100%;\r\n\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#fff\"};\r\n    ${props =>\r\n      props.striped\r\n        ? `\r\n             & > tbody > tr:nth-of-type(2n+1) > td {\r\n                background-color: rgba(0, 0, 0, .1);\r\n            }\r\n        `\r\n        : \"\"}\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    border-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#d9d9d9\"};\r\n`;\r\nexport const TableCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(-45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const TableHeaders = styled(\"thead\", props)``;\r\nexport const TableBody = styled(\"tbody\", props)``;\r\nexport const TableRow = styled(\"tr\", props)``;\r\nexport const TableHeader = styled(\"th\", props)`\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Old versions of Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    text-align: ${props => (props.textAlign ? props.textAlign : \"left\")};\r\n    ${props => (props.condensed ? `padding: .25rem;` : `padding: .5rem;`)}\r\n    ${props => (props.sortable ? `cursor: pointer;` : \"\")}\r\n    ${props =>\r\n      props.bordered\r\n        ? `border-width: 1px; border-style: solid;`\r\n        : `border-top-width: 1px; border-top-style: solid`}\r\n        border-bottom-width: 2px;\r\n    border-bottom-style: solid;\r\n    background-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.color\r\n        : \"#fff\"};\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    border-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#d9d9d9\"};\r\n`;\r\nexport const TableCell = styled(\"td\", props)`\r\n    ${props => (props.condensed ? `padding: .25rem;` : `padding: .5rem;`)}\r\n    text-align: ${props => (props.textAlign ? props.textAlign : \"left\")};\r\n    ${props =>\r\n      props.bordered\r\n        ? `border-width: 1px; border-style: solid;`\r\n        : `border-top-width: 1px; border-top-style: solid`}\r\n      border-color: ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#d9d9d9\"};\r\n`;\r\n\r\nexport const VueTable = {\r\n  components: {\r\n    NTable,\r\n    TableHeaders,\r\n    TableBody,\r\n    TableRow,\r\n    TableHeader,\r\n    TableCell,\r\n    TableCarat\r\n  },\r\n  data() {\r\n    return {\r\n      sort: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    textAlign: {\r\n      type: String,\r\n      default: \"left\"\r\n    },\r\n    headerFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    striped: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    hover: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    condensed: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    numbered: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    bordered: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    sortable: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    headers: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  methods: {\r\n    sortBy(header) {\r\n      if (!this.sortable) {\r\n        return false;\r\n      }\r\n      if (this.sort == header) {\r\n        if (this.sort.indexOf(\"-\") == -1) {\r\n          this.sort = \"-\" + this.sort;\r\n        } else {\r\n          this.sort = \"\";\r\n        }\r\n      } else if (this.sort == \"\") {\r\n        this.sort = header;\r\n      } else if (this.sort == \"-\" + header) {\r\n        this.sort = \"\";\r\n      } else {\r\n        this.sort = \"-\" + header;\r\n      }\r\n      this.$emit(\"sort\", this.sort);\r\n      this.$forceUpdate();\r\n    },\r\n    camelCaseToTitleCase(in_camelCaseString) {\r\n      // pulled from https://stackoverflow.com/questions/7225407/convert-camelcasetext-to-sentence-case-text/7225450\r\n      var result = in_camelCaseString // \"ToGetYourGEDInTimeASongAboutThe26ABCsIsOfTheEssenceButAPersonalIDCardForUser456InRoom26AContainingABC26TimesIsNotAsEasyAs123ForC3POOrR2D2Or2R2D\"\r\n        .replace(/([a-z])([A-Z][a-z])/g, \"$1 $2\") // \"To Get YourGEDIn TimeASong About The26ABCs IsOf The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times IsNot AsEasy As123ForC3POOrR2D2Or2R2D\"\r\n        .replace(/([A-Z][a-z])([A-Z])/g, \"$1 $2\") // \"To Get YourGEDIn TimeASong About The26ABCs Is Of The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([a-z])([A-Z]+[a-z])/g, \"$1 $2\") // \"To Get Your GEDIn Time ASong About The26ABCs Is Of The Essence But APersonal IDCard For User456In Room26AContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([A-Z]+)([A-Z][a-z][a-z])/g, \"$1 $2\") // \"To Get Your GEDIn Time A Song About The26ABCs Is Of The Essence But A Personal ID Card For User456In Room26A ContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([a-z]+)([A-Z0-9]+)/g, \"$1 $2\") // \"To Get Your GEDIn Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC26Times Is Not As Easy As 123For C3POOr R2D2Or 2R2D\"\r\n\r\n        // Note: the next regex includes a special case to exclude plurals of acronyms, e.g. \"ABCs\"\r\n        .replace(/([A-Z]+)([A-Z][a-rt-z][a-z]*)/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC26Times Is Not As Easy As 123For C3PO Or R2D2Or 2R2D\"\r\n        .replace(/([0-9])([A-Z][a-z]+)/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC 26Times Is Not As Easy As 123For C3PO Or R2D2Or 2R2D\"\r\n\r\n        // Note: the next two regexes use {2,} instead of + to add space on phrases like Room26A and 26ABCs but not on phrases like R2D2 and C3PO\"\r\n        .replace(/([A-Z]{2,})([0-9]{2,})/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456 In Room 26A Containing ABC 26 Times Is Not As Easy As 123 For C3PO Or R2D2 Or 2R2D\"\r\n        .replace(/([0-9]{2,})([A-Z]{2,})/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26 ABCs Is Of The Essence But A Personal ID Card For User 456 In Room 26A Containing ABC 26 Times Is Not As Easy As 123 For C3PO Or R2D2 Or 2R2D\"\r\n        .trim();\r\n\r\n      // capitalize the first letter\r\n      return result.charAt(0).toUpperCase() + result.slice(1);\r\n    },\r\n\r\n    toTitleCase(str) {\r\n      str = this.camelCaseToTitleCase(str);\r\n      str = str.replace(/_/g, \" \");\r\n      return str.replace(/(^|\\s)\\S/g, function(t) {\r\n        return t.toUpperCase();\r\n      });\r\n    }\r\n  },\r\n  computed: {\r\n    tableHeaders() {\r\n      let keys = Object.keys(this.items[0].data);\r\n      if (this.headers.length != 0) {\r\n        let handledKeys = this.headers.map(x => x.key);\r\n        let titles = this.headers.map(x => x.text);\r\n        if (\r\n          handledKeys.length == keys.length &&\r\n          titles.length == handledKeys.length\r\n        ) {\r\n          let valid = true;\r\n          for (let key of handledKeys) {\r\n            if (keys.indexOf(key) == -1) {\r\n              valid = false;\r\n              break;\r\n            }\r\n          }\r\n          if (valid) {\r\n            return this.headers;\r\n          }\r\n        }\r\n      }\r\n      let headers = [];\r\n      for (let key of keys) {\r\n        headers.push({\r\n          text: this.toTitleCase(key),\r\n          key\r\n        });\r\n      }\r\n      return headers;\r\n    }\r\n  }\r\n};\r\nexport default VueTable;\r\n</script>\r\n\r\n<style>\r\n.table-not-shown {\r\n  opacity: 0;\r\n  transform: rotate(45deg) !important;\r\n}\r\n.table-hoverable-row:hover {\r\n  background-color: rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n.table-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-5f891e3a_0", { source: "\n.table-not-shown {\r\n  opacity: 0;\r\n  transform: rotate(45deg) !important;\n}\n.table-hoverable-row:hover {\r\n  background-color: rgba(0, 0, 0, 0.05);\n}\n.table-open-carat {\r\n  transform: rotate(135deg) !important;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Table\\src\\Table.vue"],"names":[],"mappings":";AAoXA;EACA,UAAA;EACA,mCAAA;AACA;AACA;EACA,qCAAA;AACA;AAEA;EACA,oCAAA;AACA","file":"Table.vue","sourcesContent":["<template>\r\n  <n-table :flavor=\"flavor\" :striped=\"striped\">\r\n    <table-headers>\r\n      <table-row>\r\n        <table-header\r\n          :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n          v-if=\"numbered\"\r\n        >#</table-header>\r\n        <table-header\r\n          v-for=\"(header, index) in tableHeaders\"\r\n          :key=\"'header' + index\"\r\n          @click=\"sortBy(header.key)\"\r\n          :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n          :condensed=\"condensed\"\r\n          :sortable=\"sortable\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n        >\r\n          {{ header.text }}\r\n          <table-carat\r\n            :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n            :class=\"\r\n              sort == header.key\r\n                ? ''\r\n                : sort == '-' + header.key\r\n                ? 'table-open-carat'\r\n                : 'table-not-shown'\r\n            \"\r\n          ></table-carat>\r\n        </table-header>\r\n        <table-header\r\n          :flavor=\"headerFlavor ? headerFlavor : flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n          v-if=\"selectable\"\r\n        >&nbsp;</table-header>\r\n      </table-row>\r\n    </table-headers>\r\n    <table-body>\r\n      <table-row\r\n        v-for=\"(item, index) in items\"\r\n        :key=\"'item' + index\"\r\n        :class=\"{ 'table-hoverable-row': hover }\"\r\n      >\r\n        <table-cell v-if=\"numbered\" :flavor=\"flavor\" :condensed=\"condensed\" :bordered=\"bordered\">\r\n          {{\r\n          item.data.id\r\n          ? item.data.id\r\n          : item.data.pk\r\n          ? item.data.pk\r\n          : index + 1\r\n          }}\r\n        </table-cell>\r\n        <table-cell\r\n          v-for=\"header in tableHeaders\"\r\n          :key=\"'item' + index + 'key' + header.key\"\r\n          :flavor=\"flavor\"\r\n          :condensed=\"condensed\"\r\n          :bordered=\"bordered\"\r\n          :text-align=\"textAlign\"\r\n        >{{ item.data[header.key] }}</table-cell>\r\n        <table-cell v-if=\"selectable\" :flavor=\"flavor\" :condensed=\"condensed\" :bordered=\"bordered\">\r\n          <n-button :small=\"condensed\" :flavor=\"selectFlavor\" @click=\"select(item)\">\r\n            <span v-html=\"selectHtml\"></span>\r\n          </n-button>\r\n        </table-cell>\r\n      </table-row>\r\n    </table-body>\r\n  </n-table>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  active: Boolean,\r\n  textAlign: {\r\n    type: String,\r\n    default: \"left\"\r\n  },\r\n  striped: Boolean,\r\n  bordered: Boolean,\r\n  sortable: Boolean,\r\n  hover: Boolean,\r\n  condensed: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NTable = styled(\"table\", props)`\r\n    & * {\r\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n        \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n        \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n    }\r\n    border-collapse: collapse;\r\n    width: 100%;\r\n    max-width: 100%;\r\n\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#fff\"};\r\n    ${props =>\r\n      props.striped\r\n        ? `\r\n             & > tbody > tr:nth-of-type(2n+1) > td {\r\n                background-color: rgba(0, 0, 0, .1);\r\n            }\r\n        `\r\n        : \"\"}\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    border-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#d9d9d9\"};\r\n`;\r\nexport const TableCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(-45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const TableHeaders = styled(\"thead\", props)``;\r\nexport const TableBody = styled(\"tbody\", props)``;\r\nexport const TableRow = styled(\"tr\", props)``;\r\nexport const TableHeader = styled(\"th\", props)`\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Old versions of Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    text-align: ${props => (props.textAlign ? props.textAlign : \"left\")};\r\n    ${props => (props.condensed ? `padding: .25rem;` : `padding: .5rem;`)}\r\n    ${props => (props.sortable ? `cursor: pointer;` : \"\")}\r\n    ${props =>\r\n      props.bordered\r\n        ? `border-width: 1px; border-style: solid;`\r\n        : `border-top-width: 1px; border-top-style: solid`}\r\n        border-bottom-width: 2px;\r\n    border-bottom-style: solid;\r\n    background-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.color\r\n        : \"#fff\"};\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    border-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#d9d9d9\"};\r\n`;\r\nexport const TableCell = styled(\"td\", props)`\r\n    ${props => (props.condensed ? `padding: .25rem;` : `padding: .5rem;`)}\r\n    text-align: ${props => (props.textAlign ? props.textAlign : \"left\")};\r\n    ${props =>\r\n      props.bordered\r\n        ? `border-width: 1px; border-style: solid;`\r\n        : `border-top-width: 1px; border-top-style: solid`}\r\n      border-color: ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#d9d9d9\"};\r\n`;\r\n\r\nexport const VueTable = {\r\n  components: {\r\n    NTable,\r\n    TableHeaders,\r\n    TableBody,\r\n    TableRow,\r\n    TableHeader,\r\n    TableCell,\r\n    TableCarat,\r\n    NButton\r\n  },\r\n  data() {\r\n    return {\r\n      sort: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    textAlign: {\r\n      type: String,\r\n      default: \"left\"\r\n    },\r\n    headerFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    striped: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    hover: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    selectable: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    selectFlavor: {\r\n      type: String,\r\n      default: \"Primary\"\r\n    },\r\n    selectHtml: {\r\n      type: String,\r\n      default: \"Select\"\r\n    },\r\n    condensed: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    numbered: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    bordered: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    sortable: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    headers: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  methods: {\r\n    sortBy(header) {\r\n      if (!this.sortable) {\r\n        return false;\r\n      }\r\n      if (this.sort == header) {\r\n        if (this.sort.indexOf(\"-\") == -1) {\r\n          this.sort = \"-\" + this.sort;\r\n        } else {\r\n          this.sort = \"\";\r\n        }\r\n      } else if (this.sort == \"\") {\r\n        this.sort = header;\r\n      } else if (this.sort == \"-\" + header) {\r\n        this.sort = \"\";\r\n      } else {\r\n        this.sort = \"-\" + header;\r\n      }\r\n      this.$emit(\"sort\", this.sort);\r\n      this.$forceUpdate();\r\n    },\r\n    camelCaseToTitleCase(in_camelCaseString) {\r\n      // pulled from https://stackoverflow.com/questions/7225407/convert-camelcasetext-to-sentence-case-text/7225450\r\n      var result = in_camelCaseString // \"ToGetYourGEDInTimeASongAboutThe26ABCsIsOfTheEssenceButAPersonalIDCardForUser456InRoom26AContainingABC26TimesIsNotAsEasyAs123ForC3POOrR2D2Or2R2D\"\r\n        .replace(/([a-z])([A-Z][a-z])/g, \"$1 $2\") // \"To Get YourGEDIn TimeASong About The26ABCs IsOf The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times IsNot AsEasy As123ForC3POOrR2D2Or2R2D\"\r\n        .replace(/([A-Z][a-z])([A-Z])/g, \"$1 $2\") // \"To Get YourGEDIn TimeASong About The26ABCs Is Of The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([a-z])([A-Z]+[a-z])/g, \"$1 $2\") // \"To Get Your GEDIn Time ASong About The26ABCs Is Of The Essence But APersonal IDCard For User456In Room26AContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([A-Z]+)([A-Z][a-z][a-z])/g, \"$1 $2\") // \"To Get Your GEDIn Time A Song About The26ABCs Is Of The Essence But A Personal ID Card For User456In Room26A ContainingABC26Times Is Not As Easy As123ForC3POOr R2D2Or2R2D\"\r\n        .replace(/([a-z]+)([A-Z0-9]+)/g, \"$1 $2\") // \"To Get Your GEDIn Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC26Times Is Not As Easy As 123For C3POOr R2D2Or 2R2D\"\r\n\r\n        // Note: the next regex includes a special case to exclude plurals of acronyms, e.g. \"ABCs\"\r\n        .replace(/([A-Z]+)([A-Z][a-rt-z][a-z]*)/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC26Times Is Not As Easy As 123For C3PO Or R2D2Or 2R2D\"\r\n        .replace(/([0-9])([A-Z][a-z]+)/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456In Room 26A Containing ABC 26Times Is Not As Easy As 123For C3PO Or R2D2Or 2R2D\"\r\n\r\n        // Note: the next two regexes use {2,} instead of + to add space on phrases like Room26A and 26ABCs but not on phrases like R2D2 and C3PO\"\r\n        .replace(/([A-Z]{2,})([0-9]{2,})/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26ABCs Is Of The Essence But A Personal ID Card For User 456 In Room 26A Containing ABC 26 Times Is Not As Easy As 123 For C3PO Or R2D2 Or 2R2D\"\r\n        .replace(/([0-9]{2,})([A-Z]{2,})/g, \"$1 $2\") // \"To Get Your GED In Time A Song About The 26 ABCs Is Of The Essence But A Personal ID Card For User 456 In Room 26A Containing ABC 26 Times Is Not As Easy As 123 For C3PO Or R2D2 Or 2R2D\"\r\n        .trim();\r\n\r\n      // capitalize the first letter\r\n      return result.charAt(0).toUpperCase() + result.slice(1);\r\n    },\r\n\r\n    toTitleCase(str) {\r\n      str = this.camelCaseToTitleCase(str);\r\n      str = str.replace(/_/g, \" \");\r\n      return str.replace(/(^|\\s)\\S/g, function(t) {\r\n        return t.toUpperCase();\r\n      });\r\n    }\r\n  },\r\n  computed: {\r\n    tableHeaders() {\r\n      let keys = Object.keys(this.items[0].data);\r\n      if (this.headers.length != 0) {\r\n        let handledKeys = this.headers.map(x => x.key);\r\n        let titles = this.headers.map(x => x.text);\r\n        if (\r\n          handledKeys.length == keys.length &&\r\n          titles.length == handledKeys.length\r\n        ) {\r\n          let valid = true;\r\n          for (let key of handledKeys) {\r\n            if (keys.indexOf(key) == -1) {\r\n              valid = false;\r\n              break;\r\n            }\r\n          }\r\n          if (valid) {\r\n            return this.headers;\r\n          }\r\n        }\r\n      }\r\n      let headers = [];\r\n      for (let key of keys) {\r\n        headers.push({\r\n          text: this.toTitleCase(key),\r\n          key\r\n        });\r\n      }\r\n      return headers;\r\n    }\r\n  }\r\n};\r\nexport default VueTable;\r\n</script>\r\n\r\n<style>\r\n.table-not-shown {\r\n  opacity: 0;\r\n  transform: rotate(45deg) !important;\r\n}\r\n.table-hoverable-row:hover {\r\n  background-color: rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n.table-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */

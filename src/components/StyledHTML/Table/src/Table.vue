@@ -8,8 +8,7 @@
           :bordered="bordered"
           :text-align="textAlign"
           v-if="numbered"
-          >#</table-header
-        >
+        >#</table-header>
         <table-header
           v-for="(header, index) in tableHeaders"
           :key="'header' + index"
@@ -32,6 +31,13 @@
             "
           ></table-carat>
         </table-header>
+        <table-header
+          :flavor="headerFlavor ? headerFlavor : flavor"
+          :condensed="condensed"
+          :bordered="bordered"
+          :text-align="textAlign"
+          v-if="selectable"
+        >&nbsp;</table-header>
       </table-row>
     </table-headers>
     <table-body>
@@ -40,19 +46,15 @@
         :key="'item' + index"
         :class="{ 'table-hoverable-row': hover }"
       >
-        <table-cell
-          v-if="numbered"
-          :flavor="flavor"
-          :condensed="condensed"
-          :bordered="bordered"
-          >{{
-            item.data.id
-              ? item.data.id
-              : item.data.pk
-              ? item.data.pk
-              : index + 1
-          }}</table-cell
-        >
+        <table-cell v-if="numbered" :flavor="flavor" :condensed="condensed" :bordered="bordered">
+          {{
+          item.data.id
+          ? item.data.id
+          : item.data.pk
+          ? item.data.pk
+          : index + 1
+          }}
+        </table-cell>
         <table-cell
           v-for="header in tableHeaders"
           :key="'item' + index + 'key' + header.key"
@@ -60,8 +62,12 @@
           :condensed="condensed"
           :bordered="bordered"
           :text-align="textAlign"
-          >{{ item.data[header.key] }}</table-cell
-        >
+        >{{ item.data[header.key] }}</table-cell>
+        <table-cell v-if="selectable" :flavor="flavor" :condensed="condensed" :bordered="bordered">
+          <n-button :small="condensed" :flavor="selectFlavor" @click="select(item)">
+            <span v-html="selectHtml"></span>
+          </n-button>
+        </table-cell>
       </table-row>
     </table-body>
   </n-table>
@@ -70,7 +76,7 @@
 <script>
 import styled from "vue-styled-components";
 import Theme from "@IntusFacultas/design-system";
-
+import { NButton } from "@IntusFacultas/button";
 const props = {
   flavor: String,
   active: Boolean,
@@ -206,7 +212,8 @@ export const VueTable = {
     TableRow,
     TableHeader,
     TableCell,
-    TableCarat
+    TableCarat,
+    NButton
   },
   data() {
     return {
@@ -233,6 +240,18 @@ export const VueTable = {
     hover: {
       type: Boolean,
       default: false
+    },
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    selectFlavor: {
+      type: String,
+      default: "Primary"
+    },
+    selectHtml: {
+      type: String,
+      default: "Select"
     },
     condensed: {
       type: Boolean,
