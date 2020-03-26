@@ -1,4 +1,4 @@
-var Placeholder = (function (exports) {
+var MenuMultiSelect = (function () {
   'use strict';
 
   function _typeof(obj) {
@@ -3076,8 +3076,732 @@ var Placeholder = (function (exports) {
 
   var styled = _styled(_styledComponent(_componentStyle(generateAlphabeticName)));
 
+  if (typeof Object.assign !== "function") {
+    // Must be writable: true, enumerable: false, configurable: true
+    Object.defineProperty(Object, "assign", {
+      value: function assign(target, varArgs) {
+
+        if (target === null || target === undefined) {
+          throw new TypeError("Cannot convert undefined or null to object");
+        }
+
+        var to = Object(target);
+
+        for (var index = 1; index < arguments.length; index++) {
+          var nextSource = arguments[index];
+
+          if (nextSource !== null && nextSource !== undefined) {
+            for (var nextKey in nextSource) {
+              // Avoid bugs when hasOwnProperty is shadowed
+              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                to[nextKey] = nextSource[nextKey];
+              }
+            }
+          }
+        }
+
+        return to;
+      },
+      writable: true,
+      configurable: true
+    });
+  }
+
+  var NIWSTheme = {
+    TASK: {
+      color: {
+        color: "#444444",
+        hover: "#FFFFFF",
+        focus: "#444444"
+      },
+      background: {
+        color: "#CBE6F7",
+        hover: "#51BAF4",
+        focus: "#CBE6F7"
+      },
+      border: {
+        color: "2px solid #CBE6F7",
+        hover: "2px solid #51BAF4",
+        focus: "2px solid #51BAF4"
+      }
+    },
+    REWORK: {
+      color: {
+        color: "#444444",
+        hover: "#FFFFFF",
+        focus: "#444444"
+      },
+      background: {
+        color: "#FFC364",
+        hover: "#ED9406",
+        focus: "#FFC364"
+      },
+      border: {
+        color: "2px solid #FFC364",
+        hover: "2px solid #ED9406",
+        focus: "2px solid #ED9406"
+      }
+    },
+    START: {
+      color: {
+        color: "#444444",
+        hover: "#FFFFFF",
+        focus: "#444444"
+      },
+      background: {
+        color: "#B7F7DC",
+        hover: "#2EE591",
+        focus: "#B7F7DC"
+      },
+      border: {
+        color: "2px solid #B7F7DC",
+        hover: "2px solid #2EE591",
+        focus: "2px solid #2EE591"
+      }
+    },
+    COMPLETE: {
+      color: {
+        color: "#444444",
+        hover: "#FFFFFF",
+        focus: "#444444"
+      },
+      background: {
+        color: "#E0CEF4",
+        hover: "#735D87",
+        focus: "#E0CEF4"
+      },
+      border: {
+        color: "2px solid #E0CEF4",
+        hover: "2px solid #735D87",
+        focus: "2px solid #735D87"
+      }
+    },
+    CANCEL: {
+      color: {
+        color: "#444444",
+        hover: "#FFFFFF",
+        focus: "#444444"
+      },
+      background: {
+        color: "#DDA8A8",
+        hover: "#964545",
+        focus: "#DDA8A8"
+      },
+      border: {
+        color: "2px solid #DDA8A8",
+        hover: "2px solid #964545",
+        focus: "2px solid #964545"
+      }
+    }
+  };
+  var Theme = {
+    Light: {
+      color: {
+        color: "#222",
+        hover: "#222",
+        focus: "#222"
+      },
+      background: {
+        color: "#f8f9fa",
+        hover: "#DDE4E9",
+        focus: "#f8f9fa"
+      },
+      border: {
+        color: "#DDE4E9",
+        hover: "#DDE4E9",
+        focus: "#DDE4E9"
+      }
+    },
+    Secondary: {
+      color: {
+        color: "#fff",
+        hover: "#fff",
+        focus: "#fff"
+      },
+      background: {
+        color: "#6c757d",
+        hover: "#525D67",
+        focus: "#6c757d"
+      },
+      border: {
+        color: "#525D67",
+        hover: "#525D67",
+        focus: "#525D67"
+      }
+    },
+    Dark: {
+      color: {
+        color: "#fff",
+        hover: "#fff",
+        focus: "#fff"
+      },
+      background: {
+        color: "#343a40",
+        hover: "#23272b",
+        focus: "#343a40"
+      },
+      border: {
+        color: "#4F575E",
+        hover: "#4F575E",
+        focus: "#4F575E"
+      }
+    },
+    Primary: {
+      color: {
+        color: "#fff",
+        focus: "#fff",
+        hover: "#fff"
+      },
+      background: {
+        color: "#4357AD",
+        hover: "#2940A1",
+        focus: "#4357AD"
+      },
+      border: {
+        color: "#2940A1",
+        hover: "#2940A1",
+        focus: "#2940A1"
+      }
+    },
+    Info: {
+      color: {
+        color: "#222",
+        focus: "#222",
+        hover: "#222"
+      },
+      background: {
+        color: "#58B0AE",
+        hover: "#36938F",
+        focus: "#58B0AE"
+      },
+      border: {
+        color: "#36938F",
+        hover: "#36938F",
+        focus: "#36938F"
+      }
+    },
+    Warning: {
+      color: {
+        color: "#222",
+        focus: "#222",
+        hover: "#222"
+      },
+      background: {
+        color: "#ED7D3A",
+        hover: "#D15A14",
+        focus: "#ED7D3A"
+      },
+      border: {
+        color: "#D15A14",
+        hover: "#D15A14",
+        focus: "#D15A14"
+      }
+    },
+    Danger: {
+      color: {
+        color: "#fff",
+        focus: "#fff",
+        hover: "#fff"
+      },
+      background: {
+        color: "#7C0002",
+        hover: "#560002",
+        focus: "#7C0002"
+      },
+      border: {
+        color: "#560002",
+        hover: "#560002",
+        focus: "#560002"
+      }
+    },
+    Success: {
+      color: {
+        color: "#fff",
+        focus: "#fff",
+        hover: "#fff"
+      },
+      background: {
+        color: "#0B7C40",
+        hover: "#00642E",
+        focus: "#0B7C40"
+      },
+      border: {
+        color: "#00642E",
+        hover: "#00642E",
+        focus: "#00642E"
+      }
+    },
+    LightBlue: {
+      color: {
+        color: "#222",
+        focus: "#222",
+        hover: "#222"
+      },
+      background: {
+        color: "#41BEE8",
+        hover: "#38a5ca",
+        focus: "#38a5ca"
+      },
+      border: {
+        color: "#38a5ca",
+        hover: "#38a5ca",
+        focus: "#38a5ca"
+      }
+    }
+  };
+  var AlertTheme = {
+    warning: Theme["Warning"],
+    danger: Theme["Danger"],
+    success: Theme["Success"],
+    info: Theme["Info"]
+  };
+  var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
+  var Theme$1 = Theme;
+
+  function _taggedTemplateLiteral$1(strings, raw) {
+    if (!raw) {
+      raw = strings.slice(0);
+    }
+
+    return Object.freeze(Object.defineProperties(strings, {
+      raw: {
+        value: Object.freeze(raw)
+      }
+    }));
+  }
+
+  function _templateObject() {
+    var data = _taggedTemplateLiteral$1(["\n  color: ", "\n        background-color: ", ";\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n"]);
+
+    _templateObject = function _templateObject() {
+      return data;
+    };
+
+    return data;
+  }
+
+  var props = {
+    flavor: String,
+    defaultTheme: {
+      type: Object,
+      default: function _default() {
+        return Theme$1;
+      }
+    }
+  };
+  var Badge = styled("div", props)(_templateObject(), function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.color ? props.defaultTheme[props.flavor].color.color : "#040404";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color : "#f0f0f0";
+  });
+
+  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+  /* server only */
+  , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+      createInjectorSSR = createInjector;
+      createInjector = shadowMode;
+      shadowMode = false;
+    } // Vue.extend constructor export interop.
+
+
+    var options = typeof script === 'function' ? script.options : script; // render functions
+
+    if (template && template.render) {
+      options.render = template.render;
+      options.staticRenderFns = template.staticRenderFns;
+      options._compiled = true; // functional template
+
+      if (isFunctionalTemplate) {
+        options.functional = true;
+      }
+    } // scopedId
+
+
+    if (scopeId) {
+      options._scopeId = scopeId;
+    }
+
+    var hook;
+
+    if (moduleIdentifier) {
+      // server build
+      hook = function hook(context) {
+        // 2.3 injection
+        context = context || // cached call
+        this.$vnode && this.$vnode.ssrContext || // stateful
+        this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+        // 2.2 with runInNewContext: true
+
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+          context = __VUE_SSR_CONTEXT__;
+        } // inject component styles
+
+
+        if (style) {
+          style.call(this, createInjectorSSR(context));
+        } // register component module identifier for async chunk inference
+
+
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      }; // used by ssr in case component is cached and beforeCreate
+      // never gets called
+
+
+      options._ssrRegister = hook;
+    } else if (style) {
+      hook = shadowMode ? function (context) {
+        style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+      } : function (context) {
+        style.call(this, createInjector(context));
+      };
+    }
+
+    if (hook) {
+      if (options.functional) {
+        // register for functional component in vue file
+        var originalRender = options.render;
+
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        // inject component registration as beforeCreate hook
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+
+    return script;
+  }
+  /* script */
+
+
+  var __vue_script__ = Badge;
+  /* template */
+
+  /* style */
+
+  var __vue_inject_styles__ = undefined;
+  /* scoped */
+
+  var __vue_scope_id__ = undefined;
+  /* module identifier */
+
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
+
+  var __vue_is_functional_template__ = undefined;
+  /* style inject */
+
+  /* style inject SSR */
+
+  /* style inject shadow dom */
+
+  var __vue_component__ = normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined); // Import vue component
+
+
+  var install = function installBadge(Vue) {
+    if (install.installed) return;
+    install.installed = true;
+    Vue.component("Badge", __vue_component__);
+  }; // Create module definition for Vue.use()
+
+
+  var plugin = {
+    install: install
+  }; // To auto-install when vue is found
+  // eslint-disable-next-line no-redeclare
+
+  /* global window, global */
+
+  var GlobalVue = null;
+
+  if (typeof window !== "undefined") {
+    GlobalVue = window.Vue;
+  } else if (typeof global !== "undefined") {
+    GlobalVue = global.Vue;
+  }
+
+  if (GlobalVue) {
+    GlobalVue.use(plugin);
+  } // Inject install function into component - allows component
+  // to be registered via Vue.use() as well as Vue.component()
+
+
+  __vue_component__.install = install; // Export component by default
+
+  function _taggedTemplateLiteral$2(strings, raw) {
+    if (!raw) {
+      raw = strings.slice(0);
+    }
+
+    return Object.freeze(Object.defineProperties(strings, {
+      raw: {
+        value: Object.freeze(raw)
+      }
+    }));
+  }
+
+  function _templateObject2() {
+    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: Segoe UI, sans-serif;\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+
+    _templateObject2 = function _templateObject2() {
+      return data;
+    };
+
+    return data;
+  }
+
+  function _templateObject$1() {
+    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+
+    _templateObject$1 = function _templateObject() {
+      return data;
+    };
+
+    return data;
+  }
+
+  var props$1 = {
+    flavor: String,
+    small: Boolean,
+    large: Boolean,
+    block: Boolean,
+    defaultTheme: {
+      type: Object,
+      default: function _default() {
+        return Theme$1;
+      }
+    }
+  };
+  var dialogProps = {
+    flavor: String,
+    small: Boolean,
+    large: Boolean,
+    block: Boolean,
+    dialogTheme: {
+      type: Object,
+      default: function _default() {
+        return Theme$1;
+      }
+    }
+  };
+  var DialogButton = styled("button", dialogProps)(_templateObject$1(), function (props) {
+    return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
+  }, function (props) {
+    return props.large ? "24px" : props.small ? "12px" : "16px";
+  }, function (props) {
+    return props.block ? "width: 100%;" : "";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].color.color ? props.dialogTheme[props.flavor].color.color : "#040404";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.color ? props.dialogTheme[props.flavor].background.color : "#f0f0f0";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color + "80" : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.color ? props.dialogTheme[props.flavor].background.color + "80" : "#ddcccc80";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.focus : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].color.focus ? props.dialogTheme[props.flavor].color.focus : "#000";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.hover : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.hover ? props.dialogTheme[props.flavor].background.hover : "#d5d5d5";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.hover : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].color.hover ? props.dialogTheme[props.flavor].color.hover : "#000";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.color ? props.dialogTheme[props.flavor].background.color : "#f0f0f0";
+  });
+  var NButton = styled("button", props$1)(_templateObject2(), function (props) {
+    return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
+  }, function (props) {
+    return props.large ? "24px" : props.small ? "12px" : "16px";
+  }, function (props) {
+    return props.block ? "width: 100%;" : "";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.color ? props.defaultTheme[props.flavor].color.color : "#040404";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color : "#f0f0f0";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color + "80" : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color + "80" : "#dcc";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.focus : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.focus ? props.defaultTheme[props.flavor].color.focus : "#000";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.hover : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.hover ? props.defaultTheme[props.flavor].background.hover : "#d5d5d5";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.hover : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].color.hover ? props.defaultTheme[props.flavor].color.hover : "#000";
+  }, function (props) {
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] && props.defaultTheme[props.flavor].background.color ? props.defaultTheme[props.flavor].background.color : "#f0f0f0";
+  });
+
+  function normalizeComponent$1(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+  /* server only */
+  , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+      createInjectorSSR = createInjector;
+      createInjector = shadowMode;
+      shadowMode = false;
+    } // Vue.extend constructor export interop.
+
+
+    var options = typeof script === 'function' ? script.options : script; // render functions
+
+    if (template && template.render) {
+      options.render = template.render;
+      options.staticRenderFns = template.staticRenderFns;
+      options._compiled = true; // functional template
+
+      if (isFunctionalTemplate) {
+        options.functional = true;
+      }
+    } // scopedId
+
+
+    if (scopeId) {
+      options._scopeId = scopeId;
+    }
+
+    var hook;
+
+    if (moduleIdentifier) {
+      // server build
+      hook = function hook(context) {
+        // 2.3 injection
+        context = context || // cached call
+        this.$vnode && this.$vnode.ssrContext || // stateful
+        this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+        // 2.2 with runInNewContext: true
+
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+          context = __VUE_SSR_CONTEXT__;
+        } // inject component styles
+
+
+        if (style) {
+          style.call(this, createInjectorSSR(context));
+        } // register component module identifier for async chunk inference
+
+
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      }; // used by ssr in case component is cached and beforeCreate
+      // never gets called
+
+
+      options._ssrRegister = hook;
+    } else if (style) {
+      hook = shadowMode ? function (context) {
+        style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+      } : function (context) {
+        style.call(this, createInjector(context));
+      };
+    }
+
+    if (hook) {
+      if (options.functional) {
+        // register for functional component in vue file
+        var originalRender = options.render;
+
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        // inject component registration as beforeCreate hook
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+
+    return script;
+  }
+  /* script */
+
+
+  var __vue_script__$1 = NButton;
+  /* template */
+
+  /* style */
+
+  var __vue_inject_styles__$1 = undefined;
+  /* scoped */
+
+  var __vue_scope_id__$1 = undefined;
+  /* module identifier */
+
+  var __vue_module_identifier__$1 = undefined;
+  /* functional template */
+
+  var __vue_is_functional_template__$1 = undefined;
+  /* style inject */
+
+  /* style inject SSR */
+
+  /* style inject shadow dom */
+
+  var __vue_component__$1 = normalizeComponent$1({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined); // Import vue component
+
+
+  var install$1 = function installNButton(Vue) {
+    if (install$1.installed) return;
+    install$1.installed = true;
+    Vue.component("NButton", NButton);
+  }; // Create module definition for Vue.use()
+
+
+  var plugin$1 = {
+    install: install$1
+  }; // To auto-install when vue is found
+  // eslint-disable-next-line no-redeclare
+
+  /* global window, global */
+
+  var GlobalVue$1 = null;
+
+  if (typeof window !== "undefined") {
+    GlobalVue$1 = window.Vue;
+  } else if (typeof global !== "undefined") {
+    GlobalVue$1 = global.Vue;
+  }
+
+  if (GlobalVue$1) {
+    GlobalVue$1.use(plugin$1);
+  } // Inject install function into component - allows component
+  // to be registered via Vue.use() as well as Vue.component()
+
+
+  NButton.install = install$1; // install function executed by Vue.use()
+
+  var dialogInstall = function installDialogButton(Vue) {
+    if (dialogInstall.installed) return;
+    dialogInstall.installed = true;
+    Vue.component("DialogButton", DialogButton);
+  }; // Create module definition for Vue.use()
+
+
+  var dialogPlugin = {
+    install: dialogInstall
+  }; // To auto-install when vue is found
+  // eslint-disable-next-line no-redeclare
+
+  /* global window, global */
+
+  if (typeof window !== "undefined") {
+    GlobalVue$1 = window.Vue;
+  } else if (typeof global !== "undefined") {
+    GlobalVue$1 = global.Vue;
+  }
+
+  if (GlobalVue$1) {
+    GlobalVue$1.use(dialogPlugin);
+  } // Inject install function into component - allows component
+  // to be registered via Vue.use() as well as Vue.component()
+
+
+  DialogButton.install = dialogInstall; // Export component by default
+
   function _templateObject4() {
-    var data = _taggedTemplateLiteral(["\n  width: calc(100% - 85px);\n  display: inline-block;\n"]);
+    var data = _taggedTemplateLiteral(["\n  color: #222;\n  display: flex;\n  user-select: none;\n  justify-content: space-between;\n  padding: 2px 5px;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n  cursor: pointer;\n  &:hover {\n    background-color: #fafafa;\n  }\n"]);
 
     _templateObject4 = function _templateObject4() {
       return data;
@@ -3087,7 +3811,7 @@ var Placeholder = (function (exports) {
   }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral(["\n  animation: shimmer 2.5s infinite;\n  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);\n  background-size: 1000px 100%;\n  height: ", ";\n  margin: 10px 10px;\n  border-radius: 8px;\n  width: ", ";\n"]);
+    var data = _taggedTemplateLiteral(["\n  width: 50%;\n  height: ", ";\n  overflow-y: auto;\n  border: 1px solid #dcdcdc;\n  border-radius: 4px;\n  padding: 5px 10px;\n  list-style-type: none;\n  background-color: white;\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3096,131 +3820,120 @@ var Placeholder = (function (exports) {
     return data;
   }
 
-  function _templateObject2() {
-    var data = _taggedTemplateLiteral(["\n  animation: shimmer 2.5s infinite;\n  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);\n  background-size: 1000px 100%;\n  height: 10px;\n  display: inline-block;\n  margin: 10px 0px;\n  border-radius: 8px;\n  width: ", "%;\n"]);
+  function _templateObject2$1() {
+    var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  & * {\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  }\n  padding: 10px 10px;\n"]);
 
-    _templateObject2 = function _templateObject2() {
+    _templateObject2$1 = function _templateObject2() {
       return data;
     };
 
     return data;
   }
 
-  function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  height: ", ";\n  padding: 15px;\n"]);
+  function _templateObject$2() {
+    var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n\n  justify-content: center;\n  margin: 16px 5px;\n  padding: 5px 0px;\n  & button {\n    margin: 5px 0px;\n  }\n"]);
 
-    _templateObject = function _templateObject() {
+    _templateObject$2 = function _templateObject() {
       return data;
     };
 
     return data;
   }
-  var props = {
-    height: {
-      type: String,
-      default: "50px"
-    },
-    width: {
-      type: [String, Number],
-      default: "50px"
+  var props$2 = {
+    flavor: String,
+    height: String,
+    defaultTheme: {
+      type: Object,
+      default: function _default() {
+        return Theme$1;
+      }
     }
   };
-  var PlaceholderContainer = styled("div", props)(_templateObject(), function (props) {
+  var MenuButtons = styled.div(_templateObject$2());
+  var MenuContainer = styled.div(_templateObject2$1());
+  var MultiMenu = styled("ul", props$2)(_templateObject3(), function (props) {
     return props.height;
   });
-  var PlaceholderLine = styled("div", props)(_templateObject2(), function (props) {
-    return props.width;
-  });
-  var PlaceholderPicture = styled("div", props)(_templateObject3(), function (props) {
-    return props.height;
-  }, function (props) {
-    return props.width;
-  });
-  var ParagraphLineHolder = styled.div(_templateObject4());
-  var PlaceholderParagraph = {
+  var MenuItem = styled.li(_templateObject4());
+  var MenuMultiSelect = {
     components: {
-      PlaceholderLine: PlaceholderLine,
-      PlaceholderPicture: PlaceholderPicture,
-      ParagraphLineHolder: ParagraphLineHolder
-    },
-    methods: {
-      getWidth: function getWidth() {
-        return Math.random() * (100 - 85) + 85;
-      }
-    },
-    template: "\n    <div>\n        <div>\n            <placeholder-picture height=\"78px\" width=\"60px\" class=\"paragraph\"></placeholder-picture>\n            <paragraph-line-holder>\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\n            </paragraph-line-holder>\n        </div>\n        <placeholder-line :width=\"getWidth()\"></placeholder-line>\n        <placeholder-line :width=\"getWidth()\"></placeholder-line>\n    </div>\n    "
-  };
-  var Placeholder = {
-    components: {
-      PlaceholderContainer: PlaceholderContainer,
-      PlaceholderLine: PlaceholderLine,
-      PlaceholderParagraph: PlaceholderParagraph
+      MenuContainer: MenuContainer,
+      MultiMenu: MultiMenu,
+      MenuItem: MenuItem,
+      Badge: __vue_component__,
+      MenuButtons: MenuButtons,
+      NButton: NButton
     },
     data: function data() {
       return {
-        PLACEHOLDER_LINE_HEIGHT: 30,
-        PARAGRAPH_HEIGHT: 170,
-        PADDING_BUFFER: 30,
-        internals: {
-          paragraphs: 0,
-          lines: 0
-        }
+        internalValue: []
       };
     },
-    props: {
-      height: {
-        type: String,
-        default: "50px"
-      },
-      paragraphs: {
-        type: Boolean,
-        default: true
+    watch: {
+      value: function value(newVal) {
+        this.internalValue = newVal;
       }
     },
-    watch: {
-      height: function height() {
-        var _this = this;
-
-        this.$nextTick(function () {
-          _this.internals = _this.calculateInternals();
-
-          _this.$forceUpdate();
-        });
+    props: {
+      flavor: {
+        type: String,
+        default: ""
+      },
+      value: {
+        type: Array,
+        default: function _default() {
+          return [];
+        }
+      },
+      height: {
+        type: String,
+        default: function _default() {
+          return "100px";
+        }
+      },
+      items: {
+        type: Array,
+        default: function _default() {
+          return [];
+        }
       }
     },
     mounted: function mounted() {
-      var _this2 = this;
-
-      this.$nextTick(function () {
-        _this2.internals = _this2.calculateInternals();
-      });
+      this.internalValue = this.value;
     },
     methods: {
-      getWidth: function getWidth() {
-        return Math.random() * (100 - 85) + 85;
+      select: function select(item) {
+        this.internalValue.push(item);
+        this.$emit("change", this.internalValue);
       },
-      calculateInternals: function calculateInternals() {
-        var availableSpace = this.$refs.container.$el.scrollHeight - this.PADDING_BUFFER;
-
-        if (!this.paragraphs) {
-          return {
-            paragraphs: 0,
-            lines: parseInt(availableSpace / this.PLACEHOLDER_LINE_HEIGHT)
-          };
-        } else {
-          var maxParagraphs = parseInt(availableSpace / this.PARAGRAPH_HEIGHT);
-          var remainingSpace = parseInt(availableSpace % this.PARAGRAPH_HEIGHT / this.PLACEHOLDER_LINE_HEIGHT);
-          return {
-            paragraphs: maxParagraphs,
-            lines: remainingSpace
-          };
-        }
+      deselect: function deselect(item) {
+        this.internalValue.splice(this.internalValue.map(function (x) {
+          return x.value;
+        }).indexOf(item.value), 1);
+        this.$emit("change", this.internalValue);
+      },
+      selectAll: function selectAll() {
+        this.internalValue = this.items.slice();
+        this.$emit("change", this.internalValue);
+      },
+      deselectAll: function deselectAll() {
+        this.internalValue = [];
+        this.$emit("change", this.internalValue);
       }
     },
-    computed: {}
+    computed: {
+      computedItems: function computedItems() {
+        var mappedInternals = this.internalValue.map(function (x) {
+          return x.value;
+        });
+        return this.items.filter(function (x) {
+          return mappedInternals.indexOf(x.value) == -1;
+        });
+      }
+    }
   };
 
-  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+  function normalizeComponent$2(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
   , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
@@ -3359,7 +4072,7 @@ var Placeholder = (function (exports) {
   }
 
   /* script */
-  const __vue_script__ = Placeholder;
+  const __vue_script__$2 = MenuMultiSelect;
 
   /* template */
   var __vue_render__ = function() {
@@ -3367,53 +4080,177 @@ var Placeholder = (function (exports) {
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
     return _c(
-      "placeholder-container",
-      { ref: "container", attrs: { height: _vm.height } },
+      "menu-container",
       [
-        _vm._l(_vm.internals.paragraphs, function(paragraph, paragraphIndex) {
-          return _c("placeholder-paragraph", {
-            key: "paragraph" + paragraphIndex
-          })
-        }),
+        _c(
+          "multi-menu",
+          { attrs: { height: _vm.height } },
+          _vm._l(_vm.computedItems, function(item, index) {
+            return _c(
+              "menu-item",
+              {
+                key: "selectable" + index,
+                attrs: { tabindex: "0", role: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.select(item)
+                  },
+                  keyup: [
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.select(item)
+                    },
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "space", 32, $event.key, [
+                          " ",
+                          "Spacebar"
+                        ])
+                      ) {
+                        return null
+                      }
+                      return _vm.select(item)
+                    }
+                  ]
+                }
+              },
+              [
+                _c("span"),
+                _vm._v(_vm._s(item.display) + "\n      "),
+                _c("badge", { attrs: { flavor: _vm.flavor } }, [_vm._v("❯")])
+              ],
+              1
+            )
+          }),
+          1
+        ),
         _vm._v(" "),
-        _vm._l(_vm.internals.lines, function(line, index) {
-          return _c("placeholder-line", {
-            key: index,
-            attrs: { width: _vm.getWidth() }
-          })
-        })
+        _c(
+          "menu-buttons",
+          [
+            _c(
+              "n-button",
+              {
+                staticClass: "menu-multi-select-flipped",
+                attrs: { flavor: _vm.flavor, small: true },
+                on: {
+                  click: function($event) {
+                    return _vm.selectAll()
+                  }
+                }
+              },
+              [_vm._v("❮❮")]
+            ),
+            _vm._v(" "),
+            _c(
+              "n-button",
+              {
+                attrs: { flavor: _vm.flavor, small: true },
+                on: {
+                  click: function($event) {
+                    return _vm.deselectAll()
+                  }
+                }
+              },
+              [_vm._v("❮❮")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "multi-menu",
+          { attrs: { height: _vm.height } },
+          _vm._l(_vm.internalValue, function(item, index) {
+            return _c(
+              "menu-item",
+              {
+                key: "selected" + index,
+                attrs: { role: "button", tabindex: "0" },
+                on: {
+                  click: function($event) {
+                    return _vm.deselect(item)
+                  },
+                  keyup: [
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.deselect(item)
+                    },
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "space", 32, $event.key, [
+                          " ",
+                          "Spacebar"
+                        ])
+                      ) {
+                        return null
+                      }
+                      return _vm.deselect(item)
+                    }
+                  ]
+                }
+              },
+              [
+                _c(
+                  "badge",
+                  {
+                    staticClass: "menu-multi-select-flipped",
+                    attrs: { flavor: _vm.flavor }
+                  },
+                  [_vm._v("❯")]
+                ),
+                _vm._v(_vm._s(item.display) + " "),
+                _c("span")
+              ],
+              1
+            )
+          }),
+          1
+        )
       ],
-      2
+      1
     )
   };
   var __vue_staticRenderFns__ = [];
   __vue_render__._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__ = function (inject) {
+    const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-4177adff_0", { source: "\n@keyframes shimmer {\n0% {\r\n    background-position: -1000px 0;\n}\n100% {\r\n    background-position: 1000px 0;\n}\n}\n.paragraph {\r\n  display: inline-block;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Placeholder\\src\\Placeholder.vue"],"names":[],"mappings":";AAwIA;AACA;IACA,8BAAA;AACA;AACA;IACA,6BAAA;AACA;AACA;AACA;EACA,qBAAA;AACA","file":"Placeholder.vue","sourcesContent":["<template>\r\n  <placeholder-container ref=\"container\" :height=\"height\">\r\n    <placeholder-paragraph\r\n      v-for=\"(paragraph, paragraphIndex) in internals.paragraphs\"\r\n      :key=\"`paragraph${paragraphIndex}`\"\r\n    ></placeholder-paragraph>\r\n    <placeholder-line v-for=\"(line, index) in internals.lines\" :key=\"index\" :width=\"getWidth()\"></placeholder-line>\r\n  </placeholder-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\n\r\nconst props = {\r\n  height: {\r\n    type: String,\r\n    default: \"50px\"\r\n  },\r\n  width: {\r\n    type: [String, Number],\r\n    default: \"50px\"\r\n  }\r\n};\r\nconst PlaceholderContainer = styled(\"div\", props)`\r\n  height: ${props => props.height};\r\n  padding: 15px;\r\n`;\r\nconst PlaceholderLine = styled(\"div\", props)`\r\n  animation: shimmer 2.5s infinite;\r\n  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);\r\n  background-size: 1000px 100%;\r\n  height: 10px;\r\n  display: inline-block;\r\n  margin: 10px 0px;\r\n  border-radius: 8px;\r\n  width: ${props => props.width}%;\r\n`;\r\nexport const PlaceholderPicture = styled(\"div\", props)`\r\n  animation: shimmer 2.5s infinite;\r\n  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);\r\n  background-size: 1000px 100%;\r\n  height: ${props => props.height};\r\n  margin: 10px 10px;\r\n  border-radius: 8px;\r\n  width: ${props => props.width};\r\n`;\r\nexport const ParagraphLineHolder = styled.div`\r\n  width: calc(100% - 85px);\r\n  display: inline-block;\r\n`;\r\nconst PlaceholderParagraph = {\r\n  components: { PlaceholderLine, PlaceholderPicture, ParagraphLineHolder },\r\n  methods: {\r\n    getWidth() {\r\n      return Math.random() * (100 - 85) + 85;\r\n    }\r\n  },\r\n  template: `\r\n    <div>\r\n        <div>\r\n            <placeholder-picture height=\"78px\" width=\"60px\" class=\"paragraph\"></placeholder-picture>\r\n            <paragraph-line-holder>\r\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\r\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\r\n                <placeholder-line :width=\"getWidth()\" class=\"paragraph\"></placeholder-line>\r\n            </paragraph-line-holder>\r\n        </div>\r\n        <placeholder-line :width=\"getWidth()\"></placeholder-line>\r\n        <placeholder-line :width=\"getWidth()\"></placeholder-line>\r\n    </div>\r\n    `\r\n};\r\nexport const Placeholder = {\r\n  components: { PlaceholderContainer, PlaceholderLine, PlaceholderParagraph },\r\n  data() {\r\n    return {\r\n      PLACEHOLDER_LINE_HEIGHT: 30,\r\n      PARAGRAPH_HEIGHT: 170,\r\n      PADDING_BUFFER: 30,\r\n      internals: { paragraphs: 0, lines: 0 }\r\n    };\r\n  },\r\n  props: {\r\n    height: {\r\n      type: String,\r\n      default: \"50px\"\r\n    },\r\n    paragraphs: {\r\n      type: Boolean,\r\n      default: true\r\n    }\r\n  },\r\n  watch: {\r\n    height() {\r\n      this.$nextTick(() => {\r\n        this.internals = this.calculateInternals();\r\n        this.$forceUpdate();\r\n      });\r\n    }\r\n  },\r\n  mounted() {\r\n    this.$nextTick(() => {\r\n      this.internals = this.calculateInternals();\r\n    });\r\n  },\r\n  methods: {\r\n    getWidth() {\r\n      return Math.random() * (100 - 85) + 85;\r\n    },\r\n    calculateInternals() {\r\n      let availableSpace =\r\n        this.$refs.container.$el.scrollHeight - this.PADDING_BUFFER;\r\n      if (!this.paragraphs) {\r\n        return {\r\n          paragraphs: 0,\r\n          lines: parseInt(availableSpace / this.PLACEHOLDER_LINE_HEIGHT)\r\n        };\r\n      } else {\r\n        let maxParagraphs = parseInt(availableSpace / this.PARAGRAPH_HEIGHT);\r\n        let remainingSpace = parseInt(\r\n          (availableSpace % this.PARAGRAPH_HEIGHT) /\r\n            this.PLACEHOLDER_LINE_HEIGHT\r\n        );\r\n        return {\r\n          paragraphs: maxParagraphs,\r\n          lines: remainingSpace\r\n        };\r\n      }\r\n    }\r\n  },\r\n  computed: {}\r\n};\r\nexport default Placeholder;\r\n</script>\r\n\r\n<style>\r\n@keyframes shimmer {\r\n  0% {\r\n    background-position: -1000px 0;\r\n  }\r\n  100% {\r\n    background-position: 1000px 0;\r\n  }\r\n}\r\n.paragraph {\r\n  display: inline-block;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-d2de85f0_0", { source: "\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\MenuMultiSelect\\src\\MenuMultiSelect.vue"],"names":[],"mappings":";AAqLA;EACA,yBAAA;AACA","file":"MenuMultiSelect.vue","sourcesContent":["<template>\r\n  <menu-container>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        tabindex=\"0\"\r\n        role=\"button\"\r\n        v-for=\"(item, index) in computedItems\"\r\n        @click=\"select(item)\"\r\n        @keyup.enter=\"select(item)\"\r\n        @keyup.space=\"select(item)\"\r\n        :key=\"`selectable${index}`\"\r\n        ><span></span>{{ item.display }}\r\n        <badge :flavor=\"flavor\">&#x276F;</badge>\r\n      </menu-item>\r\n    </multi-menu>\r\n    <menu-buttons>\r\n      <n-button\r\n        @click=\"selectAll()\"\r\n        :flavor=\"flavor\"\r\n        :small=\"true\"\r\n        class=\"menu-multi-select-flipped\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n      <n-button @click=\"deselectAll()\" :flavor=\"flavor\" :small=\"true\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n    </menu-buttons>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        role=\"button\"\r\n        tabindex=\"0\"\r\n        @click=\"deselect(item)\"\r\n        @keyup.enter=\"deselect(item)\"\r\n        @keyup.space=\"deselect(item)\"\r\n        v-for=\"(item, index) in internalValue\"\r\n        :key=\"`selected${index}`\"\r\n        ><badge class=\"menu-multi-select-flipped\" :flavor=\"flavor\"\r\n          >&#x276F;</badge\r\n        >{{ item.display }} <span></span\r\n      ></menu-item>\r\n    </multi-menu>\r\n  </menu-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport Badge from \"@IntusFacultas/badge\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  height: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst MenuButtons = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  justify-content: center;\r\n  margin: 16px 5px;\r\n  padding: 5px 0px;\r\n  & button {\r\n    margin: 5px 0px;\r\n  }\r\n`;\r\nconst MenuContainer = styled.div`\r\n  display: flex;\r\n  justify-content: space-between;\r\n  & * {\r\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  }\r\n  padding: 10px 10px;\r\n`;\r\nconst MultiMenu = styled(\"ul\", props)`\r\n  width: 50%;\r\n  height: ${props => props.height};\r\n  overflow-y: auto;\r\n  border: 1px solid #dcdcdc;\r\n  border-radius: 4px;\r\n  padding: 5px 10px;\r\n  list-style-type: none;\r\n  background-color: white;\r\n`;\r\nconst MenuItem = styled.li`\r\n  color: #222;\r\n  display: flex;\r\n  user-select: none;\r\n  justify-content: space-between;\r\n  padding: 2px 5px;\r\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\r\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\r\n  cursor: pointer;\r\n  &:hover {\r\n    background-color: #fafafa;\r\n  }\r\n`;\r\nexport const MenuMultiSelect = {\r\n  components: {\r\n    MenuContainer,\r\n    MultiMenu,\r\n    MenuItem,\r\n    Badge,\r\n    MenuButtons,\r\n    NButton\r\n  },\r\n  data() {\r\n    return {\r\n      internalValue: []\r\n    };\r\n  },\r\n  watch: {\r\n    value(newVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    height: {\r\n      type: String,\r\n      default() {\r\n        return \"100px\";\r\n      }\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    this.internalValue = this.value;\r\n  },\r\n  methods: {\r\n    select(item) {\r\n      this.internalValue.push(item);\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselect(item) {\r\n      this.internalValue.splice(\r\n        this.internalValue.map(x => x.value).indexOf(item.value),\r\n        1\r\n      );\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    selectAll() {\r\n      this.internalValue = this.items.slice();\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselectAll() {\r\n      this.internalValue = [];\r\n      this.$emit(\"change\", this.internalValue);\r\n    }\r\n  },\r\n  computed: {\r\n    computedItems() {\r\n      let mappedInternals = this.internalValue.map(x => x.value);\r\n      return this.items.filter(x => mappedInternals.indexOf(x.value) == -1);\r\n    }\r\n  }\r\n};\r\nexport default MenuMultiSelect;\r\n</script>\r\n\r\n<style>\r\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__ = undefined;
+    const __vue_scope_id__$2 = undefined;
     /* module identifier */
-    const __vue_module_identifier__ = undefined;
+    const __vue_module_identifier__$2 = undefined;
     /* functional template */
-    const __vue_is_functional_template__ = false;
+    const __vue_is_functional_template__$2 = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__ = normalizeComponent(
+    const __vue_component__$2 = normalizeComponent$2(
       { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-      __vue_inject_styles__,
-      __vue_script__,
-      __vue_scope_id__,
-      __vue_is_functional_template__,
-      __vue_module_identifier__,
+      __vue_inject_styles__$2,
+      __vue_script__$2,
+      __vue_scope_id__$2,
+      __vue_is_functional_template__$2,
+      __vue_module_identifier__$2,
       false,
       createInjector,
       undefined,
@@ -3421,58 +4258,40 @@ var Placeholder = (function (exports) {
     );
 
   // Import vue component
-  var components = [{
-    label: "Placeholder",
-    component: Placeholder
-  }, {
-    label: "PlaceholderPicture",
-    component: PlaceholderPicture
-  }];
-  var GlobalVue = null;
 
-  var _loop = function _loop() {
-    var component_obj = _components[_i];
-
-    // install function executed by Vue.use()
-    var install = function installComponent(Vue) {
-      if (install.installed) return;
-      install.installed = true;
-      Vue.component(component_obj.label, component_obj.component);
-    }; // Create module definition for Vue.use()
+  var install$2 = function installMenuMultiSelect(Vue) {
+    if (install$2.installed) return;
+    install$2.installed = true;
+    Vue.component("MenuMultiSelect", __vue_component__$2);
+  }; // Create module definition for Vue.use()
 
 
-    var plugin = {
-      install: install
-    }; // To auto-install when vue is found
-    // eslint-disable-next-line no-redeclare
+  var plugin$2 = {
+    install: install$2
+  }; // To auto-install when vue is found
+  // eslint-disable-next-line no-redeclare
 
-    /* global window, global */
+  /* global window, global */
 
-    if (typeof window !== "undefined") {
-      GlobalVue = window.Vue;
-    } else if (typeof global !== "undefined") {
-      GlobalVue = global.Vue;
-    }
+  var GlobalVue$2 = null;
 
-    if (GlobalVue) {
-      GlobalVue.use(plugin);
-    } // Inject install function into component - allows component
-    // to be registered via Vue.use() as well as Vue.component()
+  if (typeof window !== "undefined") {
+    GlobalVue$2 = window.Vue;
+  } else if (typeof global !== "undefined") {
+    GlobalVue$2 = global.Vue;
+  }
+
+  if (GlobalVue$2) {
+    GlobalVue$2.use(plugin$2);
+  } // Inject install function into component - allows component
+  // to be registered via Vue.use() as well as Vue.component()
 
 
-    component_obj.component.install = install;
-  };
-
-  for (var _i = 0, _components = components; _i < _components.length; _i++) {
-    _loop();
-  } // Export component by default
+  __vue_component__$2.install = install$2; // Export component by default
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 
-  exports.Placeholder = Placeholder;
-  exports.PlaceholderPicture = PlaceholderPicture;
+  return __vue_component__$2;
 
-  return exports;
-
-}({}));
-//# sourceMappingURL=Placeholder.iife.js.map
+}());
+//# sourceMappingURL=MenuMultiSelect.iife.js.map

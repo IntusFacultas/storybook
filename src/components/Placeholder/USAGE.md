@@ -61,7 +61,7 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <td>Controls the width of the placeholder</td>
         </tr>
         <tr>
-            <td>Paragraphs</td>
+            <td>paragraphs</td>
             <td>`Boolean`</td>
             <td>`true`</td>
             <td>When set to true, paragraphs will be included instead of just lines.<br><b>This does not affect the PlaceholderPicture component</b></td>

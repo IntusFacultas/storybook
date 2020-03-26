@@ -1,11 +1,11 @@
 {
-  "name": "@IntusFacultas/placeholder",
-  "version": "1.0.1",
-  "description": "A Facebook react style placeholder",
-  "main": "src/Placeholder.vue",
-  "browser": "dist/Placeholder.esm.js",
-  "module": "dist/Placeholder.esm.js",
-  "unpkg": "dist/Placeholder.iife.min.js",
+  "name": "@IntusFacultas/menu-multiselect",
+  "version": "1.0.0",
+  "description": "A parallel menu multi select",
+  "main": "src/MenuMultiSelect.vue",
+  "browser": "dist/MenuMultiSelect.esm.js",
+  "module": "dist/MenuMultiSelect.esm.js",
+  "unpkg": "dist/MenuMultiSelect.iife.min.js",
   "files": [
     "dist/*",
     "src/*.vue",
@@ -14,18 +14,21 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/IntusFacultas/NPM_REPO",
-    "directory": "packages/placeholder"
+    "directory": "packages/menu-multiselect"
   },
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@IntusFacultas/badge": "^2.0.5",
+    "@IntusFacultas/button": "^1.0.12",
+    "@IntusFacultas/design-system": "^1.5.7",
     "vue-styled-components": "^1.4.14"
   },
   "keywords": [
-    "placeholder",
-    "configurable"
+    "menu",
+    "multiselect"
   ],
   "author": "Pedro Del Moral Lopez",
   "license": "ISC",

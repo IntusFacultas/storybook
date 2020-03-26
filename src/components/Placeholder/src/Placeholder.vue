@@ -4,11 +4,7 @@
       v-for="(paragraph, paragraphIndex) in internals.paragraphs"
       :key="`paragraph${paragraphIndex}`"
     ></placeholder-paragraph>
-    <placeholder-line
-      v-for="(line, index) in internals.lines"
-      :key="index"
-      :width="getWidth()"
-    ></placeholder-line>
+    <placeholder-line v-for="(line, index) in internals.lines" :key="index" :width="getWidth()"></placeholder-line>
   </placeholder-container>
 </template>
 
@@ -21,7 +17,7 @@ const props = {
     default: "50px"
   },
   width: {
-    type: String,
+    type: [String, Number],
     default: "50px"
   }
 };
