@@ -114,7 +114,7 @@ export const WebSubCategoryTitle = () => ({
     <sub-category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subcategory title</sub-category-title>
   `
 });
-export const Keyword = () => ({
+export const WebKeyword = () => ({
   components: { Keyword },
   props: {
     flavor: {
