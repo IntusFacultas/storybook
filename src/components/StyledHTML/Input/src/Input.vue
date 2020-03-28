@@ -117,7 +117,7 @@ export const VueInput = {
     },
     pattern: {
       type: String,
-      default: ""
+      default: "*"
     },
     multiple: {
       type: Boolean,

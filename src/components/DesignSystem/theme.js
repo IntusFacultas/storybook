@@ -231,14 +231,14 @@ var Theme = {
       hover: "#fff"
     },
     background: {
-      color: "#7C0002",
-      hover: "#560002",
-      focus: "#7C0002"
+      color: "#A70004",
+      hover: "#820003",
+      focus: "#A70004"
     },
     border: {
-      color: "#560002",
-      hover: "#560002",
-      focus: "#560002"
+      color: "#820003",
+      hover: "#820003",
+      focus: "#820003"
     }
   },
   Success: {
