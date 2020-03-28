@@ -3671,6 +3671,9 @@ var Typography = (function (exports) {
   }, {
     label: "NLabel",
     component: NLabel
+  }, {
+    label: "WebLink",
+    component: WebLink
   }];
   var GlobalVue = null;
 
@@ -3722,6 +3725,7 @@ var Typography = (function (exports) {
   exports.SectionTitle = SectionTitle;
   exports.SubCategoryTitle = SubCategoryTitle;
   exports.SubSectionTitle = SubSectionTitle;
+  exports.WebLink = WebLink;
   exports.WebText = WebText;
 
   return exports;

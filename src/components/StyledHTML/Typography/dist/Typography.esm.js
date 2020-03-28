@@ -306,6 +306,9 @@ var components = [{
 }, {
   label: "NLabel",
   component: NLabel
+}, {
+  label: "WebLink",
+  component: WebLink
 }];
 var GlobalVue = null;
 
@@ -348,5 +351,5 @@ for (var _i = 0, _components = components; _i < _components.length; _i++) {
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
 
-export { CategoryTitle, Keyword, NLabel, NSmall, PageTitle, Paragraph, SectionTitle, SubCategoryTitle, SubSectionTitle, WebText };
+export { CategoryTitle, Keyword, NLabel, NSmall, PageTitle, Paragraph, SectionTitle, SubCategoryTitle, SubSectionTitle, WebLink, WebText };
 //# sourceMappingURL=Typography.esm.js.map

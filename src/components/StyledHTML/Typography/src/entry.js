@@ -8,7 +8,8 @@ import {
   WebText,
   Paragraph,
   NSmall,
-  NLabel
+  NLabel,
+  WebLink
 } from "./Typography.vue";
 
 let components = [
@@ -21,7 +22,8 @@ let components = [
   { label: "WebText", component: WebText },
   { label: "Paragraph", component: Paragraph },
   { label: "NSmall", component: NSmall },
-  { label: "NLabel", component: NLabel }
+  { label: "NLabel", component: NLabel },
+  { label: "WebLink", component: WebLink }
 ];
 
 let GlobalVue = null;
@@ -66,6 +68,7 @@ export {
   WebText,
   Paragraph,
   NSmall,
+  WebLink,
   NLabel
 };
 

@@ -1,10 +1,5 @@
 <template>
-  <navbar-container
-    :flavor="flavor"
-    ref="container"
-    :fixed="fixed"
-    :collapsed="collapsed"
-  >
+  <navbar-container :flavor="flavor" ref="container" :fixed="fixed" :collapsed="collapsed">
     <navbar-title ref="title" tabindex="1">
       <div v-html="title.html" class="navbar-brand"></div>
       <a :href="title.url ? title.url : '#'">{{ title.text }}</a>
@@ -16,8 +11,7 @@
       :flavor="flavor"
       @click="toggleAccordion"
       ref="hamburger"
-      >&#9776;</n-button
-    >
+    >&#9776;</n-button>
     <navbar-content-container :collapsed="collapsed" :open="open" ref="content">
       <navbar-content
         :style="computedStyle(leftItems.length)"
@@ -33,11 +27,10 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">
+            {{ item.text }}
+            <span v-html="item.html"></span>
+          </a>
           <vue-navbar-dropdown
             v-else
             :parent="instance"
@@ -64,11 +57,10 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">
+            {{ item.text }}
+            <span v-html="item.html"></span>
+          </a>
           <vue-navbar-dropdown
             v-else
             :parent="instance"
@@ -95,11 +87,10 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">
+            {{ item.text }}
+            <span v-html="item.html"></span>
+          </a>
           <vue-navbar-dropdown
             v-else
             :parent="instance"
