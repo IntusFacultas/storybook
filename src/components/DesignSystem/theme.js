@@ -214,14 +214,14 @@ var Theme = {
       hover: "#222"
     },
     background: {
-      color: "#FC5E00",
-      hover: "#E35500",
-      focus: "#FC5E00"
+      color: "#FFb354",
+      hover: "#EB972D",
+      focus: "#FFb354"
     },
     border: {
-      color: "#E35500",
-      hover: "#E35500",
-      focus: "#E35500"
+      color: "#EB972D",
+      hover: "#EB972D",
+      focus: "#EB972D"
     }
   },
   Danger: {
@@ -231,14 +231,14 @@ var Theme = {
       hover: "#fff"
     },
     background: {
-      color: "#A70004",
-      hover: "#820003",
-      focus: "#A70004"
+      color: "#C40005",
+      hover: "#9E0004",
+      focus: "#C40005"
     },
     border: {
-      color: "#820003",
-      hover: "#820003",
-      focus: "#820003"
+      color: "#9E0004",
+      hover: "#9E0004",
+      focus: "#9E0004"
     }
   },
   Success: {
