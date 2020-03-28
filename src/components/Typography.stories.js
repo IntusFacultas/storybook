@@ -46,7 +46,7 @@ export const Title = () => ({
     <page-title :flavor="flavor" :dark="dark" :bold="bold">This is a  title</page-title>
   `
 });
-export const SectionTitle = () => ({
+export const WebSectionTitle = () => ({
   components: { SectionTitle },
   props: {
     flavor: {
@@ -63,7 +63,7 @@ export const SectionTitle = () => ({
     <section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  section title</section-title>
   `
 });
-export const SubSectionTitle = () => ({
+export const WebSubSectionTitle = () => ({
   components: { SubSectionTitle },
   props: {
     flavor: {
@@ -80,7 +80,7 @@ export const SubSectionTitle = () => ({
     <sub-section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subsection title</sub-section-title>
   `
 });
-export const CategoryTitle = () => ({
+export const WebCategoryTitle = () => ({
   components: { CategoryTitle },
   props: {
     flavor: {
@@ -97,7 +97,7 @@ export const CategoryTitle = () => ({
     <category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  category title</category-title>
   `
 });
-export const SubCategoryTitle = () => ({
+export const WebSubCategoryTitle = () => ({
   components: { SubCategoryTitle },
   props: {
     flavor: {
