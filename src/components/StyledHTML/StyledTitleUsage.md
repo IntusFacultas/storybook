@@ -21,24 +21,20 @@ These components functions similarly to a normal HTML5 title tag. You can place 
 ## Available Components
 
 ```html
-<web-product-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-product-title
+<page-title :bold="bold" :flavor="flavor" :dark="dark">Lorem ipsum</page-title>
+<section-title :bold="bold" :flavor="flavor" :dark="dark"
+  >Lorem ipsum</section-title
 >
-<web-section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-section-title
+<sub-section-title :bold="bold" :flavor="flavor" :dark="dark"
+  >Lorem ipsum</sub-section-title
 >
-<web-sub-section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-sub-section-title
+<category-title :bold="bold" :flavor="flavor" :dark="dark"
+  >Lorem ipsum</category-title
 >
-<web-category-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-category-title
+<sub-category-title :bold="bold" :flavor="flavor" :dark="dark"
+  >Lorem ipsum</sub-category-title
 >
-<web-sub-category-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-sub-category-title
->
-<web-keyword :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-keyword
->
+<keyword :bold="bold" :flavor="flavor" :dark="dark">Lorem ipsum</keyword>
 ```
 
 ```javascript

@@ -1,6 +1,6 @@
 // import { action } from '@storybook/addon-actions';
 import {
-  WebText,
+  Text,
   NLabel,
   NSmall,
   Paragraph,
@@ -39,14 +39,14 @@ export const Title = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
     <page-title :flavor="flavor" :dark="dark" :bold="bold">This is a  title</page-title>
   `
 });
-export const WebSectionTitle = () => ({
+export const SectionTitle = () => ({
   components: { SectionTitle },
   props: {
     flavor: {
@@ -56,14 +56,14 @@ export const WebSectionTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
     <section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  section title</section-title>
   `
 });
-export const WebSubSectionTitle = () => ({
+export const SubSectionTitle = () => ({
   components: { SubSectionTitle },
   props: {
     flavor: {
@@ -73,14 +73,14 @@ export const WebSubSectionTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
     <sub-section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subsection title</sub-section-title>
   `
 });
-export const WebCategoryTitle = () => ({
+export const CategoryTitle = () => ({
   components: { CategoryTitle },
   props: {
     flavor: {
@@ -90,14 +90,14 @@ export const WebCategoryTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
     <category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  category title</category-title>
   `
 });
-export const WebSubCategoryTitle = () => ({
+export const SubCategoryTitle = () => ({
   components: { SubCategoryTitle },
   props: {
     flavor: {
@@ -107,14 +107,14 @@ export const WebSubCategoryTitle = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
     <sub-category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subcategory title</sub-category-title>
   `
 });
-export const WebKeyword = () => ({
+export const Keyword = () => ({
   components: { Keyword },
   props: {
     flavor: {
@@ -124,7 +124,7 @@ export const WebKeyword = () => ({
       default: boolean("Dark Mode", false)
     },
     bold: {
-      default: boolean("WebText Bold", false)
+      default: boolean("Text Bold", false)
     }
   },
   template: `
@@ -133,7 +133,7 @@ export const WebKeyword = () => ({
 });
 
 // body
-export const Text = () => ({
+export const WebText = () => ({
   components: { WebText },
   props: {
     dark: {
@@ -179,7 +179,7 @@ export const Small = () => ({
   template: `<n-small :flavor="flavor" :dark="dark">small</n-small>`
 });
 
-export const WebParagraph = () => ({
+export const Paragraph = () => ({
   components: { Paragraph },
   props: {
     size: {
