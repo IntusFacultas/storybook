@@ -21,25 +21,18 @@ These components functions similarly to a normal HTML5 title tag. You can place 
 ## Available Components
 
 ```html
-<page-title :bold="bold" :flavor="flavor" :dark="dark">Lorem ipsum</page-title>
-<section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</section-title
->
-<sub-section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</sub-section-title
->
-<category-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</category-title
->
-<sub-category-title :bold="bold" :flavor="flavor" :dark="dark"
+<page-title :bold="bold" :flavor="flavor">Lorem ipsum</page-title>
+<section-title :bold="bold" :flavor="flavor">Lorem ipsum</section-title>
+<sub-section-title :bold="bold" :flavor="flavor">Lorem ipsum</sub-section-title>
+<category-title :bold="bold" :flavor="flavor">Lorem ipsum</category-title>
+<sub-category-title :bold="bold" :flavor="flavor"
   >Lorem ipsum</sub-category-title
 >
-<keyword :bold="bold" :flavor="flavor" :dark="dark">Lorem ipsum</keyword>
+<keyword :bold="bold" :flavor="flavor">Lorem ipsum</keyword>
 ```
 
 ```javascript
 data: {
-    dark: false,
     flavor: "",
     bold: false,
 }
@@ -59,12 +52,6 @@ data: {
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>dark</td>
-            <td>`Boolean`</td>
-            <td>`false`</td>
-            <td>Sets the color of the text to dark mode.</td>
-        </tr>
         <tr>
             <td>flavor</td>
             <td>`String`</td>

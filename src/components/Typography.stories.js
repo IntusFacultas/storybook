@@ -1,6 +1,5 @@
 // import { action } from '@storybook/addon-actions';
 import {
-  Text,
   NLabel,
   NSmall,
   Paragraph,
@@ -9,6 +8,7 @@ import {
   SubSectionTitle,
   CategoryTitle,
   WebLink,
+  WebText,
   SubCategoryTitle,
   Keyword
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
@@ -36,15 +36,12 @@ export const Title = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <page-title :flavor="flavor" :dark="dark" :bold="bold">This is a  title</page-title>
+    <page-title :flavor="flavor" :bold="bold">This is a  title</page-title>
   `
 });
 export const WebSectionTitle = () => ({
@@ -53,15 +50,12 @@ export const WebSectionTitle = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  section title</section-title>
+    <section-title :flavor="flavor" :bold="bold">This is a  section title</section-title>
   `
 });
 export const WebSubSectionTitle = () => ({
@@ -70,15 +64,12 @@ export const WebSubSectionTitle = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <sub-section-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subsection title</sub-section-title>
+    <sub-section-title :flavor="flavor" :bold="bold">This is a  subsection title</sub-section-title>
   `
 });
 export const WebCategoryTitle = () => ({
@@ -87,15 +78,12 @@ export const WebCategoryTitle = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  category title</category-title>
+    <category-title :flavor="flavor" :bold="bold">This is a  category title</category-title>
   `
 });
 export const WebSubCategoryTitle = () => ({
@@ -104,15 +92,12 @@ export const WebSubCategoryTitle = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <sub-category-title :flavor="flavor" :dark="dark" :bold="bold">This is a  subcategory title</sub-category-title>
+    <sub-category-title :flavor="flavor" :bold="bold">This is a  subcategory title</sub-category-title>
   `
 });
 export const WebKeyword = () => ({
@@ -121,37 +106,34 @@ export const WebKeyword = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     bold: {
       default: boolean("Text Bold", false)
     }
   },
   template: `
-    <keyword :flavor="flavor" :dark="dark" :bold="bold">This is a  keyword</keyword>
+    <keyword :flavor="flavor" :bold="bold">This is a  keyword</keyword>
   `
 });
 
 // body
-export const WebText = () => ({
+export const Text = () => ({
   components: { WebText },
   props: {
-    dark: {
-      default: boolean("Dark Mode", false)
-    },
     flavor: {
       default: text("Flavor", "")
     },
     size: {
       default: number("Font Size", 14)
+    },
+    bold: {
+      default: boolean("Text Bold", false)
     }
   },
   /**
    * Size prop must be a Number, and controls the font size of the body
    * Any number less than 14 will be set to 14, and number greater than 16 will be set to 16
    */
-  template: `<web-text :flavor="flavor" :size="size" :dark="dark">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </web-text>`
+  template: `<web-text :bold="bold" :flavor="flavor" :size="size">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </web-text>`
 });
 
 export const Label = () => ({
@@ -160,11 +142,11 @@ export const Label = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
+    bold: {
+      default: boolean("Text Bold", false)
     }
   },
-  template: `<n-label :flavor="flavor" :dark="dark">Label</n-label>`
+  template: `<n-label :bold="bold" :flavor="flavor">Label</n-label>`
 });
 
 export const Link = () => ({
@@ -177,7 +159,7 @@ export const Link = () => ({
       default: boolean("Dark Mode", false)
     }
   },
-  template: `<web-link href="#" :flavor="flavor" :dark="dark">Label</web-link>`
+  template: `<web-link href="#" :flavor="flavor">Label</web-link>`
 });
 
 export const Small = () => ({
@@ -186,11 +168,11 @@ export const Small = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
+    bold: {
+      default: boolean("Text Bold", false)
     }
   },
-  template: `<n-small :flavor="flavor" :dark="dark">small</n-small>`
+  template: `<n-small :flavor="flavor">small</n-small>`
 });
 
 export const WebParagraph = () => ({
@@ -202,9 +184,9 @@ export const WebParagraph = () => ({
     flavor: {
       default: text("Flavor", "")
     },
-    dark: {
-      default: boolean("Dark Mode", false)
+    bold: {
+      default: boolean("Text Bold", false)
     }
   },
-  template: `<paragraph :flavor="flavor" :dark="dark" :size="size">paragraph</paragraph>`
+  template: `<paragraph :bold="bold" :flavor="flavor" :size="size">paragraph</paragraph>`
 });

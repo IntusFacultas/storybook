@@ -1,14 +1,13 @@
 <script>
 import styled from "vue-styled-components";
-import { TextTheme } from "@IntusFacultas/design-system";
+import Theme from "@IntusFacultas/design-system";
 const titleProps = {
-  dark: Boolean,
   bold: Boolean,
   flavor: String,
-  textTheme: {
+  defaultTheme: {
     type: Object,
     default: function() {
-      return TextTheme;
+      return Theme;
     }
   }
 };
@@ -22,13 +21,11 @@ export const PageTitle = styled("h1", titleProps)`
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
   color: ${props =>
-    props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};
-  ${props =>
-    props.flavor
-      ? props.textTheme[props.flavor]
-        ? "color " + props.textTheme[props.flavor].color + "!important"
-        : ""
-      : ""}
+    props.theme && props.theme[props.flavor]
+      ? props.theme[props.flavor].background.color
+      : props.defaultTheme[props.flavor]
+      ? props.defaultTheme[props.flavor].background.color
+      : "#444"};
 `;
 export const SectionTitle = PageTitle.withComponent("h2", titleProps);
 export const SubSectionTitle = PageTitle.withComponent("h3", titleProps);
@@ -41,11 +38,11 @@ const props = {
     type: Number,
     default: 15
   },
-  dark: Boolean,
-  textTheme: {
+  bold: Boolean,
+  defaultTheme: {
     type: Object,
     default: function() {
-      return TextTheme;
+      return Theme;
     }
   },
   flavor: String
@@ -60,16 +57,13 @@ export const WebText = styled("span", props)`
   font-weight: ${props => (props.bold ? "bold" : 500)};
   line-height: 1.571;
   color: ${props =>
-    props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};
+    props.theme && props.theme[props.flavor]
+      ? props.theme[props.flavor].background.color
+      : props.defaultTheme[props.flavor]
+      ? props.defaultTheme[props.flavor].background.color
+      : "#444"};
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  ${props =>
-    props.flavor
-      ? props.textTheme[props.flavor]
-        ? "color " + props.textTheme[props.flavor].color
-        : ""
-      : ""}
 `;
 export const Paragraph = WebText.withComponent("p", props);
 export const NSmall = styled("small", props)`
@@ -80,16 +74,13 @@ export const NSmall = styled("small", props)`
   font-weight: ${props => (props.bold ? "bold" : 500)};
   line-height: 1.571;
   color: ${props =>
-    props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};
+    props.theme && props.theme[props.flavor]
+      ? props.theme[props.flavor].background.color
+      : props.defaultTheme[props.flavor]
+      ? props.defaultTheme[props.flavor].background.color
+      : "#444"};
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  ${props =>
-    props.flavor
-      ? props.textTheme[props.flavor]
-        ? "color " + props.textTheme[props.flavor].color
-        : ""
-      : ""}
 `;
 export const NLabel = WebText.withComponent("label", props);
 export const WebLink = styled("a", props)`
@@ -111,8 +102,6 @@ export const WebLink = styled("a", props)`
   font-weight: bold;
   line-height: 1.571;
 `;
-
-WebText.withComponent("a", props);
 export default WebText;
 </script>
 

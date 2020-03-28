@@ -21,14 +21,10 @@ These components functions similarly to a normal HTML5 text tags. You can place 
 ## Available Components
 
 ```html
-<text :bold="bold" :flavor="flavor" :size="size" :dark="dark">Lorem ipsum</text>
-<paragraph :bold="bold" :flavor="flavor" :size="size" :dark="dark"
-  >Lorem ipsum</paragraph
->
-<n-small :bold="bold" :flavor="flavor" :size="size" :dark="dark"
-  >Lorem ipsum</n-small
->
-<n-label :bold="bold" :flavor="flavor" :size="size" :dark="dark">Label</n-label>
+<text :bold="bold" :flavor="flavor" :size="size">Lorem ipsum</text>
+<paragraph :bold="bold" :flavor="flavor" :size="size">Lorem ipsum</paragraph>
+<n-small :bold="bold" :flavor="flavor" :size="size">Lorem ipsum</n-small>
+<n-label :bold="bold" :flavor="flavor" :size="size">Label</n-label>
 <web-link :size="size">Label</web-link>
 ```
 
@@ -62,12 +58,6 @@ data: {
             <td>`Number`</td>
             <td>`14`</td>
             <td>Sets the size of the text.</td>
-        </tr>
-        <tr>
-            <td>dark</td>
-            <td>`Boolean`</td>
-            <td>`false`</td>
-            <td>Sets the color of the text to dark mode.</td>
         </tr>
         <tr>
             <td>flavor</td>
