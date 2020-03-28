@@ -179,7 +179,7 @@ export const Small = () => ({
   template: `<n-small :flavor="flavor" :dark="dark">small</n-small>`
 });
 
-export const Paragraph = () => ({
+export const WebParagraph = () => ({
   components: { Paragraph },
   props: {
     size: {
