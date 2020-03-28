@@ -29,6 +29,7 @@ These components functions similarly to a normal HTML5 text tags. You can place 
   >Lorem ipsum</n-small
 >
 <n-label :bold="bold" :flavor="flavor" :size="size" :dark="dark">Label</n-label>
+<web-link :size="size">Label</web-link>
 ```
 
 ```javascript

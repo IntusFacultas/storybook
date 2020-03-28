@@ -8,6 +8,7 @@ import {
   SectionTitle,
   SubSectionTitle,
   CategoryTitle,
+  WebLink,
   SubCategoryTitle,
   Keyword
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
@@ -164,6 +165,19 @@ export const Label = () => ({
     }
   },
   template: `<n-label :flavor="flavor" :dark="dark">Label</n-label>`
+});
+
+export const Link = () => ({
+  components: { "web-link": WebLink },
+  props: {
+    flavor: {
+      default: text("Flavor", "")
+    },
+    dark: {
+      default: boolean("Dark Mode", false)
+    }
+  },
+  template: `<web-link href="#" :flavor="flavor" :dark="dark">Label</web-link>`
 });
 
 export const Small = () => ({

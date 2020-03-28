@@ -92,7 +92,27 @@ export const NSmall = styled("small", props)`
       : ""}
 `;
 export const NLabel = WebText.withComponent("label", props);
+export const WebLink = styled("a", props)`
+  margin: 0;
+  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: ${props =>
+    props.size < 14 ? 14 : props.size > 16 ? 16 : props.size}px;
+  color: #4357ad;
+  &:visited {
+    color: #2940a1;
+  }
+  &:hover {
+    color: #58b0ae;
+  }
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1.571;
+`;
 
+WebText.withComponent("a", props);
 export default WebText;
 </script>
 
