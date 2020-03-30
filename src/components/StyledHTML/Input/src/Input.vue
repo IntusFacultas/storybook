@@ -1,8 +1,10 @@
 <template>
   <div class="input-container">
-    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{
+    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">
+      {{
       label
-    }}</n-label>
+      }}
+    </n-label>
     <n-input
       :flavor="flavor"
       :id="name"
@@ -22,6 +24,7 @@
       @input="oninput"
       @change="onChange"
       @focus="onFocus"
+      @keyup="$emit('keyup', $event)"
     ></n-input>
   </div>
 </template>

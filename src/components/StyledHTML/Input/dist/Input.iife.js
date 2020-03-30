@@ -3194,17 +3194,6 @@ var Input = (function (exports) {
       }
     }
   };
-  var TextTheme = {
-    Normal: {
-      color: "#444"
-    },
-    Dark: {
-      color: "#e0e0e0"
-    },
-    LightBlue: {
-      color: "#41BEE8"
-    }
-  };
   var Theme = {
     Light: {
       color: {
@@ -3298,14 +3287,14 @@ var Input = (function (exports) {
         hover: "#222"
       },
       background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
+        color: "#FFb354",
+        hover: "#EB972D",
+        focus: "#FFb354"
       },
       border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
+        color: "#EB972D",
+        hover: "#EB972D",
+        focus: "#EB972D"
       }
     },
     Danger: {
@@ -3315,14 +3304,14 @@ var Input = (function (exports) {
         hover: "#fff"
       },
       background: {
-        color: "#7C0002",
-        hover: "#560002",
-        focus: "#7C0002"
+        color: "#C40005",
+        hover: "#9E0004",
+        focus: "#C40005"
       },
       border: {
-        color: "#560002",
-        hover: "#560002",
-        focus: "#560002"
+        color: "#9E0004",
+        hover: "#9E0004",
+        focus: "#9E0004"
       }
     },
     Success: {
@@ -3392,7 +3381,7 @@ var Input = (function (exports) {
   }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3402,7 +3391,7 @@ var Input = (function (exports) {
   }
 
   function _templateObject2() {
-    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
 
     _templateObject2 = function _templateObject2() {
       return data;
@@ -3412,7 +3401,7 @@ var Input = (function (exports) {
   }
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral$1(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral$1(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n"]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3422,22 +3411,19 @@ var Input = (function (exports) {
   }
 
   var titleProps = {
-    dark: Boolean,
     bold: Boolean,
     flavor: String,
-    textTheme: {
+    defaultTheme: {
       type: Object,
       default: function _default() {
-        return TextTheme;
+        return Theme$1;
       }
     }
   };
   var PageTitle = styled("h1", titleProps)(_templateObject(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-  }, function (props) {
-    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
   });
   var SectionTitle = PageTitle.withComponent("h2", titleProps);
   var SubSectionTitle = PageTitle.withComponent("h3", titleProps);
@@ -3449,11 +3435,11 @@ var Input = (function (exports) {
       type: Number,
       default: 15
     },
-    dark: Boolean,
-    textTheme: {
+    bold: Boolean,
+    defaultTheme: {
       type: Object,
       default: function _default() {
-        return TextTheme;
+        return Theme$1;
       }
     },
     flavor: String
@@ -3463,23 +3449,18 @@ var Input = (function (exports) {
   }, function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-  }, function (props) {
-    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
   });
   var Paragraph = WebText.withComponent("p", props);
   var NSmall = styled("small", props)(_templateObject3(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-  }, function (props) {
-    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
+    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
   });
   var NLabel = WebText.withComponent("label", props);
   var WebLink = styled("a", props)(_templateObject4(), function (props) {
     return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
   });
-  WebText.withComponent("a", props);
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
@@ -3628,8 +3609,8 @@ var Input = (function (exports) {
 
   var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-2ab0bdc8_0", {
-      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    inject("data-v-eaf30614_0", {
+      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       map: {
         "version": 3,
         "sources": [],
@@ -4018,7 +3999,7 @@ var Input = (function (exports) {
           {
             attrs: { dark: _vm.labelDark, flavor: _vm.labelFlavor, for: _vm.name }
           },
-          [_vm._v(_vm._s(_vm.label))]
+          [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]
         ),
         _vm._v(" "),
         _c("n-input", {
@@ -4039,7 +4020,14 @@ var Input = (function (exports) {
             autocomplete: _vm.autocomplete,
             value: _vm.internalValue
           },
-          on: { input: _vm.oninput, change: _vm.onChange, focus: _vm.onFocus }
+          on: {
+            input: _vm.oninput,
+            change: _vm.onChange,
+            focus: _vm.onFocus,
+            keyup: function($event) {
+              return _vm.$emit("keyup", $event)
+            }
+          }
         })
       ],
       1
@@ -4051,7 +4039,7 @@ var Input = (function (exports) {
     /* style */
     const __vue_inject_styles__$1 = function (inject) {
       if (!inject) return
-      inject("data-v-34745649_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Input\\src\\Input.vue"],"names":[],"mappings":";AAoMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"Input.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :pattern=\"pattern\"\r\n      :multiple=\"multiple\"\r\n      :min=\"min\"\r\n      :max=\"max\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"*\"\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-160ca003_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Input\\src\\Input.vue"],"names":[],"mappings":";AAuMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"Input.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">\r\n      {{\r\n      label\r\n      }}\r\n    </n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :pattern=\"pattern\"\r\n      :multiple=\"multiple\"\r\n      :min=\"min\"\r\n      :max=\"max\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n      @keyup=\"$emit('keyup', $event)\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\"\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"*\"\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
