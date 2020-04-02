@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/input",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Provides an accessability audit passing Input component with embedded labels and styling",
   "main": "src/Input.vue",
   "browser": "dist/Input.esm.js",

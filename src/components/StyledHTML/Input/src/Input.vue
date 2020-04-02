@@ -107,7 +107,7 @@ export const VueInput = {
       default: "off"
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: ""
     },
     readonly: {

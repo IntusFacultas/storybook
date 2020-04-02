@@ -144,7 +144,7 @@ export const MultipleSelect = () => ({
     `
 });
 
-export const MultipleSelect = () => ({
+export const SingleSelect = () => ({
   components: { SelectMe },
   methods: actionsData,
   props: {
