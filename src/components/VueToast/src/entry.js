@@ -1,11 +1,11 @@
 // Import vue component
-import VueToast from './Alert.vue';
+import VueToast from "./VueToast.vue";
 
 // install function executed by Vue.use()
 const install = function installVueToast(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component('VueToast', VueToast);
+  Vue.component("VueToast", VueToast);
 };
 
 // Create module definition for Vue.use()
@@ -17,9 +17,9 @@ const plugin = {
 // eslint-disable-next-line no-redeclare
 /* global window, global */
 let GlobalVue = null;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
+} else if (typeof global !== "undefined") {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
