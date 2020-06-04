@@ -667,15 +667,6 @@ export const AjaxLoadingSelect = () => ({
     flavor: {
       default: text("Flavor", "LightBlue"),
     },
-    /**
-     * type: String,
-     * default: ""
-     * Sets the input id so that you can reference it with a label for accessability purposes
-     */
-    id: {
-      default: text("Input ID", "selectInput"),
-    },
-    canBeEmpty: { default: boolean("Can Be Empty", true) },
 
     /**
      * type: String,
@@ -716,9 +707,6 @@ export const AjaxLoadingSelect = () => ({
                 :flavor="flavor"
                 :load-ajax="true"
                 endpoint="/api/options"
-                :badge-flavor="badgeFlavor"
-                :can-be-empty="canBeEmpty"
-                @input="onInput"
                 name="searchableDropdown"
                 :options="options"
                 :value-attribute="valueAttribute"
