@@ -356,14 +356,6 @@ export const MultipleSelect = () => ({
     flavor: {
       default: text("Flavor", "LightBlue"),
     },
-    /**
-     * type: String,
-     * default: ""
-     * Sets the input id so that you can reference it with a label for accessability purposes
-     */
-    id: {
-      default: text("Input ID", "selectInput"),
-    },
 
     /**
      * type: Array,
@@ -450,7 +442,7 @@ export const MultipleSelect = () => ({
   },
   template: `
         <div style="max-width: 35%">
-            <n-label :for="id">Select a country</n-label>
+            <n-label :for="searchableDropdown">Select a country</n-label>
             <select-me
                 :flavor="flavor"
                 :badge-flavor="badgeFlavor"
@@ -702,7 +694,7 @@ export const AjaxLoadingSelect = () => ({
   },
   template: `
         <div style="max-width: 35%">
-            <n-label :for="id">Select a country</n-label>
+            <n-label :for="searchableDropdown">Select a country</n-label>
             <select-me
                 :flavor="flavor"
                 :load-ajax="true"
