@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/vue-toast",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Provides a toast alert function to Vue components",
   "main": "src/VueToast.vue",
   "browser": "dist/VueToast.esm.js",

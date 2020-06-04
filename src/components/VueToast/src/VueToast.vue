@@ -10,7 +10,7 @@
       role="alert"
     >
       <icon-container>
-        <span v-if="alert.type == 'warning'">
+        <span v-if="alert.type == 'Warning'">
           <svg
             class="svg-icon"
             viewBox="0 0 20 20"
@@ -33,7 +33,7 @@
             />
           </svg>
         </span>
-        <span v-else-if="alert.type == 'success'">
+        <span v-else-if="alert.type == 'Success'">
           <svg
             class="svg-icon"
             viewBox="0 0 20 20"
@@ -47,7 +47,7 @@
             />
           </svg>
         </span>
-        <span v-else-if="alert.type == 'info'">
+        <span v-else-if="alert.type == 'Info'">
           <svg
             class="svg-icon"
             viewBox="0 0 20 20"
@@ -62,7 +62,7 @@
             />
           </svg>
         </span>
-        <div v-else-if="alert.type == 'danger'">
+        <div v-else-if="alert.type == 'Danger'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -113,13 +113,13 @@ const props = {
   width: Number,
   defaultTheme: {
     type: Object,
-    default: function () {
+    default: function() {
       return AlertTheme;
     },
   },
 };
 const CloseContainer = styled.div`
-  margin-left: 10px;
+  margin-left: 20px;
 `;
 
 const AlertContainer = styled("div", props)`
@@ -234,7 +234,7 @@ export const VueToast = {
         options.type &&
         this.validTypes.indexOf(options.type.toUpperCase()) > -1
       ) {
-        alertType = options.type.toLowerCase();
+        alertType = options.type;
       }
       let text = "This is an info toast";
       if (options.text) {
@@ -250,7 +250,7 @@ export const VueToast = {
         id: id,
         dying: dying,
       });
-      setTimeout(function () {
+      setTimeout(function() {
         self.removeToast(id);
       }, this.delay);
     },
@@ -260,7 +260,7 @@ export const VueToast = {
       if (alert && !alert.dying) {
         alert.dying = true;
         this.$forceUpdate();
-        setTimeout(function () {
+        setTimeout(function() {
           self.alerts = self.alerts.filter((alert) => alert.id != id);
           self.$forceUpdate();
         }, 501);
