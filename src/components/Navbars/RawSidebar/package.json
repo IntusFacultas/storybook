@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/raw-sidebar",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "A raw version of the sidebar that allows you to input HTML straight in without a configuration file",
   "main": "src/RawSidebar.vue",
   "browser": "dist/RawSidebar.esm.js",

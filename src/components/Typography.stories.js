@@ -9,6 +9,7 @@ import {
   NLabel,
   SmallText,
   Paragraph,
+  WebLink,
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { withA11y } from "@storybook/addon-a11y";
 import { withKnobs, number, boolean, text } from "@storybook/addon-knobs";
@@ -348,6 +349,38 @@ export const ParagraphText = () => ({
   template: `
   <div>
     <paragraph :flavor="flavor" :dark="dark" :size="size">paragraph</paragraph>
+    <hr>
+    <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+    <text-content :size="16">Available Flavors</text-content>
+    <list style="background-color: gray">
+    <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+        {{themeFlavor.text}}
+    </list-item>
+    </list>
+  </div>`,
+});
+
+export const Link = () => ({
+  components: { WebLink, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
+  props: {
+    size: {
+      default: number("Font Size", 14),
+    },
+    flavor: {
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
+    },
+  },
+  template: `
+  <div>
+    <weblink :flavor="flavor" :dark="dark" :size="size" href="#">Link</weblink>
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>

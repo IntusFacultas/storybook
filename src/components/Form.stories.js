@@ -132,7 +132,7 @@ export const Form = () => ({
         <vue-form
           :fields="formattedFields"
           :submitting="submitting"
-          :errors="profileErrors"
+          :errors="errors"
           :disable-submission="disableSubmission"
           :show-bottom="showBottom"
           :disable-clearing="disableClearing"

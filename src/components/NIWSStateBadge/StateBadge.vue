@@ -9,9 +9,9 @@
 <script>
 import styled from "vue-styled-components";
 import { ThemeProvider } from "vue-styled-components";
-import { Theme } from "Components/components/DesignSystem/theme.js";
+import { NIWSTheme } from "@IntusFacultas/design-system";
 const props = {
-  flavor: String
+  flavor: String,
 };
 const NiwsStateBadge = styled("div", props)`
         padding: 2px 5px;
@@ -20,29 +20,29 @@ const NiwsStateBadge = styled("div", props)`
         font-weight: bold;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-        ${props => "color:" + props.theme[props.flavor].color.color}
-        ${props =>
+        ${(props) => "color:" + props.theme[props.flavor].color.color}
+        ${(props) =>
           "background-color:" + props.theme[props.flavor].background.color}
-        ${props => "border:" + props.theme[props.flavor].border.color}
+        ${(props) => "border:" + props.theme[props.flavor].border.color}
     `;
 export const NiwsState = {
   name: "niws-state",
   components: { NiwsStateBadge, ThemeProvider },
   data: function() {
     return {
-      theme: NIWSTheme
+      theme: NIWSTheme,
     };
   },
   props: {
     data: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   mounted: function() {
     var self = this;
   },
-  methods: {}
+  methods: {},
 };
 export default NiwsState;
 </script>

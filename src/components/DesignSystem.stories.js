@@ -34,7 +34,7 @@ export const Colors = () => ({
   data: function() {
     return {
       IntusFacultas: Theme,
-      Text: TextTheme,
+      text: TextTheme,
       niws: NIWSTheme,
       toast: AlertTheme,
       count: 0,
@@ -114,10 +114,10 @@ export const Colors = () => ({
             <flex-row style="padding-top:10px">
                 <flex-column>
                     <color-swatch 
-                        v-for="obj in Object.keys(text-content)"
+                        v-for="obj in Object.keys(text)"
                         :key="obj"
                         :name="obj"
-                        :color="text-content[obj].color">
+                        :color="text[obj].color">
                     </color-swatch>
                 </flex-column>
             </flex-row>

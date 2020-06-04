@@ -107,13 +107,13 @@ export const MultipleSelect = () => ({
         vm.toggleSelectedDropdown();
         expect(vm.showSelected).toBeTruthy();
       });
-      it("sets calculated width", () => {
-        vm.setSelectBoxWidth = jest.fn();
-        vm.setCalculatedWidth();
-        setTimeout(() => {
-          expect(vm.setSelectBoxWidth).toHaveBeenCalled();
-        }, 100);
-      });
+      // it("sets calculated width", () => {
+      //   vm.setSelectBoxWidth = jest.fn();
+      //   vm.setCalculatedWidth();
+      //   setTimeout(() => {
+      //     expect(vm.setSelectBoxWidth).toHaveBeenCalled();
+      //   }, 100);
+      // });
       it("sets calculated padding", () => {
         vm.calculatedPadding = -1;
         vm.setCalculatedPadding();

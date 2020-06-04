@@ -113,7 +113,7 @@ export const RawSidebar = {
        */
       let self = this;
       function isChild(obj, parentObj) {
-        if (obj == null) return true;
+        if (obj == null || typeof obj == "undefined") return true;
         if (obj.id == parentObj.id) return true;
         while ((obj = obj.parentNode)) {
           if (obj.id == parentObj.id) return true;

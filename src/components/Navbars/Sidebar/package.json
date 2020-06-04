@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/sidebar",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "description": "Provides the necessary boilerplate to have a navigation sidebar and content in your page",
   "main": "src/Sidebar.vue",
   "browser": "dist/Sidebar.esm.js",
