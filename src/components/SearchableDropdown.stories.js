@@ -442,7 +442,7 @@ export const MultipleSelect = () => ({
   },
   template: `
         <div style="max-width: 35%">
-            <n-label :for="searchableDropdown">Select a country</n-label>
+            <n-label for="searchableDropdown">Select a country</n-label>
             <select-me
                 :flavor="flavor"
                 :badge-flavor="badgeFlavor"
