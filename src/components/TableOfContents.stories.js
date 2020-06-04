@@ -161,7 +161,7 @@ export const AutomaticTableOfContents = () => ({
   template: `
         <div>
             <div style='position: sticky; margin-top: 100px; max-width:200px;'>
-                <table-of-contents ignore-query="h1.sb-heading" style="position:fixed" width="200px" :offset="offset" :flavor='flavor'></table-of-contents>
+                <table-of-contents ignore-query="h1.sb-heading" style="position:fixed" width="200px" :offset="offset"></table-of-contents>
             </div>
             <div style="margin-left: 200px">
             <h1>Title</h1>
@@ -558,7 +558,7 @@ export const OverridenQueryTableOfContents = () => ({
   template: `
         <div>
             <div style='position: sticky; margin-top: 100px; max-width:200px;'>
-                <table-of-contents width="200px" :flavor='flavor' query-override="span.title"></table-of-contents>
+                <table-of-contents width="200px" query-override="span.title"></table-of-contents>
             </div>
             <div style="margin-left: 200px">
                 <h1>I won't show up</h1>
