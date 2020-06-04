@@ -41,7 +41,7 @@ export const ToastrAlerts = () => ({
       default: number("Delay", 5000),
     },
     alertType: {
-      default: text("Alert Type", "success"),
+      default: text("Alert Type", "Success"),
     },
     alerttext: {
       default: text("Alert Text", "This is a toast alert"),
