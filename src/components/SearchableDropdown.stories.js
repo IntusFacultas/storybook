@@ -9,10 +9,14 @@ import {
   object,
 } from "@storybook/addon-knobs";
 import markdown from "Components/components/SelectMe/USAGE.md";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+const mock = new MockAdapter(axios, { delayResponse: 500 });
 
 import {
   TextContent,
   NLabel,
+  Paragraph,
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import {
   List,
@@ -592,6 +596,140 @@ export const SingleSelect = () => ({
                 :debug="debug"
                 :multi-select="multiSelect">
             </select-me>
+            <hr>
+            <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+            <text-content :size="16">Available Flavors</text-content>
+            <list>
+            <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+                {{themeFlavor.text}}
+            </list-item>
+            </list>
+        </div>
+    `,
+});
+
+let API_OPTIONS = [
+  {
+    text: "United States",
+    value: "USA",
+  },
+  {
+    text: "Russia",
+    value: "RUS",
+  },
+  {
+    text: "China",
+    value: "CHN",
+  },
+  {
+    text: "Canada",
+    value: "CAN",
+  },
+  {
+    text: "Mexico",
+    value: "MEX",
+  },
+  {
+    text: "Japan",
+    value: "JPN",
+  },
+  {
+    text: "North Korea",
+    value: "NKA",
+  },
+  {
+    text: "South Korea",
+    value: "SKA",
+  },
+];
+mock.onGet("/api/options").reply((config) => {
+  console.log(
+    `Server received GET request with params: ${JSON.stringify(config.params)}`
+  );
+  return [
+    200,
+    API_OPTIONS.filter(
+      (option) =>
+        option.text.toUpperCase().indexOf(config.params.text.toUpperCase()) !=
+        -1
+    ),
+  ];
+});
+export const AjaxLoadingSelect = () => ({
+  components: { SelectMe, TextContent, NLabel, List, ListItem, Paragraph },
+  methods: actionsData,
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
+  props: {
+    flavor: {
+      default: text("Flavor", "LightBlue"),
+    },
+    /**
+     * type: String,
+     * default: ""
+     * Sets the input id so that you can reference it with a label for accessability purposes
+     */
+    id: {
+      default: text("Input ID", "selectInput"),
+    },
+    canBeEmpty: { default: boolean("Can Be Empty", true) },
+
+    /**
+     * type: String,
+     * default: "value",
+     * What attribute in a JS object should be referenced for determining the value
+     */
+    valueAttribute: {
+      default: text("Value Key in Option", "value"),
+    },
+
+    /**
+     * type: String,
+     * default: "text"
+     * What attribute in a JS object should be referenced for displaying the option text and badge text for an option
+     */
+    displayAttribute: {
+      default: text("Display Key in Option", "text"),
+    },
+
+    /**
+     * type: Boolean,
+     * default: false,
+     * disables the widget, disallowing selection
+     */
+    disabled: { default: boolean("Disable SelectMe", false) },
+
+    /**
+     * type: Boolean,
+     * default: false,
+     * When this is set to True, the dropdown does not close, allowing you to inspect the element
+     */
+    debug: { default: boolean("Debug Mode", false) },
+  },
+  template: `
+        <div style="max-width: 35%">
+            <n-label :for="id">Select a country</n-label>
+            <select-me
+                :flavor="flavor"
+                :load-ajax="true"
+                endpoint="/api/options"
+                :badge-flavor="badgeFlavor"
+                :can-be-empty="canBeEmpty"
+                @input="onInput"
+                name="searchableDropdown"
+                :options="options"
+                :value-attribute="valueAttribute"
+                :display-attribute="displayAttribute"
+                :disabled="disabled"
+                :debug="debug"
+                :multi-select="true">
+            </select-me>
+            <paragraph>This story has the SelectMe loading the results from an endpoint which has been mocked out.</paragraph>
+            <paragraph>In this case, the endpoint is <code>/api/options</code></paragraph>
+            <paragraph>Check the documentation to see how AJAX loading works with this component</paragraph>
             <hr>
             <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
             <text-content :size="16">Available Flavors</text-content>

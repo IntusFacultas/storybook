@@ -71,6 +71,34 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <td>What the id on the input field should be for accessability purposes</td>
         </tr>
         <tr>
+            <td>loadAjax</td>
+            <td>`Boolean`</td>
+            <td>`false`</td>
+            <td>Whether to load options form an endpoint or not. When set to true, uses an endpoint to retrieve options that match filter</td>
+        </tr>
+        <tr>
+            <td>endpoint</td>
+            <td>`String`</td>
+            <td>`""`</td>
+            <td>
+                What endpoint it should reach out to in order to retrieve options when `loadAjax` is set to true.<br><br>
+                By default, it will fire when the user inputs into the search field (debounced by 200ms), and it will perform a `GET` request with a query parameter `text`
+                set to the value the user inputted.<br><br>
+                It expects a response with a 20X status code, and an array of objects in the format:<br>
+                <pre>
+                <code>
+                [
+                    {
+                        text: String,
+                        value: whatever
+                    }...
+                ]
+                </code><br><br>
+                </pre>
+                If you want to override the attributes of the objects in the array, use the `displayAttribute` and `valueAttribute` props, and match your returned objects accordingly.
+            </td>
+        </tr>
+        <tr>
             <td>canBeEmpty</td>
             <td>`Boolean`</td>
             <td>`true`</td>

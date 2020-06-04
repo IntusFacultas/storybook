@@ -7,7 +7,10 @@
       placeholder="Search..."
       @click="openDropdown"
       @focus="openDropdown"
-      @input="openDropdown"
+      @input="
+        openDropdown();
+        debounce(fireAjax, 200)();
+      "
       @blur="closeDropdown"
       :flavor="flavor"
       v-model="optionSearch"
@@ -21,25 +24,21 @@
       :disabled="disabled"
     ></n-input>
     <!-- Dropdown for all options -->
-    <div
-      v-if="showDropdown"
-      class="selectme-dropdown"
-      :style="{ width: calculatedWidth + 'px' }"
-    >
+    <div v-if="showDropdown" class="selectme-dropdown" :style="{ width: calculatedWidth + 'px' }">
       <ul>
         <li
-          @keyup.enter="selectHoveredOption"
-          @keyup.space="selectHoveredOption"
+          v-for="(option, index) in selectOptions"
           tabindex="0"
           role="button"
-          @focus="hoverElement()"
-          @keydown.down="hoverOption(1)"
-          @keydown.up="hoverOption(-1)"
-          @blur="closeDropdown"
-          v-for="(option, index) in selectOptions"
           :key="'dropdown-' + option[valueAttribute] + '-' + index"
           :value="option[valueAttribute]"
           :ref="'hover' + option[valueAttribute]"
+          @focus="hoverElement()"
+          @keyup.space="selectHoveredOption"
+          @keydown.down="hoverOption(1)"
+          @keydown.up="hoverOption(-1)"
+          @blur="closeDropdown"
+          @keyup.enter="selectHoveredOption"
           @click="selectOption(option)"
           :class="{
             'selectme-selected': contained(option),
@@ -50,7 +49,17 @@
           <span class="sr-only" v-else>Press enter to select:</span>
           {{ option[displayAttribute] }}
         </li>
-        <li v-if="selectOptions.length == 0">No results found</li>
+        <li v-if="loadAjax && loading">Loading...</li>
+        <li
+          v-if="loadAjax && !initialized && !errored && !loading"
+        >Please enter 1 or more characters</li>
+        <li v-if="errored">There was an issue contacting the server.</li>
+        <li
+          v-if="
+            (loadAjax && !errored && initialized && !loading && loadedOptions.length == 0) ||
+              (!loadAjax && selectOptions.length == 0)
+          "
+        >No results found</li>
       </ul>
     </div>
     <!-- Dropdown for selected values. Only shows when selected overflow input-->
@@ -63,9 +72,9 @@
       }"
       v-show="
         selectBoxWidth > computedCutOff &&
-        selectedOptions.length > 0 &&
-        canBeEmpty &&
-        multiSelect
+          selectedOptions.length > 0 &&
+          canBeEmpty &&
+          multiSelect
       "
       ref="selectDropdownBox"
       data-dropdown="parent"
@@ -77,7 +86,10 @@
         data-dropdown="toggle"
       >
         {{ selectedOptions.length }} selected...
-        <span class="select-me-ignore-me" v-if="!showSelected">&#x25BE;</span>
+        <span
+          class="select-me-ignore-me"
+          v-if="!showSelected"
+        >&#x25BE;</span>
         <span class="select-me-ignore-me" v-else>&#x25B4;</span>
       </n-button>
       <div class="selectme-dropdown" v-show="showSelected">
@@ -125,8 +137,7 @@
           :class="computedSpanClass"
           class="select-me-ignore-me"
           v-if="canBeEmpty || (!canBeEmpty && selectedOptions.length > 1)"
-          >&#215;</span
-        >
+        >&#215;</span>
       </n-button>
     </div>
   </div>
@@ -135,14 +146,19 @@
 <script>
 import { NInput } from "@IntusFacultas/input";
 import { NButton } from "@IntusFacultas/button";
+import axios from "axios";
 const SelectMe = {
   name: "select-me",
   components: { NInput, NButton },
   data() {
     return {
+      loading: false,
       timeout: "",
       optionSearch: "",
+      initialized: false,
+      errored: false,
       showOptions: false,
+      ajaxTimeout: null,
       showSelected: false,
       selectBoxWidth: 0,
       calculatedWidth: 0,
@@ -150,10 +166,11 @@ const SelectMe = {
       calculatedPadding: 0,
       selectedOptions: [],
       hoveredOption: {},
+      loadedOptions: [],
       hoveredSelectedOption: {},
       combinedPaddingPerBadge: 26,
       hoveredIndex: -1,
-      hoveredSelectedIndex: -1,
+      hoveredSelectedIndex: -1
     };
   },
   watch: {
@@ -167,69 +184,77 @@ const SelectMe = {
           this.selectOption(this.options[0]);
         }
       },
-      deep: true,
+      deep: true
     },
     value(newValue) {
       this.selectedOptions = newValue;
       window.requestAnimationFrame(this.setSelectBoxWidth);
       this.setCalculatedPadding();
-    },
+    }
   },
   props: {
     value: {
       type: Array,
       default() {
         return [];
-      },
+      }
     },
     name: {
       type: String,
-      required: true,
+      required: true
+    },
+    loadAjax: {
+      type: Boolean,
+      default: false
+    },
+    endpoint: {
+      type: String,
+      default: false
     },
     badgeFlavor: {
       type: String,
-      default: "Primary",
+      default: "Primary"
     },
     flavor: {
       type: String,
-      default: "LightBlue",
+      default: "LightBlue"
     },
     displayAttribute: {
       type: String,
-      default: "text",
+      default: "text"
     },
     valueAttribute: {
       type: String,
-      default: "value",
+      default: "value"
     },
     canBeEmpty: {
       type: Boolean,
-      default: true,
+      default: true
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     options: {
       type: Array,
       default() {
         return [];
-      },
+      }
     },
     debug: {
       type: Boolean,
-      default: false,
+      default: false
     },
     multiSelect: {
       type: Boolean,
-      default: false,
+      default: false
     },
     initialValues: {
       type: Array,
       default() {
         return [];
-      },
-    },
+      }
+    }
   },
   computed: {
     computedSpanClass() {
@@ -264,11 +289,14 @@ const SelectMe = {
         }
         return rtArray;
       }
-      if (self.optionSearch) {
+      if (self.optionSearch && !self.loadAjax) {
         options = filter(textContains, options);
       }
+      if (self.loadAjax) {
+        return self.loadedOptions;
+      }
       return options;
-    },
+    }
   },
   methods: {
     deselectDropdownOption(option) {
@@ -312,7 +340,7 @@ const SelectMe = {
         self.$emit("input", self.selectedOptions);
         self.hoveredSelectedOption = {};
         self.showSelected = false;
-        setTimeout(function () {
+        setTimeout(function() {
           self.hoveredIndex = -1;
           window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
@@ -324,12 +352,12 @@ const SelectMe = {
       var self = this;
       clearTimeout(self.timeout);
       self.hoveredOption = self.selectOptions.filter(
-        (option) =>
+        option =>
           option[self.valueAttribute] ==
           document.activeElement.getAttribute("value")
       )[0];
       self.hoveredIndex = self.selectOptions
-        .map((option) => option[self.valueAttribute])
+        .map(option => option[self.valueAttribute])
         .indexOf(self.hoveredOption[self.valueAttribute]);
     },
     hoverOption(step) {
@@ -445,6 +473,46 @@ const SelectMe = {
       var self = this;
       return self.contains(option, self.selectedOptions);
     },
+    debounce(func, wait, immediate) {
+      var self = this;
+      // pulled from https://davidwalsh.name/javascript-debounce-function
+      return function() {
+        var context = this,
+          args = arguments;
+        var later = function() {
+          self.ajaxTimeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !self.ajaxTimeout;
+        clearTimeout(self.ajaxTimeout);
+        self.ajaxTimeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    },
+    fireAjax() {
+      var self = this;
+      if (self.loadAjax && self.optionSearch) {
+        self.loading = true;
+        axios
+          .get(self.endpoint, { params: { text: self.optionSearch } })
+          .then(response => {
+            self.initialized = true;
+            self.loading = false;
+            self.loadedOptions = response.data;
+          })
+          .catch(response => {
+            self.loading = false;
+            self.errored = true;
+            console.error("SelectMe had a bad response from the server.");
+            console.error("Response status code: ", response.status);
+            console.error("Response object following:");
+            console.error(response);
+          });
+      } else if (self.loadAjax) {
+        self.loadedOptions = [];
+        self.initialized = false; // this is to force the component to show "please type chars" again
+      }
+    },
     selectOption(option) {
       var self = this;
       if (!self.contains(option, self.selectedOptions)) {
@@ -455,7 +523,9 @@ const SelectMe = {
       } else {
         self.deselectOption(option, !self.multiSelect);
       }
-      self.optionSearch = "";
+      if (!self.loadAjax) {
+        self.optionSearch = "";
+      }
       if (!self.multiSelect) {
         self.closeDropdown();
       }
@@ -489,7 +559,7 @@ const SelectMe = {
     closeDropdown() {
       var self = this;
       self.hoveredIndex = -1;
-      self.timeout = setTimeout(function () {
+      self.timeout = setTimeout(function() {
         self.showOptions = false;
       }, 200);
     },
@@ -522,7 +592,7 @@ const SelectMe = {
     },
     setCalculatedWidth() {
       var self = this;
-      setTimeout(function () {
+      setTimeout(function() {
         try {
           self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;
           if (!self.multiSelect) {
@@ -535,18 +605,18 @@ const SelectMe = {
           // pass
         }
       }, 50);
-    },
+    }
   },
   mounted() {
     var self = this;
-    if (!self.canBeEmpty && self.options.length > 0) {
+    if (!self.canBeEmpty && self.options.length > 0 && !self.loadAjax) {
       self.selectOption(self.options[0]);
     }
     window.requestAnimationFrame(self.setCalculatedPadding);
     window.addEventListener("resize", self.setCalculatedWidth);
     window.addEventListener("click", self.handleOffClick);
     self.setCalculatedWidth();
-    setTimeout(function () {
+    setTimeout(function() {
       self.setCalculatedWidth();
     }, 200);
     for (var x = 0; x < self.initialValues.length; x++) {
@@ -564,7 +634,7 @@ const SelectMe = {
   beforeDestroy() {
     window.removeEventListener("resize", self.setCalculatedWidth);
     window.removeEventListener("click", self.handleOffClick);
-  },
+  }
 };
 export default SelectMe;
 </script>
@@ -678,5 +748,22 @@ export default SelectMe;
 .selectme-dropdown > ul > li.selectme-selected:hover {
   background-color: #0069d9;
   color: white;
+}
+@keyframes SelectMeLoadingSpinner {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+.selectme-loading-spinner {
+  -webkit-animation: SelectMeLoadingSpinner 0.5s infinite steps(8); /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: SelectMeLoadingSpinner 0.5s infinite steps(8); /* Firefox < 16 */
+  -ms-animation: SelectMeLoadingSpinner 0.5s infinite steps(8); /* Internet Explorer */
+  -o-animation: SelectMeLoadingSpinner 0.5s infinite steps(8); /* Opera < 12.1 */
+  animation: SelectMeLoadingSpinner 0.5s infinite steps(8);
 }
 </style>
