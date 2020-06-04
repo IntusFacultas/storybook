@@ -56,6 +56,12 @@ export const Button = () => ({
     flavor: {
       default: text("Flavor", Object.keys(Theme)[0]),
     },
+    loading: {
+      default: boolean("Loading Animation", false),
+    },
+    outline: {
+      default: boolean("Outline Button", false),
+    },
     disabled: {
       default: boolean("Disable Button", false),
     },
@@ -71,6 +77,8 @@ export const Button = () => ({
                         :flavor="flavor"
                         :disabled="disabled"
                         :small="small"
+                        :outline="outline"
+                        :loading="loading"
                         :large="large"
                         :block="block">Themed Button
                     </n-button>

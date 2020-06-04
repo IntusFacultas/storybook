@@ -50,6 +50,7 @@
           type="button"
           flavor="Primary"
           @click="submit($event)"
+          :loading="submitting"
           :disabled="submitting || errorsExist || disableSubmission"
         >
           <span>Submit&nbsp;</span>

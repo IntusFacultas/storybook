@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/form",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Dynamic Form constructor and validator",
   "main": "src/Form.vue",
   "browser": "dist/Form.esm.js",
@@ -27,7 +27,7 @@
     "directory": "packages/design-system"
   },
   "dependencies": {
-    "@IntusFacultas/button": "^1.0.14",
+    "@IntusFacultas/button": "^1.1.0",
     "@IntusFacultas/input": "^1.4.2",
     "@IntusFacultas/placeholder": "^1.0.3",
     "@IntusFacultas/select-me": "^1.3.11",
