@@ -42,6 +42,7 @@ This provides a styleguide consistent and accessible input element that can be c
 ```
 
 ```javascript
+import {VueInput} from "@IntusFacultas/input";
 data: {
     flavor: "Primary",
     readonly: false,
@@ -78,6 +79,13 @@ methods: {
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>value</td>
+            <td>Varies</td>
+            <td>`""`</td>
+            <td>Sets the value of the input. Can be used with v-model.</td>
+            <td>&nbsp;</td>
+        </tr>
         <tr>
             <td>flavor</td>
             <td>`String`</td>

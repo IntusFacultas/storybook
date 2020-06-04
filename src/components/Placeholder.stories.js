@@ -4,11 +4,11 @@ import {
   text,
   object,
   number,
-  boolean
+  boolean,
 } from "@storybook/addon-knobs";
 import {
   Placeholder,
-  PlaceholderPicture
+  PlaceholderPicture,
 } from "Components/components/Placeholder/src/Placeholder.vue";
 import markdown from "Components/components/Placeholder/USAGE.md";
 
@@ -17,55 +17,42 @@ export default {
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
-      markdown
-    }
+      markdown,
+    },
   },
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
-export const SmallPlaceholder = () => ({
+export const ConfigurablePlaceholder = () => ({
   components: { Placeholder },
-  props: {},
+  props: {
+    height: {
+      default: text("Height", "100px"),
+    },
+    paragraphs: {
+      default: boolean("Include Paragraphs", true),
+    },
+  },
   template: `
         <div style="width: 100%;">
-            <placeholder height="100px"></placeholder>
+            <placeholder :height="height" :paragraphs="paragraphs"></placeholder>
         </div>
-    `
-});
-
-export const BigPlaceholder = () => ({
-  components: { Placeholder },
-  props: {},
-  template: `
-        <div style="width: 100%;">
-            <placeholder height="1000px"></placeholder>
-        </div>
-    `
-});
-
-export const BigPlaceholderNoParagraphs = () => ({
-  components: { Placeholder },
-  props: {},
-  template: `
-        <div style="width: 100%;">
-            <placeholder height="1000px" :paragraphs="false"></placeholder>
-        </div>
-    `
+    `,
 });
 
 export const ConfigurablePlaceholderPicture = () => ({
   components: { PlaceholderPicture },
   props: {
     height: {
-      default: text("Height", "300px")
+      default: text("Height", "300px"),
     },
     width: {
-      default: text("Width", "200px")
-    }
+      default: text("Width", "200px"),
+    },
   },
   template: `
         <div style="width: 100%;">
             <placeholder-picture :height="height" :width="width"></placeholder-picture>
         </div>
-    `
+    `,
 });

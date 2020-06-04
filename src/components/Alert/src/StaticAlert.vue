@@ -38,10 +38,10 @@ const props = {
     type: Object,
     default: function() {
       return AlertTheme;
-    }
+    },
   },
   animated: Boolean,
-  closeable: Boolean
+  closeable: Boolean,
 };
 const CloseContainer = styled("button")`
   cursor: pointer;
@@ -56,19 +56,19 @@ const AlertContainer = styled("div", props)`
   padding: 1rem;
   border-radius: 4px;
   border: 2px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.color
         : "#e8e8e8"};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "#f2f2f2"};
-  ${props =>
+  ${(props) =>
     props.animated
       ? `
         transition: .5s ease-in-out all;
@@ -79,7 +79,7 @@ const AlertContainer = styled("div", props)`
         animation: vue-static-alert-fadein 0.5s;
         `
       : ``}
-  ${props => (props.closeable ? `cursor: pointer;` : ``)}
+  ${(props) => (props.closeable ? `cursor: pointer;` : ``)}
   opacity: 1;
   font-weight: bold;
   display: flex;
@@ -91,7 +91,7 @@ const AlertContainer = styled("div", props)`
   & * {
     opacity: 1;
     line-height: 1rem;
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
@@ -106,22 +106,22 @@ export const VueStaticAlert = {
     return {
       showing: true,
       dying: false,
-      theme: AlertTheme
+      theme: AlertTheme,
     };
   },
   props: {
     closeable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     animated: {
       type: Boolean,
-      default: false
+      default: false,
     },
     flavor: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     closeAlert() {
@@ -136,7 +136,7 @@ export const VueStaticAlert = {
           this.showing = false;
         }
       }
-    }
+    },
   },
   computed: {
     computedClass() {
@@ -144,8 +144,8 @@ export const VueStaticAlert = {
         return ["vue-alert-dying"];
       }
       return [];
-    }
-  }
+    },
+  },
 };
 export default VueStaticAlert;
 </script>

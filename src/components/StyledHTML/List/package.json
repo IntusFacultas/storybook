@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/list",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Provies a styled replacement for <ul> and <li> elements",
   "main": "src/StyledList.vue",
   "browser": "dist/List.esm.js",
@@ -27,7 +27,7 @@
     "li"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.5",
+    "@IntusFacultas/design-system": "^1.5.11",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

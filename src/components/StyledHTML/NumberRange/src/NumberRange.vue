@@ -93,10 +93,10 @@ const props = {
   flavor: String,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const NumberContainer = styled.div`
   display: flex;
@@ -174,7 +174,7 @@ export const NumberRange = {
     ButtonContainer,
     IncrementButton,
     DecrementButton,
-    InputFieldContainer
+    InputFieldContainer,
   },
   data() {
     return {
@@ -182,7 +182,7 @@ export const NumberRange = {
       upperValue: 0,
       incrementID: 0,
       decrementID: 0,
-      internalSteps: []
+      internalSteps: [],
     };
   },
   props: {
@@ -191,41 +191,41 @@ export const NumberRange = {
       default() {
         return {
           lowValue: 0,
-          highValue: 0
+          highValue: 0,
         };
-      }
+      },
     },
     labelFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     max: {
       type: Number,
-      required: true
+      required: true,
     },
     min: {
       type: Number,
-      required: true
+      required: true,
     },
     steps: {
       type: Array,
       default() {
         return [1];
-      }
-    }
+      },
+    },
   },
   watch: {
     steps() {
       this.internalSteps = this.steps.slice().sort((x, y) => x >= y);
-    }
+    },
   },
   mounted() {
     this.lowerValue = this.min;
@@ -233,7 +233,7 @@ export const NumberRange = {
     let self = this;
     self.$watch(
       "value",
-      function() {
+      function () {
         if (self.lowerValue != self.value.lowerValue) {
           self.lowerValue = self.value.lowerValue;
           self.validateValue();
@@ -259,7 +259,7 @@ export const NumberRange = {
     this.internalSteps = this.steps.slice().sort((x, y) => x >= y);
     if (!Array.prototype.findIndex) {
       Object.defineProperty(Array.prototype, "findIndex", {
-        value: function(predicate) {
+        value: function (predicate) {
           // 1. Let O be ? ToObject(this value).
           if (this == null) {
             throw new TypeError('"this" is null or not defined');
@@ -299,7 +299,7 @@ export const NumberRange = {
           return -1;
         },
         configurable: true,
-        writable: true
+        writable: true,
       });
     }
   },
@@ -321,7 +321,8 @@ export const NumberRange = {
         return;
       }
       if (this.internalSteps.length > 1) {
-        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) + 1;
+        let nextIndex =
+          this.internalSteps.findIndex((x) => x == this[value]) + 1;
         if (nextIndex >= this.internalSteps.length) {
           nextIndex = this.internalSteps.length - 1;
         }
@@ -347,7 +348,8 @@ export const NumberRange = {
         return;
       }
       if (this.internalSteps.length > 1) {
-        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) - 1;
+        let nextIndex =
+          this.internalSteps.findIndex((x) => x == this[value]) - 1;
         if (nextIndex <= 0) {
           nextIndex = 0;
         }
@@ -361,7 +363,7 @@ export const NumberRange = {
       let copy = this.internalSteps.slice();
       copy.push(parseFloat(value));
       copy.sort((x, y) => x >= y);
-      let index = copy.findIndex(x => x == parseFloat(value));
+      let index = copy.findIndex((x) => x == parseFloat(value));
       let lowerBound = index - 1;
       let upperBound = index + 1;
       if (lowerBound < 0) {
@@ -446,10 +448,10 @@ export const NumberRange = {
       this.upperValue = parseFloat(this.upperValue);
       this.$emit("change", {
         lowerValue: this.lowerValue,
-        upperValue: this.upperValue
+        upperValue: this.upperValue,
       });
-    }
-  }
+    },
+  },
 };
 export default NumberRange;
 </script>

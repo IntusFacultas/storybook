@@ -8,10 +8,10 @@ export default {
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
-      markdown
-    }
+      markdown,
+    },
   },
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
 export const ConfigurableDatePicker = () => ({
@@ -19,22 +19,22 @@ export const ConfigurableDatePicker = () => ({
   data() {
     return {
       startDate: "",
-      endDate: ""
+      endDate: "",
     };
   },
   props: {
     label: {
-      default: text("Label", "Select a date")
+      default: text("Label", "Select a date"),
     },
     debug: {
-      default: boolean("Debug", false)
+      default: boolean("Debug", false),
     },
     textFlavor: {
-      default: text("Text Flavor", "Normal")
+      default: text("Text Flavor", "Normal"),
     },
     name: {
-      default: text("Name", "datepicker")
-    }
+      default: text("Name", "datepicker"),
+    },
   },
   template: `
     <div>
@@ -49,5 +49,5 @@ export const ConfigurableDatePicker = () => ({
         <date-picker :default-now="false" label="Pick a start date" name="startDate" v-model="startDate"></date-picker>
         <date-picker :default-now="false" label="Pick an end date" name="endDate" v-model="endDate"></date-picker>
     </div>
-    `
+    `,
 });

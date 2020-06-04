@@ -24,7 +24,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border-radius: 0px 0px 5px 5px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -44,7 +44,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 5px 5px 0px 0px;\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -318,4 +318,5 @@ __vue_component__.install = install; // Export component by default
 // export const RollupDemoDirective = component;
 
 export default __vue_component__;
+export { __vue_component__ as Card };
 //# sourceMappingURL=Card.esm.js.map

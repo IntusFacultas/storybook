@@ -12,9 +12,11 @@ npm install @IntusFacultas/navbar@latest --save
 
 ## Purpose
 
-This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default NASIC provider
+This creates a configurable responsive navbar that can use whatever flavor you provide it from a ThemeProvider or the default IntusFacultas provider
 
 ## Usage
+
+<b>Note: This component requires a Vue installation with the runtime compiler enabled. If you are using vue-cli, make sure to set runtimeCompiler: true in your vue.config.js</b>
 
 ```html
 <navbar
@@ -28,6 +30,7 @@ This creates a configurable responsive navbar that can use whatever flavor you p
 ```
 
 ```javascript
+import {Navbar} from "@IntusFacultas/navbar";
 data: {
     title: {
         "html": "",
@@ -49,11 +52,13 @@ data: {
             "items": [
                 {
                     "html": "",
+                    "type": "item"
                     "text": "Dropdown Link",
                     "url": "#"
                 },
                 {
                     "html": "",
+                    "type": "item"
                     "text": "Dropdown Link",
                     "url": "#"
                 },

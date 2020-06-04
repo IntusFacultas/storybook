@@ -26,6 +26,7 @@ This creates a configurable mini-navbar for use in LINK products
 ```
 
 ```javascript
+import MiniNavbar from "@IntusFacultas/mini-navbar";
 data: {
     brandUrl: "#",
     linkSearchUrl: "#",
@@ -55,7 +56,7 @@ data: {
             <td>linkSearchUrl</td>
             <td>`String`</td>
             <td>`"#"`</td>
-            <td>Sets the link for the Search NASIC Link `a` tag.</td>
+            <td>Sets the link for the Search IntusFacultas Link `a` tag.</td>
         </tr>
        <tr>
             <td>appsSearchUrl</td>

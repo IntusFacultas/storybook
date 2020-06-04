@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/raw-sidebar",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "A raw version of the sidebar that allows you to input HTML straight in without a configuration file",
   "main": "src/RawSidebar.vue",
   "browser": "dist/RawSidebar.esm.js",
@@ -27,10 +27,10 @@
     "directory": "packages/raw-sidebar"
   },
   "dependencies": {
-    "@IntusFacultas/button": "^1.0.12",
-    "@IntusFacultas/design-system": "^1.5.7",
-    "@IntusFacultas/sidebar": "^3.0.12",
-    "@IntusFacultas/typography": "^2.0.10",
+    "@IntusFacultas/button": "^1.0.14",
+    "@IntusFacultas/design-system": "^1.5.11",
+    "@IntusFacultas/sidebar": "^3.0.13",
+    "@IntusFacultas/typography": "^2.1.4",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

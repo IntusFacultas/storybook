@@ -1,4 +1,4 @@
-var Card = (function () {
+var Card = (function (exports) {
   'use strict';
 
   function _typeof(obj) {
@@ -3287,14 +3287,14 @@ var Card = (function () {
         hover: "#222"
       },
       background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
+        color: "#FFb354",
+        hover: "#EB972D",
+        focus: "#FFb354"
       },
       border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
+        color: "#EB972D",
+        hover: "#EB972D",
+        focus: "#EB972D"
       }
     },
     Danger: {
@@ -3304,14 +3304,14 @@ var Card = (function () {
         hover: "#fff"
       },
       background: {
-        color: "#7C0002",
-        hover: "#560002",
-        focus: "#7C0002"
+        color: "#C40005",
+        hover: "#9E0004",
+        focus: "#C40005"
       },
       border: {
-        color: "#560002",
-        hover: "#560002",
-        focus: "#560002"
+        color: "#9E0004",
+        hover: "#9E0004",
+        focus: "#9E0004"
       }
     },
     Success: {
@@ -3350,10 +3350,10 @@ var Card = (function () {
     }
   };
   var AlertTheme = {
-    warning: Theme["Warning"],
-    danger: Theme["Danger"],
-    success: Theme["Success"],
-    info: Theme["Info"]
+    Warning: Theme["Warning"],
+    Danger: Theme["Danger"],
+    Success: Theme["Success"],
+    Info: Theme["Info"]
   };
   var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
   var Theme$1 = Theme;
@@ -3369,7 +3369,7 @@ var Card = (function () {
   }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  border-radius: 0px 0px 5px 5px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral(["\n  padding: 10px;\n\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3389,7 +3389,7 @@ var Card = (function () {
   }
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  border-radius: 5px 5px 0px 0px;\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral(["\n  padding: 10px 10px 10px 10px;\n  border: 1px solid\n    ", ";\n  ", ";\n  ", "\n"]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3670,7 +3670,10 @@ var Card = (function () {
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 
-  return __vue_component__;
+  exports.Card = __vue_component__;
+  exports.default = __vue_component__;
 
-}());
+  return exports;
+
+}({}));
 //# sourceMappingURL=Card.iife.js.map

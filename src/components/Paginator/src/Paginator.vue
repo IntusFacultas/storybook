@@ -56,27 +56,27 @@ const props = {
   disabled: Boolean,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const PaginationContainer = styled("nav", props)`
   & button {
     font-family: "Roboto", sans-serif;
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].background.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.color
         : "#fff"};
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].color.color
         : "#222"};
-    border-color: ${props =>
+    border-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor]
@@ -86,14 +86,14 @@ const PaginationContainer = styled("nav", props)`
   & button:focus {
     outline: none;
     box-shadow: 0 0 0 0.2rem
-      ${props =>
+      ${(props) =>
         props.theme && props.theme[props.flavor]
           ? props.theme[props.flavor].background.color + "80"
           : props.defaultTheme[props.flavor] &&
             props.defaultTheme[props.flavor].background.color
           ? props.defaultTheme[props.flavor].background.color + "80"
           : "#ddcccc80"};
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.focus
         : props.defaultTheme[props.flavor] &&
@@ -102,19 +102,19 @@ const PaginationContainer = styled("nav", props)`
         : "#000"};
   }
   & button:hover {
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].background.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.hover
         : "#d5d5d5"};
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].color.hover
         : "#222"};
-    border-color: ${props =>
+    border-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
@@ -137,7 +137,7 @@ const PaginationList = styled("ul", props)`
   list-style: none;
 `;
 const PaginationItem = styled("li", props)`
-  ${props =>
+  ${(props) =>
     props.active
       ? `
     background-color: rgba(0,0,0, .15)
@@ -145,7 +145,7 @@ const PaginationItem = styled("li", props)`
       : ""}
 `;
 const PaginationButton = styled("button", props)`
-  ${props =>
+  ${(props) =>
     props.disabled
       ? `
         opacity: 0.9;
@@ -153,7 +153,7 @@ const PaginationButton = styled("button", props)`
         pointer-events: none;
     `
       : ""}
-  ${props =>
+  ${(props) =>
     props.active
       ? `
         pointer-events: none;
@@ -197,13 +197,13 @@ export const Paginator = {
     PaginationContainer,
     PaginationList,
     PaginationItem,
-    PaginationButton
+    PaginationButton,
   },
   data() {
     return {
       pages: [],
       leftFence: -1,
-      rightFence: -1
+      rightFence: -1,
     };
   },
   mounted() {
@@ -214,39 +214,39 @@ export const Paginator = {
   props: {
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     showFirstLast: {
       type: Boolean,
-      default: false
+      default: false,
     },
     currentPage: {
       type: Number,
-      required: 1
+      required: 1,
     },
     pageCount: {
       type: Number,
-      required: true
+      required: true,
     },
     marginPages: {
       type: Number,
-      default: 1
+      default: 1,
     },
     pageRange: {
       type: Number,
-      default: 3
-    }
+      default: 3,
+    },
   },
   methods: {
     step(s) {
-      if (this.currentPage + s < 0 || this.currentPage + s > this.pageCount) {
+      if (this.currentPage + s < 1 || this.currentPage + s > this.pageCount) {
         return;
       }
       this.$emit("select", this.currentPage + s);
     },
     select(page) {
       this.$emit("select", page);
-    }
+    },
   },
   watch: {
     pageCount() {
@@ -254,7 +254,7 @@ export const Paginator = {
       for (let page = 1; page < this.pageCount + 1; page++) {
         this.pages.push(page);
       }
-    }
+    },
   },
   computed: {
     slide() {
@@ -290,8 +290,8 @@ export const Paginator = {
         this.pageCount - this.marginPages,
         this.pageCount
       );
-    }
-  }
+    },
+  },
 };
 export default Paginator;
 </script>

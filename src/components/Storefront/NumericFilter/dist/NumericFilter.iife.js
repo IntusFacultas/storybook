@@ -28,7 +28,7 @@ var NumericFilter = (function() {
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -87,8 +87,8 @@ var NumericFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -141,7 +141,7 @@ var NumericFilter = (function() {
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -519,7 +519,7 @@ var NumericFilter = (function() {
               cssRules: [],
               insertRule: function insertRule(rule) {
                 var serverRule = {
-                  cssText: rule
+                  cssText: rule,
                 };
 
                 _this.sheet.cssRules.push(serverRule);
@@ -528,14 +528,14 @@ var NumericFilter = (function() {
                   serverRule: serverRule,
                   appendRule: function appendRule(newCss) {
                     return (serverRule.cssText += newCss);
-                  }
+                  },
                 };
-              }
+              },
             };
           }
 
           this.injected = true;
-        }
+        },
       },
       {
         key: "speedy",
@@ -552,7 +552,7 @@ var NumericFilter = (function() {
           }
 
           this.isSpeedy = !!bool;
-        }
+        },
       },
       {
         key: "_insert",
@@ -564,7 +564,7 @@ var NumericFilter = (function() {
               console.warn("whoops, illegal rule inserted", rule);
             }
           }
-        }
+        },
       },
       {
         key: "insert",
@@ -581,7 +581,7 @@ var NumericFilter = (function() {
                 textNode: textNode,
                 appendRule: function appendRule(newCss) {
                   return textNode.appendData(newCss);
-                }
+                },
               };
 
               if (!this.isSpeedy) {
@@ -600,7 +600,7 @@ var NumericFilter = (function() {
           }
 
           return insertedRule;
-        }
+        },
       },
       {
         key: "flush",
@@ -617,7 +617,7 @@ var NumericFilter = (function() {
           }
 
           this.injected = false;
-        }
+        },
       },
       {
         key: "rules",
@@ -636,8 +636,8 @@ var NumericFilter = (function() {
             );
           });
           return arr;
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet;
@@ -648,11 +648,11 @@ var NumericFilter = (function() {
       _classCallCheck(this, StyleSheet$1);
 
       this.globalStyleSheet = new StyleSheet({
-        speedy: false
+        speedy: false,
       });
       this.componentStyleSheet = new StyleSheet({
         speedy: false,
-        maxLength: 40
+        maxLength: 40,
       });
     }
 
@@ -662,14 +662,14 @@ var NumericFilter = (function() {
         value: function inject() {
           this.globalStyleSheet.inject();
           this.componentStyleSheet.inject();
-        }
+        },
       },
       {
         key: "flush",
         value: function flush() {
           if (this.globalStyleSheet.sheet) this.globalStyleSheet.flush();
           if (this.componentStyleSheet.sheet) this.componentStyleSheet.flush();
-        }
+        },
       },
       {
         key: "insert",
@@ -678,13 +678,13 @@ var NumericFilter = (function() {
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : {
-                  global: false
+                  global: false,
                 };
           var sheet = opts.global
             ? this.globalStyleSheet
             : this.componentStyleSheet;
           return sheet.insert(rule);
-        }
+        },
       },
       {
         key: "rules",
@@ -692,7 +692,7 @@ var NumericFilter = (function() {
           return this.globalStyleSheet
             .rules()
             .concat(this.componentStyleSheet.rules());
-        }
+        },
       },
       {
         key: "injected",
@@ -700,8 +700,8 @@ var NumericFilter = (function() {
           return (
             this.globalStyleSheet.injected && this.componentStyleSheet.injected
           );
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet$1;
@@ -720,7 +720,7 @@ var NumericFilter = (function() {
   function createCommonjsModule(fn, module) {
     return (
       (module = {
-        exports: {}
+        exports: {},
       }),
       fn(module, module.exports),
       module.exports
@@ -729,7 +729,7 @@ var NumericFilter = (function() {
 
   var hash = createCommonjsModule(function(module, exports) {
     Object.defineProperty(exports, "__esModule", {
-      value: true
+      value: true,
     });
     exports.default = doHash; // murmurhash2 via https://gist.github.com/raycmorgan/588423
 
@@ -3103,10 +3103,10 @@ var NumericFilter = (function() {
             : flatCSS;
           var css = stylis("", cssString, false, false);
           styleSheet.insert(css, {
-            global: true
+            global: true,
           });
-        }
-      }
+        },
+      },
     ]);
 
     return ComponentStyle;
@@ -3256,12 +3256,12 @@ var NumericFilter = (function() {
               return function() {
                 return {};
               };
-            }
-          }
+            },
+          },
         },
         props: _objectSpread2$1(
           {
-            value: null
+            value: null,
           },
           currentProps,
           {},
@@ -3269,7 +3269,7 @@ var NumericFilter = (function() {
         ),
         data: function data() {
           return {
-            localValue: this.value
+            localValue: this.value,
           };
         },
         render: function render(createElement) {
@@ -3285,7 +3285,7 @@ var NumericFilter = (function() {
                 createElement(
                   "template",
                   {
-                    slot: slot
+                    slot: slot,
                   },
                   this.$slots[slot]
                 )
@@ -3299,16 +3299,16 @@ var NumericFilter = (function() {
               class: [this.generatedClassName],
               props: this.$props,
               domProps: {
-                value: this.localValue
+                value: this.localValue,
               },
               on: _objectSpread2$1({}, this.$listeners, {
                 input: function input(event) {
                   if (event && event.target) {
                     _this.localValue = event.target.value;
                   }
-                }
+                },
               }),
-              scopedSlots: this.$scopedSlots
+              scopedSlots: this.$scopedSlots,
             },
             children
           );
@@ -3318,13 +3318,13 @@ var NumericFilter = (function() {
             componentProps
           ) {
             return componentStyle.generateAndInjectStyles(componentProps);
-          }
+          },
         },
         computed: {
           generatedClassName: function generatedClassName() {
             var componentProps = _objectSpread2$1(
               {
-                theme: this.theme
+                theme: this.theme,
               },
               this.$props
             );
@@ -3333,7 +3333,7 @@ var NumericFilter = (function() {
           },
           theme: function theme() {
             return this.$theme();
-          }
+          },
         },
         watch: {
           value: function value(newValue) {
@@ -3341,7 +3341,7 @@ var NumericFilter = (function() {
           },
           localValue: function localValue() {
             this.$emit("input", this.localValue);
-          }
+          },
         },
         extend: function extend(cssRules) {
           for (
@@ -3366,7 +3366,7 @@ var NumericFilter = (function() {
         },
         withComponent: function withComponent(newTarget) {
           return createStyledComponent(newTarget, rules, props);
-        }
+        },
       };
       return StyledComponent;
     };
@@ -3383,7 +3383,7 @@ var NumericFilter = (function() {
 
         this.rules = rules;
         stylis.set({
-          keyframe: false
+          keyframe: false,
         });
         if (!styleSheet.injected) styleSheet.inject();
         this.insertedRule = styleSheet.insert("");
@@ -3406,8 +3406,8 @@ var NumericFilter = (function() {
             }
 
             return inserted[hash];
-          }
-        }
+          },
+        },
       ]);
 
       return ComponentStyle;
@@ -3548,7 +3548,7 @@ var NumericFilter = (function() {
     "stop",
     "svg",
     "text",
-    "tspan"
+    "tspan",
   ];
 
   function isTag(target) {
@@ -3620,157 +3620,157 @@ var NumericFilter = (function() {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#CBE6F7",
         hover: "#51BAF4",
-        focus: "#CBE6F7"
+        focus: "#CBE6F7",
       },
       border: {
         color: "2px solid #CBE6F7",
         hover: "2px solid #51BAF4",
-        focus: "2px solid #51BAF4"
-      }
+        focus: "2px solid #51BAF4",
+      },
     },
     REWORK: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#FFC364",
         hover: "#ED9406",
-        focus: "#FFC364"
+        focus: "#FFC364",
       },
       border: {
         color: "2px solid #FFC364",
         hover: "2px solid #ED9406",
-        focus: "2px solid #ED9406"
-      }
+        focus: "2px solid #ED9406",
+      },
     },
     START: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#B7F7DC",
         hover: "#2EE591",
-        focus: "#B7F7DC"
+        focus: "#B7F7DC",
       },
       border: {
         color: "2px solid #B7F7DC",
         hover: "2px solid #2EE591",
-        focus: "2px solid #2EE591"
-      }
+        focus: "2px solid #2EE591",
+      },
     },
     COMPLETE: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#E0CEF4",
         hover: "#735D87",
-        focus: "#E0CEF4"
+        focus: "#E0CEF4",
       },
       border: {
         color: "2px solid #E0CEF4",
         hover: "2px solid #735D87",
-        focus: "2px solid #735D87"
-      }
+        focus: "2px solid #735D87",
+      },
     },
     CANCEL: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#DDA8A8",
         hover: "#964545",
-        focus: "#DDA8A8"
+        focus: "#DDA8A8",
       },
       border: {
         color: "2px solid #DDA8A8",
         hover: "2px solid #964545",
-        focus: "2px solid #964545"
-      }
-    }
+        focus: "2px solid #964545",
+      },
+    },
   };
   var AlertTheme = {
     warning: {
       color: {
         color: "#222",
         hover: "#222",
-        focus: "#222"
+        focus: "#222",
       },
       background: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
+        focus: "#fec700",
       },
       border: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
-      }
+        focus: "#fec700",
+      },
     },
     danger: {
       color: {
         color: "#fff",
         hover: "#fff",
-        focus: "#fff"
+        focus: "#fff",
       },
       background: {
         color: "#890620",
         hover: "#890620",
-        focus: "#890620"
+        focus: "#890620",
       },
       border: {
         color: "#670014",
         hover: "#670014",
-        focus: "#670014"
-      }
+        focus: "#670014",
+      },
     },
     success: {
       color: {
         color: "#fff",
         focus: "#fff",
-        hover: "#fff"
+        hover: "#fff",
       },
       background: {
         color: "#0B7C40",
         hover: "#00642E",
-        focus: "#0B7C40"
+        focus: "#0B7C40",
       },
       border: {
         color: "#00642E",
         hover: "#00642E",
-        focus: "#00642E"
-      }
+        focus: "#00642E",
+      },
     },
     info: {
       color: {
         color: "#000",
         hover: "#000",
-        focus: "#000"
+        focus: "#000",
       },
       background: {
         color: "#4E8098",
         hover: "#4E8098",
-        focus: "#4E8098"
+        focus: "#4E8098",
       },
       border: {
         color: "#316780",
         hover: "#316780",
-        focus: "#316780"
-      }
-    }
+        focus: "#316780",
+      },
+    },
   };
 
   var NASICTheme = _objectSpread2(
@@ -3779,461 +3779,461 @@ var NumericFilter = (function() {
         color: {
           color: "#222",
           hover: "#222",
-          focus: "#222"
+          focus: "#222",
         },
         background: {
           color: "#f8f9fa",
           hover: "#DDE4E9",
-          focus: "#f8f9fa"
+          focus: "#f8f9fa",
         },
         border: {
           color: "#DDE4E9",
           hover: "#DDE4E9",
-          focus: "#DDE4E9"
-        }
+          focus: "#DDE4E9",
+        },
       },
       Secondary: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#6c757d",
           hover: "#525D67",
-          focus: "#6c757d"
+          focus: "#6c757d",
         },
         border: {
           color: "#525D67",
           hover: "#525D67",
-          focus: "#525D67"
-        }
+          focus: "#525D67",
+        },
       },
       Dark: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#343a40",
           hover: "#23272b",
-          focus: "#343a40"
+          focus: "#343a40",
         },
         border: {
           color: "#4F575E",
           hover: "#4F575E",
-          focus: "#4F575E"
-        }
+          focus: "#4F575E",
+        },
       },
       Primary: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4357AD",
           hover: "#2940A1",
-          focus: "#4357AD"
+          focus: "#4357AD",
         },
         border: {
           color: "#2940A1",
           hover: "#2940A1",
-          focus: "#2940A1"
-        }
+          focus: "#2940A1",
+        },
       },
       Info: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#58B0AE",
           hover: "#36938F",
-          focus: "#58B0AE"
+          focus: "#58B0AE",
         },
         border: {
           color: "#36938F",
           hover: "#36938F",
-          focus: "#36938F"
-        }
+          focus: "#36938F",
+        },
       },
       Warning: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#ED7D3A",
           hover: "#D15A14",
-          focus: "#ED7D3A"
+          focus: "#ED7D3A",
         },
         border: {
           color: "#D15A14",
           hover: "#D15A14",
-          focus: "#D15A14"
-        }
+          focus: "#D15A14",
+        },
       },
       Danger: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#7C0002",
           hover: "#560002",
-          focus: "#7C0002"
+          focus: "#7C0002",
         },
         border: {
           color: "#560002",
           hover: "#560002",
-          focus: "#560002"
-        }
+          focus: "#560002",
+        },
       },
       Success: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#0B7C40",
           hover: "#00642E",
-          focus: "#0B7C40"
+          focus: "#0B7C40",
         },
         border: {
           color: "#00642E",
           hover: "#00642E",
-          focus: "#00642E"
-        }
+          focus: "#00642E",
+        },
       },
       LightBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#41BEE8",
           hover: "#38a5ca",
-          focus: "#38a5ca"
+          focus: "#38a5ca",
         },
         border: {
           color: "#38a5ca",
           hover: "#38a5ca",
-          focus: "#38a5ca"
-        }
+          focus: "#38a5ca",
+        },
       },
       AirBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#2999F4",
           hover: "#2386d7",
-          focus: "#2386d7"
+          focus: "#2386d7",
         },
         border: {
           color: "#2386d7",
           hover: "#2386d7",
-          focus: "#2386d7"
-        }
+          focus: "#2386d7",
+        },
       },
       MissileOrange: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FF7200",
           hover: "#C65800",
-          focus: "#FF7200"
+          focus: "#FF7200",
         },
         border: {
           color: "#C65800",
           hover: "#C65800",
-          focus: "#C65800"
-        }
+          focus: "#C65800",
+        },
       },
       CyberYellow: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F7C82C",
           hover: "#D4A609",
-          focus: "#F7C82C"
+          focus: "#F7C82C",
         },
         border: {
           color: "#D4A609",
           hover: "#D4A609",
-          focus: "#D4A609"
-        }
+          focus: "#D4A609",
+        },
       },
       SpaceTeal: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#0AD1C3",
           hover: "#00BBAE",
-          focus: "#0AD1C3"
+          focus: "#0AD1C3",
         },
         border: {
           color: "#00BBAE",
           hover: "#00BBAE",
-          focus: "#00BBAE"
-        }
+          focus: "#00BBAE",
+        },
       },
       INTsMagenta: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FC49C9",
           hover: "#FA1FBD",
-          focus: "#FC49C9"
+          focus: "#FC49C9",
         },
         border: {
           color: "#FA1FBD",
           hover: "#FA1FBD",
-          focus: "#FA1FBD"
-        }
+          focus: "#FA1FBD",
+        },
       },
       RegionGreen: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#C8E552",
           hover: "#B0CF2E",
-          focus: "#C8E552"
+          focus: "#C8E552",
         },
         border: {
           color: "#B0CF2E",
           hover: "#B0CF2E",
-          focus: "#B0CF2E"
-        }
+          focus: "#B0CF2E",
+        },
       },
       Sky: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#80CCFF",
           hover: "#57BDFF",
-          focus: "#80CCFF"
+          focus: "#80CCFF",
         },
         border: {
           color: "#57BDFF",
           hover: "#57BDFF",
-          focus: "#57BDFF"
-        }
+          focus: "#57BDFF",
+        },
       },
       Apricot: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FCB681",
           hover: "#D88B51",
-          focus: "#FCB681"
+          focus: "#FCB681",
         },
         border: {
           color: "#D88B51",
           hover: "#D88B51",
-          focus: "#D88B51"
-        }
+          focus: "#D88B51",
+        },
       },
       Aqua: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#77FCD5",
           hover: "#25EEB1",
-          focus: "#77FCD5"
+          focus: "#77FCD5",
         },
         border: {
           color: "#25EEB1",
           hover: "#25EEB1",
-          focus: "#25EEB1"
-        }
+          focus: "#25EEB1",
+        },
       },
       Sunny: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F9EC75",
           hover: "#D7C949",
-          focus: "#F9EC75"
+          focus: "#F9EC75",
         },
         border: {
           color: "#D7C949",
           hover: "#D7C949",
-          focus: "#D7C949"
-        }
+          focus: "#D7C949",
+        },
       },
       Moss: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#DFFF92",
           hover: "#C5FF38",
-          focus: "#DFFF92"
+          focus: "#DFFF92",
         },
         border: {
           color: "#C5FF38",
           hover: "#C5FF38",
-          focus: "#C5FF38"
-        }
+          focus: "#C5FF38",
+        },
       },
       Pink: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F2B4F9",
           hover: "#E486EE",
-          focus: "#F2B4F9"
+          focus: "#F2B4F9",
         },
         border: {
           color: "#E486EE",
           hover: "#E486EE",
-          focus: "#E486EE"
-        }
+          focus: "#E486EE",
+        },
       },
       Deep: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#002339",
           hover: "#000B12",
-          focus: "#002339"
+          focus: "#002339",
         },
         border: {
           color: "#000B12",
           hover: "#000B12",
-          focus: "#000B12"
-        }
+          focus: "#000B12",
+        },
       },
       Bark: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#481F0C",
           hover: "#2B0E01",
-          focus: "#481F0C"
+          focus: "#481F0C",
         },
         border: {
           color: "#2B0E01",
           hover: "#2B0E01",
-          focus: "#2B0E01"
-        }
+          focus: "#2B0E01",
+        },
       },
       Jungle: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#015149",
           hover: "#003933",
-          focus: "#015149"
+          focus: "#015149",
         },
         border: {
           color: "#003933",
           hover: "#003933",
-          focus: "#003933"
-        }
+          focus: "#003933",
+        },
       },
       Spice: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#705405",
           hover: "#4A3700",
-          focus: "#705405"
+          focus: "#705405",
         },
         border: {
           color: "#4A3700",
           hover: "#4A3700",
-          focus: "#4A3700"
-        }
+          focus: "#4A3700",
+        },
       },
       Olive: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4C5612",
           hover: "#2F3703",
-          focus: "#4C5612"
+          focus: "#4C5612",
         },
         border: {
           color: "#2F3703",
           hover: "#2F3703",
-          focus: "#2F3703"
-        }
+          focus: "#2F3703",
+        },
       },
       Plum: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#361329",
           hover: "#26081B",
-          focus: "#361329"
+          focus: "#361329",
         },
         border: {
           color: "#26081B",
           hover: "#26081B",
-          focus: "#26081B"
-        }
-      }
+          focus: "#26081B",
+        },
+      },
     },
     NIWSTheme,
     {},
@@ -4248,8 +4248,8 @@ var NumericFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -4266,7 +4266,7 @@ var NumericFilter = (function() {
       "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ",
       ";\n            color: ",
       "\n        }\n        &:disabled:hover {\n            background-color: ",
-      ";\n        }\n    "
+      ";\n        }\n    ",
     ]);
 
     _templateObject2 = function _templateObject2() {
@@ -4288,7 +4288,7 @@ var NumericFilter = (function() {
       "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ",
       ";\n            color: ",
       "\n        }\n        &:disabled:hover {\n            background-color: ",
-      ";\n        }\n    "
+      ";\n        }\n    ",
     ]);
 
     _templateObject = function _templateObject() {
@@ -4307,8 +4307,8 @@ var NumericFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var dialogProps = {
     flavor: String,
@@ -4319,8 +4319,8 @@ var NumericFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var DialogButton = styled("button", dialogProps)(
     _templateObject(),
@@ -4595,7 +4595,7 @@ var NumericFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin = {
-    install: install
+    install: install,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4623,7 +4623,7 @@ var NumericFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var dialogPlugin = {
-    install: dialogInstall
+    install: dialogInstall,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4646,7 +4646,7 @@ var NumericFilter = (function() {
     var data = _taggedTemplateLiteral([
       "\n  color: ",
       "\n        background-color: ",
-      ';\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n'
+      ';\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n',
     ]);
 
     _templateObject$1 = function _templateObject() {
@@ -4661,8 +4661,8 @@ var NumericFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var NBadge = styled("div", props$1)(
     _templateObject$1(),
@@ -4821,7 +4821,7 @@ var NumericFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$1 = {
-    install: install$1
+    install: install$1,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4892,7 +4892,7 @@ var NumericFilter = (function() {
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -5274,7 +5274,7 @@ var NumericFilter = (function() {
               cssRules: [],
               insertRule: function insertRule(rule) {
                 var serverRule = {
-                  cssText: rule
+                  cssText: rule,
                 };
 
                 _this.sheet.cssRules.push(serverRule);
@@ -5283,14 +5283,14 @@ var NumericFilter = (function() {
                   serverRule: serverRule,
                   appendRule: function appendRule(newCss) {
                     return (serverRule.cssText += newCss);
-                  }
+                  },
                 };
-              }
+              },
             };
           }
 
           this.injected = true;
-        }
+        },
       },
       {
         key: "speedy",
@@ -5307,7 +5307,7 @@ var NumericFilter = (function() {
           }
 
           this.isSpeedy = !!bool;
-        }
+        },
       },
       {
         key: "_insert",
@@ -5319,7 +5319,7 @@ var NumericFilter = (function() {
               console.warn("whoops, illegal rule inserted", rule);
             }
           }
-        }
+        },
       },
       {
         key: "insert",
@@ -5336,7 +5336,7 @@ var NumericFilter = (function() {
                 textNode: textNode,
                 appendRule: function appendRule(newCss) {
                   return textNode.appendData(newCss);
-                }
+                },
               };
 
               if (!this.isSpeedy) {
@@ -5355,7 +5355,7 @@ var NumericFilter = (function() {
           }
 
           return insertedRule;
-        }
+        },
       },
       {
         key: "flush",
@@ -5372,7 +5372,7 @@ var NumericFilter = (function() {
           }
 
           this.injected = false;
-        }
+        },
       },
       {
         key: "rules",
@@ -5391,8 +5391,8 @@ var NumericFilter = (function() {
             );
           });
           return arr;
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet;
@@ -5403,11 +5403,11 @@ var NumericFilter = (function() {
       _classCallCheck$1(this, StyleSheet$1);
 
       this.globalStyleSheet = new StyleSheet$2({
-        speedy: false
+        speedy: false,
       });
       this.componentStyleSheet = new StyleSheet$2({
         speedy: false,
-        maxLength: 40
+        maxLength: 40,
       });
     }
 
@@ -5417,14 +5417,14 @@ var NumericFilter = (function() {
         value: function inject() {
           this.globalStyleSheet.inject();
           this.componentStyleSheet.inject();
-        }
+        },
       },
       {
         key: "flush",
         value: function flush() {
           if (this.globalStyleSheet.sheet) this.globalStyleSheet.flush();
           if (this.componentStyleSheet.sheet) this.componentStyleSheet.flush();
-        }
+        },
       },
       {
         key: "insert",
@@ -5433,13 +5433,13 @@ var NumericFilter = (function() {
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : {
-                  global: false
+                  global: false,
                 };
           var sheet = opts.global
             ? this.globalStyleSheet
             : this.componentStyleSheet;
           return sheet.insert(rule);
-        }
+        },
       },
       {
         key: "rules",
@@ -5447,7 +5447,7 @@ var NumericFilter = (function() {
           return this.globalStyleSheet
             .rules()
             .concat(this.componentStyleSheet.rules());
-        }
+        },
       },
       {
         key: "injected",
@@ -5455,8 +5455,8 @@ var NumericFilter = (function() {
           return (
             this.globalStyleSheet.injected && this.componentStyleSheet.injected
           );
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet$1;
@@ -5475,7 +5475,7 @@ var NumericFilter = (function() {
   function createCommonjsModule$1(fn, module) {
     return (
       (module = {
-        exports: {}
+        exports: {},
       }),
       fn(module, module.exports),
       module.exports
@@ -5484,7 +5484,7 @@ var NumericFilter = (function() {
 
   var hash$1 = createCommonjsModule$1(function(module, exports) {
     Object.defineProperty(exports, "__esModule", {
-      value: true
+      value: true,
     });
     exports.default = doHash; // murmurhash2 via https://gist.github.com/raycmorgan/588423
 
@@ -7858,10 +7858,10 @@ var NumericFilter = (function() {
             : flatCSS;
           var css = stylis$1("", cssString, false, false);
           styleSheet$1.insert(css, {
-            global: true
+            global: true,
           });
-        }
-      }
+        },
+      },
     ]);
 
     return ComponentStyle;
@@ -8011,12 +8011,12 @@ var NumericFilter = (function() {
               return function() {
                 return {};
               };
-            }
-          }
+            },
+          },
         },
         props: _objectSpread2$2(
           {
-            value: null
+            value: null,
           },
           currentProps,
           {},
@@ -8024,7 +8024,7 @@ var NumericFilter = (function() {
         ),
         data: function data() {
           return {
-            localValue: this.value
+            localValue: this.value,
           };
         },
         render: function render(createElement) {
@@ -8040,7 +8040,7 @@ var NumericFilter = (function() {
                 createElement(
                   "template",
                   {
-                    slot: slot
+                    slot: slot,
                   },
                   this.$slots[slot]
                 )
@@ -8054,16 +8054,16 @@ var NumericFilter = (function() {
               class: [this.generatedClassName],
               props: this.$props,
               domProps: {
-                value: this.localValue
+                value: this.localValue,
               },
               on: _objectSpread2$2({}, this.$listeners, {
                 input: function input(event) {
                   if (event && event.target) {
                     _this.localValue = event.target.value;
                   }
-                }
+                },
               }),
-              scopedSlots: this.$scopedSlots
+              scopedSlots: this.$scopedSlots,
             },
             children
           );
@@ -8073,13 +8073,13 @@ var NumericFilter = (function() {
             componentProps
           ) {
             return componentStyle.generateAndInjectStyles(componentProps);
-          }
+          },
         },
         computed: {
           generatedClassName: function generatedClassName() {
             var componentProps = _objectSpread2$2(
               {
-                theme: this.theme
+                theme: this.theme,
               },
               this.$props
             );
@@ -8088,7 +8088,7 @@ var NumericFilter = (function() {
           },
           theme: function theme() {
             return this.$theme();
-          }
+          },
         },
         watch: {
           value: function value(newValue) {
@@ -8096,7 +8096,7 @@ var NumericFilter = (function() {
           },
           localValue: function localValue() {
             this.$emit("input", this.localValue);
-          }
+          },
         },
         extend: function extend(cssRules) {
           for (
@@ -8121,7 +8121,7 @@ var NumericFilter = (function() {
         },
         withComponent: function withComponent(newTarget) {
           return createStyledComponent(newTarget, rules, props);
-        }
+        },
       };
       return StyledComponent;
     };
@@ -8138,7 +8138,7 @@ var NumericFilter = (function() {
 
         this.rules = rules;
         stylis$1.set({
-          keyframe: false
+          keyframe: false,
         });
         if (!styleSheet$1.injected) styleSheet$1.inject();
         this.insertedRule = styleSheet$1.insert("");
@@ -8161,8 +8161,8 @@ var NumericFilter = (function() {
             }
 
             return inserted[hash];
-          }
-        }
+          },
+        },
       ]);
 
       return ComponentStyle;
@@ -8303,7 +8303,7 @@ var NumericFilter = (function() {
     "stop",
     "svg",
     "text",
-    "tspan"
+    "tspan",
   ];
 
   function isTag$1(target) {
@@ -8377,225 +8377,225 @@ var NumericFilter = (function() {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#CBE6F7",
         hover: "#51BAF4",
-        focus: "#CBE6F7"
+        focus: "#CBE6F7",
       },
       border: {
         color: "2px solid #CBE6F7",
         hover: "2px solid #51BAF4",
-        focus: "2px solid #51BAF4"
-      }
+        focus: "2px solid #51BAF4",
+      },
     },
     REWORK: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#FFC364",
         hover: "#ED9406",
-        focus: "#FFC364"
+        focus: "#FFC364",
       },
       border: {
         color: "2px solid #FFC364",
         hover: "2px solid #ED9406",
-        focus: "2px solid #ED9406"
-      }
+        focus: "2px solid #ED9406",
+      },
     },
     START: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#B7F7DC",
         hover: "#2EE591",
-        focus: "#B7F7DC"
+        focus: "#B7F7DC",
       },
       border: {
         color: "2px solid #B7F7DC",
         hover: "2px solid #2EE591",
-        focus: "2px solid #2EE591"
-      }
+        focus: "2px solid #2EE591",
+      },
     },
     COMPLETE: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#E0CEF4",
         hover: "#735D87",
-        focus: "#E0CEF4"
+        focus: "#E0CEF4",
       },
       border: {
         color: "2px solid #E0CEF4",
         hover: "2px solid #735D87",
-        focus: "2px solid #735D87"
-      }
+        focus: "2px solid #735D87",
+      },
     },
     CANCEL: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#DDA8A8",
         hover: "#964545",
-        focus: "#DDA8A8"
+        focus: "#DDA8A8",
       },
       border: {
         color: "2px solid #DDA8A8",
         hover: "2px solid #964545",
-        focus: "2px solid #964545"
-      }
-    }
+        focus: "2px solid #964545",
+      },
+    },
   };
   var TextTheme = {
     Normal: {
-      color: "#444"
+      color: "#444",
     },
     Dark: {
-      color: "#e0e0e0"
+      color: "#e0e0e0",
     },
     PortionMarkingDark: {
-      color: "#cbd5f4"
+      color: "#cbd5f4",
     },
     LightBlue: {
-      color: "#41BEE8"
+      color: "#41BEE8",
     },
     AirBlue: {
-      color: "#2999F4"
+      color: "#2999F4",
     },
     MissileOrange: {
-      color: "#FF7200"
+      color: "#FF7200",
     },
     CyberYellow: {
-      color: "#F7C82C"
+      color: "#F7C82C",
     },
     SpaceTeal: {
-      color: "#0AD1C3"
+      color: "#0AD1C3",
     },
     INTsMagenta: {
-      color: "#FC49C9"
+      color: "#FC49C9",
     },
     RegionGreen: {
-      color: "#C8E552"
+      color: "#C8E552",
     },
     Sky: {
-      color: "#80CCFF"
+      color: "#80CCFF",
     },
     Apricot: {
-      color: "#FCB681"
+      color: "#FCB681",
     },
     Aqua: {
-      color: "#77FCD5"
+      color: "#77FCD5",
     },
     Sunny: {
-      color: "#F9EC75"
+      color: "#F9EC75",
     },
     Moss: {
-      color: "#DFFF92"
+      color: "#DFFF92",
     },
     Pink: {
-      color: "#F2B4F9"
+      color: "#F2B4F9",
     },
     Deep: {
-      color: "#002339"
+      color: "#002339",
     },
     Bark: {
-      color: "#481F0C"
+      color: "#481F0C",
     },
     Jungle: {
-      color: "#015149"
+      color: "#015149",
     },
     Spice: {
-      color: "#705405"
+      color: "#705405",
     },
     Olive: {
-      color: "#4C5612"
+      color: "#4C5612",
     },
     Plum: {
-      color: "#361329"
-    }
+      color: "#361329",
+    },
   };
   var AlertTheme$1 = {
     warning: {
       color: {
         color: "#222",
         hover: "#222",
-        focus: "#222"
+        focus: "#222",
       },
       background: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
+        focus: "#fec700",
       },
       border: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
-      }
+        focus: "#fec700",
+      },
     },
     danger: {
       color: {
         color: "#fff",
         hover: "#fff",
-        focus: "#fff"
+        focus: "#fff",
       },
       background: {
         color: "#890620",
         hover: "#890620",
-        focus: "#890620"
+        focus: "#890620",
       },
       border: {
         color: "#670014",
         hover: "#670014",
-        focus: "#670014"
-      }
+        focus: "#670014",
+      },
     },
     success: {
       color: {
         color: "#fff",
         focus: "#fff",
-        hover: "#fff"
+        hover: "#fff",
       },
       background: {
         color: "#0B7C40",
         hover: "#00642E",
-        focus: "#0B7C40"
+        focus: "#0B7C40",
       },
       border: {
         color: "#00642E",
         hover: "#00642E",
-        focus: "#00642E"
-      }
+        focus: "#00642E",
+      },
     },
     info: {
       color: {
         color: "#000",
         hover: "#000",
-        focus: "#000"
+        focus: "#000",
       },
       background: {
         color: "#4E8098",
         hover: "#4E8098",
-        focus: "#4E8098"
+        focus: "#4E8098",
       },
       border: {
         color: "#316780",
         hover: "#316780",
-        focus: "#316780"
-      }
-    }
+        focus: "#316780",
+      },
+    },
   };
   var NASICTheme$1 = _objectSpread2(
     {
@@ -8603,461 +8603,461 @@ var NumericFilter = (function() {
         color: {
           color: "#222",
           hover: "#222",
-          focus: "#222"
+          focus: "#222",
         },
         background: {
           color: "#f8f9fa",
           hover: "#DDE4E9",
-          focus: "#f8f9fa"
+          focus: "#f8f9fa",
         },
         border: {
           color: "#DDE4E9",
           hover: "#DDE4E9",
-          focus: "#DDE4E9"
-        }
+          focus: "#DDE4E9",
+        },
       },
       Secondary: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#6c757d",
           hover: "#525D67",
-          focus: "#6c757d"
+          focus: "#6c757d",
         },
         border: {
           color: "#525D67",
           hover: "#525D67",
-          focus: "#525D67"
-        }
+          focus: "#525D67",
+        },
       },
       Dark: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#343a40",
           hover: "#23272b",
-          focus: "#343a40"
+          focus: "#343a40",
         },
         border: {
           color: "#4F575E",
           hover: "#4F575E",
-          focus: "#4F575E"
-        }
+          focus: "#4F575E",
+        },
       },
       Primary: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4357AD",
           hover: "#2940A1",
-          focus: "#4357AD"
+          focus: "#4357AD",
         },
         border: {
           color: "#2940A1",
           hover: "#2940A1",
-          focus: "#2940A1"
-        }
+          focus: "#2940A1",
+        },
       },
       Info: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#58B0AE",
           hover: "#36938F",
-          focus: "#58B0AE"
+          focus: "#58B0AE",
         },
         border: {
           color: "#36938F",
           hover: "#36938F",
-          focus: "#36938F"
-        }
+          focus: "#36938F",
+        },
       },
       Warning: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#ED7D3A",
           hover: "#D15A14",
-          focus: "#ED7D3A"
+          focus: "#ED7D3A",
         },
         border: {
           color: "#D15A14",
           hover: "#D15A14",
-          focus: "#D15A14"
-        }
+          focus: "#D15A14",
+        },
       },
       Danger: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#7C0002",
           hover: "#560002",
-          focus: "#7C0002"
+          focus: "#7C0002",
         },
         border: {
           color: "#560002",
           hover: "#560002",
-          focus: "#560002"
-        }
+          focus: "#560002",
+        },
       },
       Success: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#0B7C40",
           hover: "#00642E",
-          focus: "#0B7C40"
+          focus: "#0B7C40",
         },
         border: {
           color: "#00642E",
           hover: "#00642E",
-          focus: "#00642E"
-        }
+          focus: "#00642E",
+        },
       },
       LightBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#41BEE8",
           hover: "#38a5ca",
-          focus: "#38a5ca"
+          focus: "#38a5ca",
         },
         border: {
           color: "#38a5ca",
           hover: "#38a5ca",
-          focus: "#38a5ca"
-        }
+          focus: "#38a5ca",
+        },
       },
       AirBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#2999F4",
           hover: "#2386d7",
-          focus: "#2386d7"
+          focus: "#2386d7",
         },
         border: {
           color: "#2386d7",
           hover: "#2386d7",
-          focus: "#2386d7"
-        }
+          focus: "#2386d7",
+        },
       },
       MissileOrange: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FF7200",
           hover: "#C65800",
-          focus: "#FF7200"
+          focus: "#FF7200",
         },
         border: {
           color: "#C65800",
           hover: "#C65800",
-          focus: "#C65800"
-        }
+          focus: "#C65800",
+        },
       },
       CyberYellow: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F7C82C",
           hover: "#D4A609",
-          focus: "#F7C82C"
+          focus: "#F7C82C",
         },
         border: {
           color: "#D4A609",
           hover: "#D4A609",
-          focus: "#D4A609"
-        }
+          focus: "#D4A609",
+        },
       },
       SpaceTeal: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#0AD1C3",
           hover: "#00BBAE",
-          focus: "#0AD1C3"
+          focus: "#0AD1C3",
         },
         border: {
           color: "#00BBAE",
           hover: "#00BBAE",
-          focus: "#00BBAE"
-        }
+          focus: "#00BBAE",
+        },
       },
       INTsMagenta: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FC49C9",
           hover: "#FA1FBD",
-          focus: "#FC49C9"
+          focus: "#FC49C9",
         },
         border: {
           color: "#FA1FBD",
           hover: "#FA1FBD",
-          focus: "#FA1FBD"
-        }
+          focus: "#FA1FBD",
+        },
       },
       RegionGreen: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#C8E552",
           hover: "#B0CF2E",
-          focus: "#C8E552"
+          focus: "#C8E552",
         },
         border: {
           color: "#B0CF2E",
           hover: "#B0CF2E",
-          focus: "#B0CF2E"
-        }
+          focus: "#B0CF2E",
+        },
       },
       Sky: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#80CCFF",
           hover: "#57BDFF",
-          focus: "#80CCFF"
+          focus: "#80CCFF",
         },
         border: {
           color: "#57BDFF",
           hover: "#57BDFF",
-          focus: "#57BDFF"
-        }
+          focus: "#57BDFF",
+        },
       },
       Apricot: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FCB681",
           hover: "#D88B51",
-          focus: "#FCB681"
+          focus: "#FCB681",
         },
         border: {
           color: "#D88B51",
           hover: "#D88B51",
-          focus: "#D88B51"
-        }
+          focus: "#D88B51",
+        },
       },
       Aqua: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#77FCD5",
           hover: "#25EEB1",
-          focus: "#77FCD5"
+          focus: "#77FCD5",
         },
         border: {
           color: "#25EEB1",
           hover: "#25EEB1",
-          focus: "#25EEB1"
-        }
+          focus: "#25EEB1",
+        },
       },
       Sunny: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F9EC75",
           hover: "#D7C949",
-          focus: "#F9EC75"
+          focus: "#F9EC75",
         },
         border: {
           color: "#D7C949",
           hover: "#D7C949",
-          focus: "#D7C949"
-        }
+          focus: "#D7C949",
+        },
       },
       Moss: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#DFFF92",
           hover: "#C5FF38",
-          focus: "#DFFF92"
+          focus: "#DFFF92",
         },
         border: {
           color: "#C5FF38",
           hover: "#C5FF38",
-          focus: "#C5FF38"
-        }
+          focus: "#C5FF38",
+        },
       },
       Pink: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F2B4F9",
           hover: "#E486EE",
-          focus: "#F2B4F9"
+          focus: "#F2B4F9",
         },
         border: {
           color: "#E486EE",
           hover: "#E486EE",
-          focus: "#E486EE"
-        }
+          focus: "#E486EE",
+        },
       },
       Deep: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#002339",
           hover: "#000B12",
-          focus: "#002339"
+          focus: "#002339",
         },
         border: {
           color: "#000B12",
           hover: "#000B12",
-          focus: "#000B12"
-        }
+          focus: "#000B12",
+        },
       },
       Bark: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#481F0C",
           hover: "#2B0E01",
-          focus: "#481F0C"
+          focus: "#481F0C",
         },
         border: {
           color: "#2B0E01",
           hover: "#2B0E01",
-          focus: "#2B0E01"
-        }
+          focus: "#2B0E01",
+        },
       },
       Jungle: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#015149",
           hover: "#003933",
-          focus: "#015149"
+          focus: "#015149",
         },
         border: {
           color: "#003933",
           hover: "#003933",
-          focus: "#003933"
-        }
+          focus: "#003933",
+        },
       },
       Spice: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#705405",
           hover: "#4A3700",
-          focus: "#705405"
+          focus: "#705405",
         },
         border: {
           color: "#4A3700",
           hover: "#4A3700",
-          focus: "#4A3700"
-        }
+          focus: "#4A3700",
+        },
       },
       Olive: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4C5612",
           hover: "#2F3703",
-          focus: "#4C5612"
+          focus: "#4C5612",
         },
         border: {
           color: "#2F3703",
           hover: "#2F3703",
-          focus: "#2F3703"
-        }
+          focus: "#2F3703",
+        },
       },
       Plum: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#361329",
           hover: "#26081B",
-          focus: "#361329"
+          focus: "#361329",
         },
         border: {
           color: "#26081B",
           hover: "#26081B",
-          focus: "#26081B"
-        }
-      }
+          focus: "#26081B",
+        },
+      },
     },
     NIWSTheme$1,
     {},
@@ -9068,7 +9068,7 @@ var NumericFilter = (function() {
     var data = _taggedTemplateLiteral([
       '\n  font-family: "Open Sans Condensed Light", sans-serif !important;\n  font-weight: 400;\n  margin: 0;\n  color: ',
       ";\n  line-height: 1.571;\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject5 = function _templateObject5() {
@@ -9083,7 +9083,7 @@ var NumericFilter = (function() {
       '\n  margin: 0;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  font-weight: ',
       ";\n  line-height: 1.571;\n  color: ",
       ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject4 = function _templateObject4() {
@@ -9099,7 +9099,7 @@ var NumericFilter = (function() {
       "px;\n  font-weight: ",
       ";\n  line-height: 1.571;\n  color: ",
       ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject3 = function _templateObject3() {
@@ -9114,7 +9114,7 @@ var NumericFilter = (function() {
       "\n  margin-top: 0;\n  font-weight: ",
       ';\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: "PT Serif Regular", serif;\n  color: ',
       ";\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject2$1 = function _templateObject2() {
@@ -9129,7 +9129,7 @@ var NumericFilter = (function() {
       "\n  margin-top: 0;\n  font-weight: ",
       ';\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  color: ',
       ";\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject$2 = function _templateObject() {
@@ -9146,8 +9146,8 @@ var NumericFilter = (function() {
       type: Object,
       default: function _default() {
         return TextTheme;
-      }
-    }
+      },
+    },
   };
   var WebTitle = styled$1("h1", titleProps)(
     _templateObject$2(),
@@ -9198,16 +9198,16 @@ var NumericFilter = (function() {
   var props$2 = {
     size: {
       type: Number,
-      default: 15
+      default: 15,
     },
     dark: Boolean,
     textTheme: {
       type: Object,
       default: function _default() {
         return TextTheme;
-      }
+      },
     },
-    flavor: String
+    flavor: String,
   };
   var NText = styled$1("span", props$2)(
     _templateObject3(),
@@ -9231,7 +9231,7 @@ var NumericFilter = (function() {
     }
   );
   var NPara = NText.withComponent("p", props$2);
-  var NSmall = styled$1("small", props$2)(
+  var SmallText = styled$1("small", props$2)(
     _templateObject4(),
     function(props) {
       return props.bold ? "bold" : 500;
@@ -9379,7 +9379,7 @@ var NumericFilter = (function() {
       styles[group] ||
       (styles[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -9441,9 +9441,9 @@ var NumericFilter = (function() {
         sources: [],
         names: [],
         mappings: "",
-        file: "Typography.vue"
+        file: "Typography.vue",
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -9475,72 +9475,72 @@ var NumericFilter = (function() {
   var components = [
     {
       label: "WebTitle",
-      component: WebTitle
+      component: WebTitle,
     },
     {
       label: "WebSectionTitle",
-      component: WebSectionTitle
+      component: WebSectionTitle,
     },
     {
       label: "WebSubSectionTitle",
-      component: WebSubSectionTitle
+      component: WebSubSectionTitle,
     },
     {
       label: "WebCategoryTitle",
-      component: WebCategoryTitle
+      component: WebCategoryTitle,
     },
     {
       label: "WebSubCategoryTitle",
-      component: WebSubCategoryTitle
+      component: WebSubCategoryTitle,
     },
     {
       label: "WebKeyword",
-      component: WebKeyword
+      component: WebKeyword,
     },
     {
       label: "ProductTitle",
-      component: ProductTitle
+      component: ProductTitle,
     },
     {
       label: "SectionTitle",
-      component: SectionTitle
+      component: SectionTitle,
     },
     {
       label: "SubSectionTitle",
-      component: SubSectionTitle
+      component: SubSectionTitle,
     },
     {
       label: "CategoryTitle",
-      component: CategoryTitle
+      component: CategoryTitle,
     },
     {
       label: "SubCategoryTitle",
-      component: SubCategoryTitle
+      component: SubCategoryTitle,
     },
     {
       label: "Keyword",
-      component: Keyword
+      component: Keyword,
     },
     {
       label: "NText",
-      component: NText
+      component: NText,
     },
     {
       label: "NPara",
-      component: NPara
+      component: NPara,
     },
     {
-      label: "NSmall",
-      component: NSmall
+      label: "SmallText",
+      component: SmallText,
     },
     {
       label: "NLabel",
-      component: NLabel
+      component: NLabel,
     },
     {
       label: "PortionMarking",
-      component: PortionMarking
-    }
+      component: PortionMarking,
+    },
   ];
   var GlobalVue$2 = null;
 
@@ -9555,7 +9555,7 @@ var NumericFilter = (function() {
     }; // Create module definition for Vue.use()
 
     var plugin = {
-      install: install
+      install: install,
     }; // To auto-install when vue is found
     // eslint-disable-next-line no-redeclare
 
@@ -9587,8 +9587,8 @@ var NumericFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -9597,7 +9597,7 @@ var NumericFilter = (function() {
     var data = _taggedTemplateLiteral$2([
       '\n  width: 100%;\n  height: 35px;\n  font-size: 16px;\n  border-radius: 5px;\n  border-width: 1px;\n  border-style: solid;\n  padding: 2px 5px 2px 5px;\n  margin-top: 2px;\n  box-sizing: border-box;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\n  &:focus {\n    border-color: 1px solid\n      ',
       ";\n    outline: none;\n    box-shadow: 0px 0px 0px 3px\n      ",
-      ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n"
+      ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n",
     ]);
 
     _templateObject$3 = function _templateObject() {
@@ -9610,14 +9610,14 @@ var NumericFilter = (function() {
   var props$3 = {
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     defaultTheme: {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var NInput = styled("input", props$3)(
     _templateObject$3(),
@@ -9642,87 +9642,87 @@ var NumericFilter = (function() {
     name: "vue-input",
     components: {
       NInput: NInput,
-      NLabel: NLabel
+      NLabel: NLabel,
     },
     data: function data() {
       return {
-        internalValue: ""
+        internalValue: "",
       };
     },
     props: {
       flavor: {
         type: String,
-        default: "LightBlue"
+        default: "LightBlue",
       },
       autocomplete: {
         type: String,
-        default: "off"
+        default: "off",
       },
       value: {
         type: String,
-        default: ""
+        default: "",
       },
       readonly: {
         type: Boolean,
-        default: false
+        default: false,
       },
       placeholder: {
         type: String,
-        default: ""
+        default: "",
       },
       pattern: {
         type: String,
-        default: ""
+        default: "",
       },
       multiple: {
         type: Boolean,
-        default: false
+        default: false,
       },
       min: {
         type: String,
-        default: ""
+        default: "",
       },
       max: {
         type: String,
-        default: ""
+        default: "",
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       inputType: {
         type: String,
-        required: true
+        required: true,
       },
       required: {
         type: Boolean,
-        default: false
+        default: false,
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: false,
       },
       labelFlavor: {
         type: String,
-        default: ""
+        default: "",
       },
       labelDark: {
         type: Boolean,
-        default: false
+        default: false,
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       autofocus: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     watch: {
       value: function value(newVal, oldVal) {
         this.internalValue = newVal;
-      }
+      },
     },
     mounted: function mounted() {
       var self = this;
@@ -9743,8 +9743,8 @@ var NumericFilter = (function() {
       },
       onFocus: function onFocus() {
         this.$emit("focus");
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent$3(
@@ -9860,7 +9860,7 @@ var NumericFilter = (function() {
       styles$1[group] ||
       (styles$1[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -9920,7 +9920,7 @@ var NumericFilter = (function() {
     return _c(
       "div",
       {
-        staticClass: "input-container"
+        staticClass: "input-container",
       },
       [
         _c(
@@ -9929,8 +9929,8 @@ var NumericFilter = (function() {
             attrs: {
               dark: _vm.labelDark,
               flavor: _vm.labelFlavor,
-              for: _vm.name
-            }
+              for: _vm.name,
+            },
           },
           [_vm._v(_vm._s(_vm.label))]
         ),
@@ -9951,14 +9951,14 @@ var NumericFilter = (function() {
             disabled: _vm.disabled,
             autofocus: _vm.autofocus,
             autocomplete: _vm.autocomplete,
-            value: _vm.internalValue
+            value: _vm.internalValue,
           },
           on: {
             input: _vm.oninput,
             change: _vm.onChange,
-            focus: _vm.onFocus
-          }
-        })
+            focus: _vm.onFocus,
+          },
+        }),
       ],
       1
     );
@@ -9976,16 +9976,16 @@ var NumericFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\Input\\src\\Input.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\Input\\src\\Input.vue",
         ],
         names: [],
         mappings: ";AAoMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA",
         file: "Input.vue",
         sourcesContent: [
-          '<template>\r\n  <div class="input-container">\r\n    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor="flavor"\r\n      :id="name"\r\n      :readonly="readonly"\r\n      :placeholder="placeholder"\r\n      :pattern="pattern"\r\n      :multiple="multiple"\r\n      :min="min"\r\n      :max="max"\r\n      :name="name"\r\n      :type="inputType"\r\n      :required="required"\r\n      :disabled="disabled"\r\n      :autofocus="autofocus"\r\n      :autocomplete="autocomplete"\r\n      :value="internalValue"\r\n      @input="oninput"\r\n      @change="onChange"\r\n      @focus="onFocus"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from "@intus/typography";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: "LightBlue"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled("input", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#04040480"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#10d2ff80"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: "vue-input",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: ""\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: "off"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== "undefined") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit("input", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit("focus");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n'
-        ]
+          '<template>\r\n  <div class="input-container">\r\n    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor="flavor"\r\n      :id="name"\r\n      :readonly="readonly"\r\n      :placeholder="placeholder"\r\n      :pattern="pattern"\r\n      :multiple="multiple"\r\n      :min="min"\r\n      :max="max"\r\n      :name="name"\r\n      :type="inputType"\r\n      :required="required"\r\n      :disabled="disabled"\r\n      :autofocus="autofocus"\r\n      :autocomplete="autocomplete"\r\n      :value="internalValue"\r\n      @input="oninput"\r\n      @change="onChange"\r\n      @focus="onFocus"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from "@intus/typography";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: "LightBlue"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled("input", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#04040480"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#10d2ff80"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: "vue-input",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: ""\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: "off"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== "undefined") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit("input", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit("focus");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -10004,7 +10004,7 @@ var NumericFilter = (function() {
   var __vue_component__$3 = normalizeComponent$3(
     {
       render: __vue_render__,
-      staticRenderFns: __vue_staticRenderFns__
+      staticRenderFns: __vue_staticRenderFns__,
     },
     __vue_inject_styles__$3,
     __vue_script__$3,
@@ -10020,12 +10020,12 @@ var NumericFilter = (function() {
   var components$1 = [
     {
       label: "VueInput",
-      component: VueInput
+      component: VueInput,
     },
     {
       label: "NInput",
-      component: NInput
-    }
+      component: NInput,
+    },
   ];
   var GlobalVue$3 = null;
 
@@ -10039,7 +10039,7 @@ var NumericFilter = (function() {
     }; // Create module definition for Vue.use()
 
     var plugin = {
-      install: install
+      install: install,
     }; // To auto-install when vue is found
     // eslint-disable-next-line no-redeclare
 
@@ -10075,15 +10075,15 @@ var NumericFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
 
   function _templateObject3$1() {
     var data = _taggedTemplateLiteral$3([
-      "\n  display: flex;\n  flex-direction: row;\n"
+      "\n  display: flex;\n  flex-direction: row;\n",
     ]);
 
     _templateObject3$1 = function _templateObject3() {
@@ -10095,7 +10095,7 @@ var NumericFilter = (function() {
 
   function _templateObject2$2() {
     var data = _taggedTemplateLiteral$3([
-      "\n  margin-left: 2px;\n  margin-right: 2px;\n"
+      "\n  margin-left: 2px;\n  margin-right: 2px;\n",
     ]);
 
     _templateObject2$2 = function _templateObject2() {
@@ -10107,7 +10107,7 @@ var NumericFilter = (function() {
 
   function _templateObject$4() {
     var data = _taggedTemplateLiteral$3([
-      "\n  display: flex;\n  flex-direction: column;\n"
+      "\n  display: flex;\n  flex-direction: column;\n",
     ]);
 
     _templateObject$4 = function _templateObject() {
@@ -10126,13 +10126,13 @@ var NumericFilter = (function() {
       InputContainer: InputContainer,
       InputGroupContainer: InputGroupContainer,
       NLabel: NLabel,
-      NInput: NInput
+      NInput: NInput,
     },
     data: function data() {
       return {
         lowerValue: 0,
         upperValue: 0,
-        internalSteps: []
+        internalSteps: [],
       };
     },
     props: {
@@ -10141,43 +10141,43 @@ var NumericFilter = (function() {
         default: function _default() {
           return {
             lowValue: 0,
-            highValue: 0
+            highValue: 0,
           };
-        }
+        },
       },
       labelFlavor: {
         type: String,
-        default: ""
+        default: "",
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       max: {
         type: Number,
-        required: true
+        required: true,
       },
       min: {
         type: Number,
-        required: true
+        required: true,
       },
       steps: {
         type: Array,
         default: function _default() {
           return [1];
-        }
-      }
+        },
+      },
     },
     watch: {
       steps: function steps() {
         this.internalSteps = this.steps.slice().sort(function(x, y) {
           return x >= y;
         });
-      }
+      },
     },
     mounted: function mounted() {
       this.lowerValue = this.min;
@@ -10197,7 +10197,7 @@ var NumericFilter = (function() {
           }
         },
         {
-          deep: true
+          deep: true,
         }
       );
 
@@ -10256,7 +10256,7 @@ var NumericFilter = (function() {
             return -1;
           },
           configurable: true,
-          writable: true
+          writable: true,
         });
       }
     },
@@ -10433,10 +10433,10 @@ var NumericFilter = (function() {
         this.upperValue = parseFloat(this.upperValue);
         this.$emit("change", {
           lowerValue: this.lowerValue,
-          upperValue: this.upperValue
+          upperValue: this.upperValue,
         });
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent$4(
@@ -10552,7 +10552,7 @@ var NumericFilter = (function() {
       styles$2[group] ||
       (styles$2[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -10618,7 +10618,7 @@ var NumericFilter = (function() {
             _c(
               "input-group-container",
               {
-                staticClass: "number-range-min-input-container"
+                staticClass: "number-range-min-input-container",
               },
               [
                 _c(
@@ -10626,8 +10626,8 @@ var NumericFilter = (function() {
                   {
                     attrs: {
                       flavor: _vm.labelFlavor,
-                      for: _vm.name + "LowerValue"
-                    }
+                      for: _vm.name + "LowerValue",
+                    },
                   },
                   [_vm._v(_vm._s(_vm.label) + " Lower")]
                 ),
@@ -10639,7 +10639,7 @@ var NumericFilter = (function() {
                     name: _vm.name + "LowerValue",
                     id: _vm.name + "LowerValue",
                     min: _vm.min,
-                    max: _vm.upperValue
+                    max: _vm.upperValue,
                   },
                   on: {
                     keydown: [
@@ -10648,7 +10648,7 @@ var NumericFilter = (function() {
                           !$event.type.indexOf("key") &&
                           _vm._k($event.keyCode, "up", 38, $event.key, [
                             "Up",
-                            "ArrowUp"
+                            "ArrowUp",
                           ])
                         ) {
                           return null;
@@ -10661,25 +10661,25 @@ var NumericFilter = (function() {
                           !$event.type.indexOf("key") &&
                           _vm._k($event.keyCode, "down", 40, $event.key, [
                             "Down",
-                            "ArrowDown"
+                            "ArrowDown",
                           ])
                         ) {
                           return null;
                         }
 
                         return _vm.decrement($event, "lowerValue");
-                      }
+                      },
                     ],
-                    change: _vm.validateValue
+                    change: _vm.validateValue,
                   },
                   model: {
                     value: _vm.lowerValue,
                     callback: function callback($$v) {
                       _vm.lowerValue = $$v;
                     },
-                    expression: "lowerValue"
-                  }
-                })
+                    expression: "lowerValue",
+                  },
+                }),
               ],
               1
             ),
@@ -10693,8 +10693,8 @@ var NumericFilter = (function() {
                     staticClass: "number-range-max-label",
                     attrs: {
                       flavor: _vm.labelFlavor,
-                      for: _vm.name + "UpperValue"
-                    }
+                      for: _vm.name + "UpperValue",
+                    },
                   },
                   [_vm._v(_vm._s(_vm.label) + " Upper")]
                 ),
@@ -10706,7 +10706,7 @@ var NumericFilter = (function() {
                     name: _vm.name + "UpperValue",
                     id: _vm.name + "UpperValue",
                     min: _vm.lowerValue,
-                    max: _vm.max
+                    max: _vm.max,
                   },
                   on: {
                     keydown: [
@@ -10715,7 +10715,7 @@ var NumericFilter = (function() {
                           !$event.type.indexOf("key") &&
                           _vm._k($event.keyCode, "up", 38, $event.key, [
                             "Up",
-                            "ArrowUp"
+                            "ArrowUp",
                           ])
                         ) {
                           return null;
@@ -10728,31 +10728,31 @@ var NumericFilter = (function() {
                           !$event.type.indexOf("key") &&
                           _vm._k($event.keyCode, "down", 40, $event.key, [
                             "Down",
-                            "ArrowDown"
+                            "ArrowDown",
                           ])
                         ) {
                           return null;
                         }
 
                         return _vm.decrement($event, "upperValue");
-                      }
+                      },
                     ],
-                    change: _vm.validateValue
+                    change: _vm.validateValue,
                   },
                   model: {
                     value: _vm.upperValue,
                     callback: function callback($$v) {
                       _vm.upperValue = $$v;
                     },
-                    expression: "upperValue"
-                  }
-                })
+                    expression: "upperValue",
+                  },
+                }),
               ],
               1
-            )
+            ),
           ],
           1
-        )
+        ),
       ],
       1
     );
@@ -10770,16 +10770,16 @@ var NumericFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\NumberRange\\src\\NumberRange.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\NumberRange\\src\\NumberRange.vue",
         ],
         names: [],
         mappings: ";AAgVA;EACA,YAAA;EACA,eAAA;AACA",
         file: "NumberRange.vue",
         sourcesContent: [
-          '<template>\r\n  <number-container>\r\n    <input-container>\r\n      <input-group-container class="number-range-min-input-container">\r\n        <n-label :flavor="labelFlavor" :for="name + \'LowerValue\'"\r\n          >{{ label }} Lower</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up="increment($event, \'lowerValue\')"\r\n          @keydown.down="decrement($event, \'lowerValue\')"\r\n          type="number"\r\n          v-model="lowerValue"\r\n          @change="validateValue"\r\n          :name="name + \'LowerValue\'"\r\n          :id="name + \'LowerValue\'"\r\n          ref="minInput"\r\n          :min="min"\r\n          :max="upperValue"\r\n        ></n-input>\r\n      </input-group-container>\r\n      <input-group-container>\r\n        <n-label\r\n          :flavor="labelFlavor"\r\n          class="number-range-max-label"\r\n          :for="name + \'UpperValue\'"\r\n          >{{ label }} Upper</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up="increment($event, \'upperValue\')"\r\n          @keydown.down="decrement($event, \'upperValue\')"\r\n          type="number"\r\n          v-model="upperValue"\r\n          @change="validateValue"\r\n          :name="name + \'UpperValue\'"\r\n          :id="name + \'UpperValue\'"\r\n          ref="maxInput"\r\n          :min="lowerValue"\r\n          :max="max"\r\n        ></n-input>\r\n      </input-group-container>\r\n    </input-container>\r\n  </number-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nimport { NInput } from "@intus/input";\r\nimport { NLabel } from "@intus/typography";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumberContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n`;\r\nconst InputGroupContainer = styled.div`\r\n  margin-left: 2px;\r\n  margin-right: 2px;\r\n`;\r\nconst InputContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: row;\r\n`;\r\n\r\nexport const NumberRange = {\r\n  components: {\r\n    NumberContainer,\r\n    InputContainer,\r\n    InputGroupContainer,\r\n    NLabel,\r\n    NInput\r\n  },\r\n  data() {\r\n    return {\r\n      lowerValue: 0,\r\n      upperValue: 0,\r\n      internalSteps: []\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    max: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    min: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    steps: {\r\n      type: Array,\r\n      default() {\r\n        return [1];\r\n      }\r\n    }\r\n  },\r\n  watch: {\r\n    steps() {\r\n      this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    }\r\n  },\r\n  mounted() {\r\n    this.lowerValue = this.min;\r\n    this.upperValue = this.max;\r\n    let self = this;\r\n    self.$watch(\r\n      "value",\r\n      function() {\r\n        if (self.lowerValue != self.value.lowerValue) {\r\n          self.lowerValue = self.value.lowerValue;\r\n          self.validateValue();\r\n        }\r\n        if (self.upperValue != self.value.upperValue) {\r\n          self.upperValue = self.value.upperValue;\r\n          self.validateValue();\r\n        }\r\n      },\r\n      { deep: true }\r\n    );\r\n    if (this.steps.length == 0) {\r\n      throw "Steps must have at least one value";\r\n    }\r\n    if (this.steps.length > 1) {\r\n      if (this.steps[0] != this.min) {\r\n        throw "Discrete steps must have a first value equal to the minimum";\r\n      }\r\n      if (this.steps[this.steps.length - 1] != this.max) {\r\n        throw "Discrete steps must have a last value equal to the maximum";\r\n      }\r\n    }\r\n    this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    if (!Array.prototype.findIndex) {\r\n      Object.defineProperty(Array.prototype, "findIndex", {\r\n        value: function(predicate) {\r\n          // 1. Let O be ? ToObject(this value).\r\n          if (this == null) {\r\n            throw new TypeError(\'"this" is null or not defined\');\r\n          }\r\n\r\n          var o = Object(this);\r\n\r\n          // 2. Let len be ? ToLength(? Get(O, "length")).\r\n          var len = o.length >>> 0;\r\n\r\n          // 3. If IsCallable(predicate) is false, throw a TypeError exception.\r\n          if (typeof predicate !== "function") {\r\n            throw new TypeError("predicate must be a function");\r\n          }\r\n\r\n          // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.\r\n          var thisArg = arguments[1];\r\n\r\n          // 5. Let k be 0.\r\n          var k = 0;\r\n\r\n          // 6. Repeat, while k < len\r\n          while (k < len) {\r\n            // a. Let Pk be ! ToString(k).\r\n            // b. Let kValue be ? Get(O, Pk).\r\n            // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).\r\n            // d. If testResult is true, return k.\r\n            var kValue = o[k];\r\n            if (predicate.call(thisArg, kValue, k, o)) {\r\n              return k;\r\n            }\r\n            // e. Increase k by 1.\r\n            k++;\r\n          }\r\n\r\n          // 7. Return -1.\r\n          return -1;\r\n        },\r\n        configurable: true,\r\n        writable: true\r\n      });\r\n    }\r\n  },\r\n  beforeDestroy() {},\r\n  methods: {\r\n    increment(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.max) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) + 1;\r\n        if (nextIndex >= this.internalSteps.length) {\r\n          nextIndex = this.internalSteps.length - 1;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] += parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    decrement(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.min) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) - 1;\r\n        if (nextIndex <= 0) {\r\n          nextIndex = 0;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] -= parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    roundValues(value) {\r\n      let copy = this.internalSteps.slice();\r\n      copy.push(parseFloat(value));\r\n      copy.sort((x, y) => x >= y);\r\n      let index = copy.findIndex(x => x == parseFloat(value));\r\n      let lowerBound = index - 1;\r\n      let upperBound = index + 1;\r\n      if (lowerBound < 0) {\r\n        lowerBound = 0;\r\n      }\r\n      if (upperBound >= copy.length) {\r\n        upperBound = copy.length - 1;\r\n      }\r\n      copy = copy.slice(lowerBound, upperBound + 1);\r\n      return copy;\r\n    },\r\n    roundToNearestDiscreteStep(values, value) {\r\n      let lowerDelta = Math.abs(values[0] - value);\r\n      let upperDelta = Math.abs(values[values.length - 1] - value);\r\n      if (upperDelta < lowerDelta) {\r\n        // round up\r\n        return values[values.length - 1];\r\n      } else {\r\n        return values[0];\r\n      }\r\n    },\r\n    roundToNearestBasicStep(value, base) {\r\n      let distanceToBottom = 0;\r\n      let distanceToTop = 0;\r\n      let tracker = value;\r\n      let bottom = 0;\r\n      let top = 0;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToBottom++;\r\n        tracker--;\r\n      }\r\n      bottom = tracker;\r\n      tracker = value;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToTop++;\r\n        tracker++;\r\n      }\r\n      top = tracker;\r\n      if (distanceToBottom <= distanceToTop) {\r\n        return bottom;\r\n      }\r\n      return top;\r\n    },\r\n    validateValue() {\r\n      if (this.internalSteps.length != 1) {\r\n        if (this.internalSteps.indexOf(this.lowerValue) == -1) {\r\n          let copy = this.roundValues(this.lowerValue);\r\n          this.lowerValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.lowerValue)\r\n          );\r\n        }\r\n        if (this.internalSteps.indexOf(this.upperValue) == -1) {\r\n          let copy = this.roundValues(this.upperValue);\r\n          this.upperValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.upperValue)\r\n          );\r\n        }\r\n      } else {\r\n        if (Math.abs(this.lowerValue - this.min) % this.internalSteps[0] != 0) {\r\n          this.lowerValue = this.roundToNearestBasicStep(\r\n            this.lowerValue,\r\n            this.min\r\n          );\r\n        }\r\n        if (Math.abs(this.upperValue - this.max) % this.internalSteps[0] != 0) {\r\n          this.upperValue = this.roundToNearestBasicStep(\r\n            this.upperValue,\r\n            this.max\r\n          );\r\n        }\r\n      }\r\n      if (this.upperValue > this.max) {\r\n        this.upperValue = this.max;\r\n      }\r\n      if (this.lowerValue < this.min) {\r\n        this.lowerValue = this.min;\r\n      }\r\n      if (this.lowerValue > this.upperValue) {\r\n        this.lowerValue = parseFloat(this.upperValue);\r\n      }\r\n      this.lowerValue = parseFloat(this.lowerValue);\r\n      this.upperValue = parseFloat(this.upperValue);\r\n      this.$emit("change", {\r\n        lowerValue: this.lowerValue,\r\n        upperValue: this.upperValue\r\n      });\r\n    }\r\n  }\r\n};\r\nexport default NumberRange;\r\n</script>\r\n\r\n<style>\r\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\r\n}\r\n</style>\r\n'
-        ]
+          '<template>\r\n  <number-container>\r\n    <input-container>\r\n      <input-group-container class="number-range-min-input-container">\r\n        <n-label :flavor="labelFlavor" :for="name + \'LowerValue\'"\r\n          >{{ label }} Lower</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up="increment($event, \'lowerValue\')"\r\n          @keydown.down="decrement($event, \'lowerValue\')"\r\n          type="number"\r\n          v-model="lowerValue"\r\n          @change="validateValue"\r\n          :name="name + \'LowerValue\'"\r\n          :id="name + \'LowerValue\'"\r\n          ref="minInput"\r\n          :min="min"\r\n          :max="upperValue"\r\n        ></n-input>\r\n      </input-group-container>\r\n      <input-group-container>\r\n        <n-label\r\n          :flavor="labelFlavor"\r\n          class="number-range-max-label"\r\n          :for="name + \'UpperValue\'"\r\n          >{{ label }} Upper</n-label\r\n        >\r\n        <n-input\r\n          @keydown.up="increment($event, \'upperValue\')"\r\n          @keydown.down="decrement($event, \'upperValue\')"\r\n          type="number"\r\n          v-model="upperValue"\r\n          @change="validateValue"\r\n          :name="name + \'UpperValue\'"\r\n          :id="name + \'UpperValue\'"\r\n          ref="maxInput"\r\n          :min="lowerValue"\r\n          :max="max"\r\n        ></n-input>\r\n      </input-group-container>\r\n    </input-container>\r\n  </number-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nimport { NInput } from "@intus/input";\r\nimport { NLabel } from "@intus/typography";\r\nconst props = {\r\n  flavor: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumberContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n`;\r\nconst InputGroupContainer = styled.div`\r\n  margin-left: 2px;\r\n  margin-right: 2px;\r\n`;\r\nconst InputContainer = styled.div`\r\n  display: flex;\r\n  flex-direction: row;\r\n`;\r\n\r\nexport const NumberRange = {\r\n  components: {\r\n    NumberContainer,\r\n    InputContainer,\r\n    InputGroupContainer,\r\n    NLabel,\r\n    NInput\r\n  },\r\n  data() {\r\n    return {\r\n      lowerValue: 0,\r\n      upperValue: 0,\r\n      internalSteps: []\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    max: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    min: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    steps: {\r\n      type: Array,\r\n      default() {\r\n        return [1];\r\n      }\r\n    }\r\n  },\r\n  watch: {\r\n    steps() {\r\n      this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    }\r\n  },\r\n  mounted() {\r\n    this.lowerValue = this.min;\r\n    this.upperValue = this.max;\r\n    let self = this;\r\n    self.$watch(\r\n      "value",\r\n      function() {\r\n        if (self.lowerValue != self.value.lowerValue) {\r\n          self.lowerValue = self.value.lowerValue;\r\n          self.validateValue();\r\n        }\r\n        if (self.upperValue != self.value.upperValue) {\r\n          self.upperValue = self.value.upperValue;\r\n          self.validateValue();\r\n        }\r\n      },\r\n      { deep: true }\r\n    );\r\n    if (this.steps.length == 0) {\r\n      throw "Steps must have at least one value";\r\n    }\r\n    if (this.steps.length > 1) {\r\n      if (this.steps[0] != this.min) {\r\n        throw "Discrete steps must have a first value equal to the minimum";\r\n      }\r\n      if (this.steps[this.steps.length - 1] != this.max) {\r\n        throw "Discrete steps must have a last value equal to the maximum";\r\n      }\r\n    }\r\n    this.internalSteps = this.steps.slice().sort((x, y) => x >= y);\r\n    if (!Array.prototype.findIndex) {\r\n      Object.defineProperty(Array.prototype, "findIndex", {\r\n        value: function(predicate) {\r\n          // 1. Let O be ? ToObject(this value).\r\n          if (this == null) {\r\n            throw new TypeError(\'"this" is null or not defined\');\r\n          }\r\n\r\n          var o = Object(this);\r\n\r\n          // 2. Let len be ? ToLength(? Get(O, "length")).\r\n          var len = o.length >>> 0;\r\n\r\n          // 3. If IsCallable(predicate) is false, throw a TypeError exception.\r\n          if (typeof predicate !== "function") {\r\n            throw new TypeError("predicate must be a function");\r\n          }\r\n\r\n          // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.\r\n          var thisArg = arguments[1];\r\n\r\n          // 5. Let k be 0.\r\n          var k = 0;\r\n\r\n          // 6. Repeat, while k < len\r\n          while (k < len) {\r\n            // a. Let Pk be ! ToString(k).\r\n            // b. Let kValue be ? Get(O, Pk).\r\n            // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).\r\n            // d. If testResult is true, return k.\r\n            var kValue = o[k];\r\n            if (predicate.call(thisArg, kValue, k, o)) {\r\n              return k;\r\n            }\r\n            // e. Increase k by 1.\r\n            k++;\r\n          }\r\n\r\n          // 7. Return -1.\r\n          return -1;\r\n        },\r\n        configurable: true,\r\n        writable: true\r\n      });\r\n    }\r\n  },\r\n  beforeDestroy() {},\r\n  methods: {\r\n    increment(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.max) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) + 1;\r\n        if (nextIndex >= this.internalSteps.length) {\r\n          nextIndex = this.internalSteps.length - 1;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] += parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    decrement(event, value) {\r\n      event.preventDefault();\r\n      if (this[value] == this.min) {\r\n        return;\r\n      }\r\n      if (this.internalSteps.length > 1) {\r\n        let nextIndex = this.internalSteps.findIndex(x => x == this[value]) - 1;\r\n        if (nextIndex <= 0) {\r\n          nextIndex = 0;\r\n        }\r\n        this[value] = parseFloat(this.internalSteps[nextIndex]);\r\n      } else {\r\n        this[value] -= parseFloat(this.internalSteps[0]);\r\n      }\r\n      this.validateValue();\r\n    },\r\n    roundValues(value) {\r\n      let copy = this.internalSteps.slice();\r\n      copy.push(parseFloat(value));\r\n      copy.sort((x, y) => x >= y);\r\n      let index = copy.findIndex(x => x == parseFloat(value));\r\n      let lowerBound = index - 1;\r\n      let upperBound = index + 1;\r\n      if (lowerBound < 0) {\r\n        lowerBound = 0;\r\n      }\r\n      if (upperBound >= copy.length) {\r\n        upperBound = copy.length - 1;\r\n      }\r\n      copy = copy.slice(lowerBound, upperBound + 1);\r\n      return copy;\r\n    },\r\n    roundToNearestDiscreteStep(values, value) {\r\n      let lowerDelta = Math.abs(values[0] - value);\r\n      let upperDelta = Math.abs(values[values.length - 1] - value);\r\n      if (upperDelta < lowerDelta) {\r\n        // round up\r\n        return values[values.length - 1];\r\n      } else {\r\n        return values[0];\r\n      }\r\n    },\r\n    roundToNearestBasicStep(value, base) {\r\n      let distanceToBottom = 0;\r\n      let distanceToTop = 0;\r\n      let tracker = value;\r\n      let bottom = 0;\r\n      let top = 0;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToBottom++;\r\n        tracker--;\r\n      }\r\n      bottom = tracker;\r\n      tracker = value;\r\n      while (Math.abs(tracker - base) % this.internalSteps[0] != 0) {\r\n        distanceToTop++;\r\n        tracker++;\r\n      }\r\n      top = tracker;\r\n      if (distanceToBottom <= distanceToTop) {\r\n        return bottom;\r\n      }\r\n      return top;\r\n    },\r\n    validateValue() {\r\n      if (this.internalSteps.length != 1) {\r\n        if (this.internalSteps.indexOf(this.lowerValue) == -1) {\r\n          let copy = this.roundValues(this.lowerValue);\r\n          this.lowerValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.lowerValue)\r\n          );\r\n        }\r\n        if (this.internalSteps.indexOf(this.upperValue) == -1) {\r\n          let copy = this.roundValues(this.upperValue);\r\n          this.upperValue = parseFloat(\r\n            this.roundToNearestDiscreteStep(copy, this.upperValue)\r\n          );\r\n        }\r\n      } else {\r\n        if (Math.abs(this.lowerValue - this.min) % this.internalSteps[0] != 0) {\r\n          this.lowerValue = this.roundToNearestBasicStep(\r\n            this.lowerValue,\r\n            this.min\r\n          );\r\n        }\r\n        if (Math.abs(this.upperValue - this.max) % this.internalSteps[0] != 0) {\r\n          this.upperValue = this.roundToNearestBasicStep(\r\n            this.upperValue,\r\n            this.max\r\n          );\r\n        }\r\n      }\r\n      if (this.upperValue > this.max) {\r\n        this.upperValue = this.max;\r\n      }\r\n      if (this.lowerValue < this.min) {\r\n        this.lowerValue = this.min;\r\n      }\r\n      if (this.lowerValue > this.upperValue) {\r\n        this.lowerValue = parseFloat(this.upperValue);\r\n      }\r\n      this.lowerValue = parseFloat(this.lowerValue);\r\n      this.upperValue = parseFloat(this.upperValue);\r\n      this.$emit("change", {\r\n        lowerValue: this.lowerValue,\r\n        upperValue: this.upperValue\r\n      });\r\n    }\r\n  }\r\n};\r\nexport default NumberRange;\r\n</script>\r\n\r\n<style>\r\n.number-range-max-label {\r\n  float: right;\r\n  text-align: end;\r\n}\r\n</style>\r\n',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -10798,7 +10798,7 @@ var NumericFilter = (function() {
   var __vue_component__$4 = normalizeComponent$4(
     {
       render: __vue_render__$1,
-      staticRenderFns: __vue_staticRenderFns__$1
+      staticRenderFns: __vue_staticRenderFns__$1,
     },
     __vue_inject_styles__$4,
     __vue_script__$4,
@@ -10818,7 +10818,7 @@ var NumericFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$2 = {
-    install: install$2
+    install: install$2,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -10841,7 +10841,7 @@ var NumericFilter = (function() {
 
   function _templateObject3$2() {
     var data = _taggedTemplateLiteral([
-      "\n  transition: 0.3s height;\n  margin-top: 3px;\n  height: 0px;\n  overflow-y: hidden;\n"
+      "\n  transition: 0.3s height;\n  margin-top: 3px;\n  height: 0px;\n  overflow-y: hidden;\n",
     ]);
 
     _templateObject3$2 = function _templateObject3() {
@@ -10854,7 +10854,7 @@ var NumericFilter = (function() {
   function _templateObject2$3() {
     var data = _taggedTemplateLiteral([
       "\n  background-image: linear-gradient(\n    to top right,\n    transparent 50%,\n    ",
-      "\n      50%\n  );\n  float: right;\n  width: 0.5rem;\n  height: 0.5rem;\n  transform: rotate(45deg);\n  transition: 0.3s all;\n  display: inline-block;\n"
+      "\n      50%\n  );\n  float: right;\n  width: 0.5rem;\n  height: 0.5rem;\n  transform: rotate(45deg);\n  transition: 0.3s all;\n  display: inline-block;\n",
     ]);
 
     _templateObject2$3 = function _templateObject2() {
@@ -10882,8 +10882,8 @@ var NumericFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var NumericCarat = styled("div", props$4)(_templateObject2$3(), function(
     props
@@ -10905,15 +10905,15 @@ var NumericFilter = (function() {
       NumericContentContainer: NumericContentContainer,
       NumberRange: __vue_component__$4,
       Badge: __vue_component__$1,
-      NText: NText
+      NText: NText,
     },
     data: function data() {
       return {
         open: false,
         internalValue: {
           lowerValue: 0,
-          upperValue: 0
-        }
+          upperValue: 0,
+        },
       };
     },
     props: {
@@ -10922,38 +10922,38 @@ var NumericFilter = (function() {
         default: function _default() {
           return {
             lowValue: 0,
-            highValue: 0
+            highValue: 0,
           };
-        }
+        },
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       filter: {
         type: Object,
-        required: true
+        required: true,
       },
       defaultOpen: {
         type: Boolean,
-        default: false
+        default: false,
       },
       activeBadgeFlavor: {
         type: String,
-        default: "Light"
+        default: "Light",
       },
       flavor: {
         type: String,
-        default: "Dark"
+        default: "Dark",
       },
       textFlavor: {
         type: String,
-        default: ""
+        default: "",
       },
       helpText: {
         type: String,
-        default: ""
-      }
+        default: "",
+      },
     },
     mounted: function mounted() {
       this.open = this.defaultOpen;
@@ -10981,7 +10981,7 @@ var NumericFilter = (function() {
 
       var self = this;
       self.$watch("value", self.handleUpdate, {
-        deep: true
+        deep: true,
       }); // this.$watch("filter.value.lowerValue", this.handleUpdate, { deep: true });
       // this.$watch("filter.value.upperValue", this.handleUpdate, { deep: true });
     },
@@ -11058,7 +11058,7 @@ var NumericFilter = (function() {
           this.collapseSection(this.$refs.content.$el);
           this.open = false;
         }
-      }
+      },
     },
     computed: {
       computedStep: function computedStep() {
@@ -11074,8 +11074,8 @@ var NumericFilter = (function() {
         }
 
         return [];
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent$5(
@@ -11191,7 +11191,7 @@ var NumericFilter = (function() {
       styles$3[group] ||
       (styles$3[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -11253,7 +11253,7 @@ var NumericFilter = (function() {
           {
             staticClass: "numeric-button",
             attrs: { block: true, flavor: _vm.flavor },
-            on: { click: _vm.toggle }
+            on: { click: _vm.toggle },
           },
           [
             _c(
@@ -11261,16 +11261,16 @@ var NumericFilter = (function() {
               [
                 _vm._v("\n      " + _vm._s(_vm.filter.display) + "\n      "),
                 _c("badge", { attrs: { flavor: _vm.activeBadgeFlavor } }, [
-                  _vm._v("Active")
-                ])
+                  _vm._v("Active"),
+                ]),
               ],
               1
             ),
             _vm._v(" "),
             _c("numeric-carat", {
               class: _vm.computeClass,
-              attrs: { flavor: _vm.flavor, disabled: _vm.filter.disabled }
-            })
+              attrs: { flavor: _vm.flavor, disabled: _vm.filter.disabled },
+            }),
           ],
           1
         ),
@@ -11286,7 +11286,7 @@ var NumericFilter = (function() {
                 steps: _vm.computedStep,
                 label: _vm.filter.display,
                 "label-flavor": _vm.textFlavor,
-                name: _vm.name
+                name: _vm.name,
               },
               on: { input: _vm.bubbleInput, change: _vm.bubbleChange },
               model: {
@@ -11294,16 +11294,16 @@ var NumericFilter = (function() {
                 callback: function($$v) {
                   _vm.value = $$v;
                 },
-                expression: "value"
-              }
+                expression: "value",
+              },
             }),
             _vm._v(" "),
-            _c("n-text", { attrs: { flavor: _vm.textFlavor } }, [
-              _vm._v(_vm._s(_vm.helpText))
-            ])
+            _c("text", { attrs: { flavor: _vm.textFlavor } }, [
+              _vm._v(_vm._s(_vm.helpText)),
+            ]),
           ],
           1
-        )
+        ),
       ],
       1
     );
@@ -11320,17 +11320,17 @@ var NumericFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\Storefront\\NumericFilter\\src\\NumericFilter.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\Storefront\\NumericFilter\\src\\NumericFilter.vue",
         ],
         names: [],
         mappings:
           ";AA2QA;EACA,wBAAA;EACA,gBAAA;AACA;AACA;EACA,8BAAA;EACA,aAAA;EACA,mBAAA;AACA;AACA;EACA,oCAAA;AACA;AAEA;EACA,WAAA;EACA,WAAA;EACA,sBAAA;AACA;AACA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,WAAA;AACA;AACA;EACA,qBAAA;EACA,YAAA;EACA,WAAA;EACA,kBAAA;EACA,eAAA;AACA",
         file: "NumericFilter.vue",
         sourcesContent: [
-          '<template>\r\n  <numeric-container>\r\n    <n-button\r\n      :block="true"\r\n      :flavor="flavor"\r\n      @click="toggle"\r\n      class="numeric-button"\r\n    >\r\n      <span>\r\n        {{ filter.display }}\r\n        <badge :flavor="activeBadgeFlavor">Active</badge>\r\n      </span>\r\n      <numeric-carat\r\n        :flavor="flavor"\r\n        :class="computeClass"\r\n        :disabled="filter.disabled"\r\n      ></numeric-carat>\r\n    </n-button>\r\n    <numeric-content-container ref="content">\r\n      <number-range\r\n        :max="filter.max"\r\n        :min="filter.min"\r\n        :steps="computedStep"\r\n        :label="filter.display"\r\n        :label-flavor="textFlavor"\r\n        :name="name"\r\n        v-model="value"\r\n        @input="bubbleInput"\r\n        @change="bubbleChange"\r\n      ></number-range>\r\n      <n-text :flavor="textFlavor">{{ helpText }}</n-text>\r\n    </numeric-content-container>\r\n  </numeric-container>\r\n</template>\r\n\r\n<script>\r\nimport { NButton } from "@intus/button";\r\nimport Badge from "@intus/badge";\r\nimport { NText } from "@intus/typography";\r\nimport NumberRange from "@intus/number-range";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst NumericContainer = styled.div`\r\n  width: 100%;\r\n`;\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumericCarat = styled("div", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? "rgba(0, 0, 0, 0.3)"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : "#222"}\r\n      50%\r\n  );\r\n  float: right;\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nconst NumericContentContainer = styled.div`\r\n  transition: 0.3s height;\r\n  margin-top: 3px;\r\n  height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\n\r\nexport const NumericFilter = {\r\n  components: {\r\n    NButton,\r\n    NumericContainer,\r\n    NumericCarat,\r\n    NumericContentContainer,\r\n    NumberRange,\r\n    Badge,\r\n    NText\r\n  },\r\n  data() {\r\n    return {\r\n      open: false,\r\n      internalValue: {\r\n        lowerValue: 0,\r\n        upperValue: 0\r\n      }\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    filter: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    defaultOpen: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    activeBadgeFlavor: {\r\n      type: String,\r\n      default: "Light"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "Dark"\r\n    },\r\n    textFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    helpText: {\r\n      type: String,\r\n      default: ""\r\n    }\r\n  },\r\n  mounted() {\r\n    this.open = this.defaultOpen;\r\n    if (this.defaultOpen) {\r\n      this.expandSection(this.$refs.content.$el);\r\n    }\r\n    if (this.filter.value) {\r\n      if (!isNaN(this.filter.value.lowerValue)) {\r\n        this.internalValue.lowerValue = this.filter.value.lowerValue;\r\n      } else {\r\n        this.internalValue.lowerValue = this.filter.min;\r\n      }\r\n      if (!isNaN(this.filter.value.upperValue)) {\r\n        this.internalValue.upperValue = this.filter.value.upperValue;\r\n      } else {\r\n        this.internalValue.upperValue = this.filter.value.upperValue;\r\n      }\r\n    } else {\r\n      this.internalValue.lowerValue = this.filter.min;\r\n      this.internalValue.upperValue = this.filter.max;\r\n    }\r\n\r\n    let self = this;\r\n    self.$watch("value", self.handleUpdate, { deep: true });\r\n    // this.$watch("filter.value.lowerValue", this.handleUpdate, { deep: true });\r\n    // this.$watch("filter.value.upperValue", this.handleUpdate, { deep: true });\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = "";\r\n      element.style.height = sectionHeight + "px !important";\r\n      element.style.overflowY = "hidden";\r\n      // element.style.width = sectionWidth + "px !important";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element\'s height to its current pixel height, so we\r\n      // aren\'t transitioning out of \'auto\'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + "px";\r\n        // element.style.width = sectionWidth + "px";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = \'hidden\';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + "px";\r\n          // element.style.width = "0px";\r\n          element.style.paddingBottom = "0px";\r\n        });\r\n      });\r\n\r\n      // mark the section as "currently collapsed"\r\n      element.setAttribute("data-collapsed", "true");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + "px";\r\n      // element.style.width = sectionWidth + "px";\r\n\r\n      element.style.paddingBottom = "5px";\r\n      // element.style.overflowY = "auto"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener("transitionend", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener("transitionend", this);\r\n        if (element.getAttribute("data-collapsed") == "false") {\r\n          // remove "height" from the element\'s inline styles, so it can return to its initial value\r\n          element.style.height = "auto";\r\n          element.style.overflowY = "visible";\r\n        }\r\n      });\r\n\r\n      // mark the section as "currently not collapsed"\r\n      element.setAttribute("data-collapsed", "false");\r\n    },\r\n    bubbleInput($event) {\r\n      this.internalValue = $event;\r\n      this.$emit("input", this.internalValue);\r\n    },\r\n    bubbleChange($event) {\r\n      this.internalValue = $event;\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    handleUpdate(value) {\r\n      this.internalValue.lowerValue = this.value.lowerValue;\r\n      this.internalValue.upperValue = this.value.upperValue;\r\n    },\r\n    toggle() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedStep() {\r\n      if (this.filter.numeric_type == "range") {\r\n        return [this.filter.step];\r\n      } else {\r\n        return this.filter.steps;\r\n      }\r\n    },\r\n    computeClass() {\r\n      if (this.open) {\r\n        return ["sidebar-open-carat"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default NumericFilter;\r\n</script>\r\n\r\n<style>\r\n.numeric-content-input {\r\n  width: calc(100% - 10px);\r\n  margin-left: 5px;\r\n}\r\n.numeric-button {\r\n  justify-content: space-between;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n.numeric-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n\r\n.drag-rail {\r\n  width: 100%;\r\n  height: 2px;\r\n  background-color: gray;\r\n}\r\n.drag-container {\r\n  height: 45px;\r\n  display: flex;\r\n  align-items: center;\r\n  position: relative;\r\n  width: 100%;\r\n}\r\n.dragger {\r\n  background-color: red;\r\n  height: 15px;\r\n  width: 15px;\r\n  position: absolute;\r\n  cursor: pointer;\r\n}\r\n</style>\r\n'
-        ]
+          '<template>\r\n  <numeric-container>\r\n    <n-button\r\n      :block="true"\r\n      :flavor="flavor"\r\n      @click="toggle"\r\n      class="numeric-button"\r\n    >\r\n      <span>\r\n        {{ filter.display }}\r\n        <badge :flavor="activeBadgeFlavor">Active</badge>\r\n      </span>\r\n      <numeric-carat\r\n        :flavor="flavor"\r\n        :class="computeClass"\r\n        :disabled="filter.disabled"\r\n      ></numeric-carat>\r\n    </n-button>\r\n    <numeric-content-container ref="content">\r\n      <number-range\r\n        :max="filter.max"\r\n        :min="filter.min"\r\n        :steps="computedStep"\r\n        :label="filter.display"\r\n        :label-flavor="textFlavor"\r\n        :name="name"\r\n        v-model="value"\r\n        @input="bubbleInput"\r\n        @change="bubbleChange"\r\n      ></number-range>\r\n      <text :flavor="textFlavor">{{ helpText }}</text>\r\n    </numeric-content-container>\r\n  </numeric-container>\r\n</template>\r\n\r\n<script>\r\nimport { NButton } from "@intus/button";\r\nimport Badge from "@intus/badge";\r\nimport { NText } from "@intus/typography";\r\nimport NumberRange from "@intus/number-range";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst NumericContainer = styled.div`\r\n  width: 100%;\r\n`;\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst NumericCarat = styled("div", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? "rgba(0, 0, 0, 0.3)"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : "#222"}\r\n      50%\r\n  );\r\n  float: right;\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nconst NumericContentContainer = styled.div`\r\n  transition: 0.3s height;\r\n  margin-top: 3px;\r\n  height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\n\r\nexport const NumericFilter = {\r\n  components: {\r\n    NButton,\r\n    NumericContainer,\r\n    NumericCarat,\r\n    NumericContentContainer,\r\n    NumberRange,\r\n    Badge,\r\n    NText\r\n  },\r\n  data() {\r\n    return {\r\n      open: false,\r\n      internalValue: {\r\n        lowerValue: 0,\r\n        upperValue: 0\r\n      }\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Object,\r\n      default() {\r\n        return {\r\n          lowValue: 0,\r\n          highValue: 0\r\n        };\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    filter: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    defaultOpen: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    activeBadgeFlavor: {\r\n      type: String,\r\n      default: "Light"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "Dark"\r\n    },\r\n    textFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    helpText: {\r\n      type: String,\r\n      default: ""\r\n    }\r\n  },\r\n  mounted() {\r\n    this.open = this.defaultOpen;\r\n    if (this.defaultOpen) {\r\n      this.expandSection(this.$refs.content.$el);\r\n    }\r\n    if (this.filter.value) {\r\n      if (!isNaN(this.filter.value.lowerValue)) {\r\n        this.internalValue.lowerValue = this.filter.value.lowerValue;\r\n      } else {\r\n        this.internalValue.lowerValue = this.filter.min;\r\n      }\r\n      if (!isNaN(this.filter.value.upperValue)) {\r\n        this.internalValue.upperValue = this.filter.value.upperValue;\r\n      } else {\r\n        this.internalValue.upperValue = this.filter.value.upperValue;\r\n      }\r\n    } else {\r\n      this.internalValue.lowerValue = this.filter.min;\r\n      this.internalValue.upperValue = this.filter.max;\r\n    }\r\n\r\n    let self = this;\r\n    self.$watch("value", self.handleUpdate, { deep: true });\r\n    // this.$watch("filter.value.lowerValue", this.handleUpdate, { deep: true });\r\n    // this.$watch("filter.value.upperValue", this.handleUpdate, { deep: true });\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = "";\r\n      element.style.height = sectionHeight + "px !important";\r\n      element.style.overflowY = "hidden";\r\n      // element.style.width = sectionWidth + "px !important";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element\'s height to its current pixel height, so we\r\n      // aren\'t transitioning out of \'auto\'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + "px";\r\n        // element.style.width = sectionWidth + "px";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = \'hidden\';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + "px";\r\n          // element.style.width = "0px";\r\n          element.style.paddingBottom = "0px";\r\n        });\r\n      });\r\n\r\n      // mark the section as "currently collapsed"\r\n      element.setAttribute("data-collapsed", "true");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + "px";\r\n      // element.style.width = sectionWidth + "px";\r\n\r\n      element.style.paddingBottom = "5px";\r\n      // element.style.overflowY = "auto"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener("transitionend", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener("transitionend", this);\r\n        if (element.getAttribute("data-collapsed") == "false") {\r\n          // remove "height" from the element\'s inline styles, so it can return to its initial value\r\n          element.style.height = "auto";\r\n          element.style.overflowY = "visible";\r\n        }\r\n      });\r\n\r\n      // mark the section as "currently not collapsed"\r\n      element.setAttribute("data-collapsed", "false");\r\n    },\r\n    bubbleInput($event) {\r\n      this.internalValue = $event;\r\n      this.$emit("input", this.internalValue);\r\n    },\r\n    bubbleChange($event) {\r\n      this.internalValue = $event;\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    handleUpdate(value) {\r\n      this.internalValue.lowerValue = this.value.lowerValue;\r\n      this.internalValue.upperValue = this.value.upperValue;\r\n    },\r\n    toggle() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedStep() {\r\n      if (this.filter.numeric_type == "range") {\r\n        return [this.filter.step];\r\n      } else {\r\n        return this.filter.steps;\r\n      }\r\n    },\r\n    computeClass() {\r\n      if (this.open) {\r\n        return ["sidebar-open-carat"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default NumericFilter;\r\n</script>\r\n\r\n<style>\r\n.numeric-content-input {\r\n  width: calc(100% - 10px);\r\n  margin-left: 5px;\r\n}\r\n.numeric-button {\r\n  justify-content: space-between;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n.numeric-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n\r\n.drag-rail {\r\n  width: 100%;\r\n  height: 2px;\r\n  background-color: gray;\r\n}\r\n.drag-container {\r\n  height: 45px;\r\n  display: flex;\r\n  align-items: center;\r\n  position: relative;\r\n  width: 100%;\r\n}\r\n.dragger {\r\n  background-color: red;\r\n  height: 15px;\r\n  width: 15px;\r\n  position: absolute;\r\n  cursor: pointer;\r\n}\r\n</style>\r\n',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -11365,7 +11365,7 @@ var NumericFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$3 = {
-    install: install$3
+    install: install$3,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 

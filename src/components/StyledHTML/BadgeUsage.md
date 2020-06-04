@@ -14,12 +14,16 @@ npm install @IntusFacultas/badge@latest --save
 
 This provides a badge component that contains styles for each color as described in the Design System
 
-Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
+Draws default themes from DesignSystem/theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
 ```html
 <badge flavor="Primary"></badge>
+```
+
+```javascript
+import Badge from "@IntusFacultas/badge";
 ```
 
 ## Configuration

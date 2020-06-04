@@ -23,10 +23,10 @@ const props = {
   active: Boolean,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const TabContainer = styled("nav", props)`
   display: flex;
@@ -61,7 +61,7 @@ const Tab = styled("li", props)`
   min-width: 100px;
   padding: 0.1rem 1rem 0 1rem;
   height: 40px;
-  ${props =>
+  ${(props) =>
     props.disabled
       ? `
         pointer-events: none;
@@ -69,7 +69,7 @@ const Tab = styled("li", props)`
         `
       : ""}
   border-radius: 4px 4px 0px 0px;
-  ${props =>
+  ${(props) =>
     props.active
       ? `
         background-color: ${
@@ -151,7 +151,7 @@ const Tab = styled("li", props)`
         }
     `}
   & * {
-    ${props => (props.disabled ? `opacity: .6` : "")}
+    ${(props) => (props.disabled ? `opacity: .6` : "")}
     text-decoration: none;
     outline: none;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -167,16 +167,16 @@ const TabItem = {
   props: {
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     tab: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     handleClick() {
@@ -191,7 +191,7 @@ const TabItem = {
     },
     tabClick(tab) {
       this.$emit("select", tab.value);
-    }
+    },
   },
   template: `
         <tab
@@ -209,27 +209,27 @@ const TabItem = {
             <span v-if='tab.disabled' class="sr-only">(disabled)</span>
             <span v-if='tab.active' class="sr-only">(active)</span>
         </tab>
-    `
+    `,
 };
 export const Tabs = {
   components: { TabContainer, TabItem, TabList, Tab },
   props: {
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     tabs: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   methods: {
     passSelect(value) {
       this.$emit("select", value);
-    }
-  }
+    },
+  },
 };
 export default Tabs;
 </script>

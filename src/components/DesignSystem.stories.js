@@ -1,7 +1,7 @@
 import { withA11y } from "@storybook/addon-a11y";
 import {
   FlexRow,
-  FlexColumn
+  FlexColumn,
 } from "Components/components/Layout/src/Layout.vue";
 import { PageTitle } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import ColorSwatch from "Components/components/DesignSystem/colorSwatch.vue";
@@ -9,7 +9,7 @@ import {
   TextTheme,
   NIWSTheme,
   Theme,
-  AlertTheme
+  AlertTheme,
 } from "Components/components/DesignSystem/theme.js";
 import markdown from "Components/components/DesignSystem/Usage.md";
 export default {
@@ -17,11 +17,11 @@ export default {
   decorators: [withA11y],
   parameters: {
     notes: {
-      markdown
-    }
+      markdown,
+    },
   },
   // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
 export const Colors = () => ({
@@ -29,16 +29,16 @@ export const Colors = () => ({
     ColorSwatch,
     FlexRow,
     PageTitle,
-    FlexColumn
+    FlexColumn,
   },
   data: function() {
     return {
-      nasic: Theme,
-      text: TextTheme,
+      IntusFacultas: Theme,
+      Text: TextTheme,
       niws: NIWSTheme,
       toast: AlertTheme,
       count: 0,
-      limit: 3
+      limit: 3,
     };
   },
   methods: {
@@ -52,13 +52,13 @@ export const Colors = () => ({
           colors.push([
             {
               name: key,
-              color: theme[key].background
-            }
+              color: theme[key].background,
+            },
           ]);
         } else {
           colors[row].push({
             name: key,
-            color: theme[key].background
+            color: theme[key].background,
           });
         }
         count++;
@@ -68,19 +68,19 @@ export const Colors = () => ({
         }
       }
       return colors;
-    }
+    },
   },
   computed: {
     keys: function() {
       var self = this;
-      return Object.keys(self.nasic);
-    }
+      return Object.keys(self.IntusFacultas);
+    },
   },
   template: `
         <div>
             <page-title>Available Colors</page-title>
             <hr>
-            <flex-row v-for="list in splitArray(nasic, limit)" style="padding-top:10px">
+            <flex-row v-for="list in splitArray(IntusFacultas, limit)" style="padding-top:10px">
                 <flex-column>
                     <div v-for="obj in list" style="display: flex">
                         <color-swatch
@@ -109,15 +109,15 @@ export const Colors = () => ({
                     </div>
                 </flex-column>
             </flex-row>
-            <page-title>WebText Colors</page-title>
+            <page-title>Text Colors</page-title>
             <hr/>
             <flex-row style="padding-top:10px">
                 <flex-column>
                     <color-swatch 
-                        v-for="obj in Object.keys(text)"
+                        v-for="obj in Object.keys(text-content)"
                         :key="obj"
                         :name="obj"
-                        :color="text[obj].color">
+                        :color="text-content[obj].color">
                     </color-swatch>
                 </flex-column>
             </flex-row>
@@ -135,5 +135,5 @@ export const Colors = () => ({
                 </flex-column>
             </flex-row>
         </div>
-    `
+    `,
 });

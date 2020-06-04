@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/input",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Provides an accessability audit passing Input component with embedded labels and styling",
   "main": "src/Input.vue",
   "browser": "dist/Input.esm.js",
@@ -26,7 +26,7 @@
     "accessability"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.10",
+    "@IntusFacultas/design-system": "^1.5.11",
     "@IntusFacultas/typography": "^2.1.3",
     "vue-styled-components": "^1.4.14"
   },

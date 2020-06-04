@@ -5,11 +5,11 @@ import {
   CategoryTitle,
   SubCategoryTitle,
   Keyword,
-  WebText,
+  TextContent,
   Paragraph,
-  NSmall,
+  SmallText,
   NLabel,
-  WebLink
+  WebLink,
 } from "./Typography.vue";
 
 let components = [
@@ -19,11 +19,11 @@ let components = [
   { label: "CategoryTitle", component: CategoryTitle },
   { label: "SubCategoryTitle", component: SubCategoryTitle },
   { label: "Keyword", component: Keyword },
-  { label: "WebText", component: WebText },
+  { label: "TextContent", component: TextContent },
   { label: "Paragraph", component: Paragraph },
-  { label: "NSmall", component: NSmall },
+  { label: "SmallText", component: SmallText },
   { label: "NLabel", component: NLabel },
-  { label: "WebLink", component: WebLink }
+  { label: "WebLink", component: WebLink },
 ];
 
 let GlobalVue = null;
@@ -37,7 +37,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -65,12 +65,13 @@ export {
   CategoryTitle,
   SubCategoryTitle,
   Keyword,
-  WebText,
+  TextContent,
   Paragraph,
-  NSmall,
+  SmallText,
+  NLabel,
   WebLink,
-  NLabel
 };
+export default TextContent;
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

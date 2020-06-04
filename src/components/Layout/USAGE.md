@@ -32,6 +32,8 @@ The minimum configuration needed is passing a number to the `col` prop of the Fl
 ```
 
 ```javascript
+import {FlexRow} from "@IntusFacultas/layout";
+import {FlexRow, FlexColumn} from "@IntusFacultas/layout";
 data: {
     col: 1,
     xs: 1,

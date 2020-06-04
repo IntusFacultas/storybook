@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/modal",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Provides a configurable modal component",
   "main": "src/Modal.vue",
   "browser": "dist/Modal.esm.js",
@@ -25,7 +25,7 @@
     "modal"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.5",
+    "@IntusFacultas/design-system": "^1.5.11",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

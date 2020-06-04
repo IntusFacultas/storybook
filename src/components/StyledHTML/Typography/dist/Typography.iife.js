@@ -3194,6 +3194,17 @@ var Typography = (function (exports) {
       }
     }
   };
+  var TextTheme = {
+    Normal: {
+      color: "#444"
+    },
+    Dark: {
+      color: "#e0e0e0"
+    },
+    LightBlue: {
+      color: "#41BEE8"
+    }
+  };
   var Theme = {
     Light: {
       color: {
@@ -3287,14 +3298,14 @@ var Typography = (function (exports) {
         hover: "#222"
       },
       background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
+        color: "#FFb354",
+        hover: "#EB972D",
+        focus: "#FFb354"
       },
       border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
+        color: "#EB972D",
+        hover: "#EB972D",
+        focus: "#EB972D"
       }
     },
     Danger: {
@@ -3304,14 +3315,14 @@ var Typography = (function (exports) {
         hover: "#fff"
       },
       background: {
-        color: "#A70004",
-        hover: "#820003",
-        focus: "#A70004"
+        color: "#C40005",
+        hover: "#9E0004",
+        focus: "#C40005"
       },
       border: {
-        color: "#820003",
-        hover: "#820003",
-        focus: "#820003"
+        color: "#9E0004",
+        hover: "#9E0004",
+        focus: "#9E0004"
       }
     },
     Success: {
@@ -3350,26 +3361,15 @@ var Typography = (function (exports) {
     }
   };
   var AlertTheme = {
-    warning: Theme["Warning"],
-    danger: Theme["Danger"],
-    success: Theme["Success"],
-    info: Theme["Info"]
+    Warning: Theme["Warning"],
+    Danger: Theme["Danger"],
+    Success: Theme["Success"],
+    Info: Theme["Info"]
   };
   var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
-  var Theme$1 = Theme;
-
-  function _templateObject4() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  color: #4357ad;\n  &:visited {\n    color: #2940a1;\n  }\n  &:hover {\n    color: #58b0ae;\n  }\n  text-decoration: none;\n  cursor: pointer;\n  font-weight: bold;\n  line-height: 1.571;\n"]);
-
-    _templateObject4 = function _templateObject4() {
-      return data;
-    };
-
-    return data;
-  }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3379,7 +3379,7 @@ var Typography = (function (exports) {
   }
 
   function _templateObject2() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject2 = function _templateObject2() {
       return data;
@@ -3389,7 +3389,7 @@ var Typography = (function (exports) {
   }
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  color: ", ";\n  ", "\n"]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3398,19 +3398,22 @@ var Typography = (function (exports) {
     return data;
   }
   var titleProps = {
+    dark: Boolean,
     bold: Boolean,
     flavor: String,
-    defaultTheme: {
+    textTheme: {
       type: Object,
       default: function _default() {
-        return Theme$1;
+        return TextTheme;
       }
     }
   };
   var PageTitle = styled("h1", titleProps)(_templateObject(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
+    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
+  }, function (props) {
+    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
   });
   var SectionTitle = PageTitle.withComponent("h2", titleProps);
   var SubSectionTitle = PageTitle.withComponent("h3", titleProps);
@@ -3422,32 +3425,35 @@ var Typography = (function (exports) {
       type: Number,
       default: 15
     },
+    dark: Boolean,
     bold: Boolean,
-    defaultTheme: {
+    textTheme: {
       type: Object,
       default: function _default() {
-        return Theme$1;
+        return TextTheme;
       }
     },
     flavor: String
   };
-  var WebText = styled("span", props)(_templateObject2(), function (props) {
+  var TextContent = styled("span", props)(_templateObject2(), function (props) {
     return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
   }, function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
+    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
+  }, function (props) {
+    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var Paragraph = WebText.withComponent("p", props);
-  var NSmall = styled("small", props)(_templateObject3(), function (props) {
+  var Paragraph = TextContent.withComponent("p", props);
+  var SmallText = styled("small", props)(_templateObject3(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
-    return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].background.color : "#444";
+    return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
+  }, function (props) {
+    return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var NLabel = WebText.withComponent("label", props);
-  var WebLink = styled("a", props)(_templateObject4(), function (props) {
-    return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
-  });
+  var NLabel = TextContent.withComponent("label", props);
+  var WebLink = TextContent.withComponent("a", props);
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
@@ -3588,14 +3594,14 @@ var Typography = (function (exports) {
   }
 
   /* script */
-  const __vue_script__ = WebText;
+  const __vue_script__ = TextContent;
 
   /* template */
 
     /* style */
     const __vue_inject_styles__ = function (inject) {
       if (!inject) return
-      inject("data-v-eaf30614_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
+      inject("data-v-07cfd3a8_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
 
     };
     /* scoped */
@@ -3642,14 +3648,14 @@ var Typography = (function (exports) {
     label: "Keyword",
     component: Keyword
   }, {
-    label: "WebText",
-    component: WebText
+    label: "TextContent",
+    component: TextContent
   }, {
     label: "Paragraph",
     component: Paragraph
   }, {
-    label: "NSmall",
-    component: NSmall
+    label: "SmallText",
+    component: SmallText
   }, {
     label: "NLabel",
     component: NLabel
@@ -3701,14 +3707,15 @@ var Typography = (function (exports) {
   exports.CategoryTitle = CategoryTitle;
   exports.Keyword = Keyword;
   exports.NLabel = NLabel;
-  exports.NSmall = NSmall;
   exports.PageTitle = PageTitle;
   exports.Paragraph = Paragraph;
   exports.SectionTitle = SectionTitle;
+  exports.SmallText = SmallText;
   exports.SubCategoryTitle = SubCategoryTitle;
   exports.SubSectionTitle = SubSectionTitle;
+  exports.TextContent = TextContent;
   exports.WebLink = WebLink;
-  exports.WebText = WebText;
+  exports.default = TextContent;
 
   return exports;
 

@@ -35,6 +35,7 @@ This provides a modal component that can be configured to a variety of different
 ```
 
 ```javascript
+import Modal from "@IntusFacultas/modal";
 data: {
     modalId: "myspecialmodal",
     headerFlavor: "Primary",
@@ -120,6 +121,12 @@ The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
             <td>`String`</td>
             <td>`20px`</td>
             <td>Changes how far from the top the modal is.</td>
+        </tr>
+        <tr>
+            <td>bottomOffset</td>
+            <td>`String`</td>
+            <td>`20px`</td>
+            <td>Changes how far from the bottom the modal is.</td>
         </tr>
         <tr>
             <td>backgroundDismiss</td>

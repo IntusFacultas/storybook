@@ -32,7 +32,7 @@
 import {
   NavbarContainer,
   NavbarTitle,
-  NavbarContentContainer
+  NavbarContentContainer,
 } from "@IntusFacultas/navbar";
 import { NButton } from "@IntusFacultas/button";
 export const Navbar = {
@@ -40,7 +40,7 @@ export const Navbar = {
     NavbarContainer,
     NavbarTitle,
     NavbarContentContainer,
-    NButton
+    NButton,
   },
   data: () => {
     return {
@@ -48,7 +48,7 @@ export const Navbar = {
       contentWidth: 0,
       containerWidth: 0,
       navHeight: 0,
-      titleWidth: 0
+      titleWidth: 0,
     };
   },
   mounted() {
@@ -58,7 +58,7 @@ export const Navbar = {
       "resize",
       this.debounce(this.calculateDimensions, 10, true),
       {
-        passive: true
+        passive: true,
       }
     );
     window.addEventListener("click", self.checkOffclick);
@@ -81,18 +81,18 @@ export const Navbar = {
         return {
           text: "Brand",
           url: "#",
-          html: ""
+          html: "",
         };
-      }
+      },
     },
     fixed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     flavor: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     collapseSection(element) {
@@ -108,7 +108,7 @@ export const Navbar = {
       // on the next frame (as soon as the previous style change has taken effect),
       // explicitly set the element's height to its current pixel height, so we
       // aren't transitioning out of 'auto'
-      requestAnimationFrame(function() {
+      requestAnimationFrame(function () {
         element.style.height = sectionHeight + "px";
         // element.style.width = sectionWidth + "px";
         element.style.transition = elementTransition;
@@ -116,7 +116,7 @@ export const Navbar = {
 
         // on the next frame (as soon as the previous style change has taken effect),
         // have the element transition to height: 0
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
           element.style.height = 0 + "px";
           // element.style.width = "0px";
           element.style.paddingBottom = "0px";
@@ -137,7 +137,7 @@ export const Navbar = {
       element.style.paddingBottom = "5px";
       // element.style.overflowY = "auto"
       // when the next css transition finishes (which should be the one we just triggered)
-      element.addEventListener("transitionend", function() {
+      element.addEventListener("transitionend", function () {
         // remove this event listener so it only gets triggered once
         element.removeEventListener("transitionend", this);
         if (element.getAttribute("data-collapsed") == "false") {
@@ -154,10 +154,10 @@ export const Navbar = {
        * Pulled from: https://davidwalsh.name/javascript-debounce-function
        */
       var timeout;
-      return function() {
+      return function () {
         var context = this,
           args = arguments;
-        var later = function() {
+        var later = function () {
           timeout = null;
           if (!immediate) func.apply(context, args);
         };
@@ -198,7 +198,7 @@ export const Navbar = {
         this.collapseSection(this.$refs.content.$el);
         this.open = false;
       }
-    }
+    },
   },
   watch: {
     collapsed(newVal) {
@@ -213,7 +213,7 @@ export const Navbar = {
         this.$refs.content.$el.style.paddingBottom = "initial";
         this.$refs.content.$el.style.overflow = "visible";
       }
-    }
+    },
   },
   computed: {
     computedNavClass() {
@@ -234,8 +234,8 @@ export const Navbar = {
     collapseCutOff() {
       let additionalPadding = 30;
       return this.containerWidth - this.titleWidth - additionalPadding;
-    }
-  }
+    },
+  },
 };
 export default Navbar;
 </script>

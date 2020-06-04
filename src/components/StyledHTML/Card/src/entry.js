@@ -10,7 +10,7 @@ const install = function installCard(Vue) {
 
 // Create module definition for Vue.use()
 const plugin = {
-  install
+  install,
 };
 
 // To auto-install when vue is found
@@ -32,6 +32,7 @@ Card.install = install;
 
 // Export component by default
 export default Card;
+export { Card };
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

@@ -37,6 +37,7 @@ This is meant to be used in tandem with the `SidebarOffsetContent` component for
 ```
 
 ```javascript
+import {Sidebar, SidebarOffsetContent} from "@IntusFacultas/sidebar";
 data: {
     flavor: "Primary",
     sidebarTitle: "Sidebar Title",

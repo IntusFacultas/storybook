@@ -38,6 +38,7 @@ On mount, this component adds itself to the parent Vue component under `.$refs.i
 ```
 
 ```javascript
+import VueTextArea from "@IntusFacultas/textarea";
 data: {
     flavor: "Primary",
     readonly: false,

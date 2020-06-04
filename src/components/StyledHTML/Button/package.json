@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/button",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "HTML Button with baked-in styling",
   "author": "Pedro Del Moral Lopez",
   "scripts": {
@@ -22,7 +22,7 @@
     "!src/serve-dev.*"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.5",
+    "@IntusFacultas/design-system": "^1.5.11",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

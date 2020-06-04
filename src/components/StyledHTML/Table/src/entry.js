@@ -6,7 +6,7 @@ import {
   TableRow,
   TableHeader,
   TableCell,
-  VueTable
+  VueTable,
 } from "./Table.vue";
 
 let components = [
@@ -17,7 +17,7 @@ let components = [
   { label: "TableRow", component: TableRow },
   { label: "TableHeader", component: TableHeader },
   { label: "TableCell", component: TableCell },
-  { label: "VueTable", component: VueTable }
+  { label: "VueTable", component: VueTable },
 ];
 
 let GlobalVue = null;
@@ -31,7 +31,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -60,8 +60,9 @@ export {
   TableRow,
   TableHeader,
   TableCell,
-  VueTable
+  VueTable,
 };
+export default VueTable;
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

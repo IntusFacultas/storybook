@@ -21,6 +21,7 @@ This provides a configurable tabs component with theming
 ```
 
 ```javascript
+import Tabs from "@IntusFacultas/tabs";
 data: {
     flavor: "",
     tabs: [

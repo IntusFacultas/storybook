@@ -1,9 +1,7 @@
 <template>
   <div class="input-container">
     <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">
-      {{
-      label
-      }}
+      {{ label }}
     </n-label>
     <n-input
       :flavor="flavor"
@@ -21,7 +19,7 @@
       :autofocus="autofocus"
       :autocomplete="autocomplete"
       :value="internalValue"
-      @input="oninput"
+      @input="onInput"
       @change="onChange"
       @focus="onFocus"
       @keyup="$emit('keyup', $event)"
@@ -36,14 +34,14 @@ import Theme from "@IntusFacultas/design-system";
 const props = {
   flavor: {
     type: String,
-    default: "LightBlue"
+    default: "LightBlue",
   },
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 export const NInput = styled("input", props)`
   width: 100%;
@@ -61,7 +59,7 @@ export const NInput = styled("input", props)`
   transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
   &:focus {
     border-color: 1px solid
-      ${props =>
+      ${(props) =>
         props.theme && props.theme[props.flavor]
           ? props.theme[props.flavor].border.color
           : props.defaultTheme[props.flavor] &&
@@ -70,7 +68,7 @@ export const NInput = styled("input", props)`
           : "#04040480"};
     outline: none;
     box-shadow: 0px 0px 0px 3px
-      ${props =>
+      ${(props) =>
         props.theme && props.theme[props.flavor]
           ? props.theme[props.flavor].border.color
           : props.defaultTheme[props.flavor] &&
@@ -92,85 +90,85 @@ export const NInput = styled("input", props)`
 export const VueInput = {
   name: "vue-input",
   components: { NInput, NLabel },
-  data: function() {
+  data: function () {
     return {
-      internalValue: ""
+      internalValue: "",
     };
   },
   props: {
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     autocomplete: {
       type: String,
-      default: "off"
+      default: "off",
     },
     value: {
-      type: [String, Number],
-      default: ""
+      type: String,
+      default: "",
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ""
+      default: "",
     },
     pattern: {
       type: String,
-      default: "*"
+      default: "",
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     min: {
       type: String,
-      default: ""
+      default: "",
     },
     max: {
       type: String,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     inputType: {
       type: String,
-      required: true
+      required: true,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     labelFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     labelDark: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     autofocus: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     value(newVal, oldVal) {
       this.internalValue = newVal;
-    }
+    },
   },
   mounted() {
     var self = this;
@@ -180,7 +178,7 @@ export const VueInput = {
     }
   },
   methods: {
-    oninput($e) {
+    onInput($e) {
       var self = this;
       this.internalValue = $e;
       self.$emit("input", this.internalValue);
@@ -190,8 +188,8 @@ export const VueInput = {
     },
     onFocus() {
       this.$emit("focus");
-    }
-  }
+    },
+  },
 };
 export default VueInput;
 </script>

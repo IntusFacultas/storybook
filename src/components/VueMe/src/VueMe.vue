@@ -22,6 +22,7 @@
 </template>
 
 <script>
+// changing the file to try and force git to recognize the capitalization change
 import styled from "vue-styled-components";
 import { Theme } from "@IntusFacultas/design-system";
 import { SubSectionTitle } from "@IntusFacultas/typography";
@@ -31,19 +32,19 @@ import { FlexRow, FlexColumn } from "@IntusFacultas/layout";
 const props = {
   zIndex: {
     type: Number,
-    default: 0
+    default: 0,
   },
   width: {
     type: Number,
-    default: 360
+    default: 360,
   },
   flavor: String,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const VueMeDialogContainer = styled("div", props)`
   display: flex;
@@ -52,7 +53,7 @@ const VueMeDialogContainer = styled("div", props)`
   height: 100%;
   position: fixed;
   width: 100%;
-  z-index: ${props => props.zIndex + 1999};
+  z-index: ${(props) => props.zIndex + 1999};
   top: 0px;
   bottom: 0px;
   left: 0px;
@@ -61,7 +62,7 @@ const VueMeDialogContainer = styled("div", props)`
 const VueMeBackdrop = styled("div", props)`
   background-color: #444;
   opacity: 0;
-  z-index: ${props => props.zIndex + 1999};
+  z-index: ${(props) => props.zIndex + 1999};
   position: fixed;
   top: 0;
   left: 0;
@@ -76,18 +77,18 @@ const VueMeTitleContainer = styled.div`
   display: flex;
 `;
 const VueMeDialogBox = styled("div", props)`
-  z-index: ${props => props.zIndex + 2000};
+  z-index: ${(props) => props.zIndex + 2000};
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-top: solid 7px
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.color
         : "white"};
   border-radius: 0.25rem;
-  min-width: ${props => props.width}px;
+  min-width: ${(props) => props.width}px;
   display: flex;
   transition: all 0.4s;
   transform: scale(0);
@@ -120,7 +121,7 @@ const VueMeDialog = {
     DialogButton,
     VueInput,
     FlexRow,
-    FlexColumn
+    FlexColumn,
   },
   data() {
     return {
@@ -129,63 +130,63 @@ const VueMeDialog = {
       shaking: false,
       enabled: false,
       fieldValues: [],
-      internalCloseTime: 0
+      internalCloseTime: 0,
     };
   },
   props: {
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     parent: {
       type: Object,
-      required: true
+      required: true,
     },
     zIndex: {
       type: Number,
-      default: 0
+      default: 0,
     },
     closeTime: {
       type: Number,
-      default: 0
+      default: 0,
     },
     autoCloseIndex: {
       type: Number,
-      default: -1
+      default: -1,
     },
     autoClose: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: "Alert"
+      default: "Alert",
     },
     icon: {
       type: String,
-      default: ""
+      default: "",
     },
     width: {
       type: Number,
-      default: 360
+      default: 360,
     },
     content: {
       type: String,
-      default: "You forgot to provide content"
+      default: "You forgot to provide content",
     },
     fields: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     backgroundDismiss: {
       type: Boolean,
-      default: true
+      default: true,
     },
     buttons: {
       type: Array,
@@ -195,22 +196,22 @@ const VueMeDialog = {
             id: 1,
             flavor: "",
             text: "Close",
-            action: function() {
+            action: function () {
               // empty
-            }
-          }
+            },
+          },
         ];
-      }
-    }
+      },
+    },
   },
   mounted() {
     let self = this;
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       self.open();
     });
   },
   methods: {
-    open: function() {
+    open: function () {
       this.show = true;
       this.enabled = true;
       this.internalCloseTime = this.closeTime;
@@ -218,12 +219,12 @@ const VueMeDialog = {
         this.beginAutoClose();
       }
       let self = this;
-      setTimeout(function() {
+      setTimeout(function () {
         self.$refs.backdrop.$el.classList.add("vueme-dialog-backdrop-open");
         self.$refs.dialogBox.$el.classList.add("vueme-dialog-open");
       }, 50);
     },
-    handleAutoClose: function() {
+    handleAutoClose: function () {
       if (this.internalCloseTime == 0) {
         clearInterval(this.intervalId);
         this.callFunction(this.buttons[this.autoCloseIndex]);
@@ -231,10 +232,10 @@ const VueMeDialog = {
         this.internalCloseTime--;
       }
     },
-    beginAutoClose: function() {
+    beginAutoClose: function () {
       this.intervalId = setInterval(this.handleAutoClose, 1000);
     },
-    callFunction: function(button) {
+    callFunction: function (button) {
       if (this.enabled) {
         var close = button.action(this.fieldValues);
         if (close !== false) {
@@ -242,7 +243,7 @@ const VueMeDialog = {
         }
       }
     },
-    close: function() {
+    close: function () {
       if (this.enabled && !this.shaking) {
         this.enabled = false;
         if (this && this.$refs && this.$refs.dialogBox) {
@@ -254,7 +255,7 @@ const VueMeDialog = {
             "vueme-dialog-backdrop-open"
           );
         let self = this;
-        setTimeout(function() {
+        setTimeout(function () {
           self.show = false;
           self.show = false;
           // destroy the vue listeners, etc
@@ -266,7 +267,7 @@ const VueMeDialog = {
         }, 420);
       }
     },
-    closeDialog: function() {
+    closeDialog: function () {
       if (!this.enabled) {
         return;
       }
@@ -277,13 +278,13 @@ const VueMeDialog = {
           this.$refs.dialogBox.$el.classList.add("vueme-shake-dialog");
         let self = this;
         this.shaking = true;
-        setTimeout(function() {
+        setTimeout(function () {
           self.shaking = false;
           if (self && self.$refs && self.$refs.dialogBox)
             self.$refs.dialogBox.$el.classList.remove("vueme-shake-dialog");
         }, 1000);
       }
-    }
+    },
   },
   template: `
   <vue-me-dialog-container :z-index="zIndex">
@@ -332,7 +333,7 @@ const VueMeDialog = {
         </vue-me-dialog-content-container>
       </vue-me-dialog-box>
   </vue-me-dialog-container>
-  `
+  `,
 };
 export const VueMe = {
   components: { VueMeDialog },
@@ -342,16 +343,16 @@ export const VueMe = {
       alerts: [],
       availableId: 0,
       availalbeAlertId: 0,
-      deletedAlerts: []
+      deletedAlerts: [],
     };
   },
   props: {
     parentInstance: {
       type: Object,
-      default: ""
-    }
+      default: "",
+    },
   },
-  mounted: function() {
+  mounted: function () {
     this.parentInstance.$alert = this.alert;
     if (typeof Object.assign !== "function") {
       // Must be writable: true, enumerable: false, configurable: true
@@ -380,7 +381,7 @@ export const VueMe = {
           return to;
         },
         writable: true,
-        configurable: true
+        configurable: true,
       });
     }
   },
@@ -395,13 +396,13 @@ export const VueMe = {
         this.alerts = [];
         this.deletedAlerts = [];
       }
-    }
+    },
   },
   methods: {
     close: function close(id) {
       this.deletedAlerts.push(id);
     },
-    formatField: function(field) {
+    formatField: function (field) {
       var label = "Label";
       if (field.label) {
         label = field.label;
@@ -417,10 +418,10 @@ export const VueMe = {
       return {
         id: id,
         label: label,
-        type: fieldType
+        type: fieldType,
       };
     },
-    formatButton: function(button) {
+    formatButton: function (button) {
       var text = "Button";
       if (button.text) {
         text = button.text;
@@ -429,7 +430,7 @@ export const VueMe = {
       if (button.flavor) {
         flavor = button.flavor;
       }
-      var action = function() {};
+      var action = function () {};
       if (button.action) {
         action = button.action;
       }
@@ -441,13 +442,13 @@ export const VueMe = {
         id: id,
         text: text,
         flavor: flavor,
-        action: action
+        action: action,
       };
     },
-    alert: function(options) {
+    alert: function (options) {
       let dialogConfiguration = {
         id: this.availalbeAlertId++,
-        parent: this
+        parent: this,
       };
       let flavor = "";
       if (options.flavor) {
@@ -510,8 +511,8 @@ export const VueMe = {
         }
       }
       this.alerts.push(Object.assign({}, dialogConfiguration));
-    }
-  }
+    },
+  },
 };
 export default VueMe;
 </script>

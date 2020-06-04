@@ -28,7 +28,7 @@ var ParametricFilter = (function() {
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -87,8 +87,8 @@ var ParametricFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -141,7 +141,7 @@ var ParametricFilter = (function() {
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -519,7 +519,7 @@ var ParametricFilter = (function() {
               cssRules: [],
               insertRule: function insertRule(rule) {
                 var serverRule = {
-                  cssText: rule
+                  cssText: rule,
                 };
 
                 _this.sheet.cssRules.push(serverRule);
@@ -528,14 +528,14 @@ var ParametricFilter = (function() {
                   serverRule: serverRule,
                   appendRule: function appendRule(newCss) {
                     return (serverRule.cssText += newCss);
-                  }
+                  },
                 };
-              }
+              },
             };
           }
 
           this.injected = true;
-        }
+        },
       },
       {
         key: "speedy",
@@ -552,7 +552,7 @@ var ParametricFilter = (function() {
           }
 
           this.isSpeedy = !!bool;
-        }
+        },
       },
       {
         key: "_insert",
@@ -564,7 +564,7 @@ var ParametricFilter = (function() {
               console.warn("whoops, illegal rule inserted", rule);
             }
           }
-        }
+        },
       },
       {
         key: "insert",
@@ -581,7 +581,7 @@ var ParametricFilter = (function() {
                 textNode: textNode,
                 appendRule: function appendRule(newCss) {
                   return textNode.appendData(newCss);
-                }
+                },
               };
 
               if (!this.isSpeedy) {
@@ -600,7 +600,7 @@ var ParametricFilter = (function() {
           }
 
           return insertedRule;
-        }
+        },
       },
       {
         key: "flush",
@@ -617,7 +617,7 @@ var ParametricFilter = (function() {
           }
 
           this.injected = false;
-        }
+        },
       },
       {
         key: "rules",
@@ -636,8 +636,8 @@ var ParametricFilter = (function() {
             );
           });
           return arr;
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet;
@@ -648,11 +648,11 @@ var ParametricFilter = (function() {
       _classCallCheck(this, StyleSheet$1);
 
       this.globalStyleSheet = new StyleSheet({
-        speedy: false
+        speedy: false,
       });
       this.componentStyleSheet = new StyleSheet({
         speedy: false,
-        maxLength: 40
+        maxLength: 40,
       });
     }
 
@@ -662,14 +662,14 @@ var ParametricFilter = (function() {
         value: function inject() {
           this.globalStyleSheet.inject();
           this.componentStyleSheet.inject();
-        }
+        },
       },
       {
         key: "flush",
         value: function flush() {
           if (this.globalStyleSheet.sheet) this.globalStyleSheet.flush();
           if (this.componentStyleSheet.sheet) this.componentStyleSheet.flush();
-        }
+        },
       },
       {
         key: "insert",
@@ -678,13 +678,13 @@ var ParametricFilter = (function() {
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : {
-                  global: false
+                  global: false,
                 };
           var sheet = opts.global
             ? this.globalStyleSheet
             : this.componentStyleSheet;
           return sheet.insert(rule);
-        }
+        },
       },
       {
         key: "rules",
@@ -692,7 +692,7 @@ var ParametricFilter = (function() {
           return this.globalStyleSheet
             .rules()
             .concat(this.componentStyleSheet.rules());
-        }
+        },
       },
       {
         key: "injected",
@@ -700,8 +700,8 @@ var ParametricFilter = (function() {
           return (
             this.globalStyleSheet.injected && this.componentStyleSheet.injected
           );
-        }
-      }
+        },
+      },
     ]);
 
     return StyleSheet$1;
@@ -720,7 +720,7 @@ var ParametricFilter = (function() {
   function createCommonjsModule(fn, module) {
     return (
       (module = {
-        exports: {}
+        exports: {},
       }),
       fn(module, module.exports),
       module.exports
@@ -729,7 +729,7 @@ var ParametricFilter = (function() {
 
   var hash = createCommonjsModule(function(module, exports) {
     Object.defineProperty(exports, "__esModule", {
-      value: true
+      value: true,
     });
     exports.default = doHash; // murmurhash2 via https://gist.github.com/raycmorgan/588423
 
@@ -3103,10 +3103,10 @@ var ParametricFilter = (function() {
             : flatCSS;
           var css = stylis("", cssString, false, false);
           styleSheet.insert(css, {
-            global: true
+            global: true,
           });
-        }
-      }
+        },
+      },
     ]);
 
     return ComponentStyle;
@@ -3256,12 +3256,12 @@ var ParametricFilter = (function() {
               return function() {
                 return {};
               };
-            }
-          }
+            },
+          },
         },
         props: _objectSpread2$1(
           {
-            value: null
+            value: null,
           },
           currentProps,
           {},
@@ -3269,7 +3269,7 @@ var ParametricFilter = (function() {
         ),
         data: function data() {
           return {
-            localValue: this.value
+            localValue: this.value,
           };
         },
         render: function render(createElement) {
@@ -3285,7 +3285,7 @@ var ParametricFilter = (function() {
                 createElement(
                   "template",
                   {
-                    slot: slot
+                    slot: slot,
                   },
                   this.$slots[slot]
                 )
@@ -3299,16 +3299,16 @@ var ParametricFilter = (function() {
               class: [this.generatedClassName],
               props: this.$props,
               domProps: {
-                value: this.localValue
+                value: this.localValue,
               },
               on: _objectSpread2$1({}, this.$listeners, {
                 input: function input(event) {
                   if (event && event.target) {
                     _this.localValue = event.target.value;
                   }
-                }
+                },
               }),
-              scopedSlots: this.$scopedSlots
+              scopedSlots: this.$scopedSlots,
             },
             children
           );
@@ -3318,13 +3318,13 @@ var ParametricFilter = (function() {
             componentProps
           ) {
             return componentStyle.generateAndInjectStyles(componentProps);
-          }
+          },
         },
         computed: {
           generatedClassName: function generatedClassName() {
             var componentProps = _objectSpread2$1(
               {
-                theme: this.theme
+                theme: this.theme,
               },
               this.$props
             );
@@ -3333,7 +3333,7 @@ var ParametricFilter = (function() {
           },
           theme: function theme() {
             return this.$theme();
-          }
+          },
         },
         watch: {
           value: function value(newValue) {
@@ -3341,7 +3341,7 @@ var ParametricFilter = (function() {
           },
           localValue: function localValue() {
             this.$emit("input", this.localValue);
-          }
+          },
         },
         extend: function extend(cssRules) {
           for (
@@ -3366,7 +3366,7 @@ var ParametricFilter = (function() {
         },
         withComponent: function withComponent(newTarget) {
           return createStyledComponent(newTarget, rules, props);
-        }
+        },
       };
       return StyledComponent;
     };
@@ -3383,7 +3383,7 @@ var ParametricFilter = (function() {
 
         this.rules = rules;
         stylis.set({
-          keyframe: false
+          keyframe: false,
         });
         if (!styleSheet.injected) styleSheet.inject();
         this.insertedRule = styleSheet.insert("");
@@ -3406,8 +3406,8 @@ var ParametricFilter = (function() {
             }
 
             return inserted[hash];
-          }
-        }
+          },
+        },
       ]);
 
       return ComponentStyle;
@@ -3548,7 +3548,7 @@ var ParametricFilter = (function() {
     "stop",
     "svg",
     "text",
-    "tspan"
+    "tspan",
   ];
 
   function isTag(target) {
@@ -3620,225 +3620,225 @@ var ParametricFilter = (function() {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#CBE6F7",
         hover: "#51BAF4",
-        focus: "#CBE6F7"
+        focus: "#CBE6F7",
       },
       border: {
         color: "2px solid #CBE6F7",
         hover: "2px solid #51BAF4",
-        focus: "2px solid #51BAF4"
-      }
+        focus: "2px solid #51BAF4",
+      },
     },
     REWORK: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#FFC364",
         hover: "#ED9406",
-        focus: "#FFC364"
+        focus: "#FFC364",
       },
       border: {
         color: "2px solid #FFC364",
         hover: "2px solid #ED9406",
-        focus: "2px solid #ED9406"
-      }
+        focus: "2px solid #ED9406",
+      },
     },
     START: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#B7F7DC",
         hover: "#2EE591",
-        focus: "#B7F7DC"
+        focus: "#B7F7DC",
       },
       border: {
         color: "2px solid #B7F7DC",
         hover: "2px solid #2EE591",
-        focus: "2px solid #2EE591"
-      }
+        focus: "2px solid #2EE591",
+      },
     },
     COMPLETE: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#E0CEF4",
         hover: "#735D87",
-        focus: "#E0CEF4"
+        focus: "#E0CEF4",
       },
       border: {
         color: "2px solid #E0CEF4",
         hover: "2px solid #735D87",
-        focus: "2px solid #735D87"
-      }
+        focus: "2px solid #735D87",
+      },
     },
     CANCEL: {
       color: {
         color: "#444444",
         hover: "#FFFFFF",
-        focus: "#444444"
+        focus: "#444444",
       },
       background: {
         color: "#DDA8A8",
         hover: "#964545",
-        focus: "#DDA8A8"
+        focus: "#DDA8A8",
       },
       border: {
         color: "2px solid #DDA8A8",
         hover: "2px solid #964545",
-        focus: "2px solid #964545"
-      }
-    }
+        focus: "2px solid #964545",
+      },
+    },
   };
   var TextTheme = {
     Normal: {
-      color: "#444"
+      color: "#444",
     },
     Dark: {
-      color: "#e0e0e0"
+      color: "#e0e0e0",
     },
     PortionMarkingDark: {
-      color: "#cbd5f4"
+      color: "#cbd5f4",
     },
     LightBlue: {
-      color: "#41BEE8"
+      color: "#41BEE8",
     },
     AirBlue: {
-      color: "#2999F4"
+      color: "#2999F4",
     },
     MissileOrange: {
-      color: "#FF7200"
+      color: "#FF7200",
     },
     CyberYellow: {
-      color: "#F7C82C"
+      color: "#F7C82C",
     },
     SpaceTeal: {
-      color: "#0AD1C3"
+      color: "#0AD1C3",
     },
     INTsMagenta: {
-      color: "#FC49C9"
+      color: "#FC49C9",
     },
     RegionGreen: {
-      color: "#C8E552"
+      color: "#C8E552",
     },
     Sky: {
-      color: "#80CCFF"
+      color: "#80CCFF",
     },
     Apricot: {
-      color: "#FCB681"
+      color: "#FCB681",
     },
     Aqua: {
-      color: "#77FCD5"
+      color: "#77FCD5",
     },
     Sunny: {
-      color: "#F9EC75"
+      color: "#F9EC75",
     },
     Moss: {
-      color: "#DFFF92"
+      color: "#DFFF92",
     },
     Pink: {
-      color: "#F2B4F9"
+      color: "#F2B4F9",
     },
     Deep: {
-      color: "#002339"
+      color: "#002339",
     },
     Bark: {
-      color: "#481F0C"
+      color: "#481F0C",
     },
     Jungle: {
-      color: "#015149"
+      color: "#015149",
     },
     Spice: {
-      color: "#705405"
+      color: "#705405",
     },
     Olive: {
-      color: "#4C5612"
+      color: "#4C5612",
     },
     Plum: {
-      color: "#361329"
-    }
+      color: "#361329",
+    },
   };
   var AlertTheme = {
     warning: {
       color: {
         color: "#222",
         hover: "#222",
-        focus: "#222"
+        focus: "#222",
       },
       background: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
+        focus: "#fec700",
       },
       border: {
         color: "#fec700",
         hover: "#fec700",
-        focus: "#fec700"
-      }
+        focus: "#fec700",
+      },
     },
     danger: {
       color: {
         color: "#fff",
         hover: "#fff",
-        focus: "#fff"
+        focus: "#fff",
       },
       background: {
         color: "#890620",
         hover: "#890620",
-        focus: "#890620"
+        focus: "#890620",
       },
       border: {
         color: "#670014",
         hover: "#670014",
-        focus: "#670014"
-      }
+        focus: "#670014",
+      },
     },
     success: {
       color: {
         color: "#fff",
         focus: "#fff",
-        hover: "#fff"
+        hover: "#fff",
       },
       background: {
         color: "#0B7C40",
         hover: "#00642E",
-        focus: "#0B7C40"
+        focus: "#0B7C40",
       },
       border: {
         color: "#00642E",
         hover: "#00642E",
-        focus: "#00642E"
-      }
+        focus: "#00642E",
+      },
     },
     info: {
       color: {
         color: "#000",
         hover: "#000",
-        focus: "#000"
+        focus: "#000",
       },
       background: {
         color: "#4E8098",
         hover: "#4E8098",
-        focus: "#4E8098"
+        focus: "#4E8098",
       },
       border: {
         color: "#316780",
         hover: "#316780",
-        focus: "#316780"
-      }
-    }
+        focus: "#316780",
+      },
+    },
   };
 
   var NASICTheme = _objectSpread2(
@@ -3847,461 +3847,461 @@ var ParametricFilter = (function() {
         color: {
           color: "#222",
           hover: "#222",
-          focus: "#222"
+          focus: "#222",
         },
         background: {
           color: "#f8f9fa",
           hover: "#DDE4E9",
-          focus: "#f8f9fa"
+          focus: "#f8f9fa",
         },
         border: {
           color: "#DDE4E9",
           hover: "#DDE4E9",
-          focus: "#DDE4E9"
-        }
+          focus: "#DDE4E9",
+        },
       },
       Secondary: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#6c757d",
           hover: "#525D67",
-          focus: "#6c757d"
+          focus: "#6c757d",
         },
         border: {
           color: "#525D67",
           hover: "#525D67",
-          focus: "#525D67"
-        }
+          focus: "#525D67",
+        },
       },
       Dark: {
         color: {
           color: "#fff",
           hover: "#fff",
-          focus: "#fff"
+          focus: "#fff",
         },
         background: {
           color: "#343a40",
           hover: "#23272b",
-          focus: "#343a40"
+          focus: "#343a40",
         },
         border: {
           color: "#4F575E",
           hover: "#4F575E",
-          focus: "#4F575E"
-        }
+          focus: "#4F575E",
+        },
       },
       Primary: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4357AD",
           hover: "#2940A1",
-          focus: "#4357AD"
+          focus: "#4357AD",
         },
         border: {
           color: "#2940A1",
           hover: "#2940A1",
-          focus: "#2940A1"
-        }
+          focus: "#2940A1",
+        },
       },
       Info: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#58B0AE",
           hover: "#36938F",
-          focus: "#58B0AE"
+          focus: "#58B0AE",
         },
         border: {
           color: "#36938F",
           hover: "#36938F",
-          focus: "#36938F"
-        }
+          focus: "#36938F",
+        },
       },
       Warning: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#ED7D3A",
           hover: "#D15A14",
-          focus: "#ED7D3A"
+          focus: "#ED7D3A",
         },
         border: {
           color: "#D15A14",
           hover: "#D15A14",
-          focus: "#D15A14"
-        }
+          focus: "#D15A14",
+        },
       },
       Danger: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#7C0002",
           hover: "#560002",
-          focus: "#7C0002"
+          focus: "#7C0002",
         },
         border: {
           color: "#560002",
           hover: "#560002",
-          focus: "#560002"
-        }
+          focus: "#560002",
+        },
       },
       Success: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#0B7C40",
           hover: "#00642E",
-          focus: "#0B7C40"
+          focus: "#0B7C40",
         },
         border: {
           color: "#00642E",
           hover: "#00642E",
-          focus: "#00642E"
-        }
+          focus: "#00642E",
+        },
       },
       LightBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#41BEE8",
           hover: "#38a5ca",
-          focus: "#38a5ca"
+          focus: "#38a5ca",
         },
         border: {
           color: "#38a5ca",
           hover: "#38a5ca",
-          focus: "#38a5ca"
-        }
+          focus: "#38a5ca",
+        },
       },
       AirBlue: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#2999F4",
           hover: "#2386d7",
-          focus: "#2386d7"
+          focus: "#2386d7",
         },
         border: {
           color: "#2386d7",
           hover: "#2386d7",
-          focus: "#2386d7"
-        }
+          focus: "#2386d7",
+        },
       },
       MissileOrange: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FF7200",
           hover: "#C65800",
-          focus: "#FF7200"
+          focus: "#FF7200",
         },
         border: {
           color: "#C65800",
           hover: "#C65800",
-          focus: "#C65800"
-        }
+          focus: "#C65800",
+        },
       },
       CyberYellow: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F7C82C",
           hover: "#D4A609",
-          focus: "#F7C82C"
+          focus: "#F7C82C",
         },
         border: {
           color: "#D4A609",
           hover: "#D4A609",
-          focus: "#D4A609"
-        }
+          focus: "#D4A609",
+        },
       },
       SpaceTeal: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#0AD1C3",
           hover: "#00BBAE",
-          focus: "#0AD1C3"
+          focus: "#0AD1C3",
         },
         border: {
           color: "#00BBAE",
           hover: "#00BBAE",
-          focus: "#00BBAE"
-        }
+          focus: "#00BBAE",
+        },
       },
       INTsMagenta: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FC49C9",
           hover: "#FA1FBD",
-          focus: "#FC49C9"
+          focus: "#FC49C9",
         },
         border: {
           color: "#FA1FBD",
           hover: "#FA1FBD",
-          focus: "#FA1FBD"
-        }
+          focus: "#FA1FBD",
+        },
       },
       RegionGreen: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#C8E552",
           hover: "#B0CF2E",
-          focus: "#C8E552"
+          focus: "#C8E552",
         },
         border: {
           color: "#B0CF2E",
           hover: "#B0CF2E",
-          focus: "#B0CF2E"
-        }
+          focus: "#B0CF2E",
+        },
       },
       Sky: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#80CCFF",
           hover: "#57BDFF",
-          focus: "#80CCFF"
+          focus: "#80CCFF",
         },
         border: {
           color: "#57BDFF",
           hover: "#57BDFF",
-          focus: "#57BDFF"
-        }
+          focus: "#57BDFF",
+        },
       },
       Apricot: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#FCB681",
           hover: "#D88B51",
-          focus: "#FCB681"
+          focus: "#FCB681",
         },
         border: {
           color: "#D88B51",
           hover: "#D88B51",
-          focus: "#D88B51"
-        }
+          focus: "#D88B51",
+        },
       },
       Aqua: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#77FCD5",
           hover: "#25EEB1",
-          focus: "#77FCD5"
+          focus: "#77FCD5",
         },
         border: {
           color: "#25EEB1",
           hover: "#25EEB1",
-          focus: "#25EEB1"
-        }
+          focus: "#25EEB1",
+        },
       },
       Sunny: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F9EC75",
           hover: "#D7C949",
-          focus: "#F9EC75"
+          focus: "#F9EC75",
         },
         border: {
           color: "#D7C949",
           hover: "#D7C949",
-          focus: "#D7C949"
-        }
+          focus: "#D7C949",
+        },
       },
       Moss: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#DFFF92",
           hover: "#C5FF38",
-          focus: "#DFFF92"
+          focus: "#DFFF92",
         },
         border: {
           color: "#C5FF38",
           hover: "#C5FF38",
-          focus: "#C5FF38"
-        }
+          focus: "#C5FF38",
+        },
       },
       Pink: {
         color: {
           color: "#222",
           focus: "#222",
-          hover: "#222"
+          hover: "#222",
         },
         background: {
           color: "#F2B4F9",
           hover: "#E486EE",
-          focus: "#F2B4F9"
+          focus: "#F2B4F9",
         },
         border: {
           color: "#E486EE",
           hover: "#E486EE",
-          focus: "#E486EE"
-        }
+          focus: "#E486EE",
+        },
       },
       Deep: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#002339",
           hover: "#000B12",
-          focus: "#002339"
+          focus: "#002339",
         },
         border: {
           color: "#000B12",
           hover: "#000B12",
-          focus: "#000B12"
-        }
+          focus: "#000B12",
+        },
       },
       Bark: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#481F0C",
           hover: "#2B0E01",
-          focus: "#481F0C"
+          focus: "#481F0C",
         },
         border: {
           color: "#2B0E01",
           hover: "#2B0E01",
-          focus: "#2B0E01"
-        }
+          focus: "#2B0E01",
+        },
       },
       Jungle: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#015149",
           hover: "#003933",
-          focus: "#015149"
+          focus: "#015149",
         },
         border: {
           color: "#003933",
           hover: "#003933",
-          focus: "#003933"
-        }
+          focus: "#003933",
+        },
       },
       Spice: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#705405",
           hover: "#4A3700",
-          focus: "#705405"
+          focus: "#705405",
         },
         border: {
           color: "#4A3700",
           hover: "#4A3700",
-          focus: "#4A3700"
-        }
+          focus: "#4A3700",
+        },
       },
       Olive: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#4C5612",
           hover: "#2F3703",
-          focus: "#4C5612"
+          focus: "#4C5612",
         },
         border: {
           color: "#2F3703",
           hover: "#2F3703",
-          focus: "#2F3703"
-        }
+          focus: "#2F3703",
+        },
       },
       Plum: {
         color: {
           color: "#fff",
           focus: "#fff",
-          hover: "#fff"
+          hover: "#fff",
         },
         background: {
           color: "#361329",
           hover: "#26081B",
-          focus: "#361329"
+          focus: "#361329",
         },
         border: {
           color: "#26081B",
           hover: "#26081B",
-          focus: "#26081B"
-        }
-      }
+          focus: "#26081B",
+        },
+      },
     },
     NIWSTheme,
     {},
@@ -4316,8 +4316,8 @@ var ParametricFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -4334,7 +4334,7 @@ var ParametricFilter = (function() {
       "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ",
       ";\n            color: ",
       "\n        }\n        &:disabled:hover {\n            background-color: ",
-      ";\n        }\n    "
+      ";\n        }\n    ",
     ]);
 
     _templateObject2 = function _templateObject2() {
@@ -4356,7 +4356,7 @@ var ParametricFilter = (function() {
       "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ",
       ";\n            color: ",
       "\n        }\n        &:disabled:hover {\n            background-color: ",
-      ";\n        }\n    "
+      ";\n        }\n    ",
     ]);
 
     _templateObject = function _templateObject() {
@@ -4375,8 +4375,8 @@ var ParametricFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var dialogProps = {
     flavor: String,
@@ -4387,8 +4387,8 @@ var ParametricFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var DialogButton = styled("button", dialogProps)(
     _templateObject(),
@@ -4663,7 +4663,7 @@ var ParametricFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin = {
-    install: install
+    install: install,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4691,7 +4691,7 @@ var ParametricFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var dialogPlugin = {
-    install: dialogInstall
+    install: dialogInstall,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4714,7 +4714,7 @@ var ParametricFilter = (function() {
     var data = _taggedTemplateLiteral([
       '\n  font-family: "Open Sans Condensed Light", sans-serif !important;\n  font-weight: 400;\n  margin: 0;\n  color: ',
       ";\n  line-height: 1.571;\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject5 = function _templateObject5() {
@@ -4729,7 +4729,7 @@ var ParametricFilter = (function() {
       '\n  margin: 0;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  font-weight: ',
       ";\n  line-height: 1.571;\n  color: ",
       ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject4 = function _templateObject4() {
@@ -4745,7 +4745,7 @@ var ParametricFilter = (function() {
       "px;\n  font-weight: ",
       ";\n  line-height: 1.571;\n  color: ",
       ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject3 = function _templateObject3() {
@@ -4760,7 +4760,7 @@ var ParametricFilter = (function() {
       "\n  margin-top: 0;\n  font-weight: ",
       ';\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: "PT Serif Regular", serif;\n  color: ',
       ";\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject2$1 = function _templateObject2() {
@@ -4775,7 +4775,7 @@ var ParametricFilter = (function() {
       "\n  margin-top: 0;\n  font-weight: ",
       ';\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  color: ',
       ";\n  ",
-      "\n"
+      "\n",
     ]);
 
     _templateObject$1 = function _templateObject() {
@@ -4792,8 +4792,8 @@ var ParametricFilter = (function() {
       type: Object,
       default: function _default() {
         return TextTheme;
-      }
-    }
+      },
+    },
   };
   var WebTitle = styled("h1", titleProps)(
     _templateObject$1(),
@@ -4844,16 +4844,16 @@ var ParametricFilter = (function() {
   var props$1 = {
     size: {
       type: Number,
-      default: 15
+      default: 15,
     },
     dark: Boolean,
     textTheme: {
       type: Object,
       default: function _default() {
         return TextTheme;
-      }
+      },
     },
-    flavor: String
+    flavor: String,
   };
   var NText = styled("span", props$1)(
     _templateObject3(),
@@ -4877,7 +4877,7 @@ var ParametricFilter = (function() {
     }
   );
   var NPara = NText.withComponent("p", props$1);
-  var NSmall = styled("small", props$1)(
+  var SmallText = styled("small", props$1)(
     _templateObject4(),
     function(props) {
       return props.bold ? "bold" : 500;
@@ -5025,7 +5025,7 @@ var ParametricFilter = (function() {
       styles[group] ||
       (styles[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -5087,9 +5087,9 @@ var ParametricFilter = (function() {
         sources: [],
         names: [],
         mappings: "",
-        file: "Typography.vue"
+        file: "Typography.vue",
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -5121,72 +5121,72 @@ var ParametricFilter = (function() {
   var components = [
     {
       label: "WebTitle",
-      component: WebTitle
+      component: WebTitle,
     },
     {
       label: "WebSectionTitle",
-      component: WebSectionTitle
+      component: WebSectionTitle,
     },
     {
       label: "WebSubSectionTitle",
-      component: WebSubSectionTitle
+      component: WebSubSectionTitle,
     },
     {
       label: "WebCategoryTitle",
-      component: WebCategoryTitle
+      component: WebCategoryTitle,
     },
     {
       label: "WebSubCategoryTitle",
-      component: WebSubCategoryTitle
+      component: WebSubCategoryTitle,
     },
     {
       label: "WebKeyword",
-      component: WebKeyword
+      component: WebKeyword,
     },
     {
       label: "ProductTitle",
-      component: ProductTitle
+      component: ProductTitle,
     },
     {
       label: "SectionTitle",
-      component: SectionTitle
+      component: SectionTitle,
     },
     {
       label: "SubSectionTitle",
-      component: SubSectionTitle
+      component: SubSectionTitle,
     },
     {
       label: "CategoryTitle",
-      component: CategoryTitle
+      component: CategoryTitle,
     },
     {
       label: "SubCategoryTitle",
-      component: SubCategoryTitle
+      component: SubCategoryTitle,
     },
     {
       label: "Keyword",
-      component: Keyword
+      component: Keyword,
     },
     {
       label: "NText",
-      component: NText
+      component: NText,
     },
     {
       label: "NPara",
-      component: NPara
+      component: NPara,
     },
     {
-      label: "NSmall",
-      component: NSmall
+      label: "SmallText",
+      component: SmallText,
     },
     {
       label: "NLabel",
-      component: NLabel
+      component: NLabel,
     },
     {
       label: "PortionMarking",
-      component: PortionMarking
-    }
+      component: PortionMarking,
+    },
   ];
   var GlobalVue$1 = null;
 
@@ -5201,7 +5201,7 @@ var ParametricFilter = (function() {
     }; // Create module definition for Vue.use()
 
     var plugin = {
-      install: install
+      install: install,
     }; // To auto-install when vue is found
     // eslint-disable-next-line no-redeclare
 
@@ -5229,7 +5229,7 @@ var ParametricFilter = (function() {
     var data = _taggedTemplateLiteral([
       "\n  color: ",
       "\n        background-color: ",
-      ';\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n'
+      ';\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  display: inline-block;\n  border-radius: 4px;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  text-align: center;\n  white-space: nowrap;\n',
     ]);
 
     _templateObject$2 = function _templateObject() {
@@ -5244,8 +5244,8 @@ var ParametricFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var NBadge = styled("div", props$2)(
     _templateObject$2(),
@@ -5404,7 +5404,7 @@ var ParametricFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$1 = {
-    install: install$1
+    install: install$1,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -5433,8 +5433,8 @@ var ParametricFilter = (function() {
     return Object.freeze(
       Object.defineProperties(strings, {
         raw: {
-          value: Object.freeze(raw)
-        }
+          value: Object.freeze(raw),
+        },
       })
     );
   }
@@ -5443,7 +5443,7 @@ var ParametricFilter = (function() {
     var data = _taggedTemplateLiteral$2([
       '\n  width: 100%;\n  height: 35px;\n  font-size: 16px;\n  border-radius: 5px;\n  border-width: 1px;\n  border-style: solid;\n  padding: 2px 5px 2px 5px;\n  margin-top: 2px;\n  box-sizing: border-box;\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\n    "Segoe UI Emoji", "Segoe UI Symbol";\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\n  &:focus {\n    border-color: 1px solid\n      ',
       ";\n    outline: none;\n    box-shadow: 0px 0px 0px 3px\n      ",
-      ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n"
+      ";\n  }\n  &:read-only {\n    background-color: #e9e9e9;\n    color: #747474;\n  }\n  &:disabled {\n    cursor: not-allowed;\n    pointer-events: none;\n    color: #747474;\n    background-color: #e2e2e2;\n  }\n",
     ]);
 
     _templateObject$3 = function _templateObject() {
@@ -5456,14 +5456,14 @@ var ParametricFilter = (function() {
   var props$3 = {
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     defaultTheme: {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var NInput = styled("input", props$3)(
     _templateObject$3(),
@@ -5488,87 +5488,87 @@ var ParametricFilter = (function() {
     name: "vue-input",
     components: {
       NInput: NInput,
-      NLabel: NLabel
+      NLabel: NLabel,
     },
     data: function data() {
       return {
-        internalValue: ""
+        internalValue: "",
       };
     },
     props: {
       flavor: {
         type: String,
-        default: "LightBlue"
+        default: "LightBlue",
       },
       autocomplete: {
         type: String,
-        default: "off"
+        default: "off",
       },
       value: {
         type: String,
-        default: ""
+        default: "",
       },
       readonly: {
         type: Boolean,
-        default: false
+        default: false,
       },
       placeholder: {
         type: String,
-        default: ""
+        default: "",
       },
       pattern: {
         type: String,
-        default: ""
+        default: "",
       },
       multiple: {
         type: Boolean,
-        default: false
+        default: false,
       },
       min: {
         type: String,
-        default: ""
+        default: "",
       },
       max: {
         type: String,
-        default: ""
+        default: "",
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       inputType: {
         type: String,
-        required: true
+        required: true,
       },
       required: {
         type: Boolean,
-        default: false
+        default: false,
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: false,
       },
       labelFlavor: {
         type: String,
-        default: ""
+        default: "",
       },
       labelDark: {
         type: Boolean,
-        default: false
+        default: false,
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       autofocus: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     watch: {
       value: function value(newVal, oldVal) {
         this.internalValue = newVal;
-      }
+      },
     },
     mounted: function mounted() {
       var self = this;
@@ -5589,8 +5589,8 @@ var ParametricFilter = (function() {
       },
       onFocus: function onFocus() {
         this.$emit("focus");
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent$3(
@@ -5706,7 +5706,7 @@ var ParametricFilter = (function() {
       styles$1[group] ||
       (styles$1[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -5766,7 +5766,7 @@ var ParametricFilter = (function() {
     return _c(
       "div",
       {
-        staticClass: "input-container"
+        staticClass: "input-container",
       },
       [
         _c(
@@ -5775,8 +5775,8 @@ var ParametricFilter = (function() {
             attrs: {
               dark: _vm.labelDark,
               flavor: _vm.labelFlavor,
-              for: _vm.name
-            }
+              for: _vm.name,
+            },
           },
           [_vm._v(_vm._s(_vm.label))]
         ),
@@ -5797,14 +5797,14 @@ var ParametricFilter = (function() {
             disabled: _vm.disabled,
             autofocus: _vm.autofocus,
             autocomplete: _vm.autocomplete,
-            value: _vm.internalValue
+            value: _vm.internalValue,
           },
           on: {
             input: _vm.oninput,
             change: _vm.onChange,
-            focus: _vm.onFocus
-          }
-        })
+            focus: _vm.onFocus,
+          },
+        }),
       ],
       1
     );
@@ -5822,16 +5822,16 @@ var ParametricFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\Input\\src\\Input.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\NASICHTML\\Input\\src\\Input.vue",
         ],
         names: [],
         mappings: ";AAoMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA",
         file: "Input.vue",
         sourcesContent: [
-          '<template>\r\n  <div class="input-container">\r\n    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor="flavor"\r\n      :id="name"\r\n      :readonly="readonly"\r\n      :placeholder="placeholder"\r\n      :pattern="pattern"\r\n      :multiple="multiple"\r\n      :min="min"\r\n      :max="max"\r\n      :name="name"\r\n      :type="inputType"\r\n      :required="required"\r\n      :disabled="disabled"\r\n      :autofocus="autofocus"\r\n      :autocomplete="autocomplete"\r\n      :value="internalValue"\r\n      @input="oninput"\r\n      @change="onChange"\r\n      @focus="onFocus"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from "@intus/typography";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: "LightBlue"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled("input", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#04040480"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#10d2ff80"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: "vue-input",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: ""\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: "off"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== "undefined") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit("input", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit("focus");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n'
-        ]
+          '<template>\r\n  <div class="input-container">\r\n    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{\r\n      label\r\n    }}</n-label>\r\n    <n-input\r\n      :flavor="flavor"\r\n      :id="name"\r\n      :readonly="readonly"\r\n      :placeholder="placeholder"\r\n      :pattern="pattern"\r\n      :multiple="multiple"\r\n      :min="min"\r\n      :max="max"\r\n      :name="name"\r\n      :type="inputType"\r\n      :required="required"\r\n      :disabled="disabled"\r\n      :autofocus="autofocus"\r\n      :autocomplete="autocomplete"\r\n      :value="internalValue"\r\n      @input="oninput"\r\n      @change="onChange"\r\n      @focus="onFocus"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from "@intus/typography";\r\nimport styled from "vue-styled-components";\r\nimport Theme from "@intus/design-system";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: "LightBlue"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const NInput = styled("input", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#04040480"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${props =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : "#10d2ff80"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: "vue-input",\r\n  components: { NInput, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: ""\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: "off"\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: ""\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== "undefined") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    oninput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit("input", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit("change", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit("focus");\r\n    }\r\n  }\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -5850,7 +5850,7 @@ var ParametricFilter = (function() {
   var __vue_component__$3 = normalizeComponent$3(
     {
       render: __vue_render__,
-      staticRenderFns: __vue_staticRenderFns__
+      staticRenderFns: __vue_staticRenderFns__,
     },
     __vue_inject_styles__$3,
     __vue_script__$3,
@@ -5866,12 +5866,12 @@ var ParametricFilter = (function() {
   var components$1 = [
     {
       label: "VueInput",
-      component: VueInput
+      component: VueInput,
     },
     {
       label: "NInput",
-      component: NInput
-    }
+      component: NInput,
+    },
   ];
   var GlobalVue$3 = null;
 
@@ -5885,7 +5885,7 @@ var ParametricFilter = (function() {
     }; // Create module definition for Vue.use()
 
     var plugin = {
-      install: install
+      install: install,
     }; // To auto-install when vue is found
     // eslint-disable-next-line no-redeclare
 
@@ -5917,7 +5917,7 @@ var ParametricFilter = (function() {
     name: "select-me",
     components: {
       NInput: NInput,
-      NButton: NButton
+      NButton: NButton,
     },
     data: function data() {
       return {
@@ -5934,7 +5934,7 @@ var ParametricFilter = (function() {
         hoveredSelectedOption: {},
         combinedPaddingPerBadge: 26,
         hoveredIndex: -1,
-        hoveredSelectedIndex: -1
+        hoveredSelectedIndex: -1,
       };
     },
     watch: {
@@ -5942,63 +5942,63 @@ var ParametricFilter = (function() {
         this.selectedOptions = newValue;
         window.requestAnimationFrame(this.setSelectBoxWidth);
         this.setCalculatedPadding();
-      }
+      },
     },
     props: {
       value: {
         type: Array,
         default: function _default() {
           return [];
-        }
+        },
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       badgeFlavor: {
         type: String,
-        default: "Primary"
+        default: "Primary",
       },
       flavor: {
         type: String,
-        default: "LightBlue"
+        default: "LightBlue",
       },
       displayAttribute: {
         type: String,
-        default: "text"
+        default: "text",
       },
       valueAttribute: {
         type: String,
-        default: "value"
+        default: "value",
       },
       canBeEmpty: {
         type: Boolean,
-        default: true
+        default: true,
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: false,
       },
       options: {
         type: Array,
         default: function _default() {
           return [];
-        }
+        },
       },
       debug: {
         type: Boolean,
-        default: false
+        default: false,
       },
       multiSelect: {
         type: Boolean,
-        default: false
+        default: false,
       },
       initialValues: {
         type: Array,
         default: function _default() {
           return [];
-        }
-      }
+        },
+      },
     },
     computed: {
       computedSpanClass: function computedSpanClass() {
@@ -6043,7 +6043,7 @@ var ParametricFilter = (function() {
         }
 
         return options;
-      }
+      },
     },
     methods: {
       deselectDropdownOption: function deselectDropdownOption(option) {
@@ -6349,7 +6349,7 @@ var ParametricFilter = (function() {
             // pass
           }
         }, 50);
-      }
+      },
     },
     mounted: function mounted() {
       var self = this;
@@ -6382,7 +6382,7 @@ var ParametricFilter = (function() {
     beforeDestroy: function beforeDestroy() {
       window.removeEventListener("resize", self.setCalculatedWidth);
       window.removeEventListener("click", self.handleOffClick);
-    }
+    },
   };
 
   function normalizeComponent$4(
@@ -6498,7 +6498,7 @@ var ParametricFilter = (function() {
       styles$2[group] ||
       (styles$2[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -6558,12 +6558,12 @@ var ParametricFilter = (function() {
     return _c(
       "div",
       {
-        staticClass: "selectme-container"
+        staticClass: "selectme-container",
       },
       [
         _c("n-input", {
           style: {
-            "padding-left": _vm.calculatedPadding + "px"
+            "padding-left": _vm.calculatedPadding + "px",
           },
           attrs: {
             id: _vm.name,
@@ -6571,7 +6571,7 @@ var ParametricFilter = (function() {
             type: "text",
             placeholder: "Search...",
             flavor: _vm.flavor,
-            disabled: _vm.disabled
+            disabled: _vm.disabled,
           },
           on: {
             click: _vm.openDropdown,
@@ -6585,7 +6585,7 @@ var ParametricFilter = (function() {
                   _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                     "Backspace",
                     "Delete",
-                    "Del"
+                    "Del",
                   ])
                 ) {
                   return null;
@@ -6598,7 +6598,7 @@ var ParametricFilter = (function() {
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "down", 40, $event.key, [
                     "Down",
-                    "ArrowDown"
+                    "ArrowDown",
                   ])
                 ) {
                   return null;
@@ -6611,7 +6611,7 @@ var ParametricFilter = (function() {
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "up", 38, $event.key, [
                     "Up",
-                    "ArrowUp"
+                    "ArrowUp",
                   ])
                 ) {
                   return null;
@@ -6624,7 +6624,7 @@ var ParametricFilter = (function() {
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "left", 37, $event.key, [
                     "Left",
-                    "ArrowLeft"
+                    "ArrowLeft",
                   ])
                 ) {
                   return null;
@@ -6641,7 +6641,7 @@ var ParametricFilter = (function() {
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "right", 39, $event.key, [
                     "Right",
-                    "ArrowRight"
+                    "ArrowRight",
                   ])
                 ) {
                   return null;
@@ -6652,7 +6652,7 @@ var ParametricFilter = (function() {
                 }
 
                 return _vm.handleRight($event);
-              }
+              },
             ],
             keyup: function keyup($event) {
               if (
@@ -6663,15 +6663,15 @@ var ParametricFilter = (function() {
               }
 
               return _vm.selectHoveredOption($event);
-            }
+            },
           },
           model: {
             value: _vm.optionSearch,
             callback: function callback($$v) {
               _vm.optionSearch = $$v;
             },
-            expression: "optionSearch"
-          }
+            expression: "optionSearch",
+          },
         }),
         _vm._v(" "),
         _vm.showDropdown
@@ -6680,8 +6680,8 @@ var ParametricFilter = (function() {
               {
                 staticClass: "selectme-dropdown",
                 style: {
-                  width: _vm.calculatedWidth + "px"
-                }
+                  width: _vm.calculatedWidth + "px",
+                },
               },
               [
                 _c(
@@ -6703,12 +6703,12 @@ var ParametricFilter = (function() {
                             "selectme-hovered": _vm.isHovered(
                               option,
                               _vm.hoveredOption
-                            )
+                            ),
                           },
                           attrs: {
                             tabindex: "0",
                             role: "button",
-                            value: option[_vm.valueAttribute]
+                            value: option[_vm.valueAttribute],
                           },
                           on: {
                             keyup: [
@@ -6743,7 +6743,7 @@ var ParametricFilter = (function() {
                                 }
 
                                 return _vm.selectHoveredOption($event);
-                              }
+                              },
                             ],
                             focus: function focus($event) {
                               return _vm.hoverElement();
@@ -6770,34 +6770,34 @@ var ParametricFilter = (function() {
                                   !$event.type.indexOf("key") &&
                                   _vm._k($event.keyCode, "up", 38, $event.key, [
                                     "Up",
-                                    "ArrowUp"
+                                    "ArrowUp",
                                   ])
                                 ) {
                                   return null;
                                 }
 
                                 return _vm.hoverOption(-1);
-                              }
+                              },
                             ],
                             blur: _vm.closeDropdown,
                             click: function click($event) {
                               return _vm.selectOption(option);
-                            }
-                          }
+                            },
+                          },
                         },
                         [
                           _vm.contained(option)
                             ? _c(
                                 "span",
                                 {
-                                  staticClass: "sr-only"
+                                  staticClass: "sr-only",
                                 },
                                 [_vm._v("Active:")]
                               )
                             : _c(
                                 "span",
                                 {
-                                  staticClass: "sr-only"
+                                  staticClass: "sr-only",
                                 },
                                 [_vm._v("Press enter to select:")]
                               ),
@@ -6805,17 +6805,17 @@ var ParametricFilter = (function() {
                             "\n        " +
                               _vm._s(option[_vm.displayAttribute]) +
                               "\n      "
-                          )
+                          ),
                         ]
                       );
                     }),
                     _vm._v(" "),
                     _vm.selectOptions.length == 0
                       ? _c("li", [_vm._v("No results found")])
-                      : _vm._e()
+                      : _vm._e(),
                   ],
                   2
-                )
+                ),
               ]
             )
           : _vm._e(),
@@ -6831,19 +6831,19 @@ var ParametricFilter = (function() {
                   _vm.selectBoxWidth > _vm.computedCutOff &&
                   _vm.selectedOptions.length > 0,
                 expression:
-                  "selectBoxWidth > computedCutOff && selectedOptions.length > 0"
-              }
+                  "selectBoxWidth > computedCutOff && selectedOptions.length > 0",
+              },
             ],
             ref: "selectDropdownBox",
             staticClass: "selectme-selected",
             style: {
               top: _vm.multiSelect
                 ? _vm.calculatedHeight + "px"
-                : _vm.calculatedHeight + 4 + "px"
+                : _vm.calculatedHeight + 4 + "px",
             },
             attrs: {
-              "data-dropdown": "parent"
-            }
+              "data-dropdown": "parent",
+            },
           },
           [
             _c(
@@ -6852,11 +6852,11 @@ var ParametricFilter = (function() {
                 staticClass: "selectme-button selectme-badge",
                 attrs: {
                   flavor: _vm.badgeFlavor,
-                  "data-dropdown": "toggle"
+                  "data-dropdown": "toggle",
                 },
                 on: {
-                  click: _vm.toggleSelectedDropdown
-                }
+                  click: _vm.toggleSelectedDropdown,
+                },
               },
               [
                 _vm._v(
@@ -6868,17 +6868,17 @@ var ParametricFilter = (function() {
                   ? _c(
                       "span",
                       {
-                        staticClass: "select-me-ignore-me"
+                        staticClass: "select-me-ignore-me",
                       },
                       [_vm._v("▾")]
                     )
                   : _c(
                       "span",
                       {
-                        staticClass: "select-me-ignore-me"
+                        staticClass: "select-me-ignore-me",
                       },
                       [_vm._v("▴")]
-                    )
+                    ),
               ]
             ),
             _vm._v(" "),
@@ -6890,10 +6890,10 @@ var ParametricFilter = (function() {
                     name: "show",
                     rawName: "v-show",
                     value: _vm.showSelected,
-                    expression: "showSelected"
-                  }
+                    expression: "showSelected",
+                  },
                 ],
-                staticClass: "selectme-dropdown"
+                staticClass: "selectme-dropdown",
               },
               [
                 _c(
@@ -6913,12 +6913,12 @@ var ParametricFilter = (function() {
                           "selectme-hovered": _vm.isHovered(
                             option,
                             _vm.hoveredSelectedOption
-                          )
+                          ),
                         },
                         attrs: {
                           tabindex: "0",
                           role: "button",
-                          "data-dropdown": "child"
+                          "data-dropdown": "child",
                         },
                         on: {
                           keyup: [
@@ -6953,12 +6953,12 @@ var ParametricFilter = (function() {
                               }
 
                               return _vm.deselectDropdownOption(option);
-                            }
+                            },
                           ],
                           click: function click($event) {
                             return _vm.deselectDropdownOption(option);
-                          }
-                        }
+                          },
+                        },
                       },
                       [
                         _c("span", [_vm._v("×")]),
@@ -6966,14 +6966,14 @@ var ParametricFilter = (function() {
                           "\n          " +
                             _vm._s(option[_vm.displayAttribute]) +
                             "\n        "
-                        )
+                        ),
                       ]
                     );
                   }),
                   0
-                )
+                ),
               ]
-            )
+            ),
           ],
           1
         ),
@@ -6984,11 +6984,11 @@ var ParametricFilter = (function() {
             ref: "selectBox",
             staticClass: "selectme-selected",
             class: {
-              "hidden-inline": _vm.selectBoxWidth > _vm.computedCutOff
+              "hidden-inline": _vm.selectBoxWidth > _vm.computedCutOff,
             },
             style: {
-              top: _vm.calculatedHeight + "px"
-            }
+              top: _vm.calculatedHeight + "px",
+            },
           },
           _vm._l(_vm.selectedOptions, function(option, index) {
             return _c(
@@ -6998,16 +6998,16 @@ var ParametricFilter = (function() {
                   "selected-badge-" + option[_vm.valueAttribute] + "-" + index,
                 staticClass: "selectme-button selectme-badge",
                 class: {
-                  "selectme-single-select-badge": !_vm.multiSelect
+                  "selectme-single-select-badge": !_vm.multiSelect,
                 },
                 attrs: {
-                  flavor: _vm.badgeFlavor
+                  flavor: _vm.badgeFlavor,
                 },
                 on: {
                   click: function click($event) {
                     return _vm.deselectOption(option);
-                  }
-                }
+                  },
+                },
               },
               [
                 _vm._v(
@@ -7019,16 +7019,16 @@ var ParametricFilter = (function() {
                       "span",
                       {
                         staticClass: "select-me-ignore-me",
-                        class: _vm.computedSpanClass
+                        class: _vm.computedSpanClass,
                       },
                       [_vm._v("×")]
                     )
-                  : _vm._e()
+                  : _vm._e(),
               ]
             );
           }),
           1
-        )
+        ),
       ],
       1
     );
@@ -7046,17 +7046,17 @@ var ParametricFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\SelectMe\\src\\SelectMe.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\SelectMe\\src\\SelectMe.vue",
         ],
         names: [],
         mappings:
           ";AA4hBA;EACA,oBAAA;AACA;AACA;EACA,YAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,UAAA;EACA,oBAAA;AACA;AACA;EACA,qBAAA;EACA,qBAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,mBAAA;EACA,wBAAA;EACA,sBAAA;EACA,2BAAA;EACA,0BAAA;EACA,kCAAA;AACA;AACA;EACA,YAAA;AACA;AACA;EACA,iCAAA;AACA;AAEA;EACA,kBAAA;EACA,UAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,gBAAA;EACA,sBAAA;EACA,SAAA;AACA;AACA;EACA,kBAAA;EACA,UAAA;EACA,uBAAA;EACA,YAAA;EACA,qCAAA;EACA,0BAAA;EACA,oCAAA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;AACA;AACA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,YAAA;EACA,0BAAA;EACA,wCAAA;AACA;AACA;EACA,kBAAA;EACA,qBAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;AACA;AACA;EACA,0BAAA;EACA,eAAA;EACA,WAAA;EACA,sBAAA;EACA,gBAAA;EACA,eAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA",
         file: "SelectMe.vue",
         sourcesContent: [
-          '<template>\r\n  <div class="selectme-container">\r\n    <n-input\r\n      :id="name"\r\n      autocomplete="off"\r\n      type="text"\r\n      placeholder="Search..."\r\n      @click="openDropdown"\r\n      @focus="openDropdown"\r\n      @input="openDropdown"\r\n      @blur="closeDropdown"\r\n      :flavor="flavor"\r\n      v-model="optionSearch"\r\n      @keydown.delete="handleBackspace"\r\n      @keydown.down="handleDown"\r\n      @keydown.up="handleUp"\r\n      @keydown.left="handleLeft"\r\n      @keydown.right="handleRight"\r\n      @keyup.enter="selectHoveredOption"\r\n      :style="{\'padding-left\': calculatedPadding + \'px\'}"\r\n      :disabled="disabled"\r\n    ></n-input>\r\n    <!-- Dropdown for all options -->\r\n    <div v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + \'px\'}">\r\n      <ul>\r\n        <li\r\n          @keyup.enter="selectHoveredOption"\r\n          @keyup.space="selectHoveredOption"\r\n          tabindex="0"\r\n          role="button"\r\n          @focus="hoverElement()"\r\n          @keydown.down="hoverOption(1)"\r\n          @keydown.up="hoverOption(-1)"\r\n          @blur="closeDropdown"\r\n          v-for="(option, index) in selectOptions"\r\n          :key="\'dropdown-\' + option[valueAttribute] + \'-\' + index"\r\n          :value="option[valueAttribute]"\r\n          :ref="\'hover\' + option[valueAttribute]"\r\n          @click="selectOption(option)"\r\n          :class="{\'selectme-selected\': contained(option), \'selectme-hovered\': isHovered(option, hoveredOption)}"\r\n        >\r\n          <span class="sr-only" v-if="contained(option)">Active:</span>\r\n          <span class="sr-only" v-else>Press enter to select:</span>\r\n          {{option[displayAttribute]}}\r\n        </li>\r\n        <li v-if="selectOptions.length == 0">No results found</li>\r\n      </ul>\r\n    </div>\r\n    <!-- Dropdown for selected values. Only shows when selected overflow input-->\r\n    <div\r\n      class="selectme-selected"\r\n      :style="{top: multiSelect ? `${calculatedHeight}px` : `${calculatedHeight + 4}px` }"\r\n      v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0"\r\n      ref="selectDropdownBox"\r\n      data-dropdown="parent"\r\n    >\r\n      <n-button\r\n        @click="toggleSelectedDropdown"\r\n        class="selectme-button selectme-badge"\r\n        :flavor="badgeFlavor"\r\n        data-dropdown="toggle"\r\n      >\r\n        {{selectedOptions.length}} selected...\r\n        <span\r\n          class="select-me-ignore-me"\r\n          v-if="!showSelected"\r\n        >&#x25BE;</span>\r\n        <span class="select-me-ignore-me" v-else>&#x25B4;</span>\r\n      </n-button>\r\n      <div class="selectme-dropdown" v-show="showSelected">\r\n        <ul>\r\n          <li\r\n            tabindex="0"\r\n            v-for="(option, index) in selectedOptions"\r\n            :key="\'selected-\' + option[valueAttribute] + \'-\' + index"\r\n            role="button"\r\n            data-dropdown="child"\r\n            @keyup.enter="deselectDropdownOption(option)"\r\n            @keyup.space="deselectDropdownOption(option)"\r\n            :ref="\'selected\' + option[valueAttribute]"\r\n            :class="{\'selectme-hovered\': isHovered(option, hoveredSelectedOption)}"\r\n            @click="deselectDropdownOption(option)"\r\n          >\r\n            <span>&#215;</span>\r\n            {{option[displayAttribute]}}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n    <!-- Inline selected options -->\r\n    <div\r\n      class="selectme-selected"\r\n      ref="selectBox"\r\n      :style="{top:  calculatedHeight + \'px\' }"\r\n      :class="{\'hidden-inline\': selectBoxWidth > computedCutOff}"\r\n    >\r\n      <n-button\r\n        :flavor="badgeFlavor"\r\n        class="selectme-button selectme-badge"\r\n        :class="{\'selectme-single-select-badge\': !multiSelect}"\r\n        v-for="(option, index) in selectedOptions"\r\n        @click="deselectOption(option)"\r\n        :key="\'selected-badge-\' + option[valueAttribute] + \'-\' + index"\r\n      >\r\n        {{option[displayAttribute]}}\r\n        <span\r\n          :class="computedSpanClass"\r\n          class="select-me-ignore-me"\r\n          v-if="canBeEmpty || !canBeEmpty && selectedOptions.length > 1"\r\n        >&#215;</span>\r\n      </n-button>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NInput } from "@intus/input";\r\nimport { NButton } from "@intus/button";\r\nconst SelectMe = {\r\n  name: "select-me",\r\n  components: { NInput, NButton },\r\n  data() {\r\n    return {\r\n      timeout: "",\r\n      optionSearch: "",\r\n      showOptions: false,\r\n      showSelected: false,\r\n      selectBoxWidth: 0,\r\n      calculatedWidth: 0,\r\n      calculatedHeight: 0,\r\n      calculatedPadding: 0,\r\n      selectedOptions: [],\r\n      hoveredOption: {},\r\n      hoveredSelectedOption: {},\r\n      combinedPaddingPerBadge: 26,\r\n      hoveredIndex: -1,\r\n      hoveredSelectedIndex: -1\r\n    };\r\n  },\r\n  watch: {\r\n    value(newValue) {\r\n      this.selectedOptions = newValue;\r\n      window.requestAnimationFrame(this.setSelectBoxWidth);\r\n      this.setCalculatedPadding();\r\n    }\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: "Primary"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: "text"\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: "value"\r\n    },\r\n    canBeEmpty: {\r\n      type: Boolean,\r\n      default: true\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    options: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    multiSelect: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    initialValues: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedSpanClass() {\r\n      var self = this;\r\n      if (!self.multiSelect) return ["selectme-badge-single-span"];\r\n      return [];\r\n    },\r\n    computedCutOff() {\r\n      var self = this;\r\n      return self.calculatedWidth - 100;\r\n    },\r\n    showDropdown() {\r\n      var self = this;\r\n      return self.showOptions || self.debug;\r\n    },\r\n    selectOptions() {\r\n      function textContains(n) {\r\n        return (\r\n          n[self.displayAttribute]\r\n            .toUpperCase()\r\n            .indexOf(self.optionSearch.toUpperCase()) > -1\r\n        );\r\n      }\r\n      var self = this;\r\n      let options = self.options;\r\n      function filter(fn, array) {\r\n        var rtArray = [];\r\n        for (var x = 0; x < array.length; x++) {\r\n          if (fn(array[x])) {\r\n            rtArray.push(array[x]);\r\n          }\r\n        }\r\n        return rtArray;\r\n      }\r\n      if (self.optionSearch) {\r\n        options = filter(textContains, options);\r\n      }\r\n      return options;\r\n    }\r\n  },\r\n  methods: {\r\n    deselectDropdownOption(option) {\r\n      var self = this;\r\n      self.deselectOption(option, false);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    handleOffClick(event) {\r\n      var self = this;\r\n      if (!event.target.attributes["data-dropdown"]) {\r\n        self.showSelected = false;\r\n      }\r\n    },\r\n    toggleSelectedDropdown() {\r\n      var self = this;\r\n      self.showSelected = !self.showSelected;\r\n    },\r\n    selectHoveredOption() {\r\n      var self = this;\r\n      if (self.showOptions) {\r\n        if (Object.keys(self.hoveredOption).length > 0) {\r\n          if (!self.contains(self.hoveredOption, self.selectedOptions)) {\r\n            if (!self.multiSelect) self.selectedOptions = [];\r\n            self.selectedOptions.push(Object.assign({}, self.hoveredOption));\r\n          } else {\r\n            self.deselectOption(self.hoveredOption, false);\r\n          }\r\n          self.$emit("input", self.selectedOptions);\r\n          self.hoveredOption = {};\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          if (self.multiSelect) {\r\n            self.$el.firstChild.focus();\r\n          } else {\r\n            self.closeDropdown();\r\n          }\r\n        }\r\n      } else if (self.showSelected) {\r\n        self.deselectOption(self.hoveredSelectedOption);\r\n        self.$emit("input", self.selectedOptions);\r\n        self.hoveredSelectedOption = {};\r\n        self.showSelected = false;\r\n        setTimeout(function() {\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          self.$el.firstChild.focus();\r\n        }, 550);\r\n      }\r\n    },\r\n    hoverElement() {\r\n      var self = this;\r\n      clearTimeout(self.timeout);\r\n      self.hoveredOption = self.selectOptions.filter(\r\n        option =>\r\n          option[self.valueAttribute] ==\r\n          document.activeElement.getAttribute("value")\r\n      )[0];\r\n      self.hoveredIndex = self.selectOptions\r\n        .map(option => option[self.valueAttribute])\r\n        .indexOf(self.hoveredOption[self.valueAttribute]);\r\n    },\r\n    hoverOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.openDropdown();\r\n      if (proposedIndex >= self.selectOptions.length) {\r\n        self.hoveredIndex = 0;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n      } else if (proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.closeDropdown();\r\n        self.hoveredOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    hoverSelectedOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.showSelected = true;\r\n      if (proposedIndex >= self.selectedOptions.length || proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredSelectedOption = self.selectedOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    contains(option, options) {\r\n      var self = this;\r\n      for (var x = 0; x < options.length; x++) {\r\n        let textMatches =\r\n          option[self.displayAttribute] == options[x][self.displayAttribute];\r\n        let valueMatches =\r\n          option[self.valueAttribute] == options[x][self.valueAttribute];\r\n        if (textMatches && valueMatches) return true;\r\n      }\r\n      return false;\r\n    },\r\n    isHovered(option, hoverOption) {\r\n      var self = this;\r\n      let textMatches =\r\n        option[self.displayAttribute] == hoverOption[self.displayAttribute];\r\n      let valueMatches =\r\n        option[self.valueAttribute] == hoverOption[self.valueAttribute];\r\n      return textMatches && valueMatches;\r\n    },\r\n    handleUp() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(-1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(-1);\r\n      } else {\r\n        self.hoverOption(-1);\r\n      }\r\n    },\r\n    handleDown() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(1);\r\n      } else {\r\n        self.hoverOption(1);\r\n      }\r\n    },\r\n    handleLeft() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        (self.selectBoxWidth > self.computedCutOff) & !self.showSelected\r\n      ) {\r\n        self.closeDropdown();\r\n        self.showSelected = true;\r\n      }\r\n    },\r\n    handleRight() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n        self.$el.firstChild.focus();\r\n      }\r\n    },\r\n    handleBackspace() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        self.selectBoxWidth <= self.computedCutOff\r\n      ) {\r\n        var el = self.selectedOptions.pop();\r\n        self.$emit("input", self.selectedOptions);\r\n        window.requestAnimationFrame(self.setSelectBoxWidth);\r\n        self.setCalculatedPadding();\r\n        self.optionSearch = el[self.displayAttribute];\r\n      }\r\n    },\r\n    contained(option) {\r\n      var self = this;\r\n      return self.contains(option, self.selectedOptions);\r\n    },\r\n    selectOption(option) {\r\n      var self = this;\r\n      if (!self.contains(option, self.selectedOptions)) {\r\n        if (!self.multiSelect) {\r\n          self.selectedOptions = [];\r\n        }\r\n        self.selectedOptions.push(option);\r\n      } else {\r\n        self.deselectOption(option, !self.multiSelect);\r\n      }\r\n      self.optionSearch = "";\r\n      if (!self.multiSelect) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit("input", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    deselectOption(option, closeDropdown) {\r\n      var self = this;\r\n      if (!self.canBeEmpty && self.selectedOptions.length == 1) {\r\n        return;\r\n      }\r\n      function findIndex(option, options) {\r\n        for (var x = 0; x < options.length; x++) {\r\n          if (option[self.valueAttribute] == options[x][self.valueAttribute]) {\r\n            return x;\r\n          }\r\n        }\r\n        return -1;\r\n      }\r\n      var index = findIndex(option, self.selectedOptions);\r\n      self.selectedOptions.splice(index, 1);\r\n      self.$forceUpdate();\r\n      if (typeof closeDropdown === "undefined" || closeDropdown) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit("input", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    closeDropdown() {\r\n      var self = this;\r\n      self.hoveredIndex = -1;\r\n      self.timeout = setTimeout(function() {\r\n        self.showOptions = false;\r\n      }, 200);\r\n    },\r\n    openDropdown() {\r\n      var self = this;\r\n      self.$emit("focus");\r\n      clearTimeout(self.timeout);\r\n      if (self.disabled) {\r\n        return false;\r\n      }\r\n      self.hoveredIndex = -1;\r\n      self.setCalculatedWidth();\r\n      self.showSelected = false;\r\n      self.showOptions = true;\r\n    },\r\n    setSelectBoxWidth() {\r\n      var self = this;\r\n      if (self.$refs.selectBox)\r\n        self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    setCalculatedPadding() {\r\n      var self = this;\r\n      if (self.selectBoxWidth > self.computedCutOff) {\r\n        self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;\r\n      } else {\r\n        self.calculatedPadding = self.selectBoxWidth;\r\n      }\r\n      window.requestAnimationFrame(self.setCalculatedPadding);\r\n    },\r\n    setCalculatedWidth() {\r\n      var self = this;\r\n      setTimeout(function() {\r\n        try {\r\n          self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;\r\n          if (!self.multiSelect) {\r\n            self.calculatedHeight -= 4;\r\n          }\r\n          self.calculatedWidth = self.$el.firstChild.offsetWidth;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n        } catch (err) {\r\n          // pass\r\n        }\r\n      }, 50);\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (!self.canBeEmpty) {\r\n      self.selectOption(self.options[0]);\r\n    }\r\n    window.requestAnimationFrame(self.setCalculatedPadding);\r\n    window.addEventListener("resize", self.setCalculatedWidth);\r\n    window.addEventListener("click", self.handleOffClick);\r\n    self.setCalculatedWidth();\r\n    setTimeout(function() {\r\n      self.setCalculatedWidth();\r\n    }, 200);\r\n    for (var x = 0; x < self.initialValues.length; x++) {\r\n      var initVal = self.initialValues[x];\r\n      for (var y = 0; y < self.options.length; y++) {\r\n        if (\r\n          self.options[y][self.valueAttribute] == initVal[self.valueAttribute]\r\n        ) {\r\n          self.selectedOptions.push(Object.assign({}, self.options[y]));\r\n          break;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener("resize", self.setCalculatedWidth);\r\n    window.removeEventListener("click", self.handleOffClick);\r\n  }\r\n};\r\nexport default SelectMe;\r\n</script>\r\n<style scoped>\r\n.select-me-ignore-me {\r\n  pointer-events: none;\r\n}\r\n.selectme-button {\r\n  height: 30px;\r\n  margin-top: -2px;\r\n}\r\n.selectme-single-select-badge {\r\n  margin-top: 1px;\r\n}\r\n.hidden-inline {\r\n  opacity: 0;\r\n  pointer-events: none;\r\n}\r\n.selectme-badge {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: "Segoe UI" !important;\r\n}\r\n.selectme-container {\r\n  height: 45px;\r\n}\r\n.selectme-container * {\r\n  font-family: "Roboto", sans-serif;\r\n}\r\n\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\r\n}\r\n.selectme-dropdown {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-badge-single-span {\r\n  float: left;\r\n  padding-right: 8px;\r\n}\r\n.selectme-badge-transparent {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\r\n}\r\n.selectme-selected {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n.selectme-selected > button {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\r\n}\r\n.selectme-dropdown > ul {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\r\n}\r\n.selectme-dropdown > ul > li {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected {\r\n  background-color: #007bff;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li.selectme-hovered {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li:hover {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected:hover {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n</style>'
-        ]
+          '<template>\r\n  <div class="selectme-container">\r\n    <n-input\r\n      :id="name"\r\n      autocomplete="off"\r\n      type="text"\r\n      placeholder="Search..."\r\n      @click="openDropdown"\r\n      @focus="openDropdown"\r\n      @input="openDropdown"\r\n      @blur="closeDropdown"\r\n      :flavor="flavor"\r\n      v-model="optionSearch"\r\n      @keydown.delete="handleBackspace"\r\n      @keydown.down="handleDown"\r\n      @keydown.up="handleUp"\r\n      @keydown.left="handleLeft"\r\n      @keydown.right="handleRight"\r\n      @keyup.enter="selectHoveredOption"\r\n      :style="{\'padding-left\': calculatedPadding + \'px\'}"\r\n      :disabled="disabled"\r\n    ></n-input>\r\n    <!-- Dropdown for all options -->\r\n    <div v-if="showDropdown" class="selectme-dropdown" :style="{width: calculatedWidth + \'px\'}">\r\n      <ul>\r\n        <li\r\n          @keyup.enter="selectHoveredOption"\r\n          @keyup.space="selectHoveredOption"\r\n          tabindex="0"\r\n          role="button"\r\n          @focus="hoverElement()"\r\n          @keydown.down="hoverOption(1)"\r\n          @keydown.up="hoverOption(-1)"\r\n          @blur="closeDropdown"\r\n          v-for="(option, index) in selectOptions"\r\n          :key="\'dropdown-\' + option[valueAttribute] + \'-\' + index"\r\n          :value="option[valueAttribute]"\r\n          :ref="\'hover\' + option[valueAttribute]"\r\n          @click="selectOption(option)"\r\n          :class="{\'selectme-selected\': contained(option), \'selectme-hovered\': isHovered(option, hoveredOption)}"\r\n        >\r\n          <span class="sr-only" v-if="contained(option)">Active:</span>\r\n          <span class="sr-only" v-else>Press enter to select:</span>\r\n          {{option[displayAttribute]}}\r\n        </li>\r\n        <li v-if="selectOptions.length == 0">No results found</li>\r\n      </ul>\r\n    </div>\r\n    <!-- Dropdown for selected values. Only shows when selected overflow input-->\r\n    <div\r\n      class="selectme-selected"\r\n      :style="{top: multiSelect ? `${calculatedHeight}px` : `${calculatedHeight + 4}px` }"\r\n      v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0"\r\n      ref="selectDropdownBox"\r\n      data-dropdown="parent"\r\n    >\r\n      <n-button\r\n        @click="toggleSelectedDropdown"\r\n        class="selectme-button selectme-badge"\r\n        :flavor="badgeFlavor"\r\n        data-dropdown="toggle"\r\n      >\r\n        {{selectedOptions.length}} selected...\r\n        <span\r\n          class="select-me-ignore-me"\r\n          v-if="!showSelected"\r\n        >&#x25BE;</span>\r\n        <span class="select-me-ignore-me" v-else>&#x25B4;</span>\r\n      </n-button>\r\n      <div class="selectme-dropdown" v-show="showSelected">\r\n        <ul>\r\n          <li\r\n            tabindex="0"\r\n            v-for="(option, index) in selectedOptions"\r\n            :key="\'selected-\' + option[valueAttribute] + \'-\' + index"\r\n            role="button"\r\n            data-dropdown="child"\r\n            @keyup.enter="deselectDropdownOption(option)"\r\n            @keyup.space="deselectDropdownOption(option)"\r\n            :ref="\'selected\' + option[valueAttribute]"\r\n            :class="{\'selectme-hovered\': isHovered(option, hoveredSelectedOption)}"\r\n            @click="deselectDropdownOption(option)"\r\n          >\r\n            <span>&#215;</span>\r\n            {{option[displayAttribute]}}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n    <!-- Inline selected options -->\r\n    <div\r\n      class="selectme-selected"\r\n      ref="selectBox"\r\n      :style="{top:  calculatedHeight + \'px\' }"\r\n      :class="{\'hidden-inline\': selectBoxWidth > computedCutOff}"\r\n    >\r\n      <n-button\r\n        :flavor="badgeFlavor"\r\n        class="selectme-button selectme-badge"\r\n        :class="{\'selectme-single-select-badge\': !multiSelect}"\r\n        v-for="(option, index) in selectedOptions"\r\n        @click="deselectOption(option)"\r\n        :key="\'selected-badge-\' + option[valueAttribute] + \'-\' + index"\r\n      >\r\n        {{option[displayAttribute]}}\r\n        <span\r\n          :class="computedSpanClass"\r\n          class="select-me-ignore-me"\r\n          v-if="canBeEmpty || !canBeEmpty && selectedOptions.length > 1"\r\n        >&#215;</span>\r\n      </n-button>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NInput } from "@intus/input";\r\nimport { NButton } from "@intus/button";\r\nconst SelectMe = {\r\n  name: "select-me",\r\n  components: { NInput, NButton },\r\n  data() {\r\n    return {\r\n      timeout: "",\r\n      optionSearch: "",\r\n      showOptions: false,\r\n      showSelected: false,\r\n      selectBoxWidth: 0,\r\n      calculatedWidth: 0,\r\n      calculatedHeight: 0,\r\n      calculatedPadding: 0,\r\n      selectedOptions: [],\r\n      hoveredOption: {},\r\n      hoveredSelectedOption: {},\r\n      combinedPaddingPerBadge: 26,\r\n      hoveredIndex: -1,\r\n      hoveredSelectedIndex: -1\r\n    };\r\n  },\r\n  watch: {\r\n    value(newValue) {\r\n      this.selectedOptions = newValue;\r\n      window.requestAnimationFrame(this.setSelectBoxWidth);\r\n      this.setCalculatedPadding();\r\n    }\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: "Primary"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "LightBlue"\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: "text"\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: "value"\r\n    },\r\n    canBeEmpty: {\r\n      type: Boolean,\r\n      default: true\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    options: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    multiSelect: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    initialValues: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedSpanClass() {\r\n      var self = this;\r\n      if (!self.multiSelect) return ["selectme-badge-single-span"];\r\n      return [];\r\n    },\r\n    computedCutOff() {\r\n      var self = this;\r\n      return self.calculatedWidth - 100;\r\n    },\r\n    showDropdown() {\r\n      var self = this;\r\n      return self.showOptions || self.debug;\r\n    },\r\n    selectOptions() {\r\n      function textContains(n) {\r\n        return (\r\n          n[self.displayAttribute]\r\n            .toUpperCase()\r\n            .indexOf(self.optionSearch.toUpperCase()) > -1\r\n        );\r\n      }\r\n      var self = this;\r\n      let options = self.options;\r\n      function filter(fn, array) {\r\n        var rtArray = [];\r\n        for (var x = 0; x < array.length; x++) {\r\n          if (fn(array[x])) {\r\n            rtArray.push(array[x]);\r\n          }\r\n        }\r\n        return rtArray;\r\n      }\r\n      if (self.optionSearch) {\r\n        options = filter(textContains, options);\r\n      }\r\n      return options;\r\n    }\r\n  },\r\n  methods: {\r\n    deselectDropdownOption(option) {\r\n      var self = this;\r\n      self.deselectOption(option, false);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    handleOffClick(event) {\r\n      var self = this;\r\n      if (!event.target.attributes["data-dropdown"]) {\r\n        self.showSelected = false;\r\n      }\r\n    },\r\n    toggleSelectedDropdown() {\r\n      var self = this;\r\n      self.showSelected = !self.showSelected;\r\n    },\r\n    selectHoveredOption() {\r\n      var self = this;\r\n      if (self.showOptions) {\r\n        if (Object.keys(self.hoveredOption).length > 0) {\r\n          if (!self.contains(self.hoveredOption, self.selectedOptions)) {\r\n            if (!self.multiSelect) self.selectedOptions = [];\r\n            self.selectedOptions.push(Object.assign({}, self.hoveredOption));\r\n          } else {\r\n            self.deselectOption(self.hoveredOption, false);\r\n          }\r\n          self.$emit("input", self.selectedOptions);\r\n          self.hoveredOption = {};\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          if (self.multiSelect) {\r\n            self.$el.firstChild.focus();\r\n          } else {\r\n            self.closeDropdown();\r\n          }\r\n        }\r\n      } else if (self.showSelected) {\r\n        self.deselectOption(self.hoveredSelectedOption);\r\n        self.$emit("input", self.selectedOptions);\r\n        self.hoveredSelectedOption = {};\r\n        self.showSelected = false;\r\n        setTimeout(function() {\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          self.$el.firstChild.focus();\r\n        }, 550);\r\n      }\r\n    },\r\n    hoverElement() {\r\n      var self = this;\r\n      clearTimeout(self.timeout);\r\n      self.hoveredOption = self.selectOptions.filter(\r\n        option =>\r\n          option[self.valueAttribute] ==\r\n          document.activeElement.getAttribute("value")\r\n      )[0];\r\n      self.hoveredIndex = self.selectOptions\r\n        .map(option => option[self.valueAttribute])\r\n        .indexOf(self.hoveredOption[self.valueAttribute]);\r\n    },\r\n    hoverOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.openDropdown();\r\n      if (proposedIndex >= self.selectOptions.length) {\r\n        self.hoveredIndex = 0;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n      } else if (proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.closeDropdown();\r\n        self.hoveredOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    hoverSelectedOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.showSelected = true;\r\n      if (proposedIndex >= self.selectedOptions.length || proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredSelectedOption = self.selectedOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    contains(option, options) {\r\n      var self = this;\r\n      for (var x = 0; x < options.length; x++) {\r\n        let textMatches =\r\n          option[self.displayAttribute] == options[x][self.displayAttribute];\r\n        let valueMatches =\r\n          option[self.valueAttribute] == options[x][self.valueAttribute];\r\n        if (textMatches && valueMatches) return true;\r\n      }\r\n      return false;\r\n    },\r\n    isHovered(option, hoverOption) {\r\n      var self = this;\r\n      let textMatches =\r\n        option[self.displayAttribute] == hoverOption[self.displayAttribute];\r\n      let valueMatches =\r\n        option[self.valueAttribute] == hoverOption[self.valueAttribute];\r\n      return textMatches && valueMatches;\r\n    },\r\n    handleUp() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(-1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(-1);\r\n      } else {\r\n        self.hoverOption(-1);\r\n      }\r\n    },\r\n    handleDown() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(1);\r\n      } else {\r\n        self.hoverOption(1);\r\n      }\r\n    },\r\n    handleLeft() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        (self.selectBoxWidth > self.computedCutOff) & !self.showSelected\r\n      ) {\r\n        self.closeDropdown();\r\n        self.showSelected = true;\r\n      }\r\n    },\r\n    handleRight() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n        self.$el.firstChild.focus();\r\n      }\r\n    },\r\n    handleBackspace() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        self.selectBoxWidth <= self.computedCutOff\r\n      ) {\r\n        var el = self.selectedOptions.pop();\r\n        self.$emit("input", self.selectedOptions);\r\n        window.requestAnimationFrame(self.setSelectBoxWidth);\r\n        self.setCalculatedPadding();\r\n        self.optionSearch = el[self.displayAttribute];\r\n      }\r\n    },\r\n    contained(option) {\r\n      var self = this;\r\n      return self.contains(option, self.selectedOptions);\r\n    },\r\n    selectOption(option) {\r\n      var self = this;\r\n      if (!self.contains(option, self.selectedOptions)) {\r\n        if (!self.multiSelect) {\r\n          self.selectedOptions = [];\r\n        }\r\n        self.selectedOptions.push(option);\r\n      } else {\r\n        self.deselectOption(option, !self.multiSelect);\r\n      }\r\n      self.optionSearch = "";\r\n      if (!self.multiSelect) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit("input", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    deselectOption(option, closeDropdown) {\r\n      var self = this;\r\n      if (!self.canBeEmpty && self.selectedOptions.length == 1) {\r\n        return;\r\n      }\r\n      function findIndex(option, options) {\r\n        for (var x = 0; x < options.length; x++) {\r\n          if (option[self.valueAttribute] == options[x][self.valueAttribute]) {\r\n            return x;\r\n          }\r\n        }\r\n        return -1;\r\n      }\r\n      var index = findIndex(option, self.selectedOptions);\r\n      self.selectedOptions.splice(index, 1);\r\n      self.$forceUpdate();\r\n      if (typeof closeDropdown === "undefined" || closeDropdown) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit("input", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    closeDropdown() {\r\n      var self = this;\r\n      self.hoveredIndex = -1;\r\n      self.timeout = setTimeout(function() {\r\n        self.showOptions = false;\r\n      }, 200);\r\n    },\r\n    openDropdown() {\r\n      var self = this;\r\n      self.$emit("focus");\r\n      clearTimeout(self.timeout);\r\n      if (self.disabled) {\r\n        return false;\r\n      }\r\n      self.hoveredIndex = -1;\r\n      self.setCalculatedWidth();\r\n      self.showSelected = false;\r\n      self.showOptions = true;\r\n    },\r\n    setSelectBoxWidth() {\r\n      var self = this;\r\n      if (self.$refs.selectBox)\r\n        self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    setCalculatedPadding() {\r\n      var self = this;\r\n      if (self.selectBoxWidth > self.computedCutOff) {\r\n        self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;\r\n      } else {\r\n        self.calculatedPadding = self.selectBoxWidth;\r\n      }\r\n      window.requestAnimationFrame(self.setCalculatedPadding);\r\n    },\r\n    setCalculatedWidth() {\r\n      var self = this;\r\n      setTimeout(function() {\r\n        try {\r\n          self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;\r\n          if (!self.multiSelect) {\r\n            self.calculatedHeight -= 4;\r\n          }\r\n          self.calculatedWidth = self.$el.firstChild.offsetWidth;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n        } catch (err) {\r\n          // pass\r\n        }\r\n      }, 50);\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (!self.canBeEmpty) {\r\n      self.selectOption(self.options[0]);\r\n    }\r\n    window.requestAnimationFrame(self.setCalculatedPadding);\r\n    window.addEventListener("resize", self.setCalculatedWidth);\r\n    window.addEventListener("click", self.handleOffClick);\r\n    self.setCalculatedWidth();\r\n    setTimeout(function() {\r\n      self.setCalculatedWidth();\r\n    }, 200);\r\n    for (var x = 0; x < self.initialValues.length; x++) {\r\n      var initVal = self.initialValues[x];\r\n      for (var y = 0; y < self.options.length; y++) {\r\n        if (\r\n          self.options[y][self.valueAttribute] == initVal[self.valueAttribute]\r\n        ) {\r\n          self.selectedOptions.push(Object.assign({}, self.options[y]));\r\n          break;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener("resize", self.setCalculatedWidth);\r\n    window.removeEventListener("click", self.handleOffClick);\r\n  }\r\n};\r\nexport default SelectMe;\r\n</script>\r\n<style scoped>\r\n.select-me-ignore-me {\r\n  pointer-events: none;\r\n}\r\n.selectme-button {\r\n  height: 30px;\r\n  margin-top: -2px;\r\n}\r\n.selectme-single-select-badge {\r\n  margin-top: 1px;\r\n}\r\n.hidden-inline {\r\n  opacity: 0;\r\n  pointer-events: none;\r\n}\r\n.selectme-badge {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: "Segoe UI" !important;\r\n}\r\n.selectme-container {\r\n  height: 45px;\r\n}\r\n.selectme-container * {\r\n  font-family: "Roboto", sans-serif;\r\n}\r\n\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\r\n}\r\n.selectme-dropdown {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-badge-single-span {\r\n  float: left;\r\n  padding-right: 8px;\r\n}\r\n.selectme-badge-transparent {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\r\n}\r\n.selectme-selected {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n.selectme-selected > button {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\r\n}\r\n.selectme-dropdown > ul {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\r\n}\r\n.selectme-dropdown > ul > li {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected {\r\n  background-color: #007bff;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li.selectme-hovered {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li:hover {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected:hover {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n</style>',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -7075,7 +7075,7 @@ var ParametricFilter = (function() {
   var __vue_component__$4 = normalizeComponent$4(
     {
       render: __vue_render__$1,
-      staticRenderFns: __vue_staticRenderFns__$1
+      staticRenderFns: __vue_staticRenderFns__$1,
     },
     __vue_inject_styles__$4,
     __vue_script__$4,
@@ -7095,7 +7095,7 @@ var ParametricFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$2 = {
-    install: install$2
+    install: install$2,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -7118,7 +7118,7 @@ var ParametricFilter = (function() {
 
   function _templateObject5$1() {
     var data = _taggedTemplateLiteral([
-      "\n  transition: 0.3s height;\n  margin-top: 3px;\n  height: 0px;\n  overflow-y: hidden;\n"
+      "\n  transition: 0.3s height;\n  margin-top: 3px;\n  height: 0px;\n  overflow-y: hidden;\n",
     ]);
 
     _templateObject5$1 = function _templateObject5() {
@@ -7134,7 +7134,7 @@ var ParametricFilter = (function() {
       "\n  background-color: ",
       ";\n  &:hover {\n    background-color: ",
       ";\n    color: ",
-      "\n  }\n"
+      "\n  }\n",
     ]);
 
     _templateObject4$1 = function _templateObject4() {
@@ -7146,7 +7146,7 @@ var ParametricFilter = (function() {
 
   function _templateObject3$1() {
     var data = _taggedTemplateLiteral([
-      "\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  margin-bottom: 5px;\n"
+      "\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  margin-bottom: 5px;\n",
     ]);
 
     _templateObject3$1 = function _templateObject3() {
@@ -7159,7 +7159,7 @@ var ParametricFilter = (function() {
   function _templateObject2$2() {
     var data = _taggedTemplateLiteral([
       "\n  background-image: linear-gradient(\n    to top right,\n    transparent 50%,\n    ",
-      "\n      50%\n  );\n  float: right;\n  width: 0.5rem;\n  height: 0.5rem;\n  transform: rotate(45deg);\n  transition: 0.3s all;\n  display: inline-block;\n"
+      "\n      50%\n  );\n  float: right;\n  width: 0.5rem;\n  height: 0.5rem;\n  transform: rotate(45deg);\n  transition: 0.3s all;\n  display: inline-block;\n",
     ]);
 
     _templateObject2$2 = function _templateObject2() {
@@ -7187,8 +7187,8 @@ var ParametricFilter = (function() {
       type: Object,
       default: function _default() {
         return NASICTheme;
-      }
-    }
+      },
+    },
   };
   var ParametricCarat = styled("div", props$4)(_templateObject2$2(), function(
     props
@@ -7248,13 +7248,13 @@ var ParametricFilter = (function() {
       QuickSelectContainer: QuickSelectContainer,
       QuickSelectOption: QuickSelectOption,
       Badge: __vue_component__$2,
-      NLabel: NLabel
+      NLabel: NLabel,
     },
     data: function data() {
       return {
         selectedItems: [],
         open: false,
-        unwatch: null
+        unwatch: null,
       };
     },
     props: {
@@ -7262,48 +7262,48 @@ var ParametricFilter = (function() {
         type: String,
         default: function _default() {
           return [];
-        }
+        },
       },
       name: {
         type: String,
-        required: true
+        required: true,
       },
       filter: {
         type: Object,
-        required: true
+        required: true,
       },
       defaultOpen: {
         type: Boolean,
-        default: false
+        default: false,
       },
       displayAttribute: {
         type: String,
-        default: "text"
+        default: "text",
       },
       valueAttribute: {
         type: String,
-        default: "value"
+        default: "value",
       },
       quickSelectFlavor: {
         type: String,
-        default: "Secondary"
+        default: "Secondary",
       },
       activeBadgeFlavor: {
         type: String,
-        default: "Light"
+        default: "Light",
       },
       badgeFlavor: {
         type: String,
-        default: "Secondary"
+        default: "Secondary",
       },
       flavor: {
         type: String,
-        default: "Dark"
+        default: "Dark",
       },
       debug: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     beforeDestroy: function beforeDestroy() {
       this.unwatch();
@@ -7320,7 +7320,7 @@ var ParametricFilter = (function() {
       }
 
       this.unwatch = this.$watch("values", this.updateSelectedItems, {
-        deep: true
+        deep: true,
       });
     },
     methods: {
@@ -7403,7 +7403,7 @@ var ParametricFilter = (function() {
         if (this.$refs.selectBar) {
           this.$refs.selectBar.selectOption(option);
         }
-      }
+      },
     },
     computed: {
       computeClass: function computeClass() {
@@ -7412,8 +7412,8 @@ var ParametricFilter = (function() {
         }
 
         return [];
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent$5(
@@ -7529,7 +7529,7 @@ var ParametricFilter = (function() {
       styles$3[group] ||
       (styles$3[group] = {
         ids: new Set(),
-        styles: []
+        styles: [],
       });
 
     if (!style.ids.has(id)) {
@@ -7591,7 +7591,7 @@ var ParametricFilter = (function() {
           {
             staticClass: "parametric-button",
             attrs: { block: true, flavor: _vm.flavor },
-            on: { click: _vm.toggle }
+            on: { click: _vm.toggle },
           },
           [
             _c(
@@ -7600,17 +7600,17 @@ var ParametricFilter = (function() {
                 _vm._v("\n      " + _vm._s(_vm.filter.display) + "\n      "),
                 _vm.selectedItems.length != 0
                   ? _c("badge", { attrs: { flavor: _vm.activeBadgeFlavor } }, [
-                      _vm._v("Active")
+                      _vm._v("Active"),
                     ])
-                  : _vm._e()
+                  : _vm._e(),
               ],
               1
             ),
             _vm._v(" "),
             _c("parametric-carat", {
               class: _vm.computeClass,
-              attrs: { flavor: _vm.flavor, disabled: _vm.filter.disabled }
-            })
+              attrs: { flavor: _vm.flavor, disabled: _vm.filter.disabled },
+            }),
           ],
           1
         ),
@@ -7635,21 +7635,21 @@ var ParametricFilter = (function() {
                 debug: _vm.debug,
                 "display-attribute": _vm.displayAttribute,
                 "value-attribute": _vm.valueAttribute,
-                name: _vm.name
+                name: _vm.name,
               },
               on: {
                 input: _vm.handleUpdate,
                 focus: function($event) {
                   _vm.open = true;
-                }
+                },
               },
               model: {
                 value: _vm.selectedItems,
                 callback: function($$v) {
                   _vm.selectedItems = $$v;
                 },
-                expression: "selectedItems"
-              }
+                expression: "selectedItems",
+              },
             }),
             _vm._v(" "),
             _c(
@@ -7662,15 +7662,15 @@ var ParametricFilter = (function() {
                   on: {
                     click: function($event) {
                       return _vm.quickSelect(item);
-                    }
-                  }
+                    },
+                  },
                 });
               }),
               1
-            )
+            ),
           ],
           1
-        )
+        ),
       ],
       1
     );
@@ -7687,17 +7687,17 @@ var ParametricFilter = (function() {
       map: {
         version: 3,
         sources: [
-          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\Storefront\\ParametricFilter\\src\\ParametricFilter.vue"
+          "C:\\Users\\pedro\\Documents\\Work\\Storybook\\src\\components\\Storefront\\ParametricFilter\\src\\ParametricFilter.vue",
         ],
         names: [],
         mappings:
           ";AAiUA;EACA,kBAAA;EACA,UAAA;EACA,WAAA;EACA,UAAA;EACA,gBAAA;EACA,sBAAA;EACA,mBAAA;EACA,6BAAA;EACA,qBAAA;EACA,SAAA;AACA;AACA;EACA,8BAAA;EACA,aAAA;EACA,mBAAA;AACA;AACA;EACA,oCAAA;AACA",
         file: "ParametricFilter.vue",
         sourcesContent: [
-          '<template>\r\n  <parametric-container>\r\n    <n-button\r\n      :block="true"\r\n      :flavor="flavor"\r\n      @click="toggle"\r\n      class="parametric-button"\r\n    >\r\n      <span>\r\n        {{ filter.display }}\r\n        <badge :flavor="activeBadgeFlavor" v-if="selectedItems.length != 0"\r\n          >Active</badge\r\n        >\r\n      </span>\r\n      <parametric-carat\r\n        :flavor="flavor"\r\n        :class="computeClass"\r\n        :disabled="filter.disabled"\r\n      ></parametric-carat>\r\n    </n-button>\r\n    <parametric-content-container ref="content">\r\n      <n-label class="sr-only" :for="name">{{ filter.display }}</n-label>\r\n      <select-me\r\n        :aria-label="filter.display"\r\n        v-model="selectedItems"\r\n        :options="filter.items"\r\n        :badge-flavor="badgeFlavor"\r\n        :multi-select="true"\r\n        :debug="debug"\r\n        :display-attribute="displayAttribute"\r\n        :value-attribute="valueAttribute"\r\n        :name="name"\r\n        ref="selectBar"\r\n        @input="handleUpdate"\r\n        @focus="open = true"\r\n      ></select-me>\r\n      <quick-select-container>\r\n        <quick-select-option\r\n          v-for="(item, index) in filter.quickSelects"\r\n          :flavor="quickSelectFlavor"\r\n          :key="index"\r\n          v-html="item[displayAttribute]"\r\n          @click="quickSelect(item)"\r\n        ></quick-select-option>\r\n      </quick-select-container>\r\n    </parametric-content-container>\r\n  </parametric-container>\r\n</template>\r\n\r\n<script>\r\nimport { NButton } from "@intus/button";\r\nimport { NLabel } from "@intus/typography";\r\nimport Badge from "@intus/badge";\r\nimport styled from "vue-styled-components";\r\nimport SelectMe from "@intus/select-me";\r\nimport Theme from "@intus/design-system";\r\nconst ParametricContainer = styled.div`\r\n  width: 100%;\r\n`;\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst ParametricCarat = styled("div", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? "rgba(0, 0, 0, 0.3)"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : "#222"}\r\n      50%\r\n  );\r\n  float: right;\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nconst QuickSelectContainer = styled.div`\r\n  width: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-bottom: 5px;\r\n`;\r\nconst QuickSelectOption = styled("div", props)`\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  padding: 5px;\r\n  margin-bottom: 2px;\r\n  cursor: pointer;\r\n  text-align: left !important;\r\n  color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].color.color\r\n      : props.defaultTheme[props.flavor] &&\r\n        props.defaultTheme[props.flavor].color.color\r\n      ? props.defaultTheme[props.flavor].color.color\r\n      : "#040404"}\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor] &&\r\n        props.defaultTheme[props.flavor].background.color\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : "#f0f0f0"};\r\n  &:hover {\r\n    background-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].background.hover\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : "#d5d5d5"};\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.hover\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].color.hover\r\n        ? props.defaultTheme[props.flavor].color.hover\r\n        : "#000"}\r\n  }\r\n`;\r\nconst ParametricContentContainer = styled.div`\r\n  transition: 0.3s height;\r\n  margin-top: 3px;\r\n  height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\nexport const ParametricFilter = {\r\n  components: {\r\n    NButton,\r\n    ParametricContainer,\r\n    ParametricCarat,\r\n    SelectMe,\r\n    ParametricContentContainer,\r\n    QuickSelectContainer,\r\n    QuickSelectOption,\r\n    Badge,\r\n    NLabel\r\n  },\r\n  data() {\r\n    return {\r\n      selectedItems: [],\r\n      open: false,\r\n      unwatch: null\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: String,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    filter: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    defaultOpen: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: "text"\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: "value"\r\n    },\r\n    quickSelectFlavor: {\r\n      type: String,\r\n      default: "Secondary"\r\n    },\r\n    activeBadgeFlavor: {\r\n      type: String,\r\n      default: "Light"\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: "Secondary"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "Dark"\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    this.unwatch();\r\n  },\r\n  mounted() {\r\n    this.open = this.defaultOpen;\r\n    if (this.defaultOpen) {\r\n      this.expandSection(this.$refs.content.$el);\r\n    }\r\n    if (this.filter.selected_values) {\r\n      this.selectedItems = this.filter.selected_values.slice();\r\n    }\r\n    this.unwatch = this.$watch("values", this.updateSelectedItems, {\r\n      deep: true\r\n    });\r\n  },\r\n  methods: {\r\n    updateSelectedItems() {\r\n      this.selectedItems = this.value;\r\n    },\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = "";\r\n      element.style.height = sectionHeight + "px !important";\r\n      element.style.overflowY = "hidden";\r\n      // element.style.width = sectionWidth + "px !important";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element\'s height to its current pixel height, so we\r\n      // aren\'t transitioning out of \'auto\'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + "px";\r\n        // element.style.width = sectionWidth + "px";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = \'hidden\';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + "px";\r\n          // element.style.width = "0px";\r\n          element.style.paddingBottom = "0px";\r\n        });\r\n      });\r\n\r\n      // mark the section as "currently collapsed"\r\n      element.setAttribute("data-collapsed", "true");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + "px";\r\n      // element.style.width = sectionWidth + "px";\r\n\r\n      element.style.paddingBottom = "5px";\r\n      // element.style.overflowY = "auto"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener("transitionend", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener("transitionend", this);\r\n        if (element.getAttribute("data-collapsed") == "false") {\r\n          // remove "height" from the element\'s inline styles, so it can return to its initial value\r\n          element.style.height = "auto";\r\n          element.style.overflowY = "visible";\r\n        }\r\n      });\r\n\r\n      // mark the section as "currently not collapsed"\r\n      element.setAttribute("data-collapsed", "false");\r\n    },\r\n    handleUpdate(value) {\r\n      this.selectedItems = value.slice();\r\n      this.$emit("input", this.selectedItems);\r\n    },\r\n    toggle() {\r\n      // this.open = !this.open;\r\n\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    },\r\n    quickSelect(item) {\r\n      let option = this.filter.items.filter(\r\n        i => i[this.valueAttribute] == item[this.valueAttribute]\r\n      )[0];\r\n      if (this.$refs.selectBar) {\r\n        this.$refs.selectBar.selectOption(option);\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computeClass() {\r\n      if (this.open) {\r\n        return ["sidebar-open-carat"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default ParametricFilter;\r\n</script>\r\n\r\n<style>\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  white-space: nowrap;\r\n  -webkit-clip-path: inset(50%);\r\n  clip-path: inset(50%);\r\n  border: 0;\r\n}\r\n.parametric-button {\r\n  justify-content: space-between;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n.parametric-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n</style>\r\n'
-        ]
+          '<template>\r\n  <parametric-container>\r\n    <n-button\r\n      :block="true"\r\n      :flavor="flavor"\r\n      @click="toggle"\r\n      class="parametric-button"\r\n    >\r\n      <span>\r\n        {{ filter.display }}\r\n        <badge :flavor="activeBadgeFlavor" v-if="selectedItems.length != 0"\r\n          >Active</badge\r\n        >\r\n      </span>\r\n      <parametric-carat\r\n        :flavor="flavor"\r\n        :class="computeClass"\r\n        :disabled="filter.disabled"\r\n      ></parametric-carat>\r\n    </n-button>\r\n    <parametric-content-container ref="content">\r\n      <n-label class="sr-only" :for="name">{{ filter.display }}</n-label>\r\n      <select-me\r\n        :aria-label="filter.display"\r\n        v-model="selectedItems"\r\n        :options="filter.items"\r\n        :badge-flavor="badgeFlavor"\r\n        :multi-select="true"\r\n        :debug="debug"\r\n        :display-attribute="displayAttribute"\r\n        :value-attribute="valueAttribute"\r\n        :name="name"\r\n        ref="selectBar"\r\n        @input="handleUpdate"\r\n        @focus="open = true"\r\n      ></select-me>\r\n      <quick-select-container>\r\n        <quick-select-option\r\n          v-for="(item, index) in filter.quickSelects"\r\n          :flavor="quickSelectFlavor"\r\n          :key="index"\r\n          v-html="item[displayAttribute]"\r\n          @click="quickSelect(item)"\r\n        ></quick-select-option>\r\n      </quick-select-container>\r\n    </parametric-content-container>\r\n  </parametric-container>\r\n</template>\r\n\r\n<script>\r\nimport { NButton } from "@intus/button";\r\nimport { NLabel } from "@intus/typography";\r\nimport Badge from "@intus/badge";\r\nimport styled from "vue-styled-components";\r\nimport SelectMe from "@intus/select-me";\r\nimport Theme from "@intus/design-system";\r\nconst ParametricContainer = styled.div`\r\n  width: 100%;\r\n`;\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst ParametricCarat = styled("div", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? "rgba(0, 0, 0, 0.3)"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : "#222"}\r\n      50%\r\n  );\r\n  float: right;\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nconst QuickSelectContainer = styled.div`\r\n  width: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-bottom: 5px;\r\n`;\r\nconst QuickSelectOption = styled("div", props)`\r\n  font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,\r\n    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",\r\n    "Segoe UI Emoji", "Segoe UI Symbol";\r\n  padding: 5px;\r\n  margin-bottom: 2px;\r\n  cursor: pointer;\r\n  text-align: left !important;\r\n  color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].color.color\r\n      : props.defaultTheme[props.flavor] &&\r\n        props.defaultTheme[props.flavor].color.color\r\n      ? props.defaultTheme[props.flavor].color.color\r\n      : "#040404"}\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor] &&\r\n        props.defaultTheme[props.flavor].background.color\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : "#f0f0f0"};\r\n  &:hover {\r\n    background-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].background.hover\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : "#d5d5d5"};\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.hover\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].color.hover\r\n        ? props.defaultTheme[props.flavor].color.hover\r\n        : "#000"}\r\n  }\r\n`;\r\nconst ParametricContentContainer = styled.div`\r\n  transition: 0.3s height;\r\n  margin-top: 3px;\r\n  height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\nexport const ParametricFilter = {\r\n  components: {\r\n    NButton,\r\n    ParametricContainer,\r\n    ParametricCarat,\r\n    SelectMe,\r\n    ParametricContentContainer,\r\n    QuickSelectContainer,\r\n    QuickSelectOption,\r\n    Badge,\r\n    NLabel\r\n  },\r\n  data() {\r\n    return {\r\n      selectedItems: [],\r\n      open: false,\r\n      unwatch: null\r\n    };\r\n  },\r\n  props: {\r\n    value: {\r\n      type: String,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    filter: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    defaultOpen: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: "text"\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: "value"\r\n    },\r\n    quickSelectFlavor: {\r\n      type: String,\r\n      default: "Secondary"\r\n    },\r\n    activeBadgeFlavor: {\r\n      type: String,\r\n      default: "Light"\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: "Secondary"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: "Dark"\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    this.unwatch();\r\n  },\r\n  mounted() {\r\n    this.open = this.defaultOpen;\r\n    if (this.defaultOpen) {\r\n      this.expandSection(this.$refs.content.$el);\r\n    }\r\n    if (this.filter.selected_values) {\r\n      this.selectedItems = this.filter.selected_values.slice();\r\n    }\r\n    this.unwatch = this.$watch("values", this.updateSelectedItems, {\r\n      deep: true\r\n    });\r\n  },\r\n  methods: {\r\n    updateSelectedItems() {\r\n      this.selectedItems = this.value;\r\n    },\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = "";\r\n      element.style.height = sectionHeight + "px !important";\r\n      element.style.overflowY = "hidden";\r\n      // element.style.width = sectionWidth + "px !important";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element\'s height to its current pixel height, so we\r\n      // aren\'t transitioning out of \'auto\'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + "px";\r\n        // element.style.width = sectionWidth + "px";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = \'hidden\';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + "px";\r\n          // element.style.width = "0px";\r\n          element.style.paddingBottom = "0px";\r\n        });\r\n      });\r\n\r\n      // mark the section as "currently collapsed"\r\n      element.setAttribute("data-collapsed", "true");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element\'s inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + "px";\r\n      // element.style.width = sectionWidth + "px";\r\n\r\n      element.style.paddingBottom = "5px";\r\n      // element.style.overflowY = "auto"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener("transitionend", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener("transitionend", this);\r\n        if (element.getAttribute("data-collapsed") == "false") {\r\n          // remove "height" from the element\'s inline styles, so it can return to its initial value\r\n          element.style.height = "auto";\r\n          element.style.overflowY = "visible";\r\n        }\r\n      });\r\n\r\n      // mark the section as "currently not collapsed"\r\n      element.setAttribute("data-collapsed", "false");\r\n    },\r\n    handleUpdate(value) {\r\n      this.selectedItems = value.slice();\r\n      this.$emit("input", this.selectedItems);\r\n    },\r\n    toggle() {\r\n      // this.open = !this.open;\r\n\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    },\r\n    quickSelect(item) {\r\n      let option = this.filter.items.filter(\r\n        i => i[this.valueAttribute] == item[this.valueAttribute]\r\n      )[0];\r\n      if (this.$refs.selectBar) {\r\n        this.$refs.selectBar.selectOption(option);\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computeClass() {\r\n      if (this.open) {\r\n        return ["sidebar-open-carat"];\r\n      }\r\n      return [];\r\n    }\r\n  }\r\n};\r\nexport default ParametricFilter;\r\n</script>\r\n\r\n<style>\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  white-space: nowrap;\r\n  -webkit-clip-path: inset(50%);\r\n  clip-path: inset(50%);\r\n  border: 0;\r\n}\r\n.parametric-button {\r\n  justify-content: space-between;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n.parametric-open-carat {\r\n  transform: rotate(135deg) !important;\r\n}\r\n</style>\r\n',
+        ],
       },
-      media: undefined
+      media: undefined,
     });
   };
   /* scoped */
@@ -7732,7 +7732,7 @@ var ParametricFilter = (function() {
   }; // Create module definition for Vue.use()
 
   var plugin$3 = {
-    install: install$3
+    install: install$3,
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 

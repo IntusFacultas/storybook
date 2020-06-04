@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/placeholder",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A Facebook react style placeholder",
   "main": "src/Placeholder.vue",
   "browser": "dist/Placeholder.esm.js",

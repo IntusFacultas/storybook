@@ -3287,14 +3287,14 @@ var MenuMultiSelect = (function () {
         hover: "#222"
       },
       background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
+        color: "#FFb354",
+        hover: "#EB972D",
+        focus: "#FFb354"
       },
       border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
+        color: "#EB972D",
+        hover: "#EB972D",
+        focus: "#EB972D"
       }
     },
     Danger: {
@@ -3304,14 +3304,14 @@ var MenuMultiSelect = (function () {
         hover: "#fff"
       },
       background: {
-        color: "#7C0002",
-        hover: "#560002",
-        focus: "#7C0002"
+        color: "#C40005",
+        hover: "#9E0004",
+        focus: "#C40005"
       },
       border: {
-        color: "#560002",
-        hover: "#560002",
-        focus: "#560002"
+        color: "#9E0004",
+        hover: "#9E0004",
+        focus: "#9E0004"
       }
     },
     Success: {
@@ -3350,10 +3350,10 @@ var MenuMultiSelect = (function () {
     }
   };
   var AlertTheme = {
-    warning: Theme["Warning"],
-    danger: Theme["Danger"],
-    success: Theme["Success"],
-    info: Theme["Info"]
+    Warning: Theme["Warning"],
+    Danger: Theme["Danger"],
+    Success: Theme["Success"],
+    Info: Theme["Info"]
   };
   var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
   var Theme$1 = Theme;
@@ -3546,8 +3546,18 @@ var MenuMultiSelect = (function () {
     }));
   }
 
-  function _templateObject2() {
+  function _templateObject3() {
     var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: Segoe UI, sans-serif;\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+
+    _templateObject3 = function _templateObject3() {
+      return data;
+    };
+
+    return data;
+  }
+
+  function _templateObject2() {
+    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", ";\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", ";\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
 
     _templateObject2 = function _templateObject2() {
       return data;
@@ -3557,7 +3567,7 @@ var MenuMultiSelect = (function () {
   }
 
   function _templateObject$1() {
-    var data = _taggedTemplateLiteral$2(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+    var data = _taggedTemplateLiteral$2(["\n  position: relative;\n  display: inline-flex;\n  vertical-align: middle;\n  & button:not(:last-child) {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n  & button:not(:first-child) {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n"]);
 
     _templateObject$1 = function _templateObject() {
       return data;
@@ -3590,7 +3600,8 @@ var MenuMultiSelect = (function () {
       }
     }
   };
-  var DialogButton = styled("button", dialogProps)(_templateObject$1(), function (props) {
+  var ButtonGroup = styled.div(_templateObject$1());
+  var DialogButton = styled("button", dialogProps)(_templateObject2(), function (props) {
     return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
   }, function (props) {
     return props.large ? "24px" : props.small ? "12px" : "16px";
@@ -3611,7 +3622,7 @@ var MenuMultiSelect = (function () {
   }, function (props) {
     return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.color ? props.dialogTheme[props.flavor].background.color : "#f0f0f0";
   });
-  var NButton = styled("button", props$1)(_templateObject2(), function (props) {
+  var NButton = styled("button", props$1)(_templateObject3(), function (props) {
     return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
   }, function (props) {
     return props.large ? "24px" : props.small ? "12px" : "16px";
@@ -3739,66 +3750,55 @@ var MenuMultiSelect = (function () {
 
   /* style inject shadow dom */
 
-  var __vue_component__$1 = normalizeComponent$1({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined); // Import vue component
+  var __vue_component__$1 = normalizeComponent$1({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
-
-  var install$1 = function installNButton(Vue) {
-    if (install$1.installed) return;
-    install$1.installed = true;
-    Vue.component("NButton", NButton);
-  }; // Create module definition for Vue.use()
-
-
-  var plugin$1 = {
-    install: install$1
-  }; // To auto-install when vue is found
-  // eslint-disable-next-line no-redeclare
-
-  /* global window, global */
-
+  var components = [{
+    label: "NButton",
+    component: NButton
+  }, {
+    label: "DialogButton",
+    component: DialogButton
+  }, {
+    label: "ButtonGroup",
+    component: ButtonGroup
+  }];
   var GlobalVue$1 = null;
 
-  if (typeof window !== "undefined") {
-    GlobalVue$1 = window.Vue;
-  } else if (typeof global !== "undefined") {
-    GlobalVue$1 = global.Vue;
-  }
+  var _loop = function _loop() {
+    var component_obj = _components[_i]; // install function executed by Vue.use()
 
-  if (GlobalVue$1) {
-    GlobalVue$1.use(plugin$1);
-  } // Inject install function into component - allows component
-  // to be registered via Vue.use() as well as Vue.component()
+    var install = function installComponent(Vue) {
+      if (install.installed) return;
+      install.installed = true;
+      Vue.component(component_obj.label, component_obj.component);
+    }; // Create module definition for Vue.use()
 
 
-  NButton.install = install$1; // install function executed by Vue.use()
+    var plugin = {
+      install: install
+    }; // To auto-install when vue is found
+    // eslint-disable-next-line no-redeclare
 
-  var dialogInstall = function installDialogButton(Vue) {
-    if (dialogInstall.installed) return;
-    dialogInstall.installed = true;
-    Vue.component("DialogButton", DialogButton);
-  }; // Create module definition for Vue.use()
+    /* global window, global */
 
+    if (typeof window !== "undefined") {
+      GlobalVue$1 = window.Vue;
+    } else if (typeof global !== "undefined") {
+      GlobalVue$1 = global.Vue;
+    }
 
-  var dialogPlugin = {
-    install: dialogInstall
-  }; // To auto-install when vue is found
-  // eslint-disable-next-line no-redeclare
-
-  /* global window, global */
-
-  if (typeof window !== "undefined") {
-    GlobalVue$1 = window.Vue;
-  } else if (typeof global !== "undefined") {
-    GlobalVue$1 = global.Vue;
-  }
-
-  if (GlobalVue$1) {
-    GlobalVue$1.use(dialogPlugin);
-  } // Inject install function into component - allows component
-  // to be registered via Vue.use() as well as Vue.component()
+    if (GlobalVue$1) {
+      GlobalVue$1.use(plugin);
+    } // Inject install function into component - allows component
+    // to be registered via Vue.use() as well as Vue.component()
 
 
-  DialogButton.install = dialogInstall; // Export component by default
+    component_obj.component.install = install;
+  };
+
+  for (var _i = 0, _components = components; _i < _components.length; _i++) {
+    _loop();
+  } // Export component by default
 
   function _templateObject4() {
     var data = _taggedTemplateLiteral(["\n  color: #222;\n  display: flex;\n  user-select: none;\n  justify-content: space-between;\n  padding: 2px 5px;\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\n  cursor: pointer;\n  &:hover {\n    background-color: #fafafa;\n  }\n"]);
@@ -3810,10 +3810,10 @@ var MenuMultiSelect = (function () {
     return data;
   }
 
-  function _templateObject3() {
+  function _templateObject3$1() {
     var data = _taggedTemplateLiteral(["\n  width: 50%;\n  height: ", ";\n  overflow-y: auto;\n  border: 1px solid #dcdcdc;\n  border-radius: 4px;\n  padding: 5px 10px;\n  list-style-type: none;\n  background-color: white;\n"]);
 
-    _templateObject3 = function _templateObject3() {
+    _templateObject3$1 = function _templateObject3() {
       return data;
     };
 
@@ -3851,7 +3851,7 @@ var MenuMultiSelect = (function () {
   };
   var MenuButtons = styled.div(_templateObject$2());
   var MenuContainer = styled.div(_templateObject2$1());
-  var MultiMenu = styled("ul", props$2)(_templateObject3(), function (props) {
+  var MultiMenu = styled("ul", props$2)(_templateObject3$1(), function (props) {
     return props.height;
   });
   var MenuItem = styled.li(_templateObject4());
@@ -4229,7 +4229,7 @@ var MenuMultiSelect = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-d2de85f0_0", { source: "\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\MenuMultiSelect\\src\\MenuMultiSelect.vue"],"names":[],"mappings":";AAqLA;EACA,yBAAA;AACA","file":"MenuMultiSelect.vue","sourcesContent":["<template>\r\n  <menu-container>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        tabindex=\"0\"\r\n        role=\"button\"\r\n        v-for=\"(item, index) in computedItems\"\r\n        @click=\"select(item)\"\r\n        @keyup.enter=\"select(item)\"\r\n        @keyup.space=\"select(item)\"\r\n        :key=\"`selectable${index}`\"\r\n        ><span></span>{{ item.display }}\r\n        <badge :flavor=\"flavor\">&#x276F;</badge>\r\n      </menu-item>\r\n    </multi-menu>\r\n    <menu-buttons>\r\n      <n-button\r\n        @click=\"selectAll()\"\r\n        :flavor=\"flavor\"\r\n        :small=\"true\"\r\n        class=\"menu-multi-select-flipped\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n      <n-button @click=\"deselectAll()\" :flavor=\"flavor\" :small=\"true\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n    </menu-buttons>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        role=\"button\"\r\n        tabindex=\"0\"\r\n        @click=\"deselect(item)\"\r\n        @keyup.enter=\"deselect(item)\"\r\n        @keyup.space=\"deselect(item)\"\r\n        v-for=\"(item, index) in internalValue\"\r\n        :key=\"`selected${index}`\"\r\n        ><badge class=\"menu-multi-select-flipped\" :flavor=\"flavor\"\r\n          >&#x276F;</badge\r\n        >{{ item.display }} <span></span\r\n      ></menu-item>\r\n    </multi-menu>\r\n  </menu-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport Badge from \"@IntusFacultas/badge\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  height: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst MenuButtons = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  justify-content: center;\r\n  margin: 16px 5px;\r\n  padding: 5px 0px;\r\n  & button {\r\n    margin: 5px 0px;\r\n  }\r\n`;\r\nconst MenuContainer = styled.div`\r\n  display: flex;\r\n  justify-content: space-between;\r\n  & * {\r\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  }\r\n  padding: 10px 10px;\r\n`;\r\nconst MultiMenu = styled(\"ul\", props)`\r\n  width: 50%;\r\n  height: ${props => props.height};\r\n  overflow-y: auto;\r\n  border: 1px solid #dcdcdc;\r\n  border-radius: 4px;\r\n  padding: 5px 10px;\r\n  list-style-type: none;\r\n  background-color: white;\r\n`;\r\nconst MenuItem = styled.li`\r\n  color: #222;\r\n  display: flex;\r\n  user-select: none;\r\n  justify-content: space-between;\r\n  padding: 2px 5px;\r\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\r\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\r\n  cursor: pointer;\r\n  &:hover {\r\n    background-color: #fafafa;\r\n  }\r\n`;\r\nexport const MenuMultiSelect = {\r\n  components: {\r\n    MenuContainer,\r\n    MultiMenu,\r\n    MenuItem,\r\n    Badge,\r\n    MenuButtons,\r\n    NButton\r\n  },\r\n  data() {\r\n    return {\r\n      internalValue: []\r\n    };\r\n  },\r\n  watch: {\r\n    value(newVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    height: {\r\n      type: String,\r\n      default() {\r\n        return \"100px\";\r\n      }\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    this.internalValue = this.value;\r\n  },\r\n  methods: {\r\n    select(item) {\r\n      this.internalValue.push(item);\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselect(item) {\r\n      this.internalValue.splice(\r\n        this.internalValue.map(x => x.value).indexOf(item.value),\r\n        1\r\n      );\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    selectAll() {\r\n      this.internalValue = this.items.slice();\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselectAll() {\r\n      this.internalValue = [];\r\n      this.$emit(\"change\", this.internalValue);\r\n    }\r\n  },\r\n  computed: {\r\n    computedItems() {\r\n      let mappedInternals = this.internalValue.map(x => x.value);\r\n      return this.items.filter(x => mappedInternals.indexOf(x.value) == -1);\r\n    }\r\n  }\r\n};\r\nexport default MenuMultiSelect;\r\n</script>\r\n\r\n<style>\r\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-c4e42bf4_0", { source: "\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\MenuMultiSelect\\src\\MenuMultiSelect.vue"],"names":[],"mappings":";AAqLA;EACA,yBAAA;AACA","file":"MenuMultiSelect.vue","sourcesContent":["<template>\r\n  <menu-container>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        tabindex=\"0\"\r\n        role=\"button\"\r\n        v-for=\"(item, index) in computedItems\"\r\n        @click=\"select(item)\"\r\n        @keyup.enter=\"select(item)\"\r\n        @keyup.space=\"select(item)\"\r\n        :key=\"`selectable${index}`\"\r\n        ><span></span>{{ item.display }}\r\n        <badge :flavor=\"flavor\">&#x276F;</badge>\r\n      </menu-item>\r\n    </multi-menu>\r\n    <menu-buttons>\r\n      <n-button\r\n        @click=\"selectAll()\"\r\n        :flavor=\"flavor\"\r\n        :small=\"true\"\r\n        class=\"menu-multi-select-flipped\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n      <n-button @click=\"deselectAll()\" :flavor=\"flavor\" :small=\"true\"\r\n        >&#10094;&#10094;</n-button\r\n      >\r\n    </menu-buttons>\r\n    <multi-menu :height=\"height\">\r\n      <menu-item\r\n        role=\"button\"\r\n        tabindex=\"0\"\r\n        @click=\"deselect(item)\"\r\n        @keyup.enter=\"deselect(item)\"\r\n        @keyup.space=\"deselect(item)\"\r\n        v-for=\"(item, index) in internalValue\"\r\n        :key=\"`selected${index}`\"\r\n        ><badge class=\"menu-multi-select-flipped\" :flavor=\"flavor\"\r\n          >&#x276F;</badge\r\n        >{{ item.display }} <span></span\r\n      ></menu-item>\r\n    </multi-menu>\r\n  </menu-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport Badge from \"@IntusFacultas/badge\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  height: String,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nconst MenuButtons = styled.div`\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  justify-content: center;\r\n  margin: 16px 5px;\r\n  padding: 5px 0px;\r\n  & button {\r\n    margin: 5px 0px;\r\n  }\r\n`;\r\nconst MenuContainer = styled.div`\r\n  display: flex;\r\n  justify-content: space-between;\r\n  & * {\r\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  }\r\n  padding: 10px 10px;\r\n`;\r\nconst MultiMenu = styled(\"ul\", props)`\r\n  width: 50%;\r\n  height: ${props => props.height};\r\n  overflow-y: auto;\r\n  border: 1px solid #dcdcdc;\r\n  border-radius: 4px;\r\n  padding: 5px 10px;\r\n  list-style-type: none;\r\n  background-color: white;\r\n`;\r\nconst MenuItem = styled.li`\r\n  color: #222;\r\n  display: flex;\r\n  user-select: none;\r\n  justify-content: space-between;\r\n  padding: 2px 5px;\r\n  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,\r\n    border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;\r\n  cursor: pointer;\r\n  &:hover {\r\n    background-color: #fafafa;\r\n  }\r\n`;\r\nexport const MenuMultiSelect = {\r\n  components: {\r\n    MenuContainer,\r\n    MultiMenu,\r\n    MenuItem,\r\n    Badge,\r\n    MenuButtons,\r\n    NButton\r\n  },\r\n  data() {\r\n    return {\r\n      internalValue: []\r\n    };\r\n  },\r\n  watch: {\r\n    value(newVal) {\r\n      this.internalValue = newVal;\r\n    }\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    height: {\r\n      type: String,\r\n      default() {\r\n        return \"100px\";\r\n      }\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    this.internalValue = this.value;\r\n  },\r\n  methods: {\r\n    select(item) {\r\n      this.internalValue.push(item);\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselect(item) {\r\n      this.internalValue.splice(\r\n        this.internalValue.map(x => x.value).indexOf(item.value),\r\n        1\r\n      );\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    selectAll() {\r\n      this.internalValue = this.items.slice();\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    deselectAll() {\r\n      this.internalValue = [];\r\n      this.$emit(\"change\", this.internalValue);\r\n    }\r\n  },\r\n  computed: {\r\n    computedItems() {\r\n      let mappedInternals = this.internalValue.map(x => x.value);\r\n      return this.items.filter(x => mappedInternals.indexOf(x.value) == -1);\r\n    }\r\n  }\r\n};\r\nexport default MenuMultiSelect;\r\n</script>\r\n\r\n<style>\r\n.menu-multi-select-flipped {\r\n  transform: rotate(180deg);\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -4259,15 +4259,15 @@ var MenuMultiSelect = (function () {
 
   // Import vue component
 
-  var install$2 = function installMenuMultiSelect(Vue) {
-    if (install$2.installed) return;
-    install$2.installed = true;
+  var install$1 = function installMenuMultiSelect(Vue) {
+    if (install$1.installed) return;
+    install$1.installed = true;
     Vue.component("MenuMultiSelect", __vue_component__$2);
   }; // Create module definition for Vue.use()
 
 
-  var plugin$2 = {
-    install: install$2
+  var plugin$1 = {
+    install: install$1
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -4282,12 +4282,12 @@ var MenuMultiSelect = (function () {
   }
 
   if (GlobalVue$2) {
-    GlobalVue$2.use(plugin$2);
+    GlobalVue$2.use(plugin$1);
   } // Inject install function into component - allows component
   // to be registered via Vue.use() as well as Vue.component()
 
 
-  __vue_component__$2.install = install$2; // Export component by default
+  __vue_component__$2.install = install$1; // Export component by default
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 

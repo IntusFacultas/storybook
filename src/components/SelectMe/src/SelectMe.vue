@@ -43,7 +43,7 @@
           @click="selectOption(option)"
           :class="{
             'selectme-selected': contained(option),
-            'selectme-hovered': isHovered(option, hoveredOption)
+            'selectme-hovered': isHovered(option, hoveredOption),
           }"
         >
           <span class="sr-only" v-if="contained(option)">Active:</span>
@@ -57,9 +57,16 @@
     <div
       class="selectme-selected"
       :style="{
-        top: multiSelect ? `${calculatedHeight}px` : `${calculatedHeight + 4}px`
+        top: multiSelect
+          ? `${calculatedHeight}px`
+          : `${calculatedHeight + 4}px`,
       }"
-      v-show="selectBoxWidth > computedCutOff && selectedOptions.length > 0"
+      v-show="
+        selectBoxWidth > computedCutOff &&
+        selectedOptions.length > 0 &&
+        canBeEmpty &&
+        multiSelect
+      "
       ref="selectDropdownBox"
       data-dropdown="parent"
     >
@@ -85,7 +92,7 @@
             @keyup.space="deselectDropdownOption(option)"
             :ref="'selected' + option[valueAttribute]"
             :class="{
-              'selectme-hovered': isHovered(option, hoveredSelectedOption)
+              'selectme-hovered': isHovered(option, hoveredSelectedOption),
             }"
             @click="deselectDropdownOption(option)"
           >
@@ -100,7 +107,10 @@
       class="selectme-selected"
       ref="selectBox"
       :style="{ top: calculatedHeight + 'px' }"
-      :class="{ 'hidden-inline': selectBoxWidth > computedCutOff }"
+      :class="{
+        'hidden-inline':
+          selectBoxWidth > computedCutOff && canBeEmpty && multiSelect,
+      }"
     >
       <n-button
         :flavor="badgeFlavor"
@@ -143,71 +153,83 @@ const SelectMe = {
       hoveredSelectedOption: {},
       combinedPaddingPerBadge: 26,
       hoveredIndex: -1,
-      hoveredSelectedIndex: -1
+      hoveredSelectedIndex: -1,
     };
   },
   watch: {
+    options: {
+      handler() {
+        if (
+          this.selectedOptions.length == 0 &&
+          !this.canBeEmpty &&
+          this.options.length != 0
+        ) {
+          this.selectOption(this.options[0]);
+        }
+      },
+      deep: true,
+    },
     value(newValue) {
       this.selectedOptions = newValue;
       window.requestAnimationFrame(this.setSelectBoxWidth);
       this.setCalculatedPadding();
-    }
+    },
   },
   props: {
     value: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     badgeFlavor: {
       type: String,
-      default: "Primary"
+      default: "Primary",
     },
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     displayAttribute: {
       type: String,
-      default: "text"
+      default: "text",
     },
     valueAttribute: {
       type: String,
-      default: "value"
+      default: "value",
     },
     canBeEmpty: {
       type: Boolean,
-      default: true
+      default: true,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     options: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     debug: {
       type: Boolean,
-      default: false
+      default: false,
     },
     multiSelect: {
       type: Boolean,
-      default: false
+      default: false,
     },
     initialValues: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   computed: {
     computedSpanClass() {
@@ -246,7 +268,7 @@ const SelectMe = {
         options = filter(textContains, options);
       }
       return options;
-    }
+    },
   },
   methods: {
     deselectDropdownOption(option) {
@@ -290,7 +312,7 @@ const SelectMe = {
         self.$emit("input", self.selectedOptions);
         self.hoveredSelectedOption = {};
         self.showSelected = false;
-        setTimeout(function() {
+        setTimeout(function () {
           self.hoveredIndex = -1;
           window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
@@ -302,12 +324,12 @@ const SelectMe = {
       var self = this;
       clearTimeout(self.timeout);
       self.hoveredOption = self.selectOptions.filter(
-        option =>
+        (option) =>
           option[self.valueAttribute] ==
           document.activeElement.getAttribute("value")
       )[0];
       self.hoveredIndex = self.selectOptions
-        .map(option => option[self.valueAttribute])
+        .map((option) => option[self.valueAttribute])
         .indexOf(self.hoveredOption[self.valueAttribute]);
     },
     hoverOption(step) {
@@ -467,7 +489,7 @@ const SelectMe = {
     closeDropdown() {
       var self = this;
       self.hoveredIndex = -1;
-      self.timeout = setTimeout(function() {
+      self.timeout = setTimeout(function () {
         self.showOptions = false;
       }, 200);
     },
@@ -500,7 +522,7 @@ const SelectMe = {
     },
     setCalculatedWidth() {
       var self = this;
-      setTimeout(function() {
+      setTimeout(function () {
         try {
           self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;
           if (!self.multiSelect) {
@@ -513,18 +535,18 @@ const SelectMe = {
           // pass
         }
       }, 50);
-    }
+    },
   },
   mounted() {
     var self = this;
-    if (!self.canBeEmpty) {
+    if (!self.canBeEmpty && self.options.length > 0) {
       self.selectOption(self.options[0]);
     }
     window.requestAnimationFrame(self.setCalculatedPadding);
     window.addEventListener("resize", self.setCalculatedWidth);
     window.addEventListener("click", self.handleOffClick);
     self.setCalculatedWidth();
-    setTimeout(function() {
+    setTimeout(function () {
       self.setCalculatedWidth();
     }, 200);
     for (var x = 0; x < self.initialValues.length; x++) {
@@ -542,7 +564,7 @@ const SelectMe = {
   beforeDestroy() {
     window.removeEventListener("resize", self.setCalculatedWidth);
     window.removeEventListener("click", self.handleOffClick);
-  }
+  },
 };
 export default SelectMe;
 </script>

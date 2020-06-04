@@ -50,6 +50,8 @@ This creates a responsive navbar for navigation purposes which you can insert pu
 ```
 
 ```javascript
+import RawNavbar from "@IntusFacultas/raw-navbar";
+import {NavbarItem, NavbarContent, VueNavbarDropdown} from "@IntusFacultas/navbar";
 data: {
   navbar: {collapsed: false},
   flavor: "Primary",
@@ -181,13 +183,13 @@ let items = [
     type: "item",
     text: "Dropdown Item 1",
     url: "#",
-    disabled: false
+    disabled: false,
   },
   {
     type: "item",
     text: "Dropdown Item 2",
     url: "#",
-    disabled: false
-  }
+    disabled: false,
+  },
 ];
 ```

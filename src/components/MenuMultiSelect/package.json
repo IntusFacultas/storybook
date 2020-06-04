@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/menu-multiselect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A parallel menu multi select",
   "main": "src/MenuMultiSelect.vue",
   "browser": "dist/MenuMultiSelect.esm.js",
@@ -21,9 +21,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@IntusFacultas/badge": "^2.0.5",
-    "@IntusFacultas/button": "^1.0.12",
-    "@IntusFacultas/design-system": "^1.5.7",
+    "@IntusFacultas/badge": "^2.0.7",
+    "@IntusFacultas/button": "^1.0.14",
+    "@IntusFacultas/design-system": "^1.5.11",
     "vue-styled-components": "^1.4.14"
   },
   "keywords": [

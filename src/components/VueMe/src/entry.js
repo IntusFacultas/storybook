@@ -10,7 +10,7 @@ const install = function installVueMe(Vue) {
 
 // Create module definition for Vue.use()
 const plugin = {
-  install
+  install,
 };
 
 // To auto-install when vue is found
@@ -32,7 +32,7 @@ VueMe.install = install;
 
 // Export component by default
 export default VueMe;
-
+export { VueMe };
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;

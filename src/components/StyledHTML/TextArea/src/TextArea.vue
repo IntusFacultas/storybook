@@ -32,14 +32,14 @@ import resizeHandlerPolyfill from "./polyfill-resize";
 const props = {
   flavor: {
     type: String,
-    default: "LightBlue"
+    default: "LightBlue",
   },
   defaultTheme: {
     type: Object,
     default: function() {
       return Theme;
-    }
-  }
+    },
+  },
 };
 export const NTextArea = styled("textarea", props)`
   width: 100%;
@@ -56,7 +56,7 @@ export const NTextArea = styled("textarea", props)`
     "Segoe UI Emoji", "Segoe UI Symbol";
   transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);
   &:focus {
-    border-color: ${props =>
+    border-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor] &&
@@ -65,7 +65,7 @@ export const NTextArea = styled("textarea", props)`
         : "#040404"};
     outline: none;
     box-shadow: 0px 0px 0px 3px
-      ${props =>
+      ${(props) =>
         props.theme && props.theme[props.flavor]
           ? props.theme[props.flavor].border.color
           : props.defaultTheme[props.flavor] &&
@@ -89,71 +89,71 @@ export const VueTextArea = {
   components: { NTextArea, NLabel },
   data: function() {
     return {
-      internalValue: ""
+      internalValue: "",
     };
   },
   props: {
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     autofocus: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ""
+      default: "",
     },
     maxlength: {
       type: String,
-      default: ""
+      default: "",
     },
     value: {
       type: String,
-      default: ""
+      default: "",
     },
     cols: {
       type: String,
-      default: ""
+      default: "",
     },
     rows: {
       type: String,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     labelFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     labelDark: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     value: function(newVal, oldVal) {
       this.internalValue = newVal;
-    }
+    },
   },
   mounted: function() {
     var self = this;
@@ -189,8 +189,8 @@ export const VueTextArea = {
     },
     onFocus() {
       this.$emit("focus");
-    }
-  }
+    },
+  },
 };
 export default VueTextArea;
 </script>

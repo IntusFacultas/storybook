@@ -5,10 +5,18 @@
         <n-modal-header :flavor="headerFlavor" v-if="header">
           <slot name="header"></slot>
         </n-modal-header>
-        <n-modal-body :flavor="bodyFlavor" :style="computedStyle">
+        <n-modal-body
+          :bottom-offset="!footer ? bottomOffset : '0px'"
+          :flavor="bodyFlavor"
+          :style="computedStyle"
+        >
           <slot name="body"></slot>
         </n-modal-body>
-        <n-modal-footer :flavor="footerFlavor" v-if="footer">
+        <n-modal-footer
+          :bottom-offset="bottomOffset"
+          :flavor="footerFlavor"
+          v-if="footer"
+        >
           <slot name="footer"></slot>
         </n-modal-footer>
       </n-modal-container>
@@ -23,12 +31,13 @@ const props = {
   flavor: String,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
+    },
   },
   width: String,
-  topOffset: String
+  topOffset: String,
+  bottomOffset: String,
 };
 export const NModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.35);
@@ -38,6 +47,7 @@ export const NModalBackdrop = styled.div`
   top: 0px;
   left: 0px;
   right: 0px;
+  overflow-y: auto;
   bottom: 0px;
   display: flex;
   justify-content: center;
@@ -47,45 +57,37 @@ export const NModalBackdrop = styled.div`
 `;
 export const NModalContainer = styled("div", props)`
   z-index: 1000;
-  margin-top: ${props => (props.topOffset ? props.topOffset : "20px")}
-  width: ${props => (props.width ? props.width : "500px")}
+  margin-top: ${(props) => (props.topOffset ? props.topOffset : "20px")}
+  width: ${(props) => (props.width ? props.width : "500px")}
   transition: .15s ease-in-out transform;
 `;
 export const NModalHeader = styled("div", props)`
   border-radius: 5px 5px 0px 0px;
   padding: 10px 10px 10px 10px;
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "white"};
-  & * {
-    color: ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "initial"};
-  }
 `;
 export const NModalBody = styled("div", props)`
   padding: 10px;
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
@@ -93,40 +95,28 @@ export const NModalBody = styled("div", props)`
       : "white"};
   border-width: 0px 1px 0px 1px;
   border-style: solid;
-  & * {
-    color: ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "initial"};
-  }
+  margin-bottom: ${(props) =>
+    props.bottomOffset ? props.bottomOffset : "0px"};
 `;
 export const NModalFooter = styled("div", props)`
   padding: 10px;
   border-radius: 0px 0px 5px 5px;
 
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "white"};
-  & * {
-    color: ${props =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "initial"};
-  }
+  margin-bottom: ${(props) =>
+    props.bottomOffset ? props.bottomOffset : "20px"};
 `;
 
 export const Modal = {
@@ -135,60 +125,63 @@ export const Modal = {
     NModalBody,
     NModalFooter,
     NModalBackdrop,
-    NModalContainer
+    NModalContainer,
   },
   data() {
     return {
-      visible: false
+      visible: false,
     };
   },
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     backgroundDismiss: {
       type: Boolean,
-      default: true
+      default: true,
     },
     headerFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     footerFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     bodyFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     width: {
       type: String,
-      default: "500px"
+      default: "500px",
     },
     topOffset: {
-      type: String
+      type: String,
+    },
+    bottomOffset: {
+      type: String,
     },
     header: {
       type: Boolean,
-      default: false
+      default: false,
     },
     footer: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   mounted() {
     window.addEventListener(`modal-${this.id}`, this.detectChange);
-    (function() {
+    (function () {
       if (typeof window.CustomEvent === "function") return false;
 
       function CustomEvent(event, params) {
         params = params || {
           bubbles: false,
           cancelable: false,
-          detail: null
+          detail: null,
         };
         var evt = document.createEvent("CustomEvent");
         evt.initCustomEvent(
@@ -218,16 +211,13 @@ export const Modal = {
       return false;
     },
     turnOff(event) {
-      if (
-        this.backgroundDismiss &&
-        !this.isDescendant(this.$refs.modal.$el, event.target)
-      ) {
+      if (this.backgroundDismiss && this.$refs.backdrop.$el == event.target) {
         this.visible = false;
       }
     },
     detectChange(event) {
       this.visible = event.detail.modal;
-    }
+    },
   },
   computed: {
     computedClass() {
@@ -236,7 +226,7 @@ export const Modal = {
       }
       return ["modal-hidden"];
     },
-    computedStyle: function() {
+    computedStyle: function () {
       var self = this;
       let data = {
         "border-top-left-radius": self.header ? "0px" : "5px",
@@ -244,11 +234,11 @@ export const Modal = {
         "border-bottom-left-radius": self.footer ? "0px" : "5px",
         "border-bottom-right-radius": self.footer ? "0px" : "5px",
         "border-top-width": self.header ? "0px" : "1px",
-        "border-bottom-width": self.footer ? "0px" : "1px"
+        "border-bottom-width": self.footer ? "0px" : "1px",
       };
       return data;
-    }
-  }
+    },
+  },
 };
 
 export default Modal;

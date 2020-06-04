@@ -5,20 +5,20 @@ const props = {
   flavor: String,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return Theme;
-    }
-  }
+    },
+  },
 };
 export const Badge = styled("div", props)`
-  color: ${props =>
+  color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].color.color
       : props.defaultTheme[props.flavor] &&
         props.defaultTheme[props.flavor].color.color
       ? props.defaultTheme[props.flavor].color.color
       : "#040404"}
-        background-color: ${props =>
+        background-color: ${(props) =>
           props.theme && props.theme[props.flavor]
             ? props.theme[props.flavor].background.color
             : props.defaultTheme[props.flavor] &&

@@ -1,4 +1,4 @@
-var RawSidebar = (function () {
+var RawSidebar = (function (exports) {
   'use strict';
 
   function _typeof(obj) {
@@ -3286,14 +3286,14 @@ var RawSidebar = (function () {
         hover: "#222"
       },
       background: {
-        color: "#ED7D3A",
-        hover: "#D15A14",
-        focus: "#ED7D3A"
+        color: "#FFb354",
+        hover: "#EB972D",
+        focus: "#FFb354"
       },
       border: {
-        color: "#D15A14",
-        hover: "#D15A14",
-        focus: "#D15A14"
+        color: "#EB972D",
+        hover: "#EB972D",
+        focus: "#EB972D"
       }
     },
     Danger: {
@@ -3303,14 +3303,14 @@ var RawSidebar = (function () {
         hover: "#fff"
       },
       background: {
-        color: "#7C0002",
-        hover: "#560002",
-        focus: "#7C0002"
+        color: "#C40005",
+        hover: "#9E0004",
+        focus: "#C40005"
       },
       border: {
-        color: "#560002",
-        hover: "#560002",
-        focus: "#560002"
+        color: "#9E0004",
+        hover: "#9E0004",
+        focus: "#9E0004"
       }
     },
     Success: {
@@ -3349,10 +3349,10 @@ var RawSidebar = (function () {
     }
   };
   var AlertTheme = {
-    warning: Theme["Warning"],
-    danger: Theme["Danger"],
-    success: Theme["Success"],
-    info: Theme["Info"]
+    Warning: Theme["Warning"],
+    Danger: Theme["Danger"],
+    Success: Theme["Success"],
+    Info: Theme["Info"]
   };
   var Theme = Object.assign(Theme, NIWSTheme, AlertTheme);
   var Theme$1 = Theme;
@@ -3370,7 +3370,7 @@ var RawSidebar = (function () {
   }
 
   function _templateObject3() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject3 = function _templateObject3() {
       return data;
@@ -3380,7 +3380,7 @@ var RawSidebar = (function () {
   }
 
   function _templateObject2() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
 
     _templateObject2 = function _templateObject2() {
       return data;
@@ -3390,7 +3390,7 @@ var RawSidebar = (function () {
   }
 
   function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  color: ", ";\n  ", "\n"]);
+    var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  color: ", ";\n  ", "\n"]);
 
     _templateObject = function _templateObject() {
       return data;
@@ -3428,6 +3428,7 @@ var RawSidebar = (function () {
       default: 15
     },
     dark: Boolean,
+    bold: Boolean,
     textTheme: {
       type: Object,
       default: function _default() {
@@ -3436,7 +3437,7 @@ var RawSidebar = (function () {
     },
     flavor: String
   };
-  var WebText = styled("span", props)(_templateObject2(), function (props) {
+  var TextContent = styled("span", props)(_templateObject2(), function (props) {
     return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
   }, function (props) {
     return props.bold ? "bold" : 500;
@@ -3445,15 +3446,16 @@ var RawSidebar = (function () {
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var Paragraph = WebText.withComponent("p", props);
-  var NSmall = styled("small", props)(_templateObject3(), function (props) {
+  var Paragraph = TextContent.withComponent("p", props);
+  var SmallText = styled("small", props)(_templateObject3(), function (props) {
     return props.bold ? "bold" : 500;
   }, function (props) {
     return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
   }, function (props) {
     return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
   });
-  var NLabel = WebText.withComponent("label", props);
+  var NLabel = TextContent.withComponent("label", props);
+  var WebLink = TextContent.withComponent("a", props);
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
   /* server only */
@@ -3595,15 +3597,15 @@ var RawSidebar = (function () {
   /* script */
 
 
-  var __vue_script__ = WebText;
+  var __vue_script__ = TextContent;
   /* template */
 
   /* style */
 
   var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-473a8904_0", {
-      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    inject("data-v-07cfd3a8_0", {
+      source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       map: {
         "version": 3,
         "sources": [],
@@ -3649,14 +3651,14 @@ var RawSidebar = (function () {
     label: "Keyword",
     component: Keyword
   }, {
-    label: "WebText",
-    component: WebText
+    label: "TextContent",
+    component: TextContent
   }, {
     label: "Paragraph",
     component: Paragraph
   }, {
-    label: "NSmall",
-    component: NSmall
+    label: "SmallText",
+    component: SmallText
   }, {
     label: "NLabel",
     component: NLabel
@@ -3711,8 +3713,18 @@ var RawSidebar = (function () {
     }));
   }
 
-  function _templateObject2$1() {
+  function _templateObject3$1() {
     var data = _taggedTemplateLiteral$1(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: Segoe UI, sans-serif;\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+
+    _templateObject3$1 = function _templateObject3() {
+      return data;
+    };
+
+    return data;
+  }
+
+  function _templateObject2$1() {
+    var data = _taggedTemplateLiteral$1(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", ";\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", ";\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
 
     _templateObject2$1 = function _templateObject2() {
       return data;
@@ -3722,7 +3734,7 @@ var RawSidebar = (function () {
   }
 
   function _templateObject$1() {
-    var data = _taggedTemplateLiteral$1(["\n        padding: ", ";\n        font-size: ", ";\n        border-radius: 3px;\n        font-weight: bold;\n        ", "\n        font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n        border: 1px solid transparent;\n        transition: color .1s ease-in-out,\n            background-color .1s ease-in-out,\n            border-color .1s ease-in-out,\n            box-shadow .1s ease-in-out;\n        cursor: pointer;\n        color: ", "\n        background-color: ", ";\n        &:focus {\n            outline: none;\n            box-shadow: 0 0 0 .2rem ", ";\n            color: ", "\n        }\n        &:disabled {\n            opacity: 0.6;\n            cursor: not-allowed;\n        }\n        &:hover {\n            background-color: ", ";\n            color: ", "\n        }\n        &:disabled:hover {\n            background-color: ", ";\n        }\n    "]);
+    var data = _taggedTemplateLiteral$1(["\n  position: relative;\n  display: inline-flex;\n  vertical-align: middle;\n  & button:not(:last-child) {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n  & button:not(:first-child) {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n"]);
 
     _templateObject$1 = function _templateObject() {
       return data;
@@ -3755,7 +3767,8 @@ var RawSidebar = (function () {
       }
     }
   };
-  var DialogButton = styled("button", dialogProps)(_templateObject$1(), function (props) {
+  var ButtonGroup = styled.div(_templateObject$1());
+  var DialogButton = styled("button", dialogProps)(_templateObject2$1(), function (props) {
     return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
   }, function (props) {
     return props.large ? "24px" : props.small ? "12px" : "16px";
@@ -3776,7 +3789,7 @@ var RawSidebar = (function () {
   }, function (props) {
     return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].background.color : props.dialogTheme[props.flavor] && props.dialogTheme[props.flavor].background.color ? props.dialogTheme[props.flavor].background.color : "#f0f0f0";
   });
-  var NButton = styled("button", props$1)(_templateObject2$1(), function (props) {
+  var NButton = styled("button", props$1)(_templateObject3$1(), function (props) {
     return props.large ? "8px 10px" : props.small ? "3px 5px" : "5px 10px";
   }, function (props) {
     return props.large ? "24px" : props.small ? "12px" : "16px";
@@ -3904,66 +3917,55 @@ var RawSidebar = (function () {
 
   /* style inject shadow dom */
 
-  var __vue_component__$1 = normalizeComponent$1({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined); // Import vue component
+  var __vue_component__$1 = normalizeComponent$1({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
-
-  var install = function installNButton(Vue) {
-    if (install.installed) return;
-    install.installed = true;
-    Vue.component("NButton", NButton);
-  }; // Create module definition for Vue.use()
-
-
-  var plugin = {
-    install: install
-  }; // To auto-install when vue is found
-  // eslint-disable-next-line no-redeclare
-
-  /* global window, global */
-
+  var components$1 = [{
+    label: "NButton",
+    component: NButton
+  }, {
+    label: "DialogButton",
+    component: DialogButton
+  }, {
+    label: "ButtonGroup",
+    component: ButtonGroup
+  }];
   var GlobalVue$1 = null;
 
-  if (typeof window !== "undefined") {
-    GlobalVue$1 = window.Vue;
-  } else if (typeof global !== "undefined") {
-    GlobalVue$1 = global.Vue;
-  }
+  var _loop$1 = function _loop() {
+    var component_obj = _components$1[_i$1]; // install function executed by Vue.use()
 
-  if (GlobalVue$1) {
-    GlobalVue$1.use(plugin);
-  } // Inject install function into component - allows component
-  // to be registered via Vue.use() as well as Vue.component()
+    var install = function installComponent(Vue) {
+      if (install.installed) return;
+      install.installed = true;
+      Vue.component(component_obj.label, component_obj.component);
+    }; // Create module definition for Vue.use()
 
 
-  NButton.install = install; // install function executed by Vue.use()
+    var plugin = {
+      install: install
+    }; // To auto-install when vue is found
+    // eslint-disable-next-line no-redeclare
 
-  var dialogInstall = function installDialogButton(Vue) {
-    if (dialogInstall.installed) return;
-    dialogInstall.installed = true;
-    Vue.component("DialogButton", DialogButton);
-  }; // Create module definition for Vue.use()
+    /* global window, global */
 
+    if (typeof window !== "undefined") {
+      GlobalVue$1 = window.Vue;
+    } else if (typeof global !== "undefined") {
+      GlobalVue$1 = global.Vue;
+    }
 
-  var dialogPlugin = {
-    install: dialogInstall
-  }; // To auto-install when vue is found
-  // eslint-disable-next-line no-redeclare
-
-  /* global window, global */
-
-  if (typeof window !== "undefined") {
-    GlobalVue$1 = window.Vue;
-  } else if (typeof global !== "undefined") {
-    GlobalVue$1 = global.Vue;
-  }
-
-  if (GlobalVue$1) {
-    GlobalVue$1.use(dialogPlugin);
-  } // Inject install function into component - allows component
-  // to be registered via Vue.use() as well as Vue.component()
+    if (GlobalVue$1) {
+      GlobalVue$1.use(plugin);
+    } // Inject install function into component - allows component
+    // to be registered via Vue.use() as well as Vue.component()
 
 
-  DialogButton.install = dialogInstall; // Export component by default
+    component_obj.component.install = install;
+  };
+
+  for (var _i$1 = 0, _components$1 = components$1; _i$1 < _components$1.length; _i$1++) {
+    _loop$1();
+  } // Export component by default
 
   function _taggedTemplateLiteral$2(strings, raw) {
     if (!raw) {
@@ -4037,10 +4039,10 @@ var RawSidebar = (function () {
     return data;
   }
 
-  function _templateObject3$1() {
+  function _templateObject3$2() {
     var data = _taggedTemplateLiteral$2(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 10px 15px;\n  & * {\n    color: ", ";};\n  }\n"]);
 
-    _templateObject3$1 = function _templateObject3() {
+    _templateObject3$2 = function _templateObject3() {
       return data;
     };
 
@@ -4115,7 +4117,7 @@ var RawSidebar = (function () {
   }, function (props) {
     return props.breakpoint;
   });
-  var SidebarTitle = styled("div", props$2)(_templateObject3$1(), function (props) {
+  var SidebarTitle = styled("div", props$2)(_templateObject3$2(), function (props) {
     return props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color.color : props.defaultTheme[props.flavor] ? props.defaultTheme[props.flavor].color.color : "#222";
   });
   var SidebarContent = styled("div", props$2)(_templateObject4(), function (props) {
@@ -4143,7 +4145,7 @@ var RawSidebar = (function () {
       SidebarDropdownCarat: SidebarDropdownCarat,
       NLabel: NLabel,
       SidebarItem: SidebarItem,
-      WebText: WebText
+      TextContent: TextContent
     },
     data: function data() {
       return {
@@ -4191,7 +4193,7 @@ var RawSidebar = (function () {
         this.toggled = !this.toggled;
       }
     },
-    template: "\n    <div>\n      <div class=\"sidebar-icon\" v-html=\"icon\"></div>\n      <n-label\n        class=\"dropdown-label\"\n        :for=\"'sidebar-dropdown' + uid\"\n        role=\"button\"\n        @click=\"toggleDropdown\"\n        @keyup.space=\"toggleDropdown\"\n        @keyup.enter=\"toggleDropdown\"\n        tabindex=\"0\"\n      >\n        {{text}}\n        <sidebar-dropdown-carat\n          :disabled=\"disabled\"\n          :flavor=\"flavor\"\n          :class=\"computeDropdownClass\"\n        ></sidebar-dropdown-carat>\n      </n-label>\n      <sidebar-dropdown\n        :style=\"{'max-height': toggled ? (items.length * 40) + 'px' : '0px'}\"\n        :tabindex=\"-1\"\n      >\n        <sidebar-item\n          v-for=\"(option, optionIndex) in items\"\n          :key=\"'dropdown' + uid + 'option' + optionIndex\"\n          :flavor=\"flavor\"\n          :disabled=\"option.disabled\"\n          :active=\"option.active\"\n          :tabindex=\"-1\"\n        >\n          <a :href=\"option.url\" :tabindex=\"toggled ? 0 : -1\">\n            <div class=\"sidebar-icon\" v-html=\"option.icon\"></div>\n            <web-text :size=\"13\">{{option.text}}</web-text>\n          </a>\n        </sidebar-item>\n      </sidebar-dropdown>\n    </div>\n  "
+    template: "\n    <div>\n      <div class=\"sidebar-icon\" v-html=\"icon\"></div>\n      <n-label\n        class=\"dropdown-label\"\n        :for=\"'sidebar-dropdown' + uid\"\n        role=\"button\"\n        @click=\"toggleDropdown\"\n        @keyup.space=\"toggleDropdown\"\n        @keyup.enter=\"toggleDropdown\"\n        tabindex=\"0\"\n      >\n        {{text}}\n        <sidebar-dropdown-carat\n          :disabled=\"disabled\"\n          :flavor=\"flavor\"\n          :class=\"computeDropdownClass\"\n        ></sidebar-dropdown-carat>\n      </n-label>\n      <sidebar-dropdown\n        :style=\"{'max-height': toggled ? (items.length * 40) + 'px' : '0px'}\"\n        :tabindex=\"-1\"\n      >\n        <sidebar-item\n          v-for=\"(option, optionIndex) in items\"\n          :key=\"'dropdown' + uid + 'option' + optionIndex\"\n          :flavor=\"flavor\"\n          :disabled=\"option.disabled\"\n          :active=\"option.active\"\n          :tabindex=\"-1\"\n        >\n          <a :href=\"option.url\" :tabindex=\"toggled ? 0 : -1\">\n            <div class=\"sidebar-icon\" v-html=\"option.icon\"></div>\n            <text :size=\"13\">{{option.text}}</text>\n          </a>\n        </sidebar-item>\n      </sidebar-dropdown>\n    </div>\n  "
   };
   var Sidebar = {
     components: {
@@ -4201,7 +4203,7 @@ var RawSidebar = (function () {
       SidebarContent: SidebarContent,
       SidebarItemList: SidebarItemList,
       SidebarItem: SidebarItem,
-      WebText: WebText,
+      TextContent: TextContent,
       VueSidebarDropdown: VueSidebarDropdown,
       NButton: NButton
     },
@@ -4507,7 +4509,7 @@ var RawSidebar = (function () {
       attrs: {
         flavor: _vm.flavor
       }
-    }, [_c("web-text", {
+    }, [_c("text", {
       attrs: {
         size: 16
       }
@@ -4547,11 +4549,11 @@ var RawSidebar = (function () {
         domProps: {
           innerHTML: _vm._s(item.icon)
         }
-      }), _vm._v(" "), _c("web-text", {
+      }), _vm._v(" "), _c("text", {
         attrs: {
           size: 13
         }
-      }, [_vm._v(_vm._s(item.text))])], 1) : _c("div", [_c("vue-sidebar-dropdown", {
+      }, [_vm._v(_vm._s(item.text))])]) : _c("div", [_c("vue-sidebar-dropdown", {
         attrs: {
           icon: item.icon,
           text: item.text,
@@ -4569,15 +4571,15 @@ var RawSidebar = (function () {
 
   var __vue_inject_styles__$2 = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-0ef9e2d5_0", {
+    inject("data-v-441d2de9_0", {
       source: "\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.sidebar-icon {\r\n  display: inline-block;\n}\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\n}\n.dropdown-label {\r\n  cursor: pointer;\n}\r\n",
       map: {
         "version": 3,
-        "sources": ["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Navbars\\Sidebar\\src\\Sidebar.vue"],
+        "sources": ["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\Sidebar\\src\\Sidebar.vue"],
         "names": [],
         "mappings": ";AAweA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,qBAAA;AACA;AACA;EACA,6EAAA;EACA,aAAA;EACA,cAAA;EACA,yBAAA;EACA,oBAAA;EACA,qBAAA;AACA;AACA;EACA,eAAA;AACA",
         "file": "Sidebar.vue",
-        "sourcesContent": ["<template>\r\n  <sidebar-container\r\n    :flavor=\"flavor\"\r\n    :top-offset=\"topOffset\"\r\n    :bottom-offset=\"bottomOffset\"\r\n    id=\"sidebar\"\r\n    :width=\"width\"\r\n    :height=\"height\"\r\n    :breakpoint=\"breakpoint\"\r\n    ref=\"sidebar\"\r\n  >\r\n    <sidebar-title :flavor=\"flavor\">\r\n      <web-text :size=\"16\">{{ sidebarTitle }}</web-text>\r\n      <sidebar-hamburger-container :width=\"width\" :breakpoint=\"breakpoint\">\r\n        <n-button :flavor=\"flavor\" @click=\"toggleAccordion\">&#9776;</n-button>\r\n      </sidebar-hamburger-container>\r\n    </sidebar-title>\r\n    <sidebar-content\r\n      :flavor=\"flavor\"\r\n      :width=\"width\"\r\n      :breakpoint=\"breakpoint\"\r\n      ref=\"content\"\r\n    >\r\n      <sidebar-item-list>\r\n        <sidebar-item\r\n          v-for=\"(item, index) in items\"\r\n          :key=\"'item' + index\"\r\n          :flavor=\"flavor\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n        >\r\n          <a v-if=\"item.type == 'item'\" :href=\"item.url\">\r\n            <div class=\"sidebar-icon\" v-html=\"item.icon\"></div>\r\n            <web-text :size=\"13\">{{ item.text }}</web-text>\r\n          </a>\r\n          <div v-else>\r\n            <vue-sidebar-dropdown\r\n              :icon=\"item.icon\"\r\n              :text=\"item.text\"\r\n              :disabled=\"item.disabled\"\r\n              :items=\"item.items\"\r\n              :flavor=\"flavor\"\r\n            ></vue-sidebar-dropdown>\r\n          </div>\r\n        </sidebar-item>\r\n      </sidebar-item-list>\r\n    </sidebar-content>\r\n  </sidebar-container>\r\n</template>\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { WebText, NLabel } from \"@IntusFacultas/typography\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  raw: Boolean,\r\n  width: {\r\n    type: Number,\r\n    default: 200\r\n  },\r\n  height: {\r\n    type: Number,\r\n    default: null\r\n  },\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576\r\n  },\r\n  topOffset: {\r\n    type: String,\r\n    default: \"0px\"\r\n  },\r\n  bottomOffset: {\r\n    type: String,\r\n    default: \"0px\"\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  }\r\n};\r\nexport const SidebarHamburgerContainer = styled(\"div\", props)`\r\n  display: none;\r\n  @media (max-width: ${props => props.breakpoint}px) {\r\n    display: block;\r\n  }\r\n`;\r\nexport const SidebarContainer = styled(\"aside\", props)`\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  width: ${props => props.width}px;\r\n  z-index: 1;\r\n  position: absolute;\r\n  left: 0px;\r\n  top: ${props => props.topOffset};\r\n  bottom: ${props => props.bottomOffset};\r\n  ${props => (!isNaN(props.height) ? `height: ${props.height}px` : ``)}\r\n  @media (max-width: ${props => props.breakpoint}px) {\r\n    position: relative;\r\n    width: 100%;\r\n    padding-left: auto;\r\n    top: initial;\r\n    height: initial\r\n  }\r\n  & * {\r\n    webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */\r\n  }\r\n`;\r\nexport const SidebarTitle = styled(\"div\", props)`\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 10px 15px;\r\n  & * {\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};};\r\n  }\r\n`;\r\nexport const SidebarContent = styled(\"div\", props)`\r\n  overflow: hidden;\r\n  transition: height 0.3s ease-out;\r\n\r\n  @media (min-width: ${props => props.breakpoint + 1}px) {\r\n    height: auto !important;\r\n    padding: 5px 0px !important;\r\n  }\r\n\r\n  ${props =>\r\n    props.raw\r\n      ? \"\"\r\n      : `\r\n    & * {\r\n      color: ${\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"\r\n      };!important };\r\n    }\r\n  \r\n  `}\r\n`;\r\nexport const SidebarItemList = styled.ul`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n`;\r\nexport const SidebarItem = styled(\"li\", props)`\r\n  padding: 10px 20px;\r\n  & a {\r\n    text-decoration: none;\r\n  }\r\n  & * {\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n  }\r\n  ${props =>\r\n    props.disabled\r\n      ? `\r\n    pointer-events: none;\r\n    & * {color: rgba(0, 0, 0, 0.3) !important;}`\r\n      : \"\"};\r\n  ${props =>\r\n    props.active\r\n      ? `\r\n  background-color: ${\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.focus\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.focus\r\n      : \"#d7d7d7\"\r\n  };\r\n  `\r\n      : \"\"}\r\n  &:hover {\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.hover\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.hover\r\n      : \"#d7d7d7\"};};\r\n  }\r\n`;\r\nconst SidebarDropdown = styled(\"ul\", props)`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n  transition: 0.3s max-height;\r\n  max-height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\nconst SidebarDropdownCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? \"rgba(0, 0, 0, 0.3)\"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  margin-bottom: 1px;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const VueSidebarDropdown = {\r\n  components: {\r\n    SidebarDropdown,\r\n    SidebarDropdownCarat,\r\n    NLabel,\r\n    SidebarItem,\r\n    WebText\r\n  },\r\n  data() {\r\n    return {\r\n      toggled: false\r\n    };\r\n  },\r\n  props: {\r\n    icon: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    text: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    }\r\n  },\r\n  computed: {\r\n    uid() {\r\n      return this._uid;\r\n    },\r\n    computeDropdownClass() {\r\n      if (this.toggled) {\r\n        return [\"sidebar-open-carat\"];\r\n      }\r\n      return [];\r\n    }\r\n  },\r\n  methods: {\r\n    toggleDropdown() {\r\n      this.toggled = !this.toggled;\r\n    }\r\n  },\r\n  template: `\r\n    <div>\r\n      <div class=\"sidebar-icon\" v-html=\"icon\"></div>\r\n      <n-label\r\n        class=\"dropdown-label\"\r\n        :for=\"'sidebar-dropdown' + uid\"\r\n        role=\"button\"\r\n        @click=\"toggleDropdown\"\r\n        @keyup.space=\"toggleDropdown\"\r\n        @keyup.enter=\"toggleDropdown\"\r\n        tabindex=\"0\"\r\n      >\r\n        {{text}}\r\n        <sidebar-dropdown-carat\r\n          :disabled=\"disabled\"\r\n          :flavor=\"flavor\"\r\n          :class=\"computeDropdownClass\"\r\n        ></sidebar-dropdown-carat>\r\n      </n-label>\r\n      <sidebar-dropdown\r\n        :style=\"{'max-height': toggled ? (items.length * 40) + 'px' : '0px'}\"\r\n        :tabindex=\"-1\"\r\n      >\r\n        <sidebar-item\r\n          v-for=\"(option, optionIndex) in items\"\r\n          :key=\"'dropdown' + uid + 'option' + optionIndex\"\r\n          :flavor=\"flavor\"\r\n          :disabled=\"option.disabled\"\r\n          :active=\"option.active\"\r\n          :tabindex=\"-1\"\r\n        >\r\n          <a :href=\"option.url\" :tabindex=\"toggled ? 0 : -1\">\r\n            <div class=\"sidebar-icon\" v-html=\"option.icon\"></div>\r\n            <web-text :size=\"13\">{{option.text}}</web-text>\r\n          </a>\r\n        </sidebar-item>\r\n      </sidebar-dropdown>\r\n    </div>\r\n  `\r\n};\r\n\r\nexport const Sidebar = {\r\n  components: {\r\n    SidebarContainer,\r\n    SidebarHamburgerContainer,\r\n    SidebarTitle,\r\n    SidebarContent,\r\n    SidebarItemList,\r\n    SidebarItem,\r\n    WebText,\r\n    VueSidebarDropdown,\r\n    NButton\r\n  },\r\n  data: function() {\r\n    return {\r\n      windowWidth: 0,\r\n      open: true\r\n    };\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      element.style.padding = \"0px 0px\";\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      element.style.padding = \"5px 0px\";\r\n\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    checkOffclick: function($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj.isEqualNode(parentObj)) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.isEqualNode(parentObj)) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (\r\n        self.open &&\r\n        this.$refs.sidebar &&\r\n        !isChild($e.target, this.$refs.sidebar.$el)\r\n      ) {\r\n        self.open = false;\r\n        self.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    toggleAccordion: function() {\r\n      this.open = !this.open;\r\n      if (this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    changeWindow: function($e) {\r\n      window.location.href = $e;\r\n    }\r\n  },\r\n  props: {\r\n    sidebarTitle: {\r\n      type: String,\r\n      default: \"Sidebar\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    bottomOffset: {\r\n      type: String,\r\n      default: \"0px\"\r\n    },\r\n    topOffset: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 200\r\n    },\r\n    height: {\r\n      type: [Number, Object],\r\n      default: null\r\n    },\r\n    breakpoint: {\r\n      type: Number,\r\n      default: 576\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default: function() {\r\n        return [];\r\n      }\r\n    }\r\n  }\r\n};\r\nexport const SidebarOffsetContent = styled(\"div\", props)`\r\n  margin-left: 0px;\r\n  @media (min-width: ${props => props.breakpoint}px) {\r\n    margin-left: ${props => props.width}px;\r\n    margin-top: 0px;\r\n  }\r\n  padding-left: 15px;\r\n`;\r\nexport default Sidebar;\r\n</script>\r\n\r\n<style>\r\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.sidebar-icon {\r\n  display: inline-block;\r\n}\r\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n}\r\n.dropdown-label {\r\n  cursor: pointer;\r\n}\r\n</style>\r\n"]
+        "sourcesContent": ["<template>\r\n  <sidebar-container\r\n    :flavor=\"flavor\"\r\n    :top-offset=\"topOffset\"\r\n    :bottom-offset=\"bottomOffset\"\r\n    id=\"sidebar\"\r\n    :width=\"width\"\r\n    :height=\"height\"\r\n    :breakpoint=\"breakpoint\"\r\n    ref=\"sidebar\"\r\n  >\r\n    <sidebar-title :flavor=\"flavor\">\r\n      <text :size=\"16\">{{ sidebarTitle }}</text>\r\n      <sidebar-hamburger-container :width=\"width\" :breakpoint=\"breakpoint\">\r\n        <n-button :flavor=\"flavor\" @click=\"toggleAccordion\">&#9776;</n-button>\r\n      </sidebar-hamburger-container>\r\n    </sidebar-title>\r\n    <sidebar-content\r\n      :flavor=\"flavor\"\r\n      :width=\"width\"\r\n      :breakpoint=\"breakpoint\"\r\n      ref=\"content\"\r\n    >\r\n      <sidebar-item-list>\r\n        <sidebar-item\r\n          v-for=\"(item, index) in items\"\r\n          :key=\"'item' + index\"\r\n          :flavor=\"flavor\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n        >\r\n          <a v-if=\"item.type == 'item'\" :href=\"item.url\">\r\n            <div class=\"sidebar-icon\" v-html=\"item.icon\"></div>\r\n            <text :size=\"13\">{{ item.text }}</text>\r\n          </a>\r\n          <div v-else>\r\n            <vue-sidebar-dropdown\r\n              :icon=\"item.icon\"\r\n              :text=\"item.text\"\r\n              :disabled=\"item.disabled\"\r\n              :items=\"item.items\"\r\n              :flavor=\"flavor\"\r\n            ></vue-sidebar-dropdown>\r\n          </div>\r\n        </sidebar-item>\r\n      </sidebar-item-list>\r\n    </sidebar-content>\r\n  </sidebar-container>\r\n</template>\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { TextContent, NLabel } from \"@IntusFacultas/typography\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  active: Boolean,\r\n  raw: Boolean,\r\n  width: {\r\n    type: Number,\r\n    default: 200,\r\n  },\r\n  height: {\r\n    type: Number,\r\n    default: null,\r\n  },\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576,\r\n  },\r\n  topOffset: {\r\n    type: String,\r\n    default: \"0px\",\r\n  },\r\n  bottomOffset: {\r\n    type: String,\r\n    default: \"0px\",\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    },\r\n  },\r\n};\r\nexport const SidebarHamburgerContainer = styled(\"div\", props)`\r\n  display: none;\r\n  @media (max-width: ${(props) => props.breakpoint}px) {\r\n    display: block;\r\n  }\r\n`;\r\nexport const SidebarContainer = styled(\"aside\", props)`\r\n  background-color: ${(props) =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  width: ${(props) => props.width}px;\r\n  z-index: 1;\r\n  position: absolute;\r\n  left: 0px;\r\n  top: ${(props) => props.topOffset};\r\n  bottom: ${(props) => props.bottomOffset};\r\n  ${(props) => (!isNaN(props.height) ? `height: ${props.height}px` : ``)}\r\n  @media (max-width: ${(props) => props.breakpoint}px) {\r\n    position: relative;\r\n    width: 100%;\r\n    padding-left: auto;\r\n    top: initial;\r\n    height: initial\r\n  }\r\n  & * {\r\n    webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */\r\n  }\r\n`;\r\nexport const SidebarTitle = styled(\"div\", props)`\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 10px 15px;\r\n  & * {\r\n    color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};};\r\n  }\r\n`;\r\nexport const SidebarContent = styled(\"div\", props)`\r\n  overflow: hidden;\r\n  transition: height 0.3s ease-out;\r\n\r\n  @media (min-width: ${(props) => props.breakpoint + 1}px) {\r\n    height: auto !important;\r\n    padding: 5px 0px !important;\r\n  }\r\n\r\n  ${(props) =>\r\n    props.raw\r\n      ? \"\"\r\n      : `\r\n    & * {\r\n      color: ${\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"\r\n      };!important };\r\n    }\r\n  \r\n  `}\r\n`;\r\nexport const SidebarItemList = styled.ul`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n`;\r\nexport const SidebarItem = styled(\"li\", props)`\r\n  padding: 10px 20px;\r\n  & a {\r\n    text-decoration: none;\r\n  }\r\n  & * {\r\n    color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n  }\r\n  ${(props) =>\r\n    props.disabled\r\n      ? `\r\n    pointer-events: none;\r\n    & * {color: rgba(0, 0, 0, 0.3) !important;}`\r\n      : \"\"};\r\n  ${(props) =>\r\n    props.active\r\n      ? `\r\n  background-color: ${\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.focus\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.focus\r\n      : \"#d7d7d7\"\r\n  };\r\n  `\r\n      : \"\"}\r\n  &:hover {\r\n  background-color: ${(props) =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.hover\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.hover\r\n      : \"#d7d7d7\"};};\r\n  }\r\n`;\r\nconst SidebarDropdown = styled(\"ul\", props)`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n  transition: 0.3s max-height;\r\n  max-height: 0px;\r\n  overflow-y: hidden;\r\n`;\r\nconst SidebarDropdownCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${(props) =>\r\n        props.disabled\r\n          ? \"rgba(0, 0, 0, 0.3)\"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  margin-bottom: 1px;\r\n  transform: rotate(45deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const VueSidebarDropdown = {\r\n  components: {\r\n    SidebarDropdown,\r\n    SidebarDropdownCarat,\r\n    NLabel,\r\n    SidebarItem,\r\n    TextContent,\r\n  },\r\n  data() {\r\n    return {\r\n      toggled: false,\r\n    };\r\n  },\r\n  props: {\r\n    icon: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    text: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      },\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n  },\r\n  computed: {\r\n    uid() {\r\n      return this._uid;\r\n    },\r\n    computeDropdownClass() {\r\n      if (this.toggled) {\r\n        return [\"sidebar-open-carat\"];\r\n      }\r\n      return [];\r\n    },\r\n  },\r\n  methods: {\r\n    toggleDropdown() {\r\n      this.toggled = !this.toggled;\r\n    },\r\n  },\r\n  template: `\r\n    <div>\r\n      <div class=\"sidebar-icon\" v-html=\"icon\"></div>\r\n      <n-label\r\n        class=\"dropdown-label\"\r\n        :for=\"'sidebar-dropdown' + uid\"\r\n        role=\"button\"\r\n        @click=\"toggleDropdown\"\r\n        @keyup.space=\"toggleDropdown\"\r\n        @keyup.enter=\"toggleDropdown\"\r\n        tabindex=\"0\"\r\n      >\r\n        {{text}}\r\n        <sidebar-dropdown-carat\r\n          :disabled=\"disabled\"\r\n          :flavor=\"flavor\"\r\n          :class=\"computeDropdownClass\"\r\n        ></sidebar-dropdown-carat>\r\n      </n-label>\r\n      <sidebar-dropdown\r\n        :style=\"{'max-height': toggled ? (items.length * 40) + 'px' : '0px'}\"\r\n        :tabindex=\"-1\"\r\n      >\r\n        <sidebar-item\r\n          v-for=\"(option, optionIndex) in items\"\r\n          :key=\"'dropdown' + uid + 'option' + optionIndex\"\r\n          :flavor=\"flavor\"\r\n          :disabled=\"option.disabled\"\r\n          :active=\"option.active\"\r\n          :tabindex=\"-1\"\r\n        >\r\n          <a :href=\"option.url\" :tabindex=\"toggled ? 0 : -1\">\r\n            <div class=\"sidebar-icon\" v-html=\"option.icon\"></div>\r\n            <text :size=\"13\">{{option.text}}</text>\r\n          </a>\r\n        </sidebar-item>\r\n      </sidebar-dropdown>\r\n    </div>\r\n  `,\r\n};\r\n\r\nexport const Sidebar = {\r\n  components: {\r\n    SidebarContainer,\r\n    SidebarHamburgerContainer,\r\n    SidebarTitle,\r\n    SidebarContent,\r\n    SidebarItemList,\r\n    SidebarItem,\r\n    TextContent,\r\n    VueSidebarDropdown,\r\n    NButton,\r\n  },\r\n  data: function() {\r\n    return {\r\n      windowWidth: 0,\r\n      open: true,\r\n    };\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      element.style.padding = \"0px 0px\";\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      element.style.padding = \"5px 0px\";\r\n\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    checkOffclick: function($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj.isEqualNode(parentObj)) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.isEqualNode(parentObj)) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (\r\n        self.open &&\r\n        this.$refs.sidebar &&\r\n        !isChild($e.target, this.$refs.sidebar.$el)\r\n      ) {\r\n        self.open = false;\r\n        self.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    toggleAccordion: function() {\r\n      this.open = !this.open;\r\n      if (this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    changeWindow: function($e) {\r\n      window.location.href = $e;\r\n    },\r\n  },\r\n  props: {\r\n    sidebarTitle: {\r\n      type: String,\r\n      default: \"Sidebar\",\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    bottomOffset: {\r\n      type: String,\r\n      default: \"0px\",\r\n    },\r\n    topOffset: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 200,\r\n    },\r\n    height: {\r\n      type: [Number, Object],\r\n      default: null,\r\n    },\r\n    breakpoint: {\r\n      type: Number,\r\n      default: 576,\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default: function() {\r\n        return [];\r\n      },\r\n    },\r\n  },\r\n};\r\nexport const SidebarOffsetContent = styled(\"div\", props)`\r\n  margin-left: 0px;\r\n  @media (min-width: ${(props) => props.breakpoint}px) {\r\n    margin-left: ${(props) => props.width}px;\r\n    margin-top: 0px;\r\n  }\r\n  padding-left: 15px;\r\n`;\r\nexport default Sidebar;\r\n</script>\r\n\r\n<style>\r\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.sidebar-icon {\r\n  display: inline-block;\r\n}\r\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n}\r\n.dropdown-label {\r\n  cursor: pointer;\r\n}\r\n</style>\r\n"]
       },
       media: undefined
     });
@@ -4602,7 +4604,7 @@ var RawSidebar = (function () {
   }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, createInjector$1, undefined, undefined); // Import vue component
 
 
-  var components$1 = [{
+  var components$2 = [{
     label: "SidebarHamburgerContainer",
     component: SidebarHamburgerContainer
   }, {
@@ -4632,8 +4634,8 @@ var RawSidebar = (function () {
   }];
   var GlobalVue$2 = null;
 
-  var _loop$1 = function _loop() {
-    var component_obj = _components$1[_i$1]; // install function executed by Vue.use()
+  var _loop$2 = function _loop() {
+    var component_obj = _components$2[_i$2]; // install function executed by Vue.use()
 
     var install = function installComponent(Vue) {
       if (install.installed) return;
@@ -4664,8 +4666,8 @@ var RawSidebar = (function () {
     component_obj.component.install = install;
   };
 
-  for (var _i$1 = 0, _components$1 = components$1; _i$1 < _components$1.length; _i$1++) {
-    _loop$1();
+  for (var _i$2 = 0, _components$2 = components$2; _i$2 < _components$2.length; _i$2++) {
+    _loop$2();
   } // Export component by default
 
   //
@@ -4675,7 +4677,7 @@ var RawSidebar = (function () {
       SidebarHamburgerContainer: SidebarHamburgerContainer,
       SidebarTitle: SidebarTitle,
       SidebarContent: SidebarContent,
-      WebText: WebText,
+      TextContent: TextContent,
       NButton: NButton
     },
     data: function data() {
@@ -4745,6 +4747,7 @@ var RawSidebar = (function () {
         var self = this;
 
         function isChild(obj, parentObj) {
+          if (obj == null) return true;
           if (obj.id == parentObj.id) return true;
 
           while (obj = obj.parentNode) {
@@ -4786,6 +4789,10 @@ var RawSidebar = (function () {
         type: String,
         default: "Sidebar"
       },
+      height: {
+        type: [Number, Object],
+        default: null
+      },
       flavor: {
         type: String,
         default: ""
@@ -4797,10 +4804,6 @@ var RawSidebar = (function () {
       topOffset: {
         type: String,
         default: ""
-      },
-      height: {
-        type: [Number, Object],
-        default: null
       },
       width: {
         type: Number,
@@ -4977,7 +4980,7 @@ var RawSidebar = (function () {
           "sidebar-title",
           { attrs: { flavor: _vm.flavor } },
           [
-            _c("web-text", { attrs: { size: 16 } }, [
+            _c("text", { attrs: { size: 16 } }, [
               _vm._v(_vm._s(_vm.sidebarTitle))
             ]),
             _vm._v(" "),
@@ -5024,7 +5027,7 @@ var RawSidebar = (function () {
     /* style */
     const __vue_inject_styles__$3 = function (inject) {
       if (!inject) return
-      inject("data-v-4a7d3fd6_0", { source: "\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.sidebar-icon {\r\n  display: inline-block;\n}\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\n}\n.dropdown-label {\r\n  cursor: pointer;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Navbars\\RawSidebar\\src\\RawSidebar.vue"],"names":[],"mappings":";AAwLA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,qBAAA;AACA;AACA;EACA,6EAAA;EACA,aAAA;EACA,cAAA;EACA,yBAAA;EACA,oBAAA;EACA,qBAAA;AACA;AACA;EACA,eAAA;AACA","file":"RawSidebar.vue","sourcesContent":["<template>\r\n  <sidebar-container\r\n    :flavor=\"flavor\"\r\n    :top-offset=\"topOffset\"\r\n    :bottom-offset=\"bottomOffset\"\r\n    id=\"sidebar\"\r\n    :width=\"width\"\r\n    :height=\"height\"\r\n    :breakpoint=\"breakpoint\"\r\n  >\r\n    <sidebar-title :flavor=\"flavor\">\r\n      <web-text :size=\"16\">{{ sidebarTitle }}</web-text>\r\n      <sidebar-hamburger-container :width=\"width\" :breakpoint=\"breakpoint\">\r\n        <n-button :flavor=\"flavor\" @click=\"toggleAccordion\">&#9776;</n-button>\r\n      </sidebar-hamburger-container>\r\n    </sidebar-title>\r\n    <sidebar-content\r\n      :raw=\"true\"\r\n      :flavor=\"flavor\"\r\n      :width=\"width\"\r\n      :breakpoint=\"breakpoint\"\r\n      ref=\"content\"\r\n    >\r\n      <slot></slot>\r\n    </sidebar-content>\r\n  </sidebar-container>\r\n</template>\r\n\r\n<script>\r\nimport { WebText } from \"@IntusFacultas/typography\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nimport {\r\n  SidebarHamburgerContainer,\r\n  SidebarContainer,\r\n  SidebarTitle,\r\n  SidebarContent\r\n} from \"@IntusFacultas/sidebar\";\r\nexport const RawSidebar = {\r\n  components: {\r\n    SidebarContainer,\r\n    SidebarHamburgerContainer,\r\n    SidebarTitle,\r\n    SidebarContent,\r\n    WebText,\r\n    NButton\r\n  },\r\n  data: function() {\r\n    return {\r\n      windowWidth: 0,\r\n      open: true\r\n    };\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      element.style.padding = \"0px 15px\";\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      element.style.padding = \"5px 15px\";\r\n\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    checkOffclick: function($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj.id == parentObj.id) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.id == parentObj.id) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (\r\n        self.open &&\r\n        !isChild($e.target, document.getElementById(\"sidebar\"))\r\n      ) {\r\n        self.open = false;\r\n        self.collapseSection(self.$refs.content.$el);\r\n      }\r\n    },\r\n    toggleAccordion: function() {\r\n      this.open = !this.open;\r\n      if (this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    changeWindow: function($e) {\r\n      window.location.href = $e;\r\n    }\r\n  },\r\n  computed: {\r\n    computedClass: function() {\r\n      if (this.open) {\r\n        return {};\r\n      }\r\n      return [\"sidebar-closed\"];\r\n    }\r\n  },\r\n  props: {\r\n    sidebarTitle: {\r\n      type: String,\r\n      default: \"Sidebar\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    bottomOffset: {\r\n      type: String,\r\n      default: \"0px\"\r\n    },\r\n    topOffset: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    height: {\r\n      type: [Number, Object],\r\n      default: null\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 200\r\n    },\r\n    breakpoint: {\r\n      type: Number,\r\n      default: 576\r\n    }\r\n  }\r\n};\r\nexport default RawSidebar;\r\n</script>\r\n\r\n<style>\r\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.sidebar-icon {\r\n  display: inline-block;\r\n}\r\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n}\r\n.dropdown-label {\r\n  cursor: pointer;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-52bb532f_0", { source: "\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.sidebar-icon {\r\n  display: inline-block;\n}\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\n}\n.dropdown-label {\r\n  cursor: pointer;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\RawSidebar\\src\\RawSidebar.vue"],"names":[],"mappings":";AAyLA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,qBAAA;AACA;AACA;EACA,6EAAA;EACA,aAAA;EACA,cAAA;EACA,yBAAA;EACA,oBAAA;EACA,qBAAA;AACA;AACA;EACA,eAAA;AACA","file":"RawSidebar.vue","sourcesContent":["<template>\r\n  <sidebar-container\r\n    :flavor=\"flavor\"\r\n    :top-offset=\"topOffset\"\r\n    :bottom-offset=\"bottomOffset\"\r\n    id=\"sidebar\"\r\n    :width=\"width\"\r\n    :height=\"height\"\r\n    :breakpoint=\"breakpoint\"\r\n  >\r\n    <sidebar-title :flavor=\"flavor\">\r\n      <text :size=\"16\">{{ sidebarTitle }}</text>\r\n      <sidebar-hamburger-container :width=\"width\" :breakpoint=\"breakpoint\">\r\n        <n-button :flavor=\"flavor\" @click=\"toggleAccordion\">&#9776;</n-button>\r\n      </sidebar-hamburger-container>\r\n    </sidebar-title>\r\n    <sidebar-content\r\n      :raw=\"true\"\r\n      :flavor=\"flavor\"\r\n      :width=\"width\"\r\n      :breakpoint=\"breakpoint\"\r\n      ref=\"content\"\r\n    >\r\n      <slot></slot>\r\n    </sidebar-content>\r\n  </sidebar-container>\r\n</template>\r\n\r\n<script>\r\nimport { TextContent } from \"@IntusFacultas/typography\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nimport {\r\n  SidebarHamburgerContainer,\r\n  SidebarContainer,\r\n  SidebarTitle,\r\n  SidebarContent,\r\n} from \"@IntusFacultas/sidebar\";\r\nexport const RawSidebar = {\r\n  components: {\r\n    SidebarContainer,\r\n    SidebarHamburgerContainer,\r\n    SidebarTitle,\r\n    SidebarContent,\r\n    TextContent,\r\n    NButton,\r\n  },\r\n  data: function() {\r\n    return {\r\n      windowWidth: 0,\r\n      open: true,\r\n    };\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      element.style.padding = \"0px 15px\";\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      element.style.padding = \"5px 15px\";\r\n\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    checkOffclick: function($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj == null) return true;\r\n        if (obj.id == parentObj.id) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.id == parentObj.id) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (\r\n        self.open &&\r\n        !isChild($e.target, document.getElementById(\"sidebar\"))\r\n      ) {\r\n        self.open = false;\r\n        self.collapseSection(self.$refs.content.$el);\r\n      }\r\n    },\r\n    toggleAccordion: function() {\r\n      this.open = !this.open;\r\n      if (this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n      }\r\n    },\r\n    changeWindow: function($e) {\r\n      window.location.href = $e;\r\n    },\r\n  },\r\n  computed: {\r\n    computedClass: function() {\r\n      if (this.open) {\r\n        return {};\r\n      }\r\n      return [\"sidebar-closed\"];\r\n    },\r\n  },\r\n  props: {\r\n    sidebarTitle: {\r\n      type: String,\r\n      default: \"Sidebar\",\r\n    },\r\n    height: {\r\n      type: [Number, Object],\r\n      default: null,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    bottomOffset: {\r\n      type: String,\r\n      default: \"0px\",\r\n    },\r\n    topOffset: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    width: {\r\n      type: Number,\r\n      default: 200,\r\n    },\r\n    breakpoint: {\r\n      type: Number,\r\n      default: 576,\r\n    },\r\n  },\r\n};\r\nexport default RawSidebar;\r\n</script>\r\n\r\n<style>\r\n.sidebar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.sidebar-icon {\r\n  display: inline-block;\r\n}\r\n.dropdown-arrow {\r\n  background-image: linear-gradient(to top right, transparent 50%, #727272 50%);\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(135deg);\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n}\r\n.dropdown-label {\r\n  cursor: pointer;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -5054,15 +5057,15 @@ var RawSidebar = (function () {
 
   // Import vue component
 
-  var install$1 = function installNModal(Vue) {
-    if (install$1.installed) return;
-    install$1.installed = true;
+  var install = function installNModal(Vue) {
+    if (install.installed) return;
+    install.installed = true;
     Vue.component("RawSidebar", __vue_component__$3);
   }; // Create module definition for Vue.use()
 
 
-  var plugin$1 = {
-    install: install$1
+  var plugin = {
+    install: install
   }; // To auto-install when vue is found
   // eslint-disable-next-line no-redeclare
 
@@ -5077,16 +5080,19 @@ var RawSidebar = (function () {
   }
 
   if (GlobalVue$3) {
-    GlobalVue$3.use(plugin$1);
+    GlobalVue$3.use(plugin);
   } // Inject install function into component - allows component
   // to be registered via Vue.use() as well as Vue.component()
 
 
-  __vue_component__$3.install = install$1; // Export component by default
+  __vue_component__$3.install = install; // Export component by default
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 
-  return __vue_component__$3;
+  exports.RawSidebar = __vue_component__$3;
+  exports.default = __vue_component__$3;
 
-}());
+  return exports;
+
+}({}));
 //# sourceMappingURL=RawSidebar.iife.js.map

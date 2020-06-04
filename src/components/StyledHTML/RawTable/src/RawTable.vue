@@ -17,13 +17,13 @@ export const VueRawTable = {
   props: {
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     striped: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 export default VueRawTable;
 </script>

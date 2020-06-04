@@ -17,6 +17,21 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _taggedTemplateLiteral(strings, raw) {
   if (!raw) {
     raw = strings.slice(0);
@@ -115,6 +130,98 @@ if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 
+if (!Array.from) {
+  Array.from = function () {
+    var toStr = Object.prototype.toString;
+
+    var isCallable = function isCallable(fn) {
+      return typeof fn === "function" || toStr.call(fn) === "[object Function]";
+    };
+
+    var toInteger = function toInteger(value) {
+      var number = Number(value);
+
+      if (isNaN(number)) {
+        return 0;
+      }
+
+      if (number === 0 || !isFinite(number)) {
+        return number;
+      }
+
+      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+    };
+
+    var maxSafeInteger = Math.pow(2, 53) - 1;
+
+    var toLength = function toLength(value) {
+      var len = toInteger(value);
+      return Math.min(Math.max(len, 0), maxSafeInteger);
+    }; // The length property of the from method is 1.
+
+
+    return function from(arrayLike
+    /*, mapFn, thisArg */
+    ) {
+      // 1. Let C be the this value.
+      var C = this; // 2. Let items be ToObject(arrayLike).
+
+      var items = Object(arrayLike); // 3. ReturnIfAbrupt(items).
+
+      if (arrayLike == null) {
+        throw new TypeError("Array.from requires an array-like object - not null or undefined");
+      } // 4. If mapfn is undefined, then let mapping be false.
+
+
+      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+      var T;
+
+      if (typeof mapFn !== "undefined") {
+        // 5. else
+        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
+        if (!isCallable(mapFn)) {
+          throw new TypeError("Array.from: when provided, the second argument must be a function");
+        } // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+
+
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
+      } // 10. Let lenValue be Get(items, "length").
+      // 11. Let len be ToLength(lenValue).
+
+
+      var len = toLength(items.length); // 13. If IsConstructor(C) is true, then
+      // 13. a. Let A be the result of calling the [[Construct]] internal method
+      // of C with an argument list containing the single item len.
+      // 14. a. Else, Let A be ArrayCreate(len).
+
+      var A = isCallable(C) ? Object(new C(len)) : new Array(len); // 16. Let k be 0.
+
+      var k = 0; // 17. Repeat, while k < len… (also steps a - h)
+
+      var kValue;
+
+      while (k < len) {
+        kValue = items[k];
+
+        if (mapFn) {
+          A[k] = typeof T === "undefined" ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+        } else {
+          A[k] = kValue;
+        }
+
+        k += 1;
+      } // 18. Let putStatus be Put(A, "length", len, true).
+
+
+      A.length = len; // 20. Return A.
+
+      return A;
+    };
+  }();
+}
+
 var props = {
   padding: {
     type: Number,
@@ -152,7 +259,7 @@ var Item = styled("li", props)(_templateObject4(), function (props) {
 }, function (props) {
   return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
 });
-var TableOfContents = {
+var TableOfContents = _defineProperty({
   components: {
     ContentsTable: ContentsTable,
     Item: Item,
@@ -163,7 +270,8 @@ var TableOfContents = {
     return {
       titles: [],
       override: false,
-      scrollToOverride: false
+      scrollToOverride: false,
+      observer: null
     };
   },
   props: {
@@ -171,8 +279,16 @@ var TableOfContents = {
       type: String,
       default: "auto"
     },
+    enableDomListening: {
+      type: Boolean,
+      default: false
+    },
     flavor: {
       type: String,
+      default: ""
+    },
+    ignoreQuery: {
+      type: [String, Array],
       default: ""
     },
     queryOverride: {
@@ -290,10 +406,46 @@ var TableOfContents = {
       }
     },
     checkIfTitle: function checkIfTitle(el) {
+      var notDisqualified = true;
+
+      if (this.ignoreQuery) {
+        if (Array.isArray(this.ignoreQuery)) {
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = this.ignoreQuery[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var query = _step2.value;
+
+              if (el.matches(query)) {
+                notDisqualified = false;
+                break;
+              }
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        } else {
+          notDisqualified = !el.matches(this.ignoreQuery);
+        }
+      }
+
       if (this.queryOverride) {
-        return el.matches(this.queryOverride);
+        return el.matches(this.queryOverride) && notDisqualified;
       } else {
-        return el.matches("h1, h2, h3, h4, h5, h6");
+        return el.matches("h1, h2, h3, h4, h5, h6") && notDisqualified;
       }
     },
     calculateTitleType: function calculateTitleType(el) {
@@ -312,28 +464,31 @@ var TableOfContents = {
 
       var _loop = function _loop() {
         var el = stack.pop();
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
 
-        try {
-          for (var _iterator2 = Array.from(el.children).filter(function (c) {
-            return visited.indexOf(c) == -1 && !c.isEqualNode(el);
-          })[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var child = _step2.value;
-            stack.push(child);
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
+        if (typeof el.children !== "undefined") {
+          var _iteratorNormalCompletion3 = true;
+          var _didIteratorError3 = false;
+          var _iteratorError3 = undefined;
+
           try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-              _iterator2.return();
+            for (var _iterator3 = Array.from(el.children).filter(function (c) {
+              return visited.indexOf(c) == -1 && !c.isEqualNode(el);
+            })[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+              var child = _step3.value;
+              stack.push(child);
             }
+          } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
           } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
+            try {
+              if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+                _iterator3.return();
+              }
+            } finally {
+              if (_didIteratorError3) {
+                throw _iteratorError3;
+              }
             }
           }
         }
@@ -372,41 +527,41 @@ var TableOfContents = {
         return;
       }
 
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator3 = this.titles.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var _step3$value = _slicedToArray(_step3.value, 2),
-              index = _step3$value[0],
-              title = _step3$value[1];
+        for (var _iterator4 = this.titles.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var _step4$value = _slicedToArray(_step4.value, 2),
+              index = _step4$value[0],
+              title = _step4$value[1];
 
           title.offset = title.el.getBoundingClientRect().top;
 
           if (title.offset < 20 + this.offset && title.offset > 0) {
-            var _iteratorNormalCompletion6 = true;
-            var _didIteratorError6 = false;
-            var _iteratorError6 = undefined;
+            var _iteratorNormalCompletion7 = true;
+            var _didIteratorError7 = false;
+            var _iteratorError7 = undefined;
 
             try {
-              for (var _iterator6 = this.titles.filter(function (o) {
+              for (var _iterator7 = this.titles.filter(function (o) {
                 return o.visible;
-              })[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                var _other2 = _step6.value;
+              })[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                var _other2 = _step7.value;
                 _other2.visible = false;
               }
             } catch (err) {
-              _didIteratorError6 = true;
-              _iteratorError6 = err;
+              _didIteratorError7 = true;
+              _iteratorError7 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
-                  _iterator6.return();
+                if (!_iteratorNormalCompletion7 && _iterator7.return != null) {
+                  _iterator7.return();
                 }
               } finally {
-                if (_didIteratorError6) {
-                  throw _iteratorError6;
+                if (_didIteratorError7) {
+                  throw _iteratorError7;
                 }
               }
             }
@@ -418,49 +573,21 @@ var TableOfContents = {
           }
         }
       } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-            _iterator3.return();
+          if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+            _iterator4.return();
           }
         } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
+          if (_didIteratorError4) {
+            throw _iteratorError4;
           }
         }
       }
 
       if (yOffset == 0 && window.innerWidth - document.documentElement.clientWidth == 0) {
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
-
-        try {
-          for (var _iterator4 = this.titles.filter(function (o) {
-            return o.visible;
-          })[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var other = _step4.value;
-            other.visible = false;
-          }
-        } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-              _iterator4.return();
-            }
-          } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
-            }
-          }
-        }
-
-        this.titles[0].visible = true;
-      } else if (window.innerHeight + yOffset >= document.body.offsetHeight) {
         var _iteratorNormalCompletion5 = true;
         var _didIteratorError5 = false;
         var _iteratorError5 = undefined;
@@ -469,8 +596,8 @@ var TableOfContents = {
           for (var _iterator5 = this.titles.filter(function (o) {
             return o.visible;
           })[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-            var _other = _step5.value;
-            _other.visible = false;
+            var other = _step5.value;
+            other.visible = false;
           }
         } catch (err) {
           _didIteratorError5 = true;
@@ -483,6 +610,34 @@ var TableOfContents = {
           } finally {
             if (_didIteratorError5) {
               throw _iteratorError5;
+            }
+          }
+        }
+
+        this.titles[0].visible = true;
+      } else if (window.innerHeight + yOffset >= document.body.offsetHeight) {
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+          for (var _iterator6 = this.titles.filter(function (o) {
+            return o.visible;
+          })[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var _other = _step6.value;
+            _other.visible = false;
+          }
+        } catch (err) {
+          _didIteratorError6 = true;
+          _iteratorError6 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+              _iterator6.return();
+            }
+          } finally {
+            if (_didIteratorError6) {
+              throw _iteratorError6;
             }
           }
         }
@@ -529,13 +684,13 @@ var TableOfContents = {
         }
       }
 
-      var _iteratorNormalCompletion7 = true;
-      var _didIteratorError7 = false;
-      var _iteratorError7 = undefined;
+      var _iteratorNormalCompletion8 = true;
+      var _didIteratorError8 = false;
+      var _iteratorError8 = undefined;
 
       try {
         var _loop2 = function _loop2() {
-          var title = _step7.value;
+          var title = _step8.value;
 
           // look for titles with only root level parents
           if (title.parents.length == 1) {
@@ -554,29 +709,94 @@ var TableOfContents = {
           }
         };
 
-        for (var _iterator7 = this.titles[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+        for (var _iterator8 = this.titles[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
           _loop2();
         }
       } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
+        _didIteratorError8 = true;
+        _iteratorError8 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion7 && _iterator7.return != null) {
-            _iterator7.return();
+          if (!_iteratorNormalCompletion8 && _iterator8.return != null) {
+            _iterator8.return();
           }
         } finally {
-          if (_didIteratorError7) {
-            throw _iteratorError7;
+          if (_didIteratorError8) {
+            throw _iteratorError8;
+          }
+        }
+      }
+    },
+    updateTitles: function updateTitles() {
+      this.titles = this.crawl(document.getElementsByTagName("body")[0]);
+      this.assignChildren();
+      this.checkTitles();
+    },
+    updateTitlesOnDOMChange: function updateTitlesOnDOMChange(mutationsList) {
+      var _iteratorNormalCompletion9 = true;
+      var _didIteratorError9 = false;
+      var _iteratorError9 = undefined;
+
+      try {
+        for (var _iterator9 = mutationsList[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+          var mutation = _step9.value;
+
+          if (mutation.type === "childList") {
+            this.updateTitles();
+          }
+        }
+      } catch (err) {
+        _didIteratorError9 = true;
+        _iteratorError9 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion9 && _iterator9.return != null) {
+            _iterator9.return();
+          }
+        } finally {
+          if (_didIteratorError9) {
+            throw _iteratorError9;
           }
         }
       }
     }
   },
+  beforeDestroy: function beforeDestroy() {
+    this.observer.disconnect();
+  },
   mounted: function mounted() {
-    this.titles = this.crawl(document.getElementsByTagName("body")[0]);
-    this.assignChildren();
-    this.checkTitles();
+    var body = document.getElementsByTagName("body")[0];
+
+    if (this.enableDomListening) {
+      var config = {
+        attributes: false,
+        childList: true,
+        subtree: false
+      };
+      this.observer = new MutationObserver(this.updateTitlesOnDOMChange);
+      this.observer.observe(body, config);
+    } else {
+      (function () {
+        if (typeof window.CustomEvent === "function") return false;
+
+        function CustomEvent(event, params) {
+          params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: null
+          };
+          var evt = document.createEvent("CustomEvent");
+          evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+          return evt;
+        }
+
+        window.CustomEvent = CustomEvent;
+      })();
+
+      window.addEventListener("IntusFacultas-table-of-contents", this.updateTitles);
+    }
+
+    this.updateTitles();
     window.addEventListener("scroll", this.checkTitles);
 
     (function () {
@@ -921,138 +1141,151 @@ var TableOfContents = {
         polyfill();
       }
     })();
-  },
-  beforeDestroy: function beforeDestroy() {
-    window.removeEventListener("scroll", this.checkTitles);
   }
-};
+}, "beforeDestroy", function beforeDestroy() {
+  if (!this.enableDomListening) {
+    window.removeEventListener("IntusFacultas-table-of-contents", this.updateTitles);
+  }
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
+  window.removeEventListener("scroll", this.checkTitles);
+});
+
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+/* server only */
+, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+  if (typeof shadowMode !== 'boolean') {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  } // Vue.extend constructor export interop.
+
+
+  var options = typeof script === 'function' ? script.options : script; // render functions
+
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true; // functional template
+
+    if (isFunctionalTemplate) {
+      options.functional = true;
     }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
-        }
+  } // scopedId
+
+
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+
+  var hook;
+
+  if (moduleIdentifier) {
+    // server build
+    hook = function hook(context) {
+      // 2.3 injection
+      context = context || // cached call
+      this.$vnode && this.$vnode.ssrContext || // stateful
+      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      // 2.2 with runInNewContext: true
+
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+      } // inject component styles
+
+
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      } // register component module identifier for async chunk inference
+
+
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    }; // used by ssr in case component is cached and beforeCreate
+    // never gets called
+
+
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode ? function (context) {
+      style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+    } : function (context) {
+      style.call(this, createInjector(context));
+    };
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      var originalRender = options.render;
+
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
-        };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
-    }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
+  }
+
+  return script;
 }
 
-const isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
 function createInjector(context) {
-    return (id, style) => addStyle(id, style);
+  return function (id, style) {
+    return addStyle(id, style);
+  };
 }
-let HEAD;
-const styles = {};
+
+var HEAD;
+var styles = {};
+
 function addStyle(id, css) {
-    const group = isOldIE ? css.media || 'default' : id;
-    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-    if (!style.ids.has(id)) {
-        style.ids.add(id);
-        let code = css.source;
-        if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-                '\n/*# sourceMappingURL=data:application/json;base64,' +
-                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-                    ' */';
-        }
-        if (!style.element) {
-            style.element = document.createElement('style');
-            style.element.type = 'text/css';
-            if (css.media)
-                style.element.setAttribute('media', css.media);
-            if (HEAD === undefined) {
-                HEAD = document.head || document.getElementsByTagName('head')[0];
-            }
-            HEAD.appendChild(style.element);
-        }
-        if ('styleSheet' in style.element) {
-            style.styles.push(code);
-            style.element.styleSheet.cssText = style.styles
-                .filter(Boolean)
-                .join('\n');
-        }
-        else {
-            const index = style.ids.size - 1;
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index])
-                style.element.removeChild(nodes[index]);
-            if (nodes.length)
-                style.element.insertBefore(textNode, nodes[index]);
-            else
-                style.element.appendChild(textNode);
-        }
+  var group = isOldIE ? css.media || 'default' : id;
+  var style = styles[group] || (styles[group] = {
+    ids: new Set(),
+    styles: []
+  });
+
+  if (!style.ids.has(id)) {
+    style.ids.add(id);
+    var code = css.source;
+
+    if (css.map) {
+      // https://developer.chrome.com/devtools/docs/javascript-debugging
+      // this makes source maps inside style tags work properly in Chrome
+      code += '\n/*# sourceURL=' + css.map.sources[0] + ' */'; // http://stackoverflow.com/a/26603875
+
+      code += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) + ' */';
     }
+
+    if (!style.element) {
+      style.element = document.createElement('style');
+      style.element.type = 'text/css';
+      if (css.media) style.element.setAttribute('media', css.media);
+
+      if (HEAD === undefined) {
+        HEAD = document.head || document.getElementsByTagName('head')[0];
+      }
+
+      HEAD.appendChild(style.element);
+    }
+
+    if ('styleSheet' in style.element) {
+      style.styles.push(code);
+      style.element.styleSheet.cssText = style.styles.filter(Boolean).join('\n');
+    } else {
+      var index = style.ids.size - 1;
+      var textNode = document.createTextNode(code);
+      var nodes = style.element.childNodes;
+      if (nodes[index]) style.element.removeChild(nodes[index]);
+      if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
+    }
+  }
 }
 
 /* script */
@@ -1171,7 +1404,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-57f7f0c4_0", { source: "\n.visible-title {\r\n  max-height: 100px !important;\r\n  padding-bottom: 2px;\r\n  padding-top: 2px;\n}\n.margined-title {\r\n  border-left-style: solid;\r\n  border-left-width: 3px;\r\n  border-left-color: #ff7200 !important;\n}\n.active-title {\r\n  font-weight: bold;\n}\n.table-of-contents-title {\r\n  font-size: 16px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\TableOfContents\\src\\TableOfContents.vue"],"names":[],"mappings":";AAk0BA;EACA,4BAAA;EACA,mBAAA;EACA,gBAAA;AACA;AACA;EACA,wBAAA;EACA,sBAAA;EACA,qCAAA;AACA;AACA;EACA,iBAAA;AACA;AACA;EACA,eAAA;AACA","file":"TableOfContents.vue","sourcesContent":["<template>\r\n  <contents-container :width=\"width\">\r\n    <contents-table>\r\n      <item\r\n        :flavor=\"flavor\"\r\n        tabindex=\"0\"\r\n        class=\"visible-title table-of-contents-title\"\r\n        @click=\"toggleOverride\"\r\n        @keyup.space=\"toggleOverride\"\r\n        @keyup.enter=\"toggleOverride\"\r\n      >\r\n        Table of Contents\r\n        <toggler v-if=\"!override\">&#43;</toggler>\r\n        <toggler v-else>&#8722;</toggler>\r\n      </item>\r\n      <item\r\n        :flavor=\"title.visible ? 'MissileOrange' : flavor\"\r\n        :tabindex=\"computeVisibility(title) ? 0 : -1\"\r\n        v-for=\"title in titles\"\r\n        :key=\"title.id\"\r\n        :padding=\"title.titleType - 1\"\r\n        :class=\"{\r\n          'active-title': title.visible,\r\n          'margined-title': margined(title),\r\n          'visible-title': computeVisibility(title)\r\n        }\"\r\n        @click=\"scrollToEl(title.el)\"\r\n        @keyup.space=\"scrollToEl(title.el)\"\r\n        @keyup.enter=\"scrollToEl(title.el)\"\r\n        >{{ title.el.innerText }}</item\r\n      >\r\n    </contents-table>\r\n  </contents-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport { TextTheme } from \"@IntusFacultas/design-system\";\r\nif (!Element.prototype.matches) {\r\n  Element.prototype.matches =\r\n    Element.prototype.msMatchesSelector ||\r\n    Element.prototype.webkitMatchesSelector;\r\n}\r\nconst props = {\r\n  padding: {\r\n    type: Number,\r\n    default: 0\r\n  },\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576\r\n  },\r\n  topOffset: {\r\n    type: Number,\r\n    default: 100\r\n  },\r\n  width: {\r\n    type: String,\r\n    default: \"auto\"\r\n  },\r\n  textTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return TextTheme;\r\n    }\r\n  },\r\n  flavor: String\r\n};\r\nconst Toggler = styled.span`\r\n  color: #ff7200;\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  cursor: pointer;\r\n  pointer-events: none;\r\n`;\r\nconst ContentsContainer = styled(\"nav\", props)`\r\n  display: block;\r\n  max-width: ${props => (props.width ? props.width : \"auto\")};\r\n`;\r\nconst ContentsTable = styled(\"ul\", props)`\r\n  & * {\r\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n  }\r\n  padding-left: 0px;\r\n  list-style: none;\r\n`;\r\n\r\nconst Item = styled(\"li\", props)`\r\n  padding-left: ${props => props.padding * 10 + 10}px;\r\n  border-left-style: solid;\r\n  border-left-width: 2px;\r\n  font-size: 14px;\r\n  cursor: pointer;\r\n  transition: 0.2s all;\r\n  max-height: 0px;\r\n  overflow: hidden;\r\n  border-color: rgba(0, 0, 0, 0.1);\r\n  color: ${props =>\r\n    props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};\r\n  ${props =>\r\n    props.flavor\r\n      ? props.textTheme[props.flavor]\r\n        ? \"color \" + props.textTheme[props.flavor].color\r\n        : \"\"\r\n      : \"\"};\r\n`;\r\n\r\nexport const TableOfContents = {\r\n  components: { ContentsTable, Item, ContentsContainer, Toggler },\r\n  data() {\r\n    return {\r\n      titles: [],\r\n      override: false,\r\n      scrollToOverride: false\r\n    };\r\n  },\r\n  props: {\r\n    width: {\r\n      type: String,\r\n      default: \"auto\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    queryOverride: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    offset: {\r\n      type: Number,\r\n      default: 0\r\n    }\r\n  },\r\n  methods: {\r\n    toggleOverride() {\r\n      this.override = !this.override;\r\n      for (let title of this.titles) {\r\n        title.override = this.override;\r\n      }\r\n    },\r\n    delayCollapse(title) {\r\n      setTimeout(() => (title.override = false), 500);\r\n    },\r\n    scrollToEl(el) {\r\n      const y =\r\n        el.getBoundingClientRect().top + window.pageYOffset - this.offset;\r\n      // el.scrollIntoView({ behavior: \"smooth\", block: \"start\" });\r\n      let IEHoldOff = 5; // IE is dumb and can't appropriately calculate viewport\r\n      window.scrollTo({ top: y - IEHoldOff, behavior: \"smooth\" });\r\n      this.scrollToOverride = true;\r\n      let self = this;\r\n      setTimeout(function() {\r\n        setTimeout(() => {\r\n          self.checkTitles();\r\n        }, 100);\r\n        self.scrollToOverride = false;\r\n      }, 500);\r\n      el.focus();\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      // pulled from https://davidwalsh.name/javascript-debounce-function\r\n      var timeout;\r\n      return function() {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function() {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        if (callNow) func.apply(context, args);\r\n      };\r\n    },\r\n    computeOverride(title) {\r\n      return (\r\n        (!this.scrollToOverride && this.override) ||\r\n        title.override ||\r\n        title.children.filter(child => child.override).length > 0 ||\r\n        title.parents.filter(parent => parent.override).length > 0\r\n      );\r\n    },\r\n    computeScreenVisibility(title) {\r\n      return (\r\n        !this.scrollToOverride &&\r\n        (title.visible ||\r\n          title.children.filter(child => child.visible).length > 0)\r\n      );\r\n    },\r\n    computeVisibility(title) {\r\n      return (\r\n        title.parents.length == 0 ||\r\n        (title.directParents.length == 1 &&\r\n          title.parents.length == 1 &&\r\n          this.computeScreenVisibility(title.directParents[0])) ||\r\n        this.computeOverride(title) ||\r\n        this.computeScreenVisibility(title)\r\n      );\r\n    },\r\n    margined(title) {\r\n      return title.visible; //|| title.children.filter(child => child.visible).length > 0\r\n    },\r\n    isInView(el) {\r\n      // pulled from https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport\r\n      let box = el.getBoundingClientRect();\r\n      return box.top < window.innerHeight && box.bottom >= 0;\r\n    },\r\n    getPathTo(element) {\r\n      // pulled from https://stackoverflow.com/questions/2631820/how-do-i-ensure-saved-click-coordinates-can-be-reloaed-to-the-same-place-even-i/2631931#2631931\r\n      if (element.id !== \"\") return 'id(\"' + element.id + '\")';\r\n      if (element === document.body) return element.tagName;\r\n\r\n      var ix = 0;\r\n      var siblings = element.parentNode.childNodes;\r\n      for (var i = 0; i < siblings.length; i++) {\r\n        var sibling = siblings[i];\r\n        if (sibling === element)\r\n          return (\r\n            this.getPathTo(element.parentNode) +\r\n            \"/\" +\r\n            element.tagName +\r\n            \"[\" +\r\n            (ix + 1) +\r\n            \"]\"\r\n          );\r\n        if (sibling.nodeType === 1 && sibling.tagName === element.tagName) ix++;\r\n      }\r\n    },\r\n    checkIfTitle(el) {\r\n      if (this.queryOverride) {\r\n        return el.matches(this.queryOverride);\r\n      } else {\r\n        return el.matches(\"h1, h2, h3, h4, h5, h6\");\r\n      }\r\n    },\r\n    calculateTitleType(el) {\r\n      if (this.queryOverride) {\r\n        return el.getAttribute(\"data-rank\");\r\n      } else {\r\n        return parseInt(el.tagName[1]);\r\n      }\r\n    },\r\n    crawl(node) {\r\n      let titles = [];\r\n      let stack = [node];\r\n      let visited = [];\r\n      while (stack.length > 0) {\r\n        let el = stack.pop();\r\n        for (let child of Array.from(el.children).filter(\r\n          c => visited.indexOf(c) == -1 && !c.isEqualNode(el)\r\n        )) {\r\n          stack.push(child);\r\n        }\r\n        let path = this.getPathTo(el);\r\n        let notVisited = visited.indexOf(path) == -1;\r\n        let isTitle = this.checkIfTitle(el);\r\n        if (notVisited && isTitle) {\r\n          titles.push({\r\n            el: el,\r\n            id: this.getPathTo(el),\r\n            titleType: this.calculateTitleType(el),\r\n            offset: -1,\r\n            visible: false,\r\n            hovered: false,\r\n            override: false\r\n          });\r\n        }\r\n        visited.push(this.getPathTo(el));\r\n      }\r\n      return titles.reverse();\r\n    },\r\n    checkTitles() {\r\n      let yOffset = window.pageYOffset;\r\n      if (this.titles.length == 0) {\r\n        return;\r\n      }\r\n      for (let [index, title] of this.titles.entries()) {\r\n        title.offset = title.el.getBoundingClientRect().top;\r\n        if (title.offset < 20 + this.offset && title.offset > 0) {\r\n          for (let other of this.titles.filter(o => o.visible)) {\r\n            other.visible = false;\r\n          }\r\n          title.visible = true;\r\n        } else if (\r\n          title.visible &&\r\n          title.el.getBoundingClientRect().bottom >=\r\n            (window.innerHeight || document.documentElement.clientHeight)\r\n        ) {\r\n          if (this.titles[index - 1]) this.titles[index - 1].visible = true;\r\n          title.visible = false;\r\n        }\r\n      }\r\n      if (\r\n        yOffset == 0 &&\r\n        window.innerWidth - document.documentElement.clientWidth == 0\r\n      ) {\r\n        for (let other of this.titles.filter(o => o.visible)) {\r\n          other.visible = false;\r\n        }\r\n        this.titles[0].visible = true;\r\n      } else if (window.innerHeight + yOffset >= document.body.offsetHeight) {\r\n        for (let other of this.titles.filter(o => o.visible)) {\r\n          other.visible = false;\r\n        }\r\n        this.titles[this.titles.length - 1].visible = true;\r\n      }\r\n    },\r\n    assignChildren() {\r\n      for (let title = 0; title < this.titles.length; title++) {\r\n        let parentTitle = this.titles[title];\r\n\r\n        // instantiate parents, children, and direct parents arrays\r\n        if (!parentTitle.children) {\r\n          parentTitle.children = [];\r\n        }\r\n        if (!parentTitle.parents) {\r\n          parentTitle.parents = [];\r\n        }\r\n        if (!parentTitle.directParents) {\r\n          parentTitle.directParents = [];\r\n        }\r\n\r\n        for (\r\n          let potentialChild = title + 1;\r\n          potentialChild < this.titles.length;\r\n          potentialChild++\r\n        ) {\r\n          let childTitle = this.titles[potentialChild];\r\n\r\n          // if titletype is greater than parent, title is child of parent\r\n          if (childTitle.titleType > parentTitle.titleType) {\r\n            parentTitle.children.push(childTitle);\r\n            if (!childTitle.parents) {\r\n              childTitle.parents = [];\r\n            }\r\n            if (!childTitle.directParents) {\r\n              childTitle.directParents = [];\r\n            }\r\n\r\n            childTitle.parents.push(parentTitle);\r\n          } else {\r\n            break;\r\n          }\r\n        }\r\n      }\r\n      for (let title of this.titles) {\r\n        // look for titles with only root level parents\r\n        if (title.parents.length == 1) {\r\n          title.directParents.push(title.parents[0]);\r\n        }\r\n        // assign siblings\r\n        if (title.parents.length == 0) {\r\n          title.siblings = [];\r\n        } else {\r\n          title.siblings = this.titles.filter(\r\n            o =>\r\n              o.parents.filter(p => p.id == title.parents[0].id).length > 0 &&\r\n              o.parents.length == title.parents.length &&\r\n              o.id != title.id\r\n          );\r\n        }\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    this.titles = this.crawl(document.getElementsByTagName(\"body\")[0]);\r\n    this.assignChildren();\r\n    this.checkTitles();\r\n    window.addEventListener(\"scroll\", this.checkTitles);\r\n    (function() {\r\n      \"use strict\";\r\n\r\n      // polyfill\r\n      function polyfill() {\r\n        // aliases\r\n        var w = window;\r\n        var d = document;\r\n\r\n        // return if scroll behavior is supported and polyfill is not forced\r\n        if (\r\n          \"scrollBehavior\" in d.documentElement.style &&\r\n          w.__forceSmoothScrollPolyfill__ !== true\r\n        ) {\r\n          return;\r\n        }\r\n\r\n        // globals\r\n        var Element = w.HTMLElement || w.Element;\r\n        var SCROLL_TIME = 468;\r\n\r\n        // object gathering original scroll methods\r\n        var original = {\r\n          scroll: w.scroll || w.scrollTo,\r\n          scrollBy: w.scrollBy,\r\n          elementScroll: Element.prototype.scroll || scrollElement,\r\n          scrollIntoView: Element.prototype.scrollIntoView\r\n        };\r\n\r\n        // define timing method\r\n        var now =\r\n          w.performance && w.performance.now\r\n            ? w.performance.now.bind(w.performance)\r\n            : Date.now;\r\n\r\n        /**\r\n         * indicates if a the current browser is made by Microsoft\r\n         * @method isMicrosoftBrowser\r\n         * @param {String} userAgent\r\n         * @returns {Boolean}\r\n         */\r\n        function isMicrosoftBrowser(userAgent) {\r\n          var userAgentPatterns = [\"MSIE \", \"Trident/\", \"Edge/\"];\r\n\r\n          return new RegExp(userAgentPatterns.join(\"|\")).test(userAgent);\r\n        }\r\n\r\n        /*\r\n         * IE has rounding bug rounding down clientHeight and clientWidth and\r\n         * rounding up scrollHeight and scrollWidth causing false positives\r\n         * on hasScrollableSpace\r\n         */\r\n        var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent)\r\n          ? 1\r\n          : 0;\r\n\r\n        /**\r\n         * changes scroll position inside an element\r\n         * @method scrollElement\r\n         * @param {Number} x\r\n         * @param {Number} y\r\n         * @returns {undefined}\r\n         */\r\n        function scrollElement(x, y) {\r\n          this.scrollLeft = x;\r\n          this.scrollTop = y;\r\n        }\r\n\r\n        /**\r\n         * returns result of applying ease math function to a number\r\n         * @method ease\r\n         * @param {Number} k\r\n         * @returns {Number}\r\n         */\r\n        function ease(k) {\r\n          return 0.5 * (1 - Math.cos(Math.PI * k));\r\n        }\r\n\r\n        /**\r\n         * indicates if a smooth behavior should be applied\r\n         * @method shouldBailOut\r\n         * @param {Number|Object} firstArg\r\n         * @returns {Boolean}\r\n         */\r\n        function shouldBailOut(firstArg) {\r\n          if (\r\n            firstArg === null ||\r\n            typeof firstArg !== \"object\" ||\r\n            firstArg.behavior === undefined ||\r\n            firstArg.behavior === \"auto\" ||\r\n            firstArg.behavior === \"instant\"\r\n          ) {\r\n            // first argument is not an object/null\r\n            // or behavior is auto, instant or undefined\r\n            return true;\r\n          }\r\n\r\n          if (typeof firstArg === \"object\" && firstArg.behavior === \"smooth\") {\r\n            // first argument is an object and behavior is smooth\r\n            return false;\r\n          }\r\n\r\n          // throw error when behavior is not supported\r\n          throw new TypeError(\r\n            \"behavior member of ScrollOptions \" +\r\n              firstArg.behavior +\r\n              \" is not a valid value for enumeration ScrollBehavior.\"\r\n          );\r\n        }\r\n\r\n        /**\r\n         * indicates if an element has scrollable space in the provided axis\r\n         * @method hasScrollableSpace\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function hasScrollableSpace(el, axis) {\r\n          if (axis === \"Y\") {\r\n            return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight;\r\n          }\r\n\r\n          if (axis === \"X\") {\r\n            return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth;\r\n          }\r\n        }\r\n\r\n        /**\r\n         * indicates if an element has a scrollable overflow property in the axis\r\n         * @method canOverflow\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function canOverflow(el, axis) {\r\n          var overflowValue = w.getComputedStyle(el, null)[\"overflow\" + axis];\r\n\r\n          return overflowValue === \"auto\" || overflowValue === \"scroll\";\r\n        }\r\n\r\n        /**\r\n         * indicates if an element can be scrolled in either axis\r\n         * @method isScrollable\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function isScrollable(el) {\r\n          var isScrollableY =\r\n            hasScrollableSpace(el, \"Y\") && canOverflow(el, \"Y\");\r\n          var isScrollableX =\r\n            hasScrollableSpace(el, \"X\") && canOverflow(el, \"X\");\r\n\r\n          return isScrollableY || isScrollableX;\r\n        }\r\n\r\n        /**\r\n         * finds scrollable parent of an element\r\n         * @method findScrollableParent\r\n         * @param {Node} el\r\n         * @returns {Node} el\r\n         */\r\n        function findScrollableParent(el) {\r\n          while (el !== d.body && isScrollable(el) === false) {\r\n            el = el.parentNode || el.host;\r\n          }\r\n\r\n          return el;\r\n        }\r\n\r\n        /**\r\n         * self invoked function that, given a context, steps through scrolling\r\n         * @method step\r\n         * @param {Object} context\r\n         * @returns {undefined}\r\n         */\r\n        function step(context) {\r\n          var time = now();\r\n          var value;\r\n          var currentX;\r\n          var currentY;\r\n          var elapsed = (time - context.startTime) / SCROLL_TIME;\r\n\r\n          // avoid elapsed times higher than one\r\n          elapsed = elapsed > 1 ? 1 : elapsed;\r\n\r\n          // apply easing to elapsed time\r\n          value = ease(elapsed);\r\n\r\n          currentX = context.startX + (context.x - context.startX) * value;\r\n          currentY = context.startY + (context.y - context.startY) * value;\r\n\r\n          context.method.call(context.scrollable, currentX, currentY);\r\n\r\n          // scroll more if we have not reached our destination\r\n          if (currentX !== context.x || currentY !== context.y) {\r\n            w.requestAnimationFrame(step.bind(w, context));\r\n          }\r\n        }\r\n\r\n        /**\r\n         * scrolls window or element with a smooth behavior\r\n         * @method smoothScroll\r\n         * @param {Object|Node} el\r\n         * @param {Number} x\r\n         * @param {Number} y\r\n         * @returns {undefined}\r\n         */\r\n        function smoothScroll(el, x, y) {\r\n          var scrollable;\r\n          var startX;\r\n          var startY;\r\n          var method;\r\n          var startTime = now();\r\n\r\n          // define scroll context\r\n          if (el === d.body) {\r\n            scrollable = w;\r\n            startX = w.scrollX || w.pageXOffset;\r\n            startY = w.scrollY || w.pageYOffset;\r\n            method = original.scroll;\r\n          } else {\r\n            scrollable = el;\r\n            startX = el.scrollLeft;\r\n            startY = el.scrollTop;\r\n            method = scrollElement;\r\n          }\r\n\r\n          // scroll looping over a frame\r\n          step({\r\n            scrollable: scrollable,\r\n            method: method,\r\n            startTime: startTime,\r\n            startX: startX,\r\n            startY: startY,\r\n            x: x,\r\n            y: y\r\n          });\r\n        }\r\n\r\n        // ORIGINAL METHODS OVERRIDES\r\n        // w.scroll and w.scrollTo\r\n        w.scroll = w.scrollTo = function() {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.scroll.call(\r\n              w,\r\n              arguments[0].left !== undefined\r\n                ? arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? arguments[0]\r\n                : w.scrollX || w.pageXOffset,\r\n              // use top prop, second argument if present or fallback to scrollY\r\n              arguments[0].top !== undefined\r\n                ? arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? arguments[1]\r\n                : w.scrollY || w.pageYOffset\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            w,\r\n            d.body,\r\n            arguments[0].left !== undefined\r\n              ? ~~arguments[0].left\r\n              : w.scrollX || w.pageXOffset,\r\n            arguments[0].top !== undefined\r\n              ? ~~arguments[0].top\r\n              : w.scrollY || w.pageYOffset\r\n          );\r\n        };\r\n\r\n        // w.scrollBy\r\n        w.scrollBy = function() {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0])) {\r\n            original.scrollBy.call(\r\n              w,\r\n              arguments[0].left !== undefined\r\n                ? arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? arguments[0]\r\n                : 0,\r\n              arguments[0].top !== undefined\r\n                ? arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? arguments[1]\r\n                : 0\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            w,\r\n            d.body,\r\n            ~~arguments[0].left + (w.scrollX || w.pageXOffset),\r\n            ~~arguments[0].top + (w.scrollY || w.pageYOffset)\r\n          );\r\n        };\r\n\r\n        // Element.prototype.scroll and Element.prototype.scrollTo\r\n        Element.prototype.scroll = Element.prototype.scrollTo = function() {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            // if one number is passed, throw error to match Firefox implementation\r\n            if (\r\n              typeof arguments[0] === \"number\" &&\r\n              arguments[1] === undefined\r\n            ) {\r\n              throw new SyntaxError(\"Value could not be converted\");\r\n            }\r\n\r\n            original.elementScroll.call(\r\n              this,\r\n              // use left prop, first number argument or fallback to scrollLeft\r\n              arguments[0].left !== undefined\r\n                ? ~~arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? ~~arguments[0]\r\n                : this.scrollLeft,\r\n              // use top prop, second argument or fallback to scrollTop\r\n              arguments[0].top !== undefined\r\n                ? ~~arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? ~~arguments[1]\r\n                : this.scrollTop\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          var left = arguments[0].left;\r\n          var top = arguments[0].top;\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            this,\r\n            this,\r\n            typeof left === \"undefined\" ? this.scrollLeft : ~~left,\r\n            typeof top === \"undefined\" ? this.scrollTop : ~~top\r\n          );\r\n        };\r\n\r\n        // Element.prototype.scrollBy\r\n        Element.prototype.scrollBy = function() {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.elementScroll.call(\r\n              this,\r\n              arguments[0].left !== undefined\r\n                ? ~~arguments[0].left + this.scrollLeft\r\n                : ~~arguments[0] + this.scrollLeft,\r\n              arguments[0].top !== undefined\r\n                ? ~~arguments[0].top + this.scrollTop\r\n                : ~~arguments[1] + this.scrollTop\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          this.scroll({\r\n            left: ~~arguments[0].left + this.scrollLeft,\r\n            top: ~~arguments[0].top + this.scrollTop,\r\n            behavior: arguments[0].behavior\r\n          });\r\n        };\r\n\r\n        // Element.prototype.scrollIntoView\r\n        Element.prototype.scrollIntoView = function() {\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.scrollIntoView.call(\r\n              this,\r\n              arguments[0] === undefined ? true : arguments[0]\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          var scrollableParent = findScrollableParent(this);\r\n          var parentRects = scrollableParent.getBoundingClientRect();\r\n          var clientRects = this.getBoundingClientRect();\r\n\r\n          if (scrollableParent !== d.body) {\r\n            // reveal element inside parent\r\n            smoothScroll.call(\r\n              this,\r\n              scrollableParent,\r\n              scrollableParent.scrollLeft + clientRects.left - parentRects.left,\r\n              scrollableParent.scrollTop + clientRects.top - parentRects.top\r\n            );\r\n\r\n            // reveal parent in viewport unless is fixed\r\n            if (w.getComputedStyle(scrollableParent).position !== \"fixed\") {\r\n              w.scrollBy({\r\n                left: parentRects.left,\r\n                top: parentRects.top,\r\n                behavior: \"smooth\"\r\n              });\r\n            }\r\n          } else {\r\n            // reveal element in viewport\r\n            w.scrollBy({\r\n              left: clientRects.left,\r\n              top: clientRects.top,\r\n              behavior: \"smooth\"\r\n            });\r\n          }\r\n        };\r\n      }\r\n\r\n      if (typeof exports === \"object\" && typeof module !== \"undefined\") {\r\n        // commonjs\r\n        module.exports = { polyfill: polyfill };\r\n      } else {\r\n        // global\r\n        polyfill();\r\n      }\r\n    })();\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"scroll\", this.checkTitles);\r\n  }\r\n};\r\nexport default TableOfContents;\r\n</script>\r\n\r\n<style>\r\n.visible-title {\r\n  max-height: 100px !important;\r\n  padding-bottom: 2px;\r\n  padding-top: 2px;\r\n}\r\n.margined-title {\r\n  border-left-style: solid;\r\n  border-left-width: 3px;\r\n  border-left-color: #ff7200 !important;\r\n}\r\n.active-title {\r\n  font-weight: bold;\r\n}\r\n.table-of-contents-title {\r\n  font-size: 16px;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-5117a510_0", { source: "\n.visible-title {\r\n  max-height: 100px !important;\r\n  padding-bottom: 2px;\r\n  padding-top: 2px;\n}\n.margined-title {\r\n  border-left-style: solid;\r\n  border-left-width: 3px;\r\n  border-left-color: #ff7200 !important;\n}\n.active-title {\r\n  font-weight: bold;\n}\n.table-of-contents-title {\r\n  font-size: 16px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\TableOfContents\\src\\TableOfContents.vue"],"names":[],"mappings":";AAu+BA;EACA,4BAAA;EACA,mBAAA;EACA,gBAAA;AACA;AACA;EACA,wBAAA;EACA,sBAAA;EACA,qCAAA;AACA;AACA;EACA,iBAAA;AACA;AACA;EACA,eAAA;AACA","file":"TableOfContents.vue","sourcesContent":["<template>\r\n  <contents-container :width=\"width\">\r\n    <contents-table>\r\n      <item\r\n        :flavor=\"flavor\"\r\n        tabindex=\"0\"\r\n        class=\"visible-title table-of-contents-title\"\r\n        @click=\"toggleOverride\"\r\n        @keyup.space=\"toggleOverride\"\r\n        @keyup.enter=\"toggleOverride\"\r\n      >\r\n        Table of Contents\r\n        <toggler v-if=\"!override\">&#43;</toggler>\r\n        <toggler v-else>&#8722;</toggler>\r\n      </item>\r\n      <item\r\n        :flavor=\"title.visible ? 'MissileOrange' : flavor\"\r\n        :tabindex=\"computeVisibility(title) ? 0 : -1\"\r\n        v-for=\"title in titles\"\r\n        :key=\"title.id\"\r\n        :padding=\"title.titleType - 1\"\r\n        :class=\"{\r\n          'active-title': title.visible,\r\n          'margined-title': margined(title),\r\n          'visible-title': computeVisibility(title),\r\n        }\"\r\n        @click=\"scrollToEl(title.el)\"\r\n        @keyup.space=\"scrollToEl(title.el)\"\r\n        @keyup.enter=\"scrollToEl(title.el)\"\r\n        >{{ title.el.innerText }}</item\r\n      >\r\n    </contents-table>\r\n  </contents-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport { TextTheme } from \"@IntusFacultas/design-system\";\r\nif (!Element.prototype.matches) {\r\n  Element.prototype.matches =\r\n    Element.prototype.msMatchesSelector ||\r\n    Element.prototype.webkitMatchesSelector;\r\n}\r\n\r\nif (!Array.from) {\r\n  Array.from = (function () {\r\n    var toStr = Object.prototype.toString;\r\n    var isCallable = function (fn) {\r\n      return typeof fn === \"function\" || toStr.call(fn) === \"[object Function]\";\r\n    };\r\n    var toInteger = function (value) {\r\n      var number = Number(value);\r\n      if (isNaN(number)) {\r\n        return 0;\r\n      }\r\n      if (number === 0 || !isFinite(number)) {\r\n        return number;\r\n      }\r\n      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));\r\n    };\r\n    var maxSafeInteger = Math.pow(2, 53) - 1;\r\n    var toLength = function (value) {\r\n      var len = toInteger(value);\r\n      return Math.min(Math.max(len, 0), maxSafeInteger);\r\n    };\r\n\r\n    // The length property of the from method is 1.\r\n    return function from(arrayLike /*, mapFn, thisArg */) {\r\n      // 1. Let C be the this value.\r\n      var C = this;\r\n\r\n      // 2. Let items be ToObject(arrayLike).\r\n      var items = Object(arrayLike);\r\n\r\n      // 3. ReturnIfAbrupt(items).\r\n      if (arrayLike == null) {\r\n        throw new TypeError(\r\n          \"Array.from requires an array-like object - not null or undefined\"\r\n        );\r\n      }\r\n\r\n      // 4. If mapfn is undefined, then let mapping be false.\r\n      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;\r\n      var T;\r\n      if (typeof mapFn !== \"undefined\") {\r\n        // 5. else\r\n        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.\r\n        if (!isCallable(mapFn)) {\r\n          throw new TypeError(\r\n            \"Array.from: when provided, the second argument must be a function\"\r\n          );\r\n        }\r\n\r\n        // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.\r\n        if (arguments.length > 2) {\r\n          T = arguments[2];\r\n        }\r\n      }\r\n\r\n      // 10. Let lenValue be Get(items, \"length\").\r\n      // 11. Let len be ToLength(lenValue).\r\n      var len = toLength(items.length);\r\n\r\n      // 13. If IsConstructor(C) is true, then\r\n      // 13. a. Let A be the result of calling the [[Construct]] internal method\r\n      // of C with an argument list containing the single item len.\r\n      // 14. a. Else, Let A be ArrayCreate(len).\r\n      var A = isCallable(C) ? Object(new C(len)) : new Array(len);\r\n\r\n      // 16. Let k be 0.\r\n      var k = 0;\r\n      // 17. Repeat, while k < len… (also steps a - h)\r\n      var kValue;\r\n      while (k < len) {\r\n        kValue = items[k];\r\n        if (mapFn) {\r\n          A[k] =\r\n            typeof T === \"undefined\"\r\n              ? mapFn(kValue, k)\r\n              : mapFn.call(T, kValue, k);\r\n        } else {\r\n          A[k] = kValue;\r\n        }\r\n        k += 1;\r\n      }\r\n      // 18. Let putStatus be Put(A, \"length\", len, true).\r\n      A.length = len;\r\n      // 20. Return A.\r\n      return A;\r\n    };\r\n  })();\r\n}\r\n\r\nconst props = {\r\n  padding: {\r\n    type: Number,\r\n    default: 0,\r\n  },\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576,\r\n  },\r\n  topOffset: {\r\n    type: Number,\r\n    default: 100,\r\n  },\r\n  width: {\r\n    type: String,\r\n    default: \"auto\",\r\n  },\r\n  textTheme: {\r\n    type: Object,\r\n    default: function () {\r\n      return TextTheme;\r\n    },\r\n  },\r\n  flavor: String,\r\n};\r\nconst Toggler = styled.span`\r\n  color: #ff7200;\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  cursor: pointer;\r\n  pointer-events: none;\r\n`;\r\nconst ContentsContainer = styled(\"nav\", props)`\r\n  display: block;\r\n  max-width: ${(props) => (props.width ? props.width : \"auto\")};\r\n`;\r\nconst ContentsTable = styled(\"ul\", props)`\r\n  & * {\r\n    font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n      \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif,\r\n      \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n  }\r\n  padding-left: 0px;\r\n  list-style: none;\r\n`;\r\n\r\nconst Item = styled(\"li\", props)`\r\n  padding-left: ${(props) => props.padding * 10 + 10}px;\r\n  border-left-style: solid;\r\n  border-left-width: 2px;\r\n  font-size: 14px;\r\n  cursor: pointer;\r\n  transition: 0.2s all;\r\n  max-height: 0px;\r\n  overflow: hidden;\r\n  border-color: rgba(0, 0, 0, 0.1);\r\n  color: ${(props) =>\r\n    props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};\r\n  ${(props) =>\r\n    props.flavor\r\n      ? props.textTheme[props.flavor]\r\n        ? \"color \" + props.textTheme[props.flavor].color\r\n        : \"\"\r\n      : \"\"};\r\n`;\r\n\r\nexport const TableOfContents = {\r\n  components: { ContentsTable, Item, ContentsContainer, Toggler },\r\n  data() {\r\n    return {\r\n      titles: [],\r\n      override: false,\r\n      scrollToOverride: false,\r\n      observer: null,\r\n    };\r\n  },\r\n  props: {\r\n    width: {\r\n      type: String,\r\n      default: \"auto\",\r\n    },\r\n    enableDomListening: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    ignoreQuery: {\r\n      type: [String, Array],\r\n      default: \"\",\r\n    },\r\n    queryOverride: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    offset: {\r\n      type: Number,\r\n      default: 0,\r\n    },\r\n  },\r\n  methods: {\r\n    toggleOverride() {\r\n      this.override = !this.override;\r\n      for (let title of this.titles) {\r\n        title.override = this.override;\r\n      }\r\n    },\r\n    delayCollapse(title) {\r\n      setTimeout(() => (title.override = false), 500);\r\n    },\r\n    scrollToEl(el) {\r\n      const y =\r\n        el.getBoundingClientRect().top + window.pageYOffset - this.offset;\r\n      // el.scrollIntoView({ behavior: \"smooth\", block: \"start\" });\r\n      let IEHoldOff = 5; // IE is dumb and can't appropriately calculate viewport\r\n      window.scrollTo({ top: y - IEHoldOff, behavior: \"smooth\" });\r\n      this.scrollToOverride = true;\r\n      let self = this;\r\n      setTimeout(function () {\r\n        setTimeout(() => {\r\n          self.checkTitles();\r\n        }, 100);\r\n        self.scrollToOverride = false;\r\n      }, 500);\r\n      el.focus();\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      // pulled from https://davidwalsh.name/javascript-debounce-function\r\n      var timeout;\r\n      return function () {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function () {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        if (callNow) func.apply(context, args);\r\n      };\r\n    },\r\n    computeOverride(title) {\r\n      return (\r\n        (!this.scrollToOverride && this.override) ||\r\n        title.override ||\r\n        title.children.filter((child) => child.override).length > 0 ||\r\n        title.parents.filter((parent) => parent.override).length > 0\r\n      );\r\n    },\r\n    computeScreenVisibility(title) {\r\n      return (\r\n        !this.scrollToOverride &&\r\n        (title.visible ||\r\n          title.children.filter((child) => child.visible).length > 0)\r\n      );\r\n    },\r\n    computeVisibility(title) {\r\n      return (\r\n        title.parents.length == 0 ||\r\n        (title.directParents.length == 1 &&\r\n          title.parents.length == 1 &&\r\n          this.computeScreenVisibility(title.directParents[0])) ||\r\n        this.computeOverride(title) ||\r\n        this.computeScreenVisibility(title)\r\n      );\r\n    },\r\n    margined(title) {\r\n      return title.visible; //|| title.children.filter(child => child.visible).length > 0\r\n    },\r\n    isInView(el) {\r\n      // pulled from https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport\r\n      let box = el.getBoundingClientRect();\r\n      return box.top < window.innerHeight && box.bottom >= 0;\r\n    },\r\n    getPathTo(element) {\r\n      // pulled from https://stackoverflow.com/questions/2631820/how-do-i-ensure-saved-click-coordinates-can-be-reloaed-to-the-same-place-even-i/2631931#2631931\r\n      if (element.id !== \"\") return 'id(\"' + element.id + '\")';\r\n      if (element === document.body) return element.tagName;\r\n\r\n      var ix = 0;\r\n      var siblings = element.parentNode.childNodes;\r\n      for (var i = 0; i < siblings.length; i++) {\r\n        var sibling = siblings[i];\r\n        if (sibling === element)\r\n          return (\r\n            this.getPathTo(element.parentNode) +\r\n            \"/\" +\r\n            element.tagName +\r\n            \"[\" +\r\n            (ix + 1) +\r\n            \"]\"\r\n          );\r\n        if (sibling.nodeType === 1 && sibling.tagName === element.tagName) ix++;\r\n      }\r\n    },\r\n    checkIfTitle(el) {\r\n      let notDisqualified = true;\r\n      if (this.ignoreQuery) {\r\n        if (Array.isArray(this.ignoreQuery)) {\r\n          for (let query of this.ignoreQuery) {\r\n            if (el.matches(query)) {\r\n              notDisqualified = false;\r\n              break;\r\n            }\r\n          }\r\n        } else {\r\n          notDisqualified = !el.matches(this.ignoreQuery);\r\n        }\r\n      }\r\n      if (this.queryOverride) {\r\n        return el.matches(this.queryOverride) && notDisqualified;\r\n      } else {\r\n        return el.matches(\"h1, h2, h3, h4, h5, h6\") && notDisqualified;\r\n      }\r\n    },\r\n    calculateTitleType(el) {\r\n      if (this.queryOverride) {\r\n        return el.getAttribute(\"data-rank\");\r\n      } else {\r\n        return parseInt(el.tagName[1]);\r\n      }\r\n    },\r\n    crawl(node) {\r\n      let titles = [];\r\n      let stack = [node];\r\n      let visited = [];\r\n      while (stack.length > 0) {\r\n        let el = stack.pop();\r\n        if (typeof el.children !== \"undefined\") {\r\n          for (let child of Array.from(el.children).filter(\r\n            (c) => visited.indexOf(c) == -1 && !c.isEqualNode(el)\r\n          )) {\r\n            stack.push(child);\r\n          }\r\n        }\r\n        let path = this.getPathTo(el);\r\n        let notVisited = visited.indexOf(path) == -1;\r\n        let isTitle = this.checkIfTitle(el);\r\n        if (notVisited && isTitle) {\r\n          titles.push({\r\n            el: el,\r\n            id: this.getPathTo(el),\r\n            titleType: this.calculateTitleType(el),\r\n            offset: -1,\r\n            visible: false,\r\n            hovered: false,\r\n            override: false,\r\n          });\r\n        }\r\n        visited.push(this.getPathTo(el));\r\n      }\r\n      return titles.reverse();\r\n    },\r\n    checkTitles() {\r\n      let yOffset = window.pageYOffset;\r\n      if (this.titles.length == 0) {\r\n        return;\r\n      }\r\n      for (let [index, title] of this.titles.entries()) {\r\n        title.offset = title.el.getBoundingClientRect().top;\r\n        if (title.offset < 20 + this.offset && title.offset > 0) {\r\n          for (let other of this.titles.filter((o) => o.visible)) {\r\n            other.visible = false;\r\n          }\r\n          title.visible = true;\r\n        } else if (\r\n          title.visible &&\r\n          title.el.getBoundingClientRect().bottom >=\r\n            (window.innerHeight || document.documentElement.clientHeight)\r\n        ) {\r\n          if (this.titles[index - 1]) this.titles[index - 1].visible = true;\r\n          title.visible = false;\r\n        }\r\n      }\r\n      if (\r\n        yOffset == 0 &&\r\n        window.innerWidth - document.documentElement.clientWidth == 0\r\n      ) {\r\n        for (let other of this.titles.filter((o) => o.visible)) {\r\n          other.visible = false;\r\n        }\r\n        this.titles[0].visible = true;\r\n      } else if (window.innerHeight + yOffset >= document.body.offsetHeight) {\r\n        for (let other of this.titles.filter((o) => o.visible)) {\r\n          other.visible = false;\r\n        }\r\n        this.titles[this.titles.length - 1].visible = true;\r\n      }\r\n    },\r\n    assignChildren() {\r\n      for (let title = 0; title < this.titles.length; title++) {\r\n        let parentTitle = this.titles[title];\r\n\r\n        // instantiate parents, children, and direct parents arrays\r\n        if (!parentTitle.children) {\r\n          parentTitle.children = [];\r\n        }\r\n        if (!parentTitle.parents) {\r\n          parentTitle.parents = [];\r\n        }\r\n        if (!parentTitle.directParents) {\r\n          parentTitle.directParents = [];\r\n        }\r\n\r\n        for (\r\n          let potentialChild = title + 1;\r\n          potentialChild < this.titles.length;\r\n          potentialChild++\r\n        ) {\r\n          let childTitle = this.titles[potentialChild];\r\n\r\n          // if titletype is greater than parent, title is child of parent\r\n          if (childTitle.titleType > parentTitle.titleType) {\r\n            parentTitle.children.push(childTitle);\r\n            if (!childTitle.parents) {\r\n              childTitle.parents = [];\r\n            }\r\n            if (!childTitle.directParents) {\r\n              childTitle.directParents = [];\r\n            }\r\n\r\n            childTitle.parents.push(parentTitle);\r\n          } else {\r\n            break;\r\n          }\r\n        }\r\n      }\r\n      for (let title of this.titles) {\r\n        // look for titles with only root level parents\r\n        if (title.parents.length == 1) {\r\n          title.directParents.push(title.parents[0]);\r\n        }\r\n        // assign siblings\r\n        if (title.parents.length == 0) {\r\n          title.siblings = [];\r\n        } else {\r\n          title.siblings = this.titles.filter(\r\n            (o) =>\r\n              o.parents.filter((p) => p.id == title.parents[0].id).length > 0 &&\r\n              o.parents.length == title.parents.length &&\r\n              o.id != title.id\r\n          );\r\n        }\r\n      }\r\n    },\r\n    updateTitles() {\r\n      this.titles = this.crawl(document.getElementsByTagName(\"body\")[0]);\r\n      this.assignChildren();\r\n      this.checkTitles();\r\n    },\r\n    updateTitlesOnDOMChange(mutationsList) {\r\n      for (let mutation of mutationsList) {\r\n        if (mutation.type === \"childList\") {\r\n          this.updateTitles();\r\n        }\r\n      }\r\n    },\r\n  },\r\n  beforeDestroy() {\r\n    this.observer.disconnect();\r\n  },\r\n  mounted() {\r\n    let body = document.getElementsByTagName(\"body\")[0];\r\n    if (this.enableDomListening) {\r\n      let config = { attributes: false, childList: true, subtree: false };\r\n      this.observer = new MutationObserver(this.updateTitlesOnDOMChange);\r\n      this.observer.observe(body, config);\r\n    } else {\r\n      (function () {\r\n        if (typeof window.CustomEvent === \"function\") return false;\r\n\r\n        function CustomEvent(event, params) {\r\n          params = params || {\r\n            bubbles: false,\r\n            cancelable: false,\r\n            detail: null,\r\n          };\r\n          var evt = document.createEvent(\"CustomEvent\");\r\n          evt.initCustomEvent(\r\n            event,\r\n            params.bubbles,\r\n            params.cancelable,\r\n            params.detail\r\n          );\r\n          return evt;\r\n        }\r\n\r\n        window.CustomEvent = CustomEvent;\r\n      })();\r\n      window.addEventListener(\r\n        \"IntusFacultas-table-of-contents\",\r\n        this.updateTitles\r\n      );\r\n    }\r\n    this.updateTitles();\r\n    window.addEventListener(\"scroll\", this.checkTitles);\r\n    (function () {\r\n      \"use strict\";\r\n\r\n      // polyfill\r\n      function polyfill() {\r\n        // aliases\r\n        var w = window;\r\n        var d = document;\r\n\r\n        // return if scroll behavior is supported and polyfill is not forced\r\n        if (\r\n          \"scrollBehavior\" in d.documentElement.style &&\r\n          w.__forceSmoothScrollPolyfill__ !== true\r\n        ) {\r\n          return;\r\n        }\r\n\r\n        // globals\r\n        var Element = w.HTMLElement || w.Element;\r\n        var SCROLL_TIME = 468;\r\n\r\n        // object gathering original scroll methods\r\n        var original = {\r\n          scroll: w.scroll || w.scrollTo,\r\n          scrollBy: w.scrollBy,\r\n          elementScroll: Element.prototype.scroll || scrollElement,\r\n          scrollIntoView: Element.prototype.scrollIntoView,\r\n        };\r\n\r\n        // define timing method\r\n        var now =\r\n          w.performance && w.performance.now\r\n            ? w.performance.now.bind(w.performance)\r\n            : Date.now;\r\n\r\n        /**\r\n         * indicates if a the current browser is made by Microsoft\r\n         * @method isMicrosoftBrowser\r\n         * @param {String} userAgent\r\n         * @returns {Boolean}\r\n         */\r\n        function isMicrosoftBrowser(userAgent) {\r\n          var userAgentPatterns = [\"MSIE \", \"Trident/\", \"Edge/\"];\r\n\r\n          return new RegExp(userAgentPatterns.join(\"|\")).test(userAgent);\r\n        }\r\n\r\n        /*\r\n         * IE has rounding bug rounding down clientHeight and clientWidth and\r\n         * rounding up scrollHeight and scrollWidth causing false positives\r\n         * on hasScrollableSpace\r\n         */\r\n        var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent)\r\n          ? 1\r\n          : 0;\r\n\r\n        /**\r\n         * changes scroll position inside an element\r\n         * @method scrollElement\r\n         * @param {Number} x\r\n         * @param {Number} y\r\n         * @returns {undefined}\r\n         */\r\n        function scrollElement(x, y) {\r\n          this.scrollLeft = x;\r\n          this.scrollTop = y;\r\n        }\r\n\r\n        /**\r\n         * returns result of applying ease math function to a number\r\n         * @method ease\r\n         * @param {Number} k\r\n         * @returns {Number}\r\n         */\r\n        function ease(k) {\r\n          return 0.5 * (1 - Math.cos(Math.PI * k));\r\n        }\r\n\r\n        /**\r\n         * indicates if a smooth behavior should be applied\r\n         * @method shouldBailOut\r\n         * @param {Number|Object} firstArg\r\n         * @returns {Boolean}\r\n         */\r\n        function shouldBailOut(firstArg) {\r\n          if (\r\n            firstArg === null ||\r\n            typeof firstArg !== \"object\" ||\r\n            firstArg.behavior === undefined ||\r\n            firstArg.behavior === \"auto\" ||\r\n            firstArg.behavior === \"instant\"\r\n          ) {\r\n            // first argument is not an object/null\r\n            // or behavior is auto, instant or undefined\r\n            return true;\r\n          }\r\n\r\n          if (typeof firstArg === \"object\" && firstArg.behavior === \"smooth\") {\r\n            // first argument is an object and behavior is smooth\r\n            return false;\r\n          }\r\n\r\n          // throw error when behavior is not supported\r\n          throw new TypeError(\r\n            \"behavior member of ScrollOptions \" +\r\n              firstArg.behavior +\r\n              \" is not a valid value for enumeration ScrollBehavior.\"\r\n          );\r\n        }\r\n\r\n        /**\r\n         * indicates if an element has scrollable space in the provided axis\r\n         * @method hasScrollableSpace\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function hasScrollableSpace(el, axis) {\r\n          if (axis === \"Y\") {\r\n            return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight;\r\n          }\r\n\r\n          if (axis === \"X\") {\r\n            return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth;\r\n          }\r\n        }\r\n\r\n        /**\r\n         * indicates if an element has a scrollable overflow property in the axis\r\n         * @method canOverflow\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function canOverflow(el, axis) {\r\n          var overflowValue = w.getComputedStyle(el, null)[\"overflow\" + axis];\r\n\r\n          return overflowValue === \"auto\" || overflowValue === \"scroll\";\r\n        }\r\n\r\n        /**\r\n         * indicates if an element can be scrolled in either axis\r\n         * @method isScrollable\r\n         * @param {Node} el\r\n         * @param {String} axis\r\n         * @returns {Boolean}\r\n         */\r\n        function isScrollable(el) {\r\n          var isScrollableY =\r\n            hasScrollableSpace(el, \"Y\") && canOverflow(el, \"Y\");\r\n          var isScrollableX =\r\n            hasScrollableSpace(el, \"X\") && canOverflow(el, \"X\");\r\n\r\n          return isScrollableY || isScrollableX;\r\n        }\r\n\r\n        /**\r\n         * finds scrollable parent of an element\r\n         * @method findScrollableParent\r\n         * @param {Node} el\r\n         * @returns {Node} el\r\n         */\r\n        function findScrollableParent(el) {\r\n          while (el !== d.body && isScrollable(el) === false) {\r\n            el = el.parentNode || el.host;\r\n          }\r\n\r\n          return el;\r\n        }\r\n\r\n        /**\r\n         * self invoked function that, given a context, steps through scrolling\r\n         * @method step\r\n         * @param {Object} context\r\n         * @returns {undefined}\r\n         */\r\n        function step(context) {\r\n          var time = now();\r\n          var value;\r\n          var currentX;\r\n          var currentY;\r\n          var elapsed = (time - context.startTime) / SCROLL_TIME;\r\n\r\n          // avoid elapsed times higher than one\r\n          elapsed = elapsed > 1 ? 1 : elapsed;\r\n\r\n          // apply easing to elapsed time\r\n          value = ease(elapsed);\r\n\r\n          currentX = context.startX + (context.x - context.startX) * value;\r\n          currentY = context.startY + (context.y - context.startY) * value;\r\n\r\n          context.method.call(context.scrollable, currentX, currentY);\r\n\r\n          // scroll more if we have not reached our destination\r\n          if (currentX !== context.x || currentY !== context.y) {\r\n            w.requestAnimationFrame(step.bind(w, context));\r\n          }\r\n        }\r\n\r\n        /**\r\n         * scrolls window or element with a smooth behavior\r\n         * @method smoothScroll\r\n         * @param {Object|Node} el\r\n         * @param {Number} x\r\n         * @param {Number} y\r\n         * @returns {undefined}\r\n         */\r\n        function smoothScroll(el, x, y) {\r\n          var scrollable;\r\n          var startX;\r\n          var startY;\r\n          var method;\r\n          var startTime = now();\r\n\r\n          // define scroll context\r\n          if (el === d.body) {\r\n            scrollable = w;\r\n            startX = w.scrollX || w.pageXOffset;\r\n            startY = w.scrollY || w.pageYOffset;\r\n            method = original.scroll;\r\n          } else {\r\n            scrollable = el;\r\n            startX = el.scrollLeft;\r\n            startY = el.scrollTop;\r\n            method = scrollElement;\r\n          }\r\n\r\n          // scroll looping over a frame\r\n          step({\r\n            scrollable: scrollable,\r\n            method: method,\r\n            startTime: startTime,\r\n            startX: startX,\r\n            startY: startY,\r\n            x: x,\r\n            y: y,\r\n          });\r\n        }\r\n\r\n        // ORIGINAL METHODS OVERRIDES\r\n        // w.scroll and w.scrollTo\r\n        w.scroll = w.scrollTo = function () {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.scroll.call(\r\n              w,\r\n              arguments[0].left !== undefined\r\n                ? arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? arguments[0]\r\n                : w.scrollX || w.pageXOffset,\r\n              // use top prop, second argument if present or fallback to scrollY\r\n              arguments[0].top !== undefined\r\n                ? arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? arguments[1]\r\n                : w.scrollY || w.pageYOffset\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            w,\r\n            d.body,\r\n            arguments[0].left !== undefined\r\n              ? ~~arguments[0].left\r\n              : w.scrollX || w.pageXOffset,\r\n            arguments[0].top !== undefined\r\n              ? ~~arguments[0].top\r\n              : w.scrollY || w.pageYOffset\r\n          );\r\n        };\r\n\r\n        // w.scrollBy\r\n        w.scrollBy = function () {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0])) {\r\n            original.scrollBy.call(\r\n              w,\r\n              arguments[0].left !== undefined\r\n                ? arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? arguments[0]\r\n                : 0,\r\n              arguments[0].top !== undefined\r\n                ? arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? arguments[1]\r\n                : 0\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            w,\r\n            d.body,\r\n            ~~arguments[0].left + (w.scrollX || w.pageXOffset),\r\n            ~~arguments[0].top + (w.scrollY || w.pageYOffset)\r\n          );\r\n        };\r\n\r\n        // Element.prototype.scroll and Element.prototype.scrollTo\r\n        Element.prototype.scroll = Element.prototype.scrollTo = function () {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            // if one number is passed, throw error to match Firefox implementation\r\n            if (\r\n              typeof arguments[0] === \"number\" &&\r\n              arguments[1] === undefined\r\n            ) {\r\n              throw new SyntaxError(\"Value could not be converted\");\r\n            }\r\n\r\n            original.elementScroll.call(\r\n              this,\r\n              // use left prop, first number argument or fallback to scrollLeft\r\n              arguments[0].left !== undefined\r\n                ? ~~arguments[0].left\r\n                : typeof arguments[0] !== \"object\"\r\n                ? ~~arguments[0]\r\n                : this.scrollLeft,\r\n              // use top prop, second argument or fallback to scrollTop\r\n              arguments[0].top !== undefined\r\n                ? ~~arguments[0].top\r\n                : arguments[1] !== undefined\r\n                ? ~~arguments[1]\r\n                : this.scrollTop\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          var left = arguments[0].left;\r\n          var top = arguments[0].top;\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          smoothScroll.call(\r\n            this,\r\n            this,\r\n            typeof left === \"undefined\" ? this.scrollLeft : ~~left,\r\n            typeof top === \"undefined\" ? this.scrollTop : ~~top\r\n          );\r\n        };\r\n\r\n        // Element.prototype.scrollBy\r\n        Element.prototype.scrollBy = function () {\r\n          // avoid action when no arguments are passed\r\n          if (arguments[0] === undefined) {\r\n            return;\r\n          }\r\n\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.elementScroll.call(\r\n              this,\r\n              arguments[0].left !== undefined\r\n                ? ~~arguments[0].left + this.scrollLeft\r\n                : ~~arguments[0] + this.scrollLeft,\r\n              arguments[0].top !== undefined\r\n                ? ~~arguments[0].top + this.scrollTop\r\n                : ~~arguments[1] + this.scrollTop\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          this.scroll({\r\n            left: ~~arguments[0].left + this.scrollLeft,\r\n            top: ~~arguments[0].top + this.scrollTop,\r\n            behavior: arguments[0].behavior,\r\n          });\r\n        };\r\n\r\n        // Element.prototype.scrollIntoView\r\n        Element.prototype.scrollIntoView = function () {\r\n          // avoid smooth behavior if not required\r\n          if (shouldBailOut(arguments[0]) === true) {\r\n            original.scrollIntoView.call(\r\n              this,\r\n              arguments[0] === undefined ? true : arguments[0]\r\n            );\r\n\r\n            return;\r\n          }\r\n\r\n          // LET THE SMOOTHNESS BEGIN!\r\n          var scrollableParent = findScrollableParent(this);\r\n          var parentRects = scrollableParent.getBoundingClientRect();\r\n          var clientRects = this.getBoundingClientRect();\r\n\r\n          if (scrollableParent !== d.body) {\r\n            // reveal element inside parent\r\n            smoothScroll.call(\r\n              this,\r\n              scrollableParent,\r\n              scrollableParent.scrollLeft + clientRects.left - parentRects.left,\r\n              scrollableParent.scrollTop + clientRects.top - parentRects.top\r\n            );\r\n\r\n            // reveal parent in viewport unless is fixed\r\n            if (w.getComputedStyle(scrollableParent).position !== \"fixed\") {\r\n              w.scrollBy({\r\n                left: parentRects.left,\r\n                top: parentRects.top,\r\n                behavior: \"smooth\",\r\n              });\r\n            }\r\n          } else {\r\n            // reveal element in viewport\r\n            w.scrollBy({\r\n              left: clientRects.left,\r\n              top: clientRects.top,\r\n              behavior: \"smooth\",\r\n            });\r\n          }\r\n        };\r\n      }\r\n\r\n      if (typeof exports === \"object\" && typeof module !== \"undefined\") {\r\n        // commonjs\r\n        module.exports = { polyfill: polyfill };\r\n      } else {\r\n        // global\r\n        polyfill();\r\n      }\r\n    })();\r\n  },\r\n  beforeDestroy() {\r\n    if (!this.enableDomListening) {\r\n      window.removeEventListener(\r\n        \"IntusFacultas-table-of-contents\",\r\n        this.updateTitles\r\n      );\r\n    }\r\n    window.removeEventListener(\"scroll\", this.checkTitles);\r\n  },\r\n};\r\nexport default TableOfContents;\r\n</script>\r\n\r\n<style>\r\n.visible-title {\r\n  max-height: 100px !important;\r\n  padding-bottom: 2px;\r\n  padding-top: 2px;\r\n}\r\n.margined-title {\r\n  border-left-style: solid;\r\n  border-left-width: 3px;\r\n  border-left-color: #ff7200 !important;\r\n}\r\n.active-title {\r\n  font-weight: bold;\r\n}\r\n.table-of-contents-title {\r\n  font-size: 16px;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */
@@ -1204,7 +1437,7 @@ __vue_render__._withStripped = true;
 var install = function installTableOfContents(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component('TableOfContents', __vue_component__);
+  Vue.component("TableOfContents", __vue_component__);
 }; // Create module definition for Vue.use()
 
 
@@ -1217,9 +1450,9 @@ var plugin = {
 
 var GlobalVue = null;
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
+} else if (typeof global !== "undefined") {
   GlobalVue = global.Vue;
 }
 
@@ -1234,4 +1467,5 @@ __vue_component__.install = install; // Export component by default
 // export const RollupDemoDirective = component;
 
 export default __vue_component__;
+export { __vue_component__ as TableOfContents };
 //# sourceMappingURL=TableOfContents.esm.js.map

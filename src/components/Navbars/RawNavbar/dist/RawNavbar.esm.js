@@ -221,132 +221,142 @@ var Navbar = {
   }
 };
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+/* server only */
+, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+  if (typeof shadowMode !== 'boolean') {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  } // Vue.extend constructor export interop.
+
+
+  var options = typeof script === 'function' ? script.options : script; // render functions
+
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true; // functional template
+
+    if (isFunctionalTemplate) {
+      options.functional = true;
     }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
-        }
+  } // scopedId
+
+
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+
+  var hook;
+
+  if (moduleIdentifier) {
+    // server build
+    hook = function hook(context) {
+      // 2.3 injection
+      context = context || // cached call
+      this.$vnode && this.$vnode.ssrContext || // stateful
+      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      // 2.2 with runInNewContext: true
+
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+      } // inject component styles
+
+
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      } // register component module identifier for async chunk inference
+
+
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    }; // used by ssr in case component is cached and beforeCreate
+    // never gets called
+
+
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode ? function (context) {
+      style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+    } : function (context) {
+      style.call(this, createInjector(context));
+    };
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      var originalRender = options.render;
+
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
-        };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
-    }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
+  }
+
+  return script;
 }
 
-const isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
 function createInjector(context) {
-    return (id, style) => addStyle(id, style);
+  return function (id, style) {
+    return addStyle(id, style);
+  };
 }
-let HEAD;
-const styles = {};
+
+var HEAD;
+var styles = {};
+
 function addStyle(id, css) {
-    const group = isOldIE ? css.media || 'default' : id;
-    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-    if (!style.ids.has(id)) {
-        style.ids.add(id);
-        let code = css.source;
-        if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-                '\n/*# sourceMappingURL=data:application/json;base64,' +
-                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-                    ' */';
-        }
-        if (!style.element) {
-            style.element = document.createElement('style');
-            style.element.type = 'text/css';
-            if (css.media)
-                style.element.setAttribute('media', css.media);
-            if (HEAD === undefined) {
-                HEAD = document.head || document.getElementsByTagName('head')[0];
-            }
-            HEAD.appendChild(style.element);
-        }
-        if ('styleSheet' in style.element) {
-            style.styles.push(code);
-            style.element.styleSheet.cssText = style.styles
-                .filter(Boolean)
-                .join('\n');
-        }
-        else {
-            const index = style.ids.size - 1;
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index])
-                style.element.removeChild(nodes[index]);
-            if (nodes.length)
-                style.element.insertBefore(textNode, nodes[index]);
-            else
-                style.element.appendChild(textNode);
-        }
+  var group = isOldIE ? css.media || 'default' : id;
+  var style = styles[group] || (styles[group] = {
+    ids: new Set(),
+    styles: []
+  });
+
+  if (!style.ids.has(id)) {
+    style.ids.add(id);
+    var code = css.source;
+
+    if (css.map) {
+      // https://developer.chrome.com/devtools/docs/javascript-debugging
+      // this makes source maps inside style tags work properly in Chrome
+      code += '\n/*# sourceURL=' + css.map.sources[0] + ' */'; // http://stackoverflow.com/a/26603875
+
+      code += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) + ' */';
     }
+
+    if (!style.element) {
+      style.element = document.createElement('style');
+      style.element.type = 'text/css';
+      if (css.media) style.element.setAttribute('media', css.media);
+
+      if (HEAD === undefined) {
+        HEAD = document.head || document.getElementsByTagName('head')[0];
+      }
+
+      HEAD.appendChild(style.element);
+    }
+
+    if ('styleSheet' in style.element) {
+      style.styles.push(code);
+      style.element.styleSheet.cssText = style.styles.filter(Boolean).join('\n');
+    } else {
+      var index = style.ids.size - 1;
+      var textNode = document.createTextNode(code);
+      var nodes = style.element.childNodes;
+      if (nodes[index]) style.element.removeChild(nodes[index]);
+      if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
+    }
+  }
 }
 
 /* script */
@@ -415,7 +425,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-219c6e75_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\n}\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\n}\n.open-raw-navbar * {\r\n  flex-direction: column;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Navbars\\RawNavbar\\src\\RawNavbar.vue"],"names":[],"mappings":";AAmPA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA;AACA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gCAAA;EACA,6BAAA;EACA,8BAAA;EACA,gBAAA;AACA;AACA;EACA,sBAAA;AACA","file":"RawNavbar.vue","sourcesContent":["<template>\r\n  <navbar-container\r\n    :flavor=\"flavor\"\r\n    ref=\"container\"\r\n    :fixed=\"fixed\"\r\n    :collapsed=\"collapsed\"\r\n    :class=\"computedNavClass\"\r\n  >\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n      >&#9776;</n-button\r\n    >\r\n    <navbar-content-container\r\n      :collapsed=\"collapsed\"\r\n      ref=\"content\"\r\n      :class=\"computedClass\"\r\n    >\r\n      <slot></slot>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n<script>\r\nimport {\r\n  NavbarContainer,\r\n  NavbarTitle,\r\n  NavbarContentContainer\r\n} from \"@IntusFacultas/navbar\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NButton\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      titleWidth: 0\r\n    };\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true\r\n      }\r\n    );\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\"\r\n        };\r\n      }\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    }\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      // element.style.width = sectionWidth + \"px !important\";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        // element.style.width = sectionWidth + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n          // element.style.width = \"0px\";\r\n          element.style.paddingBottom = \"0px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      // element.style.width = sectionWidth + \"px\";\r\n\r\n      element.style.paddingBottom = \"5px\";\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function() {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function() {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (typeof this.$refs.content != \"undefined\" && !this.collapsed) {\r\n        let contentWidth = 0;\r\n        for (let child of this.$refs.content.$el.children) {\r\n          contentWidth += child.scrollWidth;\r\n        }\r\n        this.contentWidth = contentWidth;\r\n        // this.$forceUpdate();\r\n      }\r\n      if (typeof this.$refs.container != \"undefined\") {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (typeof this.$refs.title != \"undefined\") {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    toggleAccordion() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    }\r\n  },\r\n  watch: {\r\n    collapsed(newVal) {\r\n      if (newVal) {\r\n        this.$refs.content.$el.style.height = \"0px\";\r\n        // this.$refs.content.$el.style.width =  \"0px\";\r\n        this.$refs.content.$el.style.paddingBottom = \"0px\";\r\n        this.$refs.content.$el.style.overflow = \"hidden\";\r\n      } else {\r\n        this.$refs.content.$el.style.height = \"50px\";\r\n        // this.$refs.content.$el.style.width = \"initial\";\r\n        this.$refs.content.$el.style.paddingBottom = \"initial\";\r\n        this.$refs.content.$el.style.overflow = \"visible\";\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedNavClass() {\r\n      if (!this.collapsed) {\r\n        return [\"raw-navbar-container-uncollapsed\"];\r\n      }\r\n      return [];\r\n    },\r\n    computedClass() {\r\n      if (this.collapsed) {\r\n        return [\"raw-navbar-content-container\", \"open-raw-navbar\"];\r\n      }\r\n      return [\"raw-navbar-content-container\"];\r\n    },\r\n    collapsed() {\r\n      return this.contentWidth >= this.collapseCutOff;\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 30;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    }\r\n  }\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\r\n}\r\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\r\n}\r\n.open-raw-navbar * {\r\n  flex-direction: column;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-6708702d_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\n}\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\n}\n.open-raw-navbar * {\r\n  flex-direction: column;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\RawNavbar\\src\\RawNavbar.vue"],"names":[],"mappings":";AAmPA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA;AACA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gCAAA;EACA,6BAAA;EACA,8BAAA;EACA,gBAAA;AACA;AACA;EACA,sBAAA;AACA","file":"RawNavbar.vue","sourcesContent":["<template>\r\n  <navbar-container\r\n    :flavor=\"flavor\"\r\n    ref=\"container\"\r\n    :fixed=\"fixed\"\r\n    :collapsed=\"collapsed\"\r\n    :class=\"computedNavClass\"\r\n  >\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n      >&#9776;</n-button\r\n    >\r\n    <navbar-content-container\r\n      :collapsed=\"collapsed\"\r\n      ref=\"content\"\r\n      :class=\"computedClass\"\r\n    >\r\n      <slot></slot>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n<script>\r\nimport {\r\n  NavbarContainer,\r\n  NavbarTitle,\r\n  NavbarContentContainer,\r\n} from \"@IntusFacultas/navbar\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NButton,\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      titleWidth: 0,\r\n    };\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true,\r\n      }\r\n    );\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\",\r\n        };\r\n      },\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      // element.style.width = sectionWidth + \"px !important\";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function () {\r\n        element.style.height = sectionHeight + \"px\";\r\n        // element.style.width = sectionWidth + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function () {\r\n          element.style.height = 0 + \"px\";\r\n          // element.style.width = \"0px\";\r\n          element.style.paddingBottom = \"0px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      // element.style.width = sectionWidth + \"px\";\r\n\r\n      element.style.paddingBottom = \"5px\";\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function () {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function () {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function () {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (typeof this.$refs.content != \"undefined\" && !this.collapsed) {\r\n        let contentWidth = 0;\r\n        for (let child of this.$refs.content.$el.children) {\r\n          contentWidth += child.scrollWidth;\r\n        }\r\n        this.contentWidth = contentWidth;\r\n        // this.$forceUpdate();\r\n      }\r\n      if (typeof this.$refs.container != \"undefined\") {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (typeof this.$refs.title != \"undefined\") {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    toggleAccordion() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    },\r\n  },\r\n  watch: {\r\n    collapsed(newVal) {\r\n      if (newVal) {\r\n        this.$refs.content.$el.style.height = \"0px\";\r\n        // this.$refs.content.$el.style.width =  \"0px\";\r\n        this.$refs.content.$el.style.paddingBottom = \"0px\";\r\n        this.$refs.content.$el.style.overflow = \"hidden\";\r\n      } else {\r\n        this.$refs.content.$el.style.height = \"50px\";\r\n        // this.$refs.content.$el.style.width = \"initial\";\r\n        this.$refs.content.$el.style.paddingBottom = \"initial\";\r\n        this.$refs.content.$el.style.overflow = \"visible\";\r\n      }\r\n    },\r\n  },\r\n  computed: {\r\n    computedNavClass() {\r\n      if (!this.collapsed) {\r\n        return [\"raw-navbar-container-uncollapsed\"];\r\n      }\r\n      return [];\r\n    },\r\n    computedClass() {\r\n      if (this.collapsed) {\r\n        return [\"raw-navbar-content-container\", \"open-raw-navbar\"];\r\n      }\r\n      return [\"raw-navbar-content-container\"];\r\n    },\r\n    collapsed() {\r\n      return this.contentWidth >= this.collapseCutOff;\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 30;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    },\r\n  },\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\r\n}\r\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\r\n}\r\n.open-raw-navbar * {\r\n  flex-direction: column;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */
@@ -478,4 +488,5 @@ __vue_component__.install = install; // Export component by default
 // export const RollupDemoDirective = component;
 
 export default __vue_component__;
+export { __vue_component__ as RawNavbar };
 //# sourceMappingURL=RawNavbar.esm.js.map

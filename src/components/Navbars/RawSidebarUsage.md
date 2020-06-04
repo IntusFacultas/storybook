@@ -31,6 +31,8 @@ This is meant to be used in tandem with the `SidebarOffsetContent` component for
 ```
 
 ```javascript
+import RawSidebar from "@IntusFacultas/raw-sidebar";
+import {VueSidebarDropdown, SidebarItem, SidebarItemList,} from "@IntusFacultas/sidebar";
 data: {
     flavor: "Primary",
     sidebarTitle: "Sidebar Title",
@@ -128,14 +130,14 @@ data: {
       type: "item",
       text: "Link 98",
       icon: "",
-      url: "/url/to/place"
+      url: "/url/to/place",
     },
     {
       type: "item",
       text: "Link 10",
       icon: "",
-      url: "/url/to/place"
-    }
+      url: "/url/to/place",
+    },
   ];
 }
 ```

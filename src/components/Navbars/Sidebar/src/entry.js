@@ -12,15 +12,15 @@ import {
 } from "./Sidebar.vue";
 
 let components = [
-  { label: "SidebarHamburgerContainer", component: SidebarHamburgerContainer, },
-  { label: "SidebarContainer", component: SidebarContainer, },
-  { label: "SidebarTitle", component: SidebarTitle, },
-  { label: "SidebarContent", component: SidebarContent, },
-  { label: "VueSidebarDropdown", component: VueSidebarDropdown, },
-  { label: "Sidebar", component: Sidebar, },
-  { label: "SidebarItem", component: SidebarItem, },
-  { label: "SidebarItemList", component: SidebarItemList, },
-  { label: "SidebarOffsetContent", component: SidebarOffsetContent }
+  { label: "SidebarHamburgerContainer", component: SidebarHamburgerContainer },
+  { label: "SidebarContainer", component: SidebarContainer },
+  { label: "SidebarTitle", component: SidebarTitle },
+  { label: "SidebarContent", component: SidebarContent },
+  { label: "VueSidebarDropdown", component: VueSidebarDropdown },
+  { label: "Sidebar", component: Sidebar },
+  { label: "SidebarItem", component: SidebarItem },
+  { label: "SidebarItemList", component: SidebarItemList },
+  { label: "SidebarOffsetContent", component: SidebarOffsetContent },
 ];
 let GlobalVue = null;
 for (let component_obj of components) {
@@ -33,7 +33,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -64,6 +64,7 @@ export {
   SidebarItem,
   SidebarItemList,
 };
+export default Sidebar;
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

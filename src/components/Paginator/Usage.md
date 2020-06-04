@@ -30,6 +30,7 @@ This creates a configurable pagination component that returns what page is selec
 ```
 
 ```javascript
+import Paginator from "@IntusFacultas/paginator";
 data: {
     flavor: "Primary",
     showFirstLast: true,

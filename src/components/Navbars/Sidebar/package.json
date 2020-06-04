@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/sidebar",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "description": "Provides the necessary boilerplate to have a navigation sidebar and content in your page",
   "main": "src/Sidebar.vue",
   "browser": "dist/Sidebar.esm.js",
@@ -21,9 +21,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@IntusFacultas/button": "^1.0.12",
-    "@IntusFacultas/design-system": "^1.5.7",
-    "@IntusFacultas/typography": "^2.0.10",
+    "@IntusFacultas/button": "^1.0.14",
+    "@IntusFacultas/design-system": "^1.5.11",
+    "@IntusFacultas/typography": "^2.1.4",
     "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {

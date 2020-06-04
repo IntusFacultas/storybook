@@ -1,11 +1,11 @@
 // Import vue component
-import TableOfContents from './TableOfContents.vue';
+import TableOfContents from "./TableOfContents.vue";
 
 // install function executed by Vue.use()
 const install = function installTableOfContents(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component('TableOfContents', TableOfContents);
+  Vue.component("TableOfContents", TableOfContents);
 };
 
 // Create module definition for Vue.use()
@@ -17,9 +17,9 @@ const plugin = {
 // eslint-disable-next-line no-redeclare
 /* global window, global */
 let GlobalVue = null;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
+} else if (typeof global !== "undefined") {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
@@ -32,7 +32,7 @@ TableOfContents.install = install;
 
 // Export component by default
 export default TableOfContents;
-
+export { TableOfContents };
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;

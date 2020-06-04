@@ -181,4 +181,5 @@ __vue_component__.install = install; // Export component by default
 // export const RollupDemoDirective = component;
 
 export default __vue_component__;
+export { __vue_component__ as Badge };
 //# sourceMappingURL=Badge.esm.js.map

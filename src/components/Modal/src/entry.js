@@ -10,7 +10,7 @@ const install = function installModal(Vue) {
 
 // Create module definition for Vue.use()
 const plugin = {
-  install
+  install,
 };
 
 // To auto-install when vue is found
@@ -31,6 +31,7 @@ if (GlobalVue) {
 Modal.install = install;
 
 // Export component by default
+export { Modal };
 export default Modal;
 
 // It's possible to expose named exports when writing components that can

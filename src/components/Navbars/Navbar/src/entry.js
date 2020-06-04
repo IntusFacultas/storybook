@@ -6,7 +6,7 @@ import {
   NavbarContent,
   NavbarContentContainer,
   VueNavbarDropdown,
-  Navbar
+  Navbar,
 } from "./Navbar.vue";
 
 let components = [
@@ -16,7 +16,7 @@ let components = [
   { label: "NavbarContent", component: NavbarContent },
   { label: "NavbarContentContainer", component: NavbarContentContainer },
   { label: "VueNavbarDropdown", component: VueNavbarDropdown },
-  { label: "Navbar", component: Navbar }
+  { label: "Navbar", component: Navbar },
 ];
 let GlobalVue = null;
 for (let component_obj of components) {
@@ -29,7 +29,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -56,8 +56,9 @@ export {
   NavbarContent,
   NavbarContentContainer,
   VueNavbarDropdown,
-  Navbar
+  Navbar,
 };
+export default Navbar;
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

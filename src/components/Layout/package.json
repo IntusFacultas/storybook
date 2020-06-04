@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/layout",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "VueJS Layout Management",
   "main": "src/Layout.vue",
   "browser": "dist/Layout.esm.js",

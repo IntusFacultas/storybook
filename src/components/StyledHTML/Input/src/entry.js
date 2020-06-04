@@ -1,7 +1,4 @@
-import {
-  VueInput,
-  NInput,
-} from "./Input.vue";
+import { VueInput, NInput } from "./Input.vue";
 
 let components = [
   { label: "VueInput", component: VueInput },
@@ -19,7 +16,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -40,10 +37,8 @@ for (let component_obj of components) {
 }
 
 // Export component by default
-export {
-  VueInput,
-  NInput,
-};
+export { VueInput, NInput };
+export default VueInput;
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

@@ -5,9 +5,9 @@ module.exports = function(api) {
       [
         "@babel/preset-env",
         {
-          targets: { ie: "11" }
-        }
-      ]
-    ]
+          targets: { ie: "11" },
+        },
+      ],
+    ],
   };
 };

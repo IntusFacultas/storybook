@@ -1,4 +1,4 @@
-var Radio = (function () {
+var Radio = (function (exports) {
   'use strict';
 
   function _typeof(obj) {
@@ -3730,7 +3730,7 @@ var Radio = (function () {
   } // Export component by default
 
   function _templateObject3$1() {
-    var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  margin-right: 4px;\n  outline: none;\n  &:focus {\n    & * {\n      stroke: #41bee8;\n    }\n  }\n"]);
+    var data = _taggedTemplateLiteral(["\n  ", "\n  margin-right: 4px;\n"]);
 
     _templateObject3$1 = function _templateObject3() {
       return data;
@@ -3750,7 +3750,7 @@ var Radio = (function () {
   }
 
   function _templateObject$1() {
-    var data = _taggedTemplateLiteral(["\n  display: inline;\n"]);
+    var data = _taggedTemplateLiteral(["\n  display: inline;\n  -webkit-touch-callout: none; /* iOS Safari */\n  -webkit-user-select: none; /* Safari */\n  -khtml-user-select: none; /* Konqueror HTML */\n  -moz-user-select: none; /* Old versions of Firefox */\n  -ms-user-select: none; /* Internet Explorer/Edge */\n  user-select: none; /* Non-prefixed version, currently\n                                  supported by Chrome, Edge, Opera and Firefox */\n"]);
 
     _templateObject$1 = function _templateObject() {
       return data;
@@ -3763,6 +3763,7 @@ var Radio = (function () {
       type: Number,
       default: 14
     },
+    disabled: Boolean,
     active: {
       type: Boolean,
       default: false
@@ -3770,7 +3771,9 @@ var Radio = (function () {
   };
   var RadioContainer = styled.div(_templateObject$1());
   var RadioAligner = styled.div(_templateObject2$1());
-  var SymbolHolder = styled("span", props$1)(_templateObject3$1());
+  var SymbolHolder = styled("span", props$1)(_templateObject3$1(), function (props) {
+    return props.disabled ? "cursor: not-allowed;" : "cursor: poitner";
+  });
   var Radio = {
     components: {
       NLabel: NLabel,
@@ -3793,6 +3796,10 @@ var Radio = (function () {
         type: String,
         default: ""
       },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
       size: {
         type: Number,
         default: 14
@@ -3808,7 +3815,7 @@ var Radio = (function () {
     },
     methods: {
       emitValue: function emitValue() {
-        this.$emit("input", this.inputValue);
+        if (!this.disabled) this.$emit("input", this.inputValue);
       }
     }
   };
@@ -3966,7 +3973,8 @@ var Radio = (function () {
           "symbol-holder",
           {
             staticClass: "radio-button-container",
-            attrs: { tabindex: "0", active: false, size: _vm.size + 4 },
+            class: { "radio-button-container-disabled ": _vm.disabled },
+            attrs: { tabindex: "0", disabled: _vm.disabled, size: _vm.size + 4 },
             on: {
               click: _vm.emitValue,
               keyup: [
@@ -3999,6 +4007,7 @@ var Radio = (function () {
               "svg",
               {
                 staticClass: "radio-button",
+                class: { "radio-button-disabled ": _vm.disabled },
                 attrs: {
                   fill: "6c757d",
                   preserveAspectRatio: "xMidYMid meet",
@@ -4010,20 +4019,15 @@ var Radio = (function () {
               [
                 _c("circle", {
                   staticClass: "radio-button",
-                  attrs: {
-                    cx: "15",
-                    cy: "15",
-                    r: "13",
-                    fill: "white",
-                    stroke: "#6c757d",
-                    "stroke-width": "2"
-                  }
+                  class: { "radio-button-disabled ": _vm.disabled },
+                  attrs: { cx: "15", cy: "15", r: "13", "stroke-width": "2" }
                 }),
                 _vm._v(" "),
                 _vm.value == _vm.inputValue
                   ? _c("circle", {
                       staticClass: "radio-button-inverse",
-                      attrs: { cx: "15", cy: "15", r: "6", fill: "#6c757d" }
+                      class: { "radio-button-inverse-disabled ": _vm.disabled },
+                      attrs: { cx: "15", cy: "15", r: "6" }
                     })
                   : _vm._e()
               ]
@@ -4054,7 +4058,7 @@ var Radio = (function () {
     /* style */
     const __vue_inject_styles__$1 = function (inject) {
       if (!inject) return
-      inject("data-v-5904b58b_0", { source: "\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\n}\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\n}\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\n}\n.radio-button:hover {\r\n  stroke: #41bee8;\n}\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\StyledHTML\\Radio\\src\\Radio.vue"],"names":[],"mappings":";AAuHA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AACA;;EAEA,yBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA","file":"Radio.vue","sourcesContent":["<template>\r\n  <radio-container>\r\n    <symbol-holder\r\n      tabindex=\"0\"\r\n      :active=\"false\"\r\n      :size=\"size + 4\"\r\n      @click=\"emitValue\"\r\n      @keyup.enter=\"emitValue\"\r\n      @keyup.space=\"emitValue\"\r\n      class=\"radio-button-container\"\r\n    >\r\n      <svg\r\n        class=\"radio-button\"\r\n        fill=\"6c757d\"\r\n        preserveAspectRatio=\"xMidYMid meet\"\r\n        :height=\"size\"\r\n        :width=\"size\"\r\n        viewBox=\"0 0 30 30\"\r\n      >\r\n        <circle\r\n          class=\"radio-button\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"13\"\r\n          fill=\"white\"\r\n          stroke=\"#6c757d\"\r\n          stroke-width=\"2\"\r\n        />\r\n        <circle\r\n          v-if=\"value == inputValue\"\r\n          class=\"radio-button-inverse\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"6\"\r\n          fill=\"#6c757d\"\r\n        />\r\n      </svg>\r\n    </symbol-holder>\r\n    <n-label\r\n      @click=\"emitValue\"\r\n      :bold=\"bold\"\r\n      :flavor=\"flavor\"\r\n      :size=\"size\"\r\n      :dark=\"dark\"\r\n      >{{ label }}</n-label\r\n    >\r\n  </radio-container>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nconst props = {\r\n  size: {\r\n    type: Number,\r\n    default: 14\r\n  },\r\n  active: {\r\n    type: Boolean,\r\n    default: false\r\n  }\r\n};\r\nconst RadioContainer = styled.div`\r\n  display: inline;\r\n`;\r\nconst RadioAligner = styled.div`\r\n  display: flex;\r\n  align-content: center;\r\n`;\r\nconst SymbolHolder = styled(\"span\", props)`\r\n  cursor: pointer;\r\n  margin-right: 4px;\r\n  outline: none;\r\n  &:focus {\r\n    & * {\r\n      stroke: #41bee8;\r\n    }\r\n  }\r\n`;\r\nexport const Radio = {\r\n  components: { NLabel, SymbolHolder, RadioContainer, RadioAligner },\r\n  props: {\r\n    label: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    value: {\r\n      required: true\r\n    },\r\n    inputValue: {\r\n      required: true\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    size: {\r\n      type: Number,\r\n      default: 14\r\n    },\r\n    dark: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    bold: {\r\n      type: Boolean,\r\n      default: false\r\n    }\r\n  },\r\n  methods: {\r\n    emitValue() {\r\n      this.$emit(\"input\", this.inputValue);\r\n    }\r\n  }\r\n};\r\nexport default Radio;\r\n</script>\r\n\r\n<style>\r\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\r\n}\r\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\r\n}\r\n.radio-button:hover {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-6378b29b_0", { source: "\n.radio-button {\r\n  stroke: #6c757d;\r\n  fill: white;\n}\n.radio-button-inverse {\r\n  fill: #6c757d;\n}\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\n}\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\n}\n.radio-button-container-disabled:hover .radio-button {\r\n  stroke: #bcbcbc;\n}\n.radio-button-container-disabled:hover .radio-button-inverse {\r\n  fill: #bcbcbc;\n}\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\n}\n.radio-button:hover {\r\n  stroke: #41bee8;\n}\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\n}\n.radio-button-inverse-disabled {\r\n  fill: #bcbcbc;\n}\n.radio-button-inverse-disabled:hover {\r\n  fill: #bcbcbc;\n}\n.radio-button-inverse:hover {\r\n  fill: #bcbcbc;\n}\n.radio-button-disabled {\r\n  stroke: #bcbcbc;\n}\n.radio-button-disabled:hover {\r\n  stroke: #bcbcbc;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\StyledHTML\\Radio\\src\\Radio.vue"],"names":[],"mappings":";AA8HA;EACA,eAAA;EACA,WAAA;AACA;AACA;EACA,aAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AAEA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AACA;;EAEA,yBAAA;AACA;AAEA;EACA,eAAA;AACA;AACA;EACA,aAAA;AACA;AACA;EACA,aAAA;AACA;AACA;EACA,aAAA;AACA;AACA;EACA,aAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,eAAA;AACA","file":"Radio.vue","sourcesContent":["<template>\r\n  <radio-container>\r\n    <symbol-holder\r\n      tabindex=\"0\"\r\n      :disabled=\"disabled\"\r\n      :size=\"size + 4\"\r\n      @click=\"emitValue\"\r\n      @keyup.enter=\"emitValue\"\r\n      @keyup.space=\"emitValue\"\r\n      class=\"radio-button-container\"\r\n      :class=\"{ 'radio-button-container-disabled ': disabled }\"\r\n    >\r\n      <svg\r\n        class=\"radio-button\"\r\n        :class=\"{ 'radio-button-disabled ': disabled }\"\r\n        fill=\"6c757d\"\r\n        preserveAspectRatio=\"xMidYMid meet\"\r\n        :height=\"size\"\r\n        :width=\"size\"\r\n        viewBox=\"0 0 30 30\"\r\n      >\r\n        <circle\r\n          class=\"radio-button\"\r\n          :class=\"{ 'radio-button-disabled ': disabled }\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"13\"\r\n          stroke-width=\"2\"\r\n        />\r\n        <circle\r\n          v-if=\"value == inputValue\"\r\n          class=\"radio-button-inverse\"\r\n          :class=\"{ 'radio-button-inverse-disabled ': disabled }\"\r\n          cx=\"15\"\r\n          cy=\"15\"\r\n          r=\"6\"\r\n        />\r\n      </svg>\r\n    </symbol-holder>\r\n    <n-label\r\n      @click=\"emitValue\"\r\n      :bold=\"bold\"\r\n      :flavor=\"flavor\"\r\n      :size=\"size\"\r\n      :dark=\"dark\"\r\n      >{{ label }}</n-label\r\n    >\r\n  </radio-container>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nconst props = {\r\n  size: {\r\n    type: Number,\r\n    default: 14,\r\n  },\r\n  disabled: Boolean,\r\n  active: {\r\n    type: Boolean,\r\n    default: false,\r\n  },\r\n};\r\nconst RadioContainer = styled.div`\r\n  display: inline;\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n  -webkit-user-select: none; /* Safari */\r\n  -khtml-user-select: none; /* Konqueror HTML */\r\n  -moz-user-select: none; /* Old versions of Firefox */\r\n  -ms-user-select: none; /* Internet Explorer/Edge */\r\n  user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n`;\r\nconst RadioAligner = styled.div`\r\n  display: flex;\r\n  align-content: center;\r\n`;\r\nconst SymbolHolder = styled(\"span\", props)`\r\n  ${(props) => (props.disabled ? `cursor: not-allowed;` : `cursor: poitner`)}\r\n  margin-right: 4px;\r\n`;\r\nexport const Radio = {\r\n  components: { NLabel, SymbolHolder, RadioContainer, RadioAligner },\r\n  props: {\r\n    label: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    value: {\r\n      required: true,\r\n    },\r\n    inputValue: {\r\n      required: true,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    size: {\r\n      type: Number,\r\n      default: 14,\r\n    },\r\n    dark: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    bold: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n  },\r\n  methods: {\r\n    emitValue() {\r\n      if (!this.disabled) this.$emit(\"input\", this.inputValue);\r\n    },\r\n  },\r\n};\r\nexport default Radio;\r\n</script>\r\n\r\n<style>\r\n.radio-button {\r\n  stroke: #6c757d;\r\n  fill: white;\r\n}\r\n.radio-button-inverse {\r\n  fill: #6c757d;\r\n}\r\n.radio-button-container:hover .radio-button {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-container:hover .radio-button-inverse {\r\n  fill: #41bee8;\r\n}\r\n\r\n.radio-button-container-disabled:hover .radio-button {\r\n  stroke: #bcbcbc;\r\n}\r\n.radio-button-container-disabled:hover .radio-button-inverse {\r\n  fill: #bcbcbc;\r\n}\r\n.radio-button,\r\n.radio-button-inverse {\r\n  transition: 0.1s all ease;\r\n}\r\n\r\n.radio-button:hover {\r\n  stroke: #41bee8;\r\n}\r\n.radio-button-inverse:hover {\r\n  fill: #41bee8;\r\n}\r\n.radio-button-inverse-disabled {\r\n  fill: #bcbcbc;\r\n}\r\n.radio-button-inverse-disabled:hover {\r\n  fill: #bcbcbc;\r\n}\r\n.radio-button-inverse:hover {\r\n  fill: #bcbcbc;\r\n}\r\n.radio-button-disabled {\r\n  stroke: #bcbcbc;\r\n}\r\n.radio-button-disabled:hover {\r\n  stroke: #bcbcbc;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -4116,7 +4120,10 @@ var Radio = (function () {
   // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
   // export const RollupDemoDirective = component;
 
-  return __vue_component__$1;
+  exports.Radio = __vue_component__$1;
+  exports.default = __vue_component__$1;
 
-}());
+  return exports;
+
+}({}));
 //# sourceMappingURL=Radio.iife.js.map

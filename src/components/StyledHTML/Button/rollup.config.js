@@ -39,7 +39,11 @@ const commonConfig = {
         moduleDirectory: "node_modules"
       }
     }),
-    commonjs()
+    commonjs({
+      exclude: [
+        "node_modules/vue-styled-components/dist/vue-styled-components.es.js"
+      ]
+    })
   ]
 };
 

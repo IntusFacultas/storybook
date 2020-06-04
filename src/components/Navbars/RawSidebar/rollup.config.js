@@ -8,53 +8,53 @@ const npmConfig = {
   input: "src/entry.js",
   output: {
     name: "RawSidebar",
-    sourcemap: true
+    sourcemap: true,
   },
   plugins: [
     VuePlugin(),
     replace({
       "process.env.NODE_ENV": JSON.stringify("production"),
-      "process.env.VUE_ENV": JSON.stringify("compiler")
+      "process.env.VUE_ENV": JSON.stringify("compiler"),
     }),
     commonjs(),
     babel({
-      exclude: "node_modules/**"
-    })
-  ]
+      // exclude: "node_modules/**"
+    }),
+  ],
 };
 const commonConfig = {
   input: "src/entry.js",
   output: {
     name: "RawSidebar",
-    sourcemap: true
+    sourcemap: true,
   },
   plugins: [
     VuePlugin(),
     replace({
       "process.env.NODE_ENV": JSON.stringify("production"),
-      "process.env.VUE_ENV": JSON.stringify("compiler")
+      "process.env.VUE_ENV": JSON.stringify("compiler"),
     }),
     resolve({
       customResolveOptions: {
-        moduleDirectory: "node_modules"
-      }
+        moduleDirectory: "node_modules",
+      },
     }),
-    commonjs()
-  ]
+    commonjs(),
+  ],
 };
 
 // ESM config
 const esmConfig = Object.assign({}, npmConfig);
 esmConfig.output = Object.assign({}, npmConfig.output, {
   file: "dist/RawSidebar.esm.js",
-  format: "esm"
+  format: "esm",
 });
 
 // ESM prod config
 const esmProdConfig = Object.assign({}, esmConfig);
 esmProdConfig.output = Object.assign({}, esmConfig.output, {
   file: "dist/RawSidebar.esm.min.js",
-  sourcemap: false
+  sourcemap: false,
 });
 esmProdConfig.plugins = [...esmConfig.plugins, terser()];
 
@@ -62,20 +62,20 @@ esmProdConfig.plugins = [...esmConfig.plugins, terser()];
 const iifeConfig = Object.assign({}, commonConfig);
 iifeConfig.output = Object.assign({}, commonConfig.output, {
   file: "dist/RawSidebar.iife.js",
-  format: "iife"
+  format: "iife",
 });
 iifeConfig.plugins = [
   ...commonConfig.plugins,
   babel({
     // exclude: 'node_modules/**'
-  })
+  }),
 ];
 
 // iife Production config
 const iifeProdConfig = Object.assign({}, iifeConfig);
 iifeProdConfig.output = Object.assign({}, iifeConfig.output, {
   file: "dist/RawSidebar.iife.min.js",
-  sourcemap: false
+  sourcemap: false,
 });
 iifeProdConfig.plugins = [...iifeConfig.plugins, terser()];
 

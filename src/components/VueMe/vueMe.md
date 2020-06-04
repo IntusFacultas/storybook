@@ -7,7 +7,7 @@ Vue Component - https://v1.vuejs.org/guide/components.html
 ## Installation
 
 ```bash
-npm install --save @nasic/vue-me@latest
+npm install --save @IntusFacultas/vue-me@latest
 ```
 
 ## Purpose
@@ -20,9 +20,10 @@ Provides a Vue dialog component with configurable styling and inset forms.
 <vue-me :parent-instance="this"></vue-me>
 ```
 
-The initial <nasic-dialog> element sets up a function in the Vue app passed as the `parentInstance` called `$alert`. This is how you create alerts in NASIC dialog. You can pass it a number of options:
+The initial <IntusFacultas-dialog> element sets up a function in the Vue app passed as the `parentInstance` called `$alert`. This is how you create alerts in IntusFacultas dialog. You can pass it a number of options:
 
 ```javascript
+import VueMe from "@IntusFacultas/vue-me";
 methods: {
     callAlert: function() {
         var self = this;
@@ -32,7 +33,7 @@ methods: {
          * @param {Object} options, options to customize the dialog
          */
         self.$alert({
-            // Sets the flavor of the dialog, use NASIC Theme flavors
+            // Sets the flavor of the dialog, use IntusFacultas Theme flavors
             // Default: ""
             flavor: "Primary",
 

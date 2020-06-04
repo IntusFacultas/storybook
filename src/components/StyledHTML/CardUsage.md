@@ -32,6 +32,7 @@ This provides a card component that can be configured to a variety of different 
 ```
 
 ```javascript
+import Card from "@IntusFacultas/card";
 data: {
     headerFlavor: "Primary",
     footerFlavor: "Primary",

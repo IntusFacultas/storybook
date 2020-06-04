@@ -9,7 +9,7 @@
     :breakpoint="breakpoint"
   >
     <sidebar-title :flavor="flavor">
-      <web-text :size="16">{{ sidebarTitle }}</web-text>
+      <text :size="16">{{ sidebarTitle }}</text>
       <sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </sidebar-hamburger-container>
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import { WebText } from "@IntusFacultas/typography";
+import { TextContent } from "@IntusFacultas/typography";
 import { NButton } from "@IntusFacultas/button";
 import {
   SidebarHamburgerContainer,
   SidebarContainer,
   SidebarTitle,
-  SidebarContent
+  SidebarContent,
 } from "@IntusFacultas/sidebar";
 export const RawSidebar = {
   components: {
@@ -41,13 +41,13 @@ export const RawSidebar = {
     SidebarHamburgerContainer,
     SidebarTitle,
     SidebarContent,
-    WebText,
-    NButton
+    TextContent,
+    NButton,
   },
   data: function() {
     return {
       windowWidth: 0,
-      open: true
+      open: true,
     };
   },
   mounted: function() {
@@ -113,6 +113,7 @@ export const RawSidebar = {
        */
       let self = this;
       function isChild(obj, parentObj) {
+        if (obj == null) return true;
         if (obj.id == parentObj.id) return true;
         while ((obj = obj.parentNode)) {
           if (obj.id == parentObj.id) return true;
@@ -137,7 +138,7 @@ export const RawSidebar = {
     },
     changeWindow: function($e) {
       window.location.href = $e;
-    }
+    },
   },
   computed: {
     computedClass: function() {
@@ -145,38 +146,38 @@ export const RawSidebar = {
         return {};
       }
       return ["sidebar-closed"];
-    }
+    },
   },
   props: {
     sidebarTitle: {
       type: String,
-      default: "Sidebar"
-    },
-    flavor: {
-      type: String,
-      default: ""
-    },
-    bottomOffset: {
-      type: String,
-      default: "0px"
-    },
-    topOffset: {
-      type: String,
-      default: ""
+      default: "Sidebar",
     },
     height: {
       type: [Number, Object],
-      default: null
+      default: null,
+    },
+    flavor: {
+      type: String,
+      default: "",
+    },
+    bottomOffset: {
+      type: String,
+      default: "0px",
+    },
+    topOffset: {
+      type: String,
+      default: "",
     },
     width: {
       type: Number,
-      default: 200
+      default: 200,
     },
     breakpoint: {
       type: Number,
-      default: 576
-    }
-  }
+      default: 576,
+    },
+  },
 };
 export default RawSidebar;
 </script>

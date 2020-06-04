@@ -20,6 +20,14 @@ This generates a table of contents by performing a DFS on the `<body>` element a
 <table-of-contents :flavor="flavor"></table-of-contents>
 ```
 
+```javascript
+// Some build tools do not automatically polyfill the necessary features for this component. If you experience this issue
+// add the following:
+require("core-js/modules/es.symbol");
+
+import TableOfContents from "@IntusFacultas/table-of-contents";
+```
+
 ## Configuration
 
 <table>
@@ -33,6 +41,21 @@ This generates a table of contents by performing a DFS on the `<body>` element a
     </thead>
     <tbody>
         <tr>
+            <td>enableDomListening</td>
+            <td>`Boolean`</td>
+            <td>`false`</td>
+            <td>When set to true, the table of contents will passively listen for DOM changes before updating.
+            When set to false, you can instead fire a CustomEvent in the following format in order to force the TableOfContents component
+            to update:<br><br>
+            <pre>
+                <code>
+                    let evt = new CustomEvent("IntusFacultas-table-of-contents");
+                    window.dispatchEvent(evt)
+                </code>
+            </pre>
+            </td>
+        </tr>
+        <tr>
             <td>offset</td>
             <td>`Number`</td>
             <td>`0`</td>
@@ -45,10 +68,10 @@ This generates a table of contents by performing a DFS on the `<body>` element a
             <td>Sets the max width of the containing nav. Useful in case you have long titles that needed to be word wrapped</td>
         </tr>
         <tr>
-            <td>flavor</td>
-            <td>`String`</td>
+            <td>ignoreQuery</td>
+            <td>`String` or `Array`</td>
             <td>`""`</td>
-            <td>Sets the flavor of titles in the table of contents</td>
+            <td>By default the ToC will include all the headers it finds, but if for some reason you need to tell it to discount a specific header or type of header, you can set this to any valid html lookup and any title that matches the lookup will be ignored. If an array of strings, it will attempt to match against any of the values</td>
         </tr>
         <tr>
             <td>queryOverride</td>

@@ -3,7 +3,7 @@ import { Placeholder, PlaceholderPicture } from "./Placeholder.vue";
 
 let components = [
   { label: "Placeholder", component: Placeholder },
-  { label: "PlaceholderPicture", component: PlaceholderPicture }
+  { label: "PlaceholderPicture", component: PlaceholderPicture },
 ];
 let GlobalVue = null;
 for (let component_obj of components) {
@@ -16,7 +16,7 @@ for (let component_obj of components) {
 
   // Create module definition for Vue.use()
   const plugin = {
-    install
+    install,
   };
 
   // To auto-install when vue is found
@@ -37,7 +37,7 @@ for (let component_obj of components) {
 }
 // Export component by default
 export { Placeholder, PlaceholderPicture };
-
+export default Placeholder;
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;

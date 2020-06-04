@@ -5,17 +5,29 @@ import {
   text,
   boolean,
   object,
-  number
+  number,
 } from "@storybook/addon-knobs";
+
 import {
   Navbar,
   NavbarContent,
   VueNavbarDropdown,
-  NavbarItem
+  NavbarItem,
 } from "Components/components/Navbars/Navbar/src/Navbar.vue";
 import RawNavbar from "Components/components/Navbars/RawNavbar/src/RawNavbar.vue";
 import rawmarkdown from "Components/components/Navbars/RawNavbarUsage.md";
 import markdown from "Components/components/Navbars/NavbarUsage.md";
+
+import { TextContent } from "Components/components/StyledHTML/Typography/src/Typography.vue";
+import {
+  List,
+  ListItem,
+} from "Components/components/StyledHTML/List/src/StyledList.vue";
+import { Theme } from "Components/components/DesignSystem/theme.js";
+let formattedTheme = [];
+Object.keys(Theme).forEach((key) =>
+  formattedTheme.push({ text: key, value: Theme[key].background.color })
+);
 
 export default {
   title: "Navbars/Navbar",
@@ -23,32 +35,41 @@ export default {
   parameters: {
     notes: {
       Navbar: markdown,
-      "Raw Navbar": rawmarkdown
-    }
+      "Raw Navbar": rawmarkdown,
+    },
   },
   // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
 export const RawInputNavbar = () => ({
-  components: { RawNavbar, NavbarContent, VueNavbarDropdown, NavbarItem },
+  components: {
+    RawNavbar,
+    NavbarContent,
+    VueNavbarDropdown,
+    NavbarItem,
+    TextContent,
+    List,
+    ListItem,
+  },
   data() {
     return {
       navbar: { collapsed: false },
+      formattedTheme,
       items: [
         {
           type: "item",
           text: "Dropdown Item 1",
           url: "#",
-          disabled: false
+          disabled: false,
         },
         {
           type: "item",
           text: "Dropdown Item 2",
           url: "#",
-          disabled: false
-        }
-      ]
+          disabled: false,
+        },
+      ],
     };
   },
   mounted() {
@@ -60,18 +81,18 @@ export const RawInputNavbar = () => ({
   },
   props: {
     fixed: {
-      default: boolean("Fixed to Top", false)
+      default: boolean("Fixed to Top", false),
     },
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
     title: {
       default: object("Title", {
         html: "",
         text: "Brand",
-        url: "#"
-      })
-    }
+        url: "#",
+      }),
+    },
   },
   template: `
         <div>
@@ -111,25 +132,39 @@ export const RawInputNavbar = () => ({
                 </navbar-content>
             </raw-navbar>
             <h1>Content! Stuff! Excitement!</h1>
+            <hr>
+            <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+            <text-content :size="16">Available Flavors</text-content>
+            <list>
+            <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+                {{themeFlavor.text}}
+            </list-item>
+            </list>
         </div>
-    `
+    `,
 });
 
 export const ConfigurableNavbar = () => ({
-  components: { Navbar },
+  components: { Navbar, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     fixed: {
-      default: boolean("Fixed to Top", false)
+      default: boolean("Fixed to Top", false),
     },
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
+
     title: {
       default: object("Title", {
         html: "",
         text: "Brand",
-        url: "#"
-      })
+        url: "#",
+      }),
     },
     leftItems: {
       default: object("Left Items", [
@@ -142,42 +177,42 @@ export const ConfigurableNavbar = () => ({
               type: "item",
               html: "",
               text: "Dropdown Link",
-              url: "#"
-            }
-          ]
+              url: "#",
+            },
+          ],
         },
         {
           type: "item",
           html: "",
           text: "Navbar Link",
-          url: "#"
+          url: "#",
         },
         {
           type: "item",
           html: "",
           text: "Navbar Link",
-          url: "#"
+          url: "#",
         },
         {
           type: "item",
           html: "",
           text: "Navbar Link",
-          url: "#"
+          url: "#",
         },
         {
           type: "item",
           html: "",
           text: "Navbar Link",
-          url: "#"
-        }
-      ])
+          url: "#",
+        },
+      ]),
     },
     centerItems: {
-      default: object("Center Items", [])
+      default: object("Center Items", []),
     },
     rightItems: {
-      default: object("Right Items", [])
-    }
+      default: object("Right Items", []),
+    },
   },
   template: `
         <div>
@@ -190,6 +225,14 @@ export const ConfigurableNavbar = () => ({
             :center-items="centerItems">
           </navbar>
             <h1>Content! Stuff! Excitement!</h1>
+            <hr>
+            <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+            <text-content :size="16">Available Flavors</text-content>
+            <list>
+            <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+                {{themeFlavor.text}}
+            </list-item>
+            </list>
         </div>
-    `
+    `,
 });

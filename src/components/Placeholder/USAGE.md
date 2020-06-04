@@ -7,7 +7,7 @@ Vue Component - https://v1.vuejs.org/guide/components.html
 ## Installation
 
 ```bash
-npm install @nasic/placeholder@latest --save
+npm install @IntusFacultas/placeholder@latest --save
 ```
 
 ## Purpose
@@ -22,6 +22,7 @@ This provides two Facebook React style skeleton website components for displayin
 ```
 
 ```javascript
+import {Placeholder, PlaceholderPicture} from "@IntusFacultas/placeholder"
 data: {
   height: "100px",
   width: "100px"
@@ -61,7 +62,7 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <td>Controls the width of the placeholder</td>
         </tr>
         <tr>
-            <td>paragraphs</td>
+            <td>Paragraphs</td>
             <td>`Boolean`</td>
             <td>`true`</td>
             <td>When set to true, paragraphs will be included instead of just lines.<br><b>This does not affect the PlaceholderPicture component</b></td>

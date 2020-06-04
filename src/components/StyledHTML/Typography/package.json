@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/typography",
-  "version": "2.1.3",
+  "version": "2.1.5",
   "description": "Provides a group of styled Typographical elements for displaying text content",
   "main": "src/Typography.vue",
   "browser": "dist/Typography.esm.js",
@@ -20,7 +20,7 @@
     "styled"
   ],
   "dependencies": {
-    "@IntusFacultas/design-system": "^1.5.8",
+    "@IntusFacultas/design-system": "^1.5.11",
     "vue-styled-components": "^1.4.14"
   },
   "repository": {

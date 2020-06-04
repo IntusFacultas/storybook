@@ -113,22 +113,23 @@ const props = {
   width: Number,
   defaultTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return AlertTheme;
-    }
-  }
+    },
+  },
 };
 const CloseContainer = styled.div`
   margin-left: 10px;
 `;
 
 const AlertContainer = styled("div", props)`
-  max-width: ${props => props.width}px;
+  max-width: ${(props) => props.width}px;
   position: fixed;
   right: 15px;
   top: 30px;
   bottom: 0px;
   display: flex;
+  pointer-events: none;
   flex-direction: column;
 `;
 const IconContainer = styled("div", props)`
@@ -143,6 +144,7 @@ const Alert = styled("div", props)`
   padding: 1rem 0.5rem;
   margin-bottom: 5px;
   display: flex;
+  pointer-events: all;
   justify-content: space-between;
   -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 0.5s; /* Firefox < 16 */
@@ -157,13 +159,13 @@ const Alert = styled("div", props)`
   transition: 1s all;
   cursor: pointer;
   border: 2px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.color
         : "#f2f2f2"};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
@@ -175,14 +177,14 @@ const Alert = styled("div", props)`
   font-size: 16px;
   font-weight: bold;
   & * {
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].background.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.color
         : "#f2f2f2"};
     line-height: 1rem;
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
@@ -196,29 +198,29 @@ export const VueToast = {
     IconContainer,
     AlertContent,
     Alert,
-    CloseContainer
+    CloseContainer,
   },
   data() {
     return {
       availableId: 0,
       alerts: [],
       theme: AlertTheme,
-      validTypes: ["WARNING", "INFO", "DANGER", "SUCCESS"]
+      validTypes: ["WARNING", "INFO", "DANGER", "SUCCESS"],
     };
   },
   props: {
     parentInstance: {
       type: Object,
-      required: true
+      required: true,
     },
     maxWidth: {
       type: Number,
-      default: 300
+      default: 300,
     },
     delay: {
       type: Number,
-      default: 5000
-    }
+      default: 5000,
+    },
   },
   mounted() {
     this.parentInstance.$toast = this.toast;
@@ -246,27 +248,27 @@ export const VueToast = {
         content: text,
         timeAdded: timeAdded,
         id: id,
-        dying: dying
+        dying: dying,
       });
-      setTimeout(function() {
+      setTimeout(function () {
         self.removeToast(id);
       }, this.delay);
     },
     removeToast(id) {
       var self = this;
-      let alert = this.alerts.filter(alert => alert.id == id)[0];
+      let alert = this.alerts.filter((alert) => alert.id == id)[0];
       if (alert && !alert.dying) {
         alert.dying = true;
         this.$forceUpdate();
-        setTimeout(function() {
-          self.alerts = self.alerts.filter(alert => alert.id != id);
+        setTimeout(function () {
+          self.alerts = self.alerts.filter((alert) => alert.id != id);
           self.$forceUpdate();
         }, 501);
       } else if (!alert) {
         self.$nextTick(self.removeToast(id));
       }
-    }
-  }
+    },
+  },
 };
 export default VueToast;
 </script>

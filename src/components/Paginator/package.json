@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/paginator",
-  "version": "1.0.16",
+  "version": "1.0.18",
   "description": "Provides a paginator similar to VueJS-Pagination but with baked in flavors",
   "main": "src/Paginator.vue",
   "browser": "dist/Paginator.esm.js",

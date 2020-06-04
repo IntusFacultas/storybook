@@ -14,7 +14,7 @@ npm install @IntusFacultas/radio@latest --save
 
 This replaces the default HTML radio with a styled radio that contains styles for each color as described in the Design System:
 
-Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
+Draws default themes from DesignSystem/theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
@@ -31,6 +31,7 @@ Draws default themes from DesignSystem/nasic-theme.js. You can override the them
 ```
 
 ```javascript
+import Radio from "@IntusFacultas/radio";
 data: {
     selected: "",
     flavor: ""
@@ -83,6 +84,12 @@ The colors are pulled from `@IntusFacultas/design-system` in the `Theme` Object.
         <td>Number</td>
         <td>`14`</td>
         <td>The size of the label and radio</td>
+    </tr>
+    <tr>
+        <td>disabled</td>
+        <td>Boolean</td>
+        <td>`false`</td>
+        <td>Disables the radio</td>
     </tr>
     <tr>
         <td>dark</td>

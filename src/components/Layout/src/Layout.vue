@@ -6,16 +6,16 @@ const props = {
   sm: Number,
   md: Number,
   lg: Number,
-  xl: Number
+  xl: Number,
 };
 export const FlexColumn = styled("div", props)`
-  flex: ${props => (!isNaN(props.col) ? props.col : 1)};
+  flex: ${(props) => (!isNaN(props.col) ? props.col : 1)};
   width: 100%;
   padding: 15px;
   display: flex;
   flex-wrap: wrap;
   @media (min-width: 0px) {
-    flex: ${props =>
+    flex: ${(props) =>
       !isNaN(props.xs)
         ? props.xs
         : !isNaN(props.sm)
@@ -33,7 +33,7 @@ export const FlexColumn = styled("div", props)`
       100% /
         (
           12 /
-            ${props =>
+            ${(props) =>
               !isNaN(props.xs)
                 ? props.xs
                 : !isNaN(props.sm)
@@ -51,7 +51,7 @@ export const FlexColumn = styled("div", props)`
     );
   }
   @media (min-width: 576px) {
-    flex: ${props =>
+    flex: ${(props) =>
       !isNaN(props.sm)
         ? props.sm
         : !isNaN(props.md)
@@ -67,7 +67,7 @@ export const FlexColumn = styled("div", props)`
       100% /
         (
           12 /
-            ${props =>
+            ${(props) =>
               !isNaN(props.sm)
                 ? props.sm
                 : !isNaN(props.md)
@@ -83,7 +83,7 @@ export const FlexColumn = styled("div", props)`
     );
   }
   @media (min-width: 768px) {
-    flex: ${props =>
+    flex: ${(props) =>
       !isNaN(props.md)
         ? props.md
         : !isNaN(props.lg)
@@ -97,7 +97,7 @@ export const FlexColumn = styled("div", props)`
       100% /
         (
           12 /
-            ${props =>
+            ${(props) =>
               !isNaN(props.md)
                 ? props.md
                 : !isNaN(props.lg)
@@ -111,7 +111,7 @@ export const FlexColumn = styled("div", props)`
     );
   }
   @media (min-width: 992px) {
-    flex: ${props =>
+    flex: ${(props) =>
       !isNaN(props.lg)
         ? props.lg
         : !isNaN(props.xl)
@@ -123,7 +123,7 @@ export const FlexColumn = styled("div", props)`
       100% /
         (
           12 /
-            ${props =>
+            ${(props) =>
               !isNaN(props.lg)
                 ? props.lg
                 : !isNaN(props.xl)
@@ -135,13 +135,13 @@ export const FlexColumn = styled("div", props)`
     );
   }
   @media (min-width: 1200px) {
-    flex: ${props =>
+    flex: ${(props) =>
       !isNaN(props.xl) ? props.xl : !isNaN(props.col) ? props.col : 1};
     min-width: calc(
       100% /
         (
           12 /
-            ${props =>
+            ${(props) =>
               !isNaN(props.xl) ? props.xl : !isNaN(props.col) ? props.col : 1}
         )
     );

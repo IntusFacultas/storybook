@@ -27,6 +27,14 @@ var SelectMe = {
     };
   },
   watch: {
+    options: {
+      handler: function handler() {
+        if (this.selectedOptions.length == 0 && !this.canBeEmpty && this.options.length != 0) {
+          this.selectOption(this.options[0]);
+        }
+      },
+      deep: true
+    },
     value: function value(newValue) {
       this.selectedOptions = newValue;
       window.requestAnimationFrame(this.setSelectBoxWidth);
@@ -414,7 +422,7 @@ var SelectMe = {
   mounted: function mounted() {
     var self = this;
 
-    if (!self.canBeEmpty) {
+    if (!self.canBeEmpty && self.options.length > 0) {
       self.selectOption(self.options[0]);
     }
 
@@ -443,132 +451,142 @@ var SelectMe = {
   }
 };
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+/* server only */
+, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+  if (typeof shadowMode !== 'boolean') {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  } // Vue.extend constructor export interop.
+
+
+  var options = typeof script === 'function' ? script.options : script; // render functions
+
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true; // functional template
+
+    if (isFunctionalTemplate) {
+      options.functional = true;
     }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
-        }
+  } // scopedId
+
+
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+
+  var hook;
+
+  if (moduleIdentifier) {
+    // server build
+    hook = function hook(context) {
+      // 2.3 injection
+      context = context || // cached call
+      this.$vnode && this.$vnode.ssrContext || // stateful
+      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      // 2.2 with runInNewContext: true
+
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+      } // inject component styles
+
+
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      } // register component module identifier for async chunk inference
+
+
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    }; // used by ssr in case component is cached and beforeCreate
+    // never gets called
+
+
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode ? function (context) {
+      style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+    } : function (context) {
+      style.call(this, createInjector(context));
+    };
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      var originalRender = options.render;
+
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
-        };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
-    }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
+  }
+
+  return script;
 }
 
-const isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
 function createInjector(context) {
-    return (id, style) => addStyle(id, style);
+  return function (id, style) {
+    return addStyle(id, style);
+  };
 }
-let HEAD;
-const styles = {};
+
+var HEAD;
+var styles = {};
+
 function addStyle(id, css) {
-    const group = isOldIE ? css.media || 'default' : id;
-    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-    if (!style.ids.has(id)) {
-        style.ids.add(id);
-        let code = css.source;
-        if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-                '\n/*# sourceMappingURL=data:application/json;base64,' +
-                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-                    ' */';
-        }
-        if (!style.element) {
-            style.element = document.createElement('style');
-            style.element.type = 'text/css';
-            if (css.media)
-                style.element.setAttribute('media', css.media);
-            if (HEAD === undefined) {
-                HEAD = document.head || document.getElementsByTagName('head')[0];
-            }
-            HEAD.appendChild(style.element);
-        }
-        if ('styleSheet' in style.element) {
-            style.styles.push(code);
-            style.element.styleSheet.cssText = style.styles
-                .filter(Boolean)
-                .join('\n');
-        }
-        else {
-            const index = style.ids.size - 1;
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index])
-                style.element.removeChild(nodes[index]);
-            if (nodes.length)
-                style.element.insertBefore(textNode, nodes[index]);
-            else
-                style.element.appendChild(textNode);
-        }
+  var group = isOldIE ? css.media || 'default' : id;
+  var style = styles[group] || (styles[group] = {
+    ids: new Set(),
+    styles: []
+  });
+
+  if (!style.ids.has(id)) {
+    style.ids.add(id);
+    var code = css.source;
+
+    if (css.map) {
+      // https://developer.chrome.com/devtools/docs/javascript-debugging
+      // this makes source maps inside style tags work properly in Chrome
+      code += '\n/*# sourceURL=' + css.map.sources[0] + ' */'; // http://stackoverflow.com/a/26603875
+
+      code += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) + ' */';
     }
+
+    if (!style.element) {
+      style.element = document.createElement('style');
+      style.element.type = 'text/css';
+      if (css.media) style.element.setAttribute('media', css.media);
+
+      if (HEAD === undefined) {
+        HEAD = document.head || document.getElementsByTagName('head')[0];
+      }
+
+      HEAD.appendChild(style.element);
+    }
+
+    if ('styleSheet' in style.element) {
+      style.styles.push(code);
+      style.element.styleSheet.cssText = style.styles.filter(Boolean).join('\n');
+    } else {
+      var index = style.ids.size - 1;
+      var textNode = document.createTextNode(code);
+      var nodes = style.element.childNodes;
+      if (nodes[index]) style.element.removeChild(nodes[index]);
+      if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
+    }
+  }
 }
 
 /* script */
@@ -821,9 +839,11 @@ var __vue_render__ = function() {
               rawName: "v-show",
               value:
                 _vm.selectBoxWidth > _vm.computedCutOff &&
-                _vm.selectedOptions.length > 0,
+                _vm.selectedOptions.length > 0 &&
+                _vm.canBeEmpty &&
+                _vm.multiSelect,
               expression:
-                "selectBoxWidth > computedCutOff && selectedOptions.length > 0"
+                "\n      selectBoxWidth > computedCutOff &&\n      selectedOptions.length > 0 &&\n      canBeEmpty &&\n      multiSelect\n    "
             }
           ],
           ref: "selectDropdownBox",
@@ -952,7 +972,12 @@ var __vue_render__ = function() {
         {
           ref: "selectBox",
           staticClass: "selectme-selected",
-          class: { "hidden-inline": _vm.selectBoxWidth > _vm.computedCutOff },
+          class: {
+            "hidden-inline":
+              _vm.selectBoxWidth > _vm.computedCutOff &&
+              _vm.canBeEmpty &&
+              _vm.multiSelect
+          },
           style: { top: _vm.calculatedHeight + "px" }
         },
         _vm._l(_vm.selectedOptions, function(option, index) {
@@ -999,11 +1024,11 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-844281fc_0", { source: "\n.select-me-ignore-me[data-v-844281fc] {\r\n  pointer-events: none;\n}\n.selectme-button[data-v-844281fc] {\r\n  height: 30px;\r\n  margin-top: -2px;\n}\n.selectme-single-select-badge[data-v-844281fc] {\r\n  margin-top: 1px;\n}\n.hidden-inline[data-v-844281fc] {\r\n  opacity: 0;\r\n  pointer-events: none;\n}\n.selectme-badge[data-v-844281fc] {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: \"Segoe UI\" !important;\n}\n.selectme-container[data-v-844281fc] {\r\n  height: 45px;\n}\n.selectme-container *[data-v-844281fc] {\r\n  font-family: \"Roboto\", sans-serif;\n}\n.sr-only[data-v-844281fc] {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\n}\n.selectme-dropdown[data-v-844281fc] {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\n}\n.selectme-badge-single-span[data-v-844281fc] {\r\n  float: left;\r\n  padding-right: 8px;\n}\n.selectme-badge-transparent[data-v-844281fc] {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\n}\n.selectme-selected[data-v-844281fc] {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\n}\n.selectme-selected > button[data-v-844281fc] {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\n}\n.selectme-dropdown > ul[data-v-844281fc] {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\n}\n.selectme-dropdown > ul > li[data-v-844281fc] {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\n}\n.selectme-dropdown > ul > li.selectme-selected[data-v-844281fc] {\r\n  background-color: #007bff;\r\n  color: white;\n}\n.selectme-dropdown > ul > li.selectme-hovered[data-v-844281fc] {\r\n  background-color: #eeeeee;\n}\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered[data-v-844281fc] {\r\n  background-color: #0069d9;\r\n  color: white;\n}\n.selectme-dropdown > ul > li[data-v-844281fc]:hover {\r\n  background-color: #eeeeee;\n}\n.selectme-dropdown > ul > li.selectme-selected[data-v-844281fc]:hover {\r\n  background-color: #0069d9;\r\n  color: white;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\SelectMe\\src\\SelectMe.vue"],"names":[],"mappings":";AAqiBA;EACA,oBAAA;AACA;AACA;EACA,YAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,UAAA;EACA,oBAAA;AACA;AACA;EACA,qBAAA;EACA,qBAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,mBAAA;EACA,wBAAA;EACA,sBAAA;EACA,2BAAA;EACA,0BAAA;EACA,kCAAA;AACA;AACA;EACA,YAAA;AACA;AACA;EACA,iCAAA;AACA;AAEA;EACA,kBAAA;EACA,UAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,gBAAA;EACA,sBAAA;EACA,SAAA;AACA;AACA;EACA,kBAAA;EACA,UAAA;EACA,uBAAA;EACA,YAAA;EACA,qCAAA;EACA,0BAAA;EACA,oCAAA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;AACA;AACA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,YAAA;EACA,0BAAA;EACA,wCAAA;AACA;AACA;EACA,kBAAA;EACA,qBAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;AACA;AACA;EACA,0BAAA;EACA,eAAA;EACA,WAAA;EACA,sBAAA;EACA,gBAAA;EACA,eAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA","file":"SelectMe.vue","sourcesContent":["<template>\r\n  <div class=\"selectme-container\">\r\n    <n-input\r\n      :id=\"name\"\r\n      autocomplete=\"off\"\r\n      type=\"text\"\r\n      placeholder=\"Search...\"\r\n      @click=\"openDropdown\"\r\n      @focus=\"openDropdown\"\r\n      @input=\"openDropdown\"\r\n      @blur=\"closeDropdown\"\r\n      :flavor=\"flavor\"\r\n      v-model=\"optionSearch\"\r\n      @keydown.delete=\"handleBackspace\"\r\n      @keydown.down=\"handleDown\"\r\n      @keydown.up=\"handleUp\"\r\n      @keydown.left=\"handleLeft\"\r\n      @keydown.right=\"handleRight\"\r\n      @keyup.enter=\"selectHoveredOption\"\r\n      :style=\"{ 'padding-left': calculatedPadding + 'px' }\"\r\n      :disabled=\"disabled\"\r\n    ></n-input>\r\n    <!-- Dropdown for all options -->\r\n    <div\r\n      v-if=\"showDropdown\"\r\n      class=\"selectme-dropdown\"\r\n      :style=\"{ width: calculatedWidth + 'px' }\"\r\n    >\r\n      <ul>\r\n        <li\r\n          @keyup.enter=\"selectHoveredOption\"\r\n          @keyup.space=\"selectHoveredOption\"\r\n          tabindex=\"0\"\r\n          role=\"button\"\r\n          @focus=\"hoverElement()\"\r\n          @keydown.down=\"hoverOption(1)\"\r\n          @keydown.up=\"hoverOption(-1)\"\r\n          @blur=\"closeDropdown\"\r\n          v-for=\"(option, index) in selectOptions\"\r\n          :key=\"'dropdown-' + option[valueAttribute] + '-' + index\"\r\n          :value=\"option[valueAttribute]\"\r\n          :ref=\"'hover' + option[valueAttribute]\"\r\n          @click=\"selectOption(option)\"\r\n          :class=\"{\r\n            'selectme-selected': contained(option),\r\n            'selectme-hovered': isHovered(option, hoveredOption)\r\n          }\"\r\n        >\r\n          <span class=\"sr-only\" v-if=\"contained(option)\">Active:</span>\r\n          <span class=\"sr-only\" v-else>Press enter to select:</span>\r\n          {{ option[displayAttribute] }}\r\n        </li>\r\n        <li v-if=\"selectOptions.length == 0\">No results found</li>\r\n      </ul>\r\n    </div>\r\n    <!-- Dropdown for selected values. Only shows when selected overflow input-->\r\n    <div\r\n      class=\"selectme-selected\"\r\n      :style=\"{\r\n        top: multiSelect ? `${calculatedHeight}px` : `${calculatedHeight + 4}px`\r\n      }\"\r\n      v-show=\"selectBoxWidth > computedCutOff && selectedOptions.length > 0\"\r\n      ref=\"selectDropdownBox\"\r\n      data-dropdown=\"parent\"\r\n    >\r\n      <n-button\r\n        @click=\"toggleSelectedDropdown\"\r\n        class=\"selectme-button selectme-badge\"\r\n        :flavor=\"badgeFlavor\"\r\n        data-dropdown=\"toggle\"\r\n      >\r\n        {{ selectedOptions.length }} selected...\r\n        <span class=\"select-me-ignore-me\" v-if=\"!showSelected\">&#x25BE;</span>\r\n        <span class=\"select-me-ignore-me\" v-else>&#x25B4;</span>\r\n      </n-button>\r\n      <div class=\"selectme-dropdown\" v-show=\"showSelected\">\r\n        <ul>\r\n          <li\r\n            tabindex=\"0\"\r\n            v-for=\"(option, index) in selectedOptions\"\r\n            :key=\"'selected-' + option[valueAttribute] + '-' + index\"\r\n            role=\"button\"\r\n            data-dropdown=\"child\"\r\n            @keyup.enter=\"deselectDropdownOption(option)\"\r\n            @keyup.space=\"deselectDropdownOption(option)\"\r\n            :ref=\"'selected' + option[valueAttribute]\"\r\n            :class=\"{\r\n              'selectme-hovered': isHovered(option, hoveredSelectedOption)\r\n            }\"\r\n            @click=\"deselectDropdownOption(option)\"\r\n          >\r\n            <span>&#215;</span>\r\n            {{ option[displayAttribute] }}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n    <!-- Inline selected options -->\r\n    <div\r\n      class=\"selectme-selected\"\r\n      ref=\"selectBox\"\r\n      :style=\"{ top: calculatedHeight + 'px' }\"\r\n      :class=\"{ 'hidden-inline': selectBoxWidth > computedCutOff }\"\r\n    >\r\n      <n-button\r\n        :flavor=\"badgeFlavor\"\r\n        class=\"selectme-button selectme-badge\"\r\n        :class=\"{ 'selectme-single-select-badge': !multiSelect }\"\r\n        v-for=\"(option, index) in selectedOptions\"\r\n        @click=\"deselectOption(option)\"\r\n        :key=\"'selected-badge-' + option[valueAttribute] + '-' + index\"\r\n      >\r\n        {{ option[displayAttribute] }}\r\n        <span\r\n          :class=\"computedSpanClass\"\r\n          class=\"select-me-ignore-me\"\r\n          v-if=\"canBeEmpty || (!canBeEmpty && selectedOptions.length > 1)\"\r\n          >&#215;</span\r\n        >\r\n      </n-button>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NInput } from \"@IntusFacultas/input\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst SelectMe = {\r\n  name: \"select-me\",\r\n  components: { NInput, NButton },\r\n  data() {\r\n    return {\r\n      timeout: \"\",\r\n      optionSearch: \"\",\r\n      showOptions: false,\r\n      showSelected: false,\r\n      selectBoxWidth: 0,\r\n      calculatedWidth: 0,\r\n      calculatedHeight: 0,\r\n      calculatedPadding: 0,\r\n      selectedOptions: [],\r\n      hoveredOption: {},\r\n      hoveredSelectedOption: {},\r\n      combinedPaddingPerBadge: 26,\r\n      hoveredIndex: -1,\r\n      hoveredSelectedIndex: -1\r\n    };\r\n  },\r\n  watch: {\r\n    value(newValue) {\r\n      this.selectedOptions = newValue;\r\n      window.requestAnimationFrame(this.setSelectBoxWidth);\r\n      this.setCalculatedPadding();\r\n    }\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: \"Primary\"\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\"\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: \"text\"\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: \"value\"\r\n    },\r\n    canBeEmpty: {\r\n      type: Boolean,\r\n      default: true\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    options: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    multiSelect: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    initialValues: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    computedSpanClass() {\r\n      var self = this;\r\n      if (!self.multiSelect) return [\"selectme-badge-single-span\"];\r\n      return [];\r\n    },\r\n    computedCutOff() {\r\n      var self = this;\r\n      return self.calculatedWidth - 100;\r\n    },\r\n    showDropdown() {\r\n      var self = this;\r\n      return self.showOptions || self.debug;\r\n    },\r\n    selectOptions() {\r\n      function textContains(n) {\r\n        return (\r\n          n[self.displayAttribute]\r\n            .toUpperCase()\r\n            .indexOf(self.optionSearch.toUpperCase()) > -1\r\n        );\r\n      }\r\n      var self = this;\r\n      let options = self.options;\r\n      function filter(fn, array) {\r\n        var rtArray = [];\r\n        for (var x = 0; x < array.length; x++) {\r\n          if (fn(array[x])) {\r\n            rtArray.push(array[x]);\r\n          }\r\n        }\r\n        return rtArray;\r\n      }\r\n      if (self.optionSearch) {\r\n        options = filter(textContains, options);\r\n      }\r\n      return options;\r\n    }\r\n  },\r\n  methods: {\r\n    deselectDropdownOption(option) {\r\n      var self = this;\r\n      self.deselectOption(option, false);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    handleOffClick(event) {\r\n      var self = this;\r\n      if (!event.target.attributes[\"data-dropdown\"]) {\r\n        self.showSelected = false;\r\n      }\r\n    },\r\n    toggleSelectedDropdown() {\r\n      var self = this;\r\n      self.showSelected = !self.showSelected;\r\n    },\r\n    selectHoveredOption() {\r\n      var self = this;\r\n      if (self.showOptions) {\r\n        if (Object.keys(self.hoveredOption).length > 0) {\r\n          if (!self.contains(self.hoveredOption, self.selectedOptions)) {\r\n            if (!self.multiSelect) self.selectedOptions = [];\r\n            self.selectedOptions.push(Object.assign({}, self.hoveredOption));\r\n          } else {\r\n            self.deselectOption(self.hoveredOption, false);\r\n          }\r\n          self.$emit(\"input\", self.selectedOptions);\r\n          self.hoveredOption = {};\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          if (self.multiSelect) {\r\n            self.$el.firstChild.focus();\r\n          } else {\r\n            self.closeDropdown();\r\n          }\r\n        }\r\n      } else if (self.showSelected) {\r\n        self.deselectOption(self.hoveredSelectedOption);\r\n        self.$emit(\"input\", self.selectedOptions);\r\n        self.hoveredSelectedOption = {};\r\n        self.showSelected = false;\r\n        setTimeout(function() {\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          self.$el.firstChild.focus();\r\n        }, 550);\r\n      }\r\n    },\r\n    hoverElement() {\r\n      var self = this;\r\n      clearTimeout(self.timeout);\r\n      self.hoveredOption = self.selectOptions.filter(\r\n        option =>\r\n          option[self.valueAttribute] ==\r\n          document.activeElement.getAttribute(\"value\")\r\n      )[0];\r\n      self.hoveredIndex = self.selectOptions\r\n        .map(option => option[self.valueAttribute])\r\n        .indexOf(self.hoveredOption[self.valueAttribute]);\r\n    },\r\n    hoverOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.openDropdown();\r\n      if (proposedIndex >= self.selectOptions.length) {\r\n        self.hoveredIndex = 0;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n      } else if (proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.closeDropdown();\r\n        self.hoveredOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    hoverSelectedOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.showSelected = true;\r\n      if (proposedIndex >= self.selectedOptions.length || proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredSelectedOption = self.selectedOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    contains(option, options) {\r\n      var self = this;\r\n      for (var x = 0; x < options.length; x++) {\r\n        let textMatches =\r\n          option[self.displayAttribute] == options[x][self.displayAttribute];\r\n        let valueMatches =\r\n          option[self.valueAttribute] == options[x][self.valueAttribute];\r\n        if (textMatches && valueMatches) return true;\r\n      }\r\n      return false;\r\n    },\r\n    isHovered(option, hoverOption) {\r\n      var self = this;\r\n      let textMatches =\r\n        option[self.displayAttribute] == hoverOption[self.displayAttribute];\r\n      let valueMatches =\r\n        option[self.valueAttribute] == hoverOption[self.valueAttribute];\r\n      return textMatches && valueMatches;\r\n    },\r\n    handleUp() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(-1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(-1);\r\n      } else {\r\n        self.hoverOption(-1);\r\n      }\r\n    },\r\n    handleDown() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(1);\r\n      } else {\r\n        self.hoverOption(1);\r\n      }\r\n    },\r\n    handleLeft() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        (self.selectBoxWidth > self.computedCutOff) & !self.showSelected\r\n      ) {\r\n        self.closeDropdown();\r\n        self.showSelected = true;\r\n      }\r\n    },\r\n    handleRight() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n        self.$el.firstChild.focus();\r\n      }\r\n    },\r\n    handleBackspace() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        self.selectBoxWidth <= self.computedCutOff\r\n      ) {\r\n        var el = self.selectedOptions.pop();\r\n        self.$emit(\"input\", self.selectedOptions);\r\n        window.requestAnimationFrame(self.setSelectBoxWidth);\r\n        self.setCalculatedPadding();\r\n        self.optionSearch = el[self.displayAttribute];\r\n      }\r\n    },\r\n    contained(option) {\r\n      var self = this;\r\n      return self.contains(option, self.selectedOptions);\r\n    },\r\n    selectOption(option) {\r\n      var self = this;\r\n      if (!self.contains(option, self.selectedOptions)) {\r\n        if (!self.multiSelect) {\r\n          self.selectedOptions = [];\r\n        }\r\n        self.selectedOptions.push(option);\r\n      } else {\r\n        self.deselectOption(option, !self.multiSelect);\r\n      }\r\n      self.optionSearch = \"\";\r\n      if (!self.multiSelect) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit(\"input\", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    deselectOption(option, closeDropdown) {\r\n      var self = this;\r\n      if (!self.canBeEmpty && self.selectedOptions.length == 1) {\r\n        return;\r\n      }\r\n      function findIndex(option, options) {\r\n        for (var x = 0; x < options.length; x++) {\r\n          if (option[self.valueAttribute] == options[x][self.valueAttribute]) {\r\n            return x;\r\n          }\r\n        }\r\n        return -1;\r\n      }\r\n      var index = findIndex(option, self.selectedOptions);\r\n      self.selectedOptions.splice(index, 1);\r\n      self.$forceUpdate();\r\n      if (typeof closeDropdown === \"undefined\" || closeDropdown) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit(\"input\", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    closeDropdown() {\r\n      var self = this;\r\n      self.hoveredIndex = -1;\r\n      self.timeout = setTimeout(function() {\r\n        self.showOptions = false;\r\n      }, 200);\r\n    },\r\n    openDropdown() {\r\n      var self = this;\r\n      self.$emit(\"focus\");\r\n      clearTimeout(self.timeout);\r\n      if (self.disabled) {\r\n        return false;\r\n      }\r\n      self.hoveredIndex = -1;\r\n      self.setCalculatedWidth();\r\n      self.showSelected = false;\r\n      self.showOptions = true;\r\n    },\r\n    setSelectBoxWidth() {\r\n      var self = this;\r\n      if (self.$refs.selectBox)\r\n        self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    setCalculatedPadding() {\r\n      var self = this;\r\n      if (self.selectBoxWidth > self.computedCutOff) {\r\n        self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;\r\n      } else {\r\n        self.calculatedPadding = self.selectBoxWidth;\r\n      }\r\n      window.requestAnimationFrame(self.setCalculatedPadding);\r\n    },\r\n    setCalculatedWidth() {\r\n      var self = this;\r\n      setTimeout(function() {\r\n        try {\r\n          self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;\r\n          if (!self.multiSelect) {\r\n            self.calculatedHeight -= 4;\r\n          }\r\n          self.calculatedWidth = self.$el.firstChild.offsetWidth;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n        } catch (err) {\r\n          // pass\r\n        }\r\n      }, 50);\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (!self.canBeEmpty) {\r\n      self.selectOption(self.options[0]);\r\n    }\r\n    window.requestAnimationFrame(self.setCalculatedPadding);\r\n    window.addEventListener(\"resize\", self.setCalculatedWidth);\r\n    window.addEventListener(\"click\", self.handleOffClick);\r\n    self.setCalculatedWidth();\r\n    setTimeout(function() {\r\n      self.setCalculatedWidth();\r\n    }, 200);\r\n    for (var x = 0; x < self.initialValues.length; x++) {\r\n      var initVal = self.initialValues[x];\r\n      for (var y = 0; y < self.options.length; y++) {\r\n        if (\r\n          self.options[y][self.valueAttribute] == initVal[self.valueAttribute]\r\n        ) {\r\n          self.selectedOptions.push(Object.assign({}, self.options[y]));\r\n          break;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"resize\", self.setCalculatedWidth);\r\n    window.removeEventListener(\"click\", self.handleOffClick);\r\n  }\r\n};\r\nexport default SelectMe;\r\n</script>\r\n<style scoped>\r\n.select-me-ignore-me {\r\n  pointer-events: none;\r\n}\r\n.selectme-button {\r\n  height: 30px;\r\n  margin-top: -2px;\r\n}\r\n.selectme-single-select-badge {\r\n  margin-top: 1px;\r\n}\r\n.hidden-inline {\r\n  opacity: 0;\r\n  pointer-events: none;\r\n}\r\n.selectme-badge {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: \"Segoe UI\" !important;\r\n}\r\n.selectme-container {\r\n  height: 45px;\r\n}\r\n.selectme-container * {\r\n  font-family: \"Roboto\", sans-serif;\r\n}\r\n\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\r\n}\r\n.selectme-dropdown {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-badge-single-span {\r\n  float: left;\r\n  padding-right: 8px;\r\n}\r\n.selectme-badge-transparent {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\r\n}\r\n.selectme-selected {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n.selectme-selected > button {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\r\n}\r\n.selectme-dropdown > ul {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\r\n}\r\n.selectme-dropdown > ul > li {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected {\r\n  background-color: #007bff;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li.selectme-hovered {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li:hover {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected:hover {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-27920d50_0", { source: "\n.select-me-ignore-me[data-v-27920d50] {\r\n  pointer-events: none;\n}\n.selectme-button[data-v-27920d50] {\r\n  height: 30px;\r\n  margin-top: -2px;\n}\n.selectme-single-select-badge[data-v-27920d50] {\r\n  margin-top: 1px;\n}\n.hidden-inline[data-v-27920d50] {\r\n  opacity: 0;\r\n  pointer-events: none;\n}\n.selectme-badge[data-v-27920d50] {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: \"Segoe UI\" !important;\n}\n.selectme-container[data-v-27920d50] {\r\n  height: 45px;\n}\n.selectme-container *[data-v-27920d50] {\r\n  font-family: \"Roboto\", sans-serif;\n}\n.sr-only[data-v-27920d50] {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\n}\n.selectme-dropdown[data-v-27920d50] {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\n}\n.selectme-badge-single-span[data-v-27920d50] {\r\n  float: left;\r\n  padding-right: 8px;\n}\n.selectme-badge-transparent[data-v-27920d50] {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\n}\n.selectme-selected[data-v-27920d50] {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\n}\n.selectme-selected > button[data-v-27920d50] {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\n}\n.selectme-dropdown > ul[data-v-27920d50] {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\n}\n.selectme-dropdown > ul > li[data-v-27920d50] {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\n}\n.selectme-dropdown > ul > li.selectme-selected[data-v-27920d50] {\r\n  background-color: #007bff;\r\n  color: white;\n}\n.selectme-dropdown > ul > li.selectme-hovered[data-v-27920d50] {\r\n  background-color: #eeeeee;\n}\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered[data-v-27920d50] {\r\n  background-color: #0069d9;\r\n  color: white;\n}\n.selectme-dropdown > ul > li[data-v-27920d50]:hover {\r\n  background-color: #eeeeee;\n}\n.selectme-dropdown > ul > li.selectme-selected[data-v-27920d50]:hover {\r\n  background-color: #0069d9;\r\n  color: white;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\SelectMe\\src\\SelectMe.vue"],"names":[],"mappings":";AA2jBA;EACA,oBAAA;AACA;AACA;EACA,YAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,UAAA;EACA,oBAAA;AACA;AACA;EACA,qBAAA;EACA,qBAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,mBAAA;EACA,wBAAA;EACA,sBAAA;EACA,2BAAA;EACA,0BAAA;EACA,kCAAA;AACA;AACA;EACA,YAAA;AACA;AACA;EACA,iCAAA;AACA;AAEA;EACA,kBAAA;EACA,UAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,gBAAA;EACA,sBAAA;EACA,SAAA;AACA;AACA;EACA,kBAAA;EACA,UAAA;EACA,uBAAA;EACA,YAAA;EACA,qCAAA;EACA,0BAAA;EACA,oCAAA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;AACA;AACA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,YAAA;EACA,0BAAA;EACA,wCAAA;AACA;AACA;EACA,kBAAA;EACA,qBAAA;EACA,gBAAA;AACA;AACA;EACA,eAAA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;AACA;AACA;EACA,0BAAA;EACA,eAAA;EACA,WAAA;EACA,sBAAA;EACA,gBAAA;EACA,eAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA;AACA;EACA,yBAAA;AACA;AACA;EACA,yBAAA;EACA,YAAA;AACA","file":"SelectMe.vue","sourcesContent":["<template>\r\n  <div class=\"selectme-container\">\r\n    <n-input\r\n      :id=\"name\"\r\n      autocomplete=\"off\"\r\n      type=\"text\"\r\n      placeholder=\"Search...\"\r\n      @click=\"openDropdown\"\r\n      @focus=\"openDropdown\"\r\n      @input=\"openDropdown\"\r\n      @blur=\"closeDropdown\"\r\n      :flavor=\"flavor\"\r\n      v-model=\"optionSearch\"\r\n      @keydown.delete=\"handleBackspace\"\r\n      @keydown.down=\"handleDown\"\r\n      @keydown.up=\"handleUp\"\r\n      @keydown.left=\"handleLeft\"\r\n      @keydown.right=\"handleRight\"\r\n      @keyup.enter=\"selectHoveredOption\"\r\n      :style=\"{ 'padding-left': calculatedPadding + 'px' }\"\r\n      :disabled=\"disabled\"\r\n    ></n-input>\r\n    <!-- Dropdown for all options -->\r\n    <div\r\n      v-if=\"showDropdown\"\r\n      class=\"selectme-dropdown\"\r\n      :style=\"{ width: calculatedWidth + 'px' }\"\r\n    >\r\n      <ul>\r\n        <li\r\n          @keyup.enter=\"selectHoveredOption\"\r\n          @keyup.space=\"selectHoveredOption\"\r\n          tabindex=\"0\"\r\n          role=\"button\"\r\n          @focus=\"hoverElement()\"\r\n          @keydown.down=\"hoverOption(1)\"\r\n          @keydown.up=\"hoverOption(-1)\"\r\n          @blur=\"closeDropdown\"\r\n          v-for=\"(option, index) in selectOptions\"\r\n          :key=\"'dropdown-' + option[valueAttribute] + '-' + index\"\r\n          :value=\"option[valueAttribute]\"\r\n          :ref=\"'hover' + option[valueAttribute]\"\r\n          @click=\"selectOption(option)\"\r\n          :class=\"{\r\n            'selectme-selected': contained(option),\r\n            'selectme-hovered': isHovered(option, hoveredOption),\r\n          }\"\r\n        >\r\n          <span class=\"sr-only\" v-if=\"contained(option)\">Active:</span>\r\n          <span class=\"sr-only\" v-else>Press enter to select:</span>\r\n          {{ option[displayAttribute] }}\r\n        </li>\r\n        <li v-if=\"selectOptions.length == 0\">No results found</li>\r\n      </ul>\r\n    </div>\r\n    <!-- Dropdown for selected values. Only shows when selected overflow input-->\r\n    <div\r\n      class=\"selectme-selected\"\r\n      :style=\"{\r\n        top: multiSelect\r\n          ? `${calculatedHeight}px`\r\n          : `${calculatedHeight + 4}px`,\r\n      }\"\r\n      v-show=\"\r\n        selectBoxWidth > computedCutOff &&\r\n        selectedOptions.length > 0 &&\r\n        canBeEmpty &&\r\n        multiSelect\r\n      \"\r\n      ref=\"selectDropdownBox\"\r\n      data-dropdown=\"parent\"\r\n    >\r\n      <n-button\r\n        @click=\"toggleSelectedDropdown\"\r\n        class=\"selectme-button selectme-badge\"\r\n        :flavor=\"badgeFlavor\"\r\n        data-dropdown=\"toggle\"\r\n      >\r\n        {{ selectedOptions.length }} selected...\r\n        <span class=\"select-me-ignore-me\" v-if=\"!showSelected\">&#x25BE;</span>\r\n        <span class=\"select-me-ignore-me\" v-else>&#x25B4;</span>\r\n      </n-button>\r\n      <div class=\"selectme-dropdown\" v-show=\"showSelected\">\r\n        <ul>\r\n          <li\r\n            tabindex=\"0\"\r\n            v-for=\"(option, index) in selectedOptions\"\r\n            :key=\"'selected-' + option[valueAttribute] + '-' + index\"\r\n            role=\"button\"\r\n            data-dropdown=\"child\"\r\n            @keyup.enter=\"deselectDropdownOption(option)\"\r\n            @keyup.space=\"deselectDropdownOption(option)\"\r\n            :ref=\"'selected' + option[valueAttribute]\"\r\n            :class=\"{\r\n              'selectme-hovered': isHovered(option, hoveredSelectedOption),\r\n            }\"\r\n            @click=\"deselectDropdownOption(option)\"\r\n          >\r\n            <span>&#215;</span>\r\n            {{ option[displayAttribute] }}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n    <!-- Inline selected options -->\r\n    <div\r\n      class=\"selectme-selected\"\r\n      ref=\"selectBox\"\r\n      :style=\"{ top: calculatedHeight + 'px' }\"\r\n      :class=\"{\r\n        'hidden-inline':\r\n          selectBoxWidth > computedCutOff && canBeEmpty && multiSelect,\r\n      }\"\r\n    >\r\n      <n-button\r\n        :flavor=\"badgeFlavor\"\r\n        class=\"selectme-button selectme-badge\"\r\n        :class=\"{ 'selectme-single-select-badge': !multiSelect }\"\r\n        v-for=\"(option, index) in selectedOptions\"\r\n        @click=\"deselectOption(option)\"\r\n        :key=\"'selected-badge-' + option[valueAttribute] + '-' + index\"\r\n      >\r\n        {{ option[displayAttribute] }}\r\n        <span\r\n          :class=\"computedSpanClass\"\r\n          class=\"select-me-ignore-me\"\r\n          v-if=\"canBeEmpty || (!canBeEmpty && selectedOptions.length > 1)\"\r\n          >&#215;</span\r\n        >\r\n      </n-button>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NInput } from \"@IntusFacultas/input\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst SelectMe = {\r\n  name: \"select-me\",\r\n  components: { NInput, NButton },\r\n  data() {\r\n    return {\r\n      timeout: \"\",\r\n      optionSearch: \"\",\r\n      showOptions: false,\r\n      showSelected: false,\r\n      selectBoxWidth: 0,\r\n      calculatedWidth: 0,\r\n      calculatedHeight: 0,\r\n      calculatedPadding: 0,\r\n      selectedOptions: [],\r\n      hoveredOption: {},\r\n      hoveredSelectedOption: {},\r\n      combinedPaddingPerBadge: 26,\r\n      hoveredIndex: -1,\r\n      hoveredSelectedIndex: -1,\r\n    };\r\n  },\r\n  watch: {\r\n    options: {\r\n      handler() {\r\n        if (\r\n          this.selectedOptions.length == 0 &&\r\n          !this.canBeEmpty &&\r\n          this.options.length != 0\r\n        ) {\r\n          this.selectOption(this.options[0]);\r\n        }\r\n      },\r\n      deep: true,\r\n    },\r\n    value(newValue) {\r\n      this.selectedOptions = newValue;\r\n      window.requestAnimationFrame(this.setSelectBoxWidth);\r\n      this.setCalculatedPadding();\r\n    },\r\n  },\r\n  props: {\r\n    value: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      },\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    badgeFlavor: {\r\n      type: String,\r\n      default: \"Primary\",\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\",\r\n    },\r\n    displayAttribute: {\r\n      type: String,\r\n      default: \"text\",\r\n    },\r\n    valueAttribute: {\r\n      type: String,\r\n      default: \"value\",\r\n    },\r\n    canBeEmpty: {\r\n      type: Boolean,\r\n      default: true,\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    options: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      },\r\n    },\r\n    debug: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    multiSelect: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    initialValues: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      },\r\n    },\r\n  },\r\n  computed: {\r\n    computedSpanClass() {\r\n      var self = this;\r\n      if (!self.multiSelect) return [\"selectme-badge-single-span\"];\r\n      return [];\r\n    },\r\n    computedCutOff() {\r\n      var self = this;\r\n      return self.calculatedWidth - 100;\r\n    },\r\n    showDropdown() {\r\n      var self = this;\r\n      return self.showOptions || self.debug;\r\n    },\r\n    selectOptions() {\r\n      function textContains(n) {\r\n        return (\r\n          n[self.displayAttribute]\r\n            .toUpperCase()\r\n            .indexOf(self.optionSearch.toUpperCase()) > -1\r\n        );\r\n      }\r\n      var self = this;\r\n      let options = self.options;\r\n      function filter(fn, array) {\r\n        var rtArray = [];\r\n        for (var x = 0; x < array.length; x++) {\r\n          if (fn(array[x])) {\r\n            rtArray.push(array[x]);\r\n          }\r\n        }\r\n        return rtArray;\r\n      }\r\n      if (self.optionSearch) {\r\n        options = filter(textContains, options);\r\n      }\r\n      return options;\r\n    },\r\n  },\r\n  methods: {\r\n    deselectDropdownOption(option) {\r\n      var self = this;\r\n      self.deselectOption(option, false);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    handleOffClick(event) {\r\n      var self = this;\r\n      if (!event.target.attributes[\"data-dropdown\"]) {\r\n        self.showSelected = false;\r\n      }\r\n    },\r\n    toggleSelectedDropdown() {\r\n      var self = this;\r\n      self.showSelected = !self.showSelected;\r\n    },\r\n    selectHoveredOption() {\r\n      var self = this;\r\n      if (self.showOptions) {\r\n        if (Object.keys(self.hoveredOption).length > 0) {\r\n          if (!self.contains(self.hoveredOption, self.selectedOptions)) {\r\n            if (!self.multiSelect) self.selectedOptions = [];\r\n            self.selectedOptions.push(Object.assign({}, self.hoveredOption));\r\n          } else {\r\n            self.deselectOption(self.hoveredOption, false);\r\n          }\r\n          self.$emit(\"input\", self.selectedOptions);\r\n          self.hoveredOption = {};\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          if (self.multiSelect) {\r\n            self.$el.firstChild.focus();\r\n          } else {\r\n            self.closeDropdown();\r\n          }\r\n        }\r\n      } else if (self.showSelected) {\r\n        self.deselectOption(self.hoveredSelectedOption);\r\n        self.$emit(\"input\", self.selectedOptions);\r\n        self.hoveredSelectedOption = {};\r\n        self.showSelected = false;\r\n        setTimeout(function () {\r\n          self.hoveredIndex = -1;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n          self.$el.firstChild.focus();\r\n        }, 550);\r\n      }\r\n    },\r\n    hoverElement() {\r\n      var self = this;\r\n      clearTimeout(self.timeout);\r\n      self.hoveredOption = self.selectOptions.filter(\r\n        (option) =>\r\n          option[self.valueAttribute] ==\r\n          document.activeElement.getAttribute(\"value\")\r\n      )[0];\r\n      self.hoveredIndex = self.selectOptions\r\n        .map((option) => option[self.valueAttribute])\r\n        .indexOf(self.hoveredOption[self.valueAttribute]);\r\n    },\r\n    hoverOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.openDropdown();\r\n      if (proposedIndex >= self.selectOptions.length) {\r\n        self.hoveredIndex = 0;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n      } else if (proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.closeDropdown();\r\n        self.hoveredOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredOption = self.selectOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    hoverSelectedOption(step) {\r\n      var self = this;\r\n      var proposedIndex = self.hoveredIndex + step;\r\n      self.showSelected = true;\r\n      if (proposedIndex >= self.selectedOptions.length || proposedIndex < -1) {\r\n        return;\r\n      } else if (proposedIndex == -1) {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.$el.firstChild.focus();\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n      } else {\r\n        self.hoveredIndex = proposedIndex;\r\n        self.hoveredSelectedOption = self.selectedOptions[self.hoveredIndex];\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    contains(option, options) {\r\n      var self = this;\r\n      for (var x = 0; x < options.length; x++) {\r\n        let textMatches =\r\n          option[self.displayAttribute] == options[x][self.displayAttribute];\r\n        let valueMatches =\r\n          option[self.valueAttribute] == options[x][self.valueAttribute];\r\n        if (textMatches && valueMatches) return true;\r\n      }\r\n      return false;\r\n    },\r\n    isHovered(option, hoverOption) {\r\n      var self = this;\r\n      let textMatches =\r\n        option[self.displayAttribute] == hoverOption[self.displayAttribute];\r\n      let valueMatches =\r\n        option[self.valueAttribute] == hoverOption[self.valueAttribute];\r\n      return textMatches && valueMatches;\r\n    },\r\n    handleUp() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(-1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(-1);\r\n      } else {\r\n        self.hoverOption(-1);\r\n      }\r\n    },\r\n    handleDown() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.hoverSelectedOption(1);\r\n      } else if (self.showOptions) {\r\n        self.hoverOption(1);\r\n      } else {\r\n        self.hoverOption(1);\r\n      }\r\n    },\r\n    handleLeft() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        (self.selectBoxWidth > self.computedCutOff) & !self.showSelected\r\n      ) {\r\n        self.closeDropdown();\r\n        self.showSelected = true;\r\n      }\r\n    },\r\n    handleRight() {\r\n      var self = this;\r\n      if (self.showSelected) {\r\n        self.showSelected = false;\r\n        self.hoveredSelectedOption = {};\r\n        self.$el.firstChild.focus();\r\n      }\r\n    },\r\n    handleBackspace() {\r\n      var self = this;\r\n      if (\r\n        self.optionSearch.length == 0 &&\r\n        self.selectedOptions.length > 0 &&\r\n        self.selectBoxWidth <= self.computedCutOff\r\n      ) {\r\n        var el = self.selectedOptions.pop();\r\n        self.$emit(\"input\", self.selectedOptions);\r\n        window.requestAnimationFrame(self.setSelectBoxWidth);\r\n        self.setCalculatedPadding();\r\n        self.optionSearch = el[self.displayAttribute];\r\n      }\r\n    },\r\n    contained(option) {\r\n      var self = this;\r\n      return self.contains(option, self.selectedOptions);\r\n    },\r\n    selectOption(option) {\r\n      var self = this;\r\n      if (!self.contains(option, self.selectedOptions)) {\r\n        if (!self.multiSelect) {\r\n          self.selectedOptions = [];\r\n        }\r\n        self.selectedOptions.push(option);\r\n      } else {\r\n        self.deselectOption(option, !self.multiSelect);\r\n      }\r\n      self.optionSearch = \"\";\r\n      if (!self.multiSelect) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit(\"input\", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    deselectOption(option, closeDropdown) {\r\n      var self = this;\r\n      if (!self.canBeEmpty && self.selectedOptions.length == 1) {\r\n        return;\r\n      }\r\n      function findIndex(option, options) {\r\n        for (var x = 0; x < options.length; x++) {\r\n          if (option[self.valueAttribute] == options[x][self.valueAttribute]) {\r\n            return x;\r\n          }\r\n        }\r\n        return -1;\r\n      }\r\n      var index = findIndex(option, self.selectedOptions);\r\n      self.selectedOptions.splice(index, 1);\r\n      self.$forceUpdate();\r\n      if (typeof closeDropdown === \"undefined\" || closeDropdown) {\r\n        self.closeDropdown();\r\n      }\r\n      self.$emit(\"input\", self.selectedOptions);\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n      self.setCalculatedPadding();\r\n    },\r\n    closeDropdown() {\r\n      var self = this;\r\n      self.hoveredIndex = -1;\r\n      self.timeout = setTimeout(function () {\r\n        self.showOptions = false;\r\n      }, 200);\r\n    },\r\n    openDropdown() {\r\n      var self = this;\r\n      self.$emit(\"focus\");\r\n      clearTimeout(self.timeout);\r\n      if (self.disabled) {\r\n        return false;\r\n      }\r\n      self.hoveredIndex = -1;\r\n      self.setCalculatedWidth();\r\n      self.showSelected = false;\r\n      self.showOptions = true;\r\n    },\r\n    setSelectBoxWidth() {\r\n      var self = this;\r\n      if (self.$refs.selectBox)\r\n        self.selectBoxWidth = self.$refs.selectBox.clientWidth + 5;\r\n      window.requestAnimationFrame(self.setSelectBoxWidth);\r\n    },\r\n    setCalculatedPadding() {\r\n      var self = this;\r\n      if (self.selectBoxWidth > self.computedCutOff) {\r\n        self.calculatedPadding = self.$refs.selectDropdownBox.clientWidth + 10;\r\n      } else {\r\n        self.calculatedPadding = self.selectBoxWidth;\r\n      }\r\n      window.requestAnimationFrame(self.setCalculatedPadding);\r\n    },\r\n    setCalculatedWidth() {\r\n      var self = this;\r\n      setTimeout(function () {\r\n        try {\r\n          self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;\r\n          if (!self.multiSelect) {\r\n            self.calculatedHeight -= 4;\r\n          }\r\n          self.calculatedWidth = self.$el.firstChild.offsetWidth;\r\n          window.requestAnimationFrame(self.setSelectBoxWidth);\r\n          self.setCalculatedPadding();\r\n        } catch (err) {\r\n          // pass\r\n        }\r\n      }, 50);\r\n    },\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (!self.canBeEmpty && self.options.length > 0) {\r\n      self.selectOption(self.options[0]);\r\n    }\r\n    window.requestAnimationFrame(self.setCalculatedPadding);\r\n    window.addEventListener(\"resize\", self.setCalculatedWidth);\r\n    window.addEventListener(\"click\", self.handleOffClick);\r\n    self.setCalculatedWidth();\r\n    setTimeout(function () {\r\n      self.setCalculatedWidth();\r\n    }, 200);\r\n    for (var x = 0; x < self.initialValues.length; x++) {\r\n      var initVal = self.initialValues[x];\r\n      for (var y = 0; y < self.options.length; y++) {\r\n        if (\r\n          self.options[y][self.valueAttribute] == initVal[self.valueAttribute]\r\n        ) {\r\n          self.selectedOptions.push(Object.assign({}, self.options[y]));\r\n          break;\r\n        }\r\n      }\r\n    }\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"resize\", self.setCalculatedWidth);\r\n    window.removeEventListener(\"click\", self.handleOffClick);\r\n  },\r\n};\r\nexport default SelectMe;\r\n</script>\r\n<style scoped>\r\n.select-me-ignore-me {\r\n  pointer-events: none;\r\n}\r\n.selectme-button {\r\n  height: 30px;\r\n  margin-top: -2px;\r\n}\r\n.selectme-single-select-badge {\r\n  margin-top: 1px;\r\n}\r\n.hidden-inline {\r\n  opacity: 0;\r\n  pointer-events: none;\r\n}\r\n.selectme-badge {\r\n  display: inline-block;\r\n  padding: 0.25em 0.4em;\r\n  font-weight: 700;\r\n  line-height: 1;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  vertical-align: baseline;\r\n  border-radius: 0.25rem;\r\n  font-weight: 700 !important;\r\n  font-size: 16px !important;\r\n  font-family: \"Segoe UI\" !important;\r\n}\r\n.selectme-container {\r\n  height: 45px;\r\n}\r\n.selectme-container * {\r\n  font-family: \"Roboto\", sans-serif;\r\n}\r\n\r\n.sr-only {\r\n  position: absolute;\r\n  width: 1px;\r\n  height: 1px;\r\n  padding: 0;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  clip: rect(0, 0, 0, 0);\r\n  border: 0;\r\n}\r\n.selectme-dropdown {\r\n  position: absolute;\r\n  z-index: 2;\r\n  background-color: white;\r\n  padding: 5px;\r\n  border: 1px solid rgba(0, 0, 0, 0.15);\r\n  border-radius: 0 0 5px 5px;\r\n  box-shadow: 0px 4px 7px -3px #dadada;\r\n  min-width: 200px;\r\n  max-height: 300px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-badge-single-span {\r\n  float: left;\r\n  padding-right: 8px;\r\n}\r\n.selectme-badge-transparent {\r\n  color: black;\r\n  font-size: 16px !important;\r\n  background-color: transparent !important;\r\n}\r\n.selectme-selected {\r\n  position: relative;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n.selectme-selected > button {\r\n  cursor: pointer;\r\n  padding: 7px;\r\n  margin-right: 2px;\r\n}\r\n.selectme-dropdown > ul {\r\n  list-style: none;\r\n  padding-left: 0px;\r\n  margin-left: 0px;\r\n  margin-bottom: 0px;\r\n}\r\n.selectme-dropdown > ul > li {\r\n  padding: 2px 10px 2px 10px;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n  margin-left: 0px;\r\n  font-size: 16px;\r\n  max-height: 200px;\r\n  margin-bottom: -2px;\r\n  overflow-y: auto;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected {\r\n  background-color: #007bff;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li.selectme-hovered {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected.selectme-hovered {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n.selectme-dropdown > ul > li:hover {\r\n  background-color: #eeeeee;\r\n}\r\n.selectme-dropdown > ul > li.selectme-selected:hover {\r\n  background-color: #0069d9;\r\n  color: white;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__ = "data-v-844281fc";
+  const __vue_scope_id__ = "data-v-27920d50";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
@@ -1062,4 +1087,5 @@ __vue_component__.install = install; // Export component by default
 // export const RollupDemoDirective = component;
 
 export default __vue_component__;
+export { __vue_component__ as SelectMe };
 //# sourceMappingURL=SelectMe.esm.js.map

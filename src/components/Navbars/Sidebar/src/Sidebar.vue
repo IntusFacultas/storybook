@@ -10,7 +10,7 @@
     ref="sidebar"
   >
     <sidebar-title :flavor="flavor">
-      <web-text :size="16">{{ sidebarTitle }}</web-text>
+      <text :size="16">{{ sidebarTitle }}</text>
       <sidebar-hamburger-container :width="width" :breakpoint="breakpoint">
         <n-button :flavor="flavor" @click="toggleAccordion">&#9776;</n-button>
       </sidebar-hamburger-container>
@@ -31,7 +31,7 @@
         >
           <a v-if="item.type == 'item'" :href="item.url">
             <div class="sidebar-icon" v-html="item.icon"></div>
-            <web-text :size="13">{{ item.text }}</web-text>
+            <text :size="13">{{ item.text }}</text>
           </a>
           <div v-else>
             <vue-sidebar-dropdown
@@ -50,7 +50,7 @@
 <script>
 import styled from "vue-styled-components";
 import Theme from "@IntusFacultas/design-system";
-import { WebText, NLabel } from "@IntusFacultas/typography";
+import { TextContent, NLabel } from "@IntusFacultas/typography";
 import { NButton } from "@IntusFacultas/button";
 const props = {
   flavor: String,
@@ -59,52 +59,52 @@ const props = {
   raw: Boolean,
   width: {
     type: Number,
-    default: 200
+    default: 200,
   },
   height: {
     type: Number,
-    default: null
+    default: null,
   },
   breakpoint: {
     type: Number,
-    default: 576
+    default: 576,
   },
   topOffset: {
     type: String,
-    default: "0px"
+    default: "0px",
   },
   bottomOffset: {
     type: String,
-    default: "0px"
+    default: "0px",
   },
   defaultTheme: {
     type: Object,
     default: function() {
       return Theme;
-    }
-  }
+    },
+  },
 };
 export const SidebarHamburgerContainer = styled("div", props)`
   display: none;
-  @media (max-width: ${props => props.breakpoint}px) {
+  @media (max-width: ${(props) => props.breakpoint}px) {
     display: block;
   }
 `;
 export const SidebarContainer = styled("aside", props)`
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "#f2f2f2"};
-  width: ${props => props.width}px;
+  width: ${(props) => props.width}px;
   z-index: 1;
   position: absolute;
   left: 0px;
-  top: ${props => props.topOffset};
-  bottom: ${props => props.bottomOffset};
-  ${props => (!isNaN(props.height) ? `height: ${props.height}px` : ``)}
-  @media (max-width: ${props => props.breakpoint}px) {
+  top: ${(props) => props.topOffset};
+  bottom: ${(props) => props.bottomOffset};
+  ${(props) => (!isNaN(props.height) ? `height: ${props.height}px` : ``)}
+  @media (max-width: ${(props) => props.breakpoint}px) {
     position: relative;
     width: 100%;
     padding-left: auto;
@@ -126,7 +126,7 @@ export const SidebarTitle = styled("div", props)`
   justify-content: space-between;
   padding: 10px 15px;
   & * {
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
@@ -138,12 +138,12 @@ export const SidebarContent = styled("div", props)`
   overflow: hidden;
   transition: height 0.3s ease-out;
 
-  @media (min-width: ${props => props.breakpoint + 1}px) {
+  @media (min-width: ${(props) => props.breakpoint + 1}px) {
     height: auto !important;
     padding: 5px 0px !important;
   }
 
-  ${props =>
+  ${(props) =>
     props.raw
       ? ""
       : `
@@ -171,20 +171,20 @@ export const SidebarItem = styled("li", props)`
     text-decoration: none;
   }
   & * {
-    color: ${props =>
+    color: ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].color.color
         : "#222"};
   }
-  ${props =>
+  ${(props) =>
     props.disabled
       ? `
     pointer-events: none;
     & * {color: rgba(0, 0, 0, 0.3) !important;}`
       : ""};
-  ${props =>
+  ${(props) =>
     props.active
       ? `
   background-color: ${
@@ -197,7 +197,7 @@ export const SidebarItem = styled("li", props)`
   `
       : ""}
   &:hover {
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.hover
       : props.defaultTheme[props.flavor]
@@ -218,7 +218,7 @@ const SidebarDropdownCarat = styled("div", props)`
   background-image: linear-gradient(
     to top right,
     transparent 50%,
-    ${props =>
+    ${(props) =>
         props.disabled
           ? "rgba(0, 0, 0, 0.3)"
           : props.theme && props.theme[props.flavor]
@@ -241,36 +241,36 @@ export const VueSidebarDropdown = {
     SidebarDropdownCarat,
     NLabel,
     SidebarItem,
-    WebText
+    TextContent,
   },
   data() {
     return {
-      toggled: false
+      toggled: false,
     };
   },
   props: {
     icon: {
       type: String,
-      default: ""
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     text: {
       type: String,
-      default: ""
+      default: "",
     },
     items: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     flavor: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   computed: {
     uid() {
@@ -281,12 +281,12 @@ export const VueSidebarDropdown = {
         return ["sidebar-open-carat"];
       }
       return [];
-    }
+    },
   },
   methods: {
     toggleDropdown() {
       this.toggled = !this.toggled;
-    }
+    },
   },
   template: `
     <div>
@@ -321,12 +321,12 @@ export const VueSidebarDropdown = {
         >
           <a :href="option.url" :tabindex="toggled ? 0 : -1">
             <div class="sidebar-icon" v-html="option.icon"></div>
-            <web-text :size="13">{{option.text}}</web-text>
+            <text :size="13">{{option.text}}</text>
           </a>
         </sidebar-item>
       </sidebar-dropdown>
     </div>
-  `
+  `,
 };
 
 export const Sidebar = {
@@ -337,14 +337,14 @@ export const Sidebar = {
     SidebarContent,
     SidebarItemList,
     SidebarItem,
-    WebText,
+    TextContent,
     VueSidebarDropdown,
-    NButton
+    NButton,
   },
   data: function() {
     return {
       windowWidth: 0,
-      open: true
+      open: true,
     };
   },
   mounted: function() {
@@ -435,49 +435,49 @@ export const Sidebar = {
     },
     changeWindow: function($e) {
       window.location.href = $e;
-    }
+    },
   },
   props: {
     sidebarTitle: {
       type: String,
-      default: "Sidebar"
+      default: "Sidebar",
     },
     flavor: {
       type: String,
-      default: ""
+      default: "",
     },
     bottomOffset: {
       type: String,
-      default: "0px"
+      default: "0px",
     },
     topOffset: {
       type: String,
-      default: ""
+      default: "",
     },
     width: {
       type: Number,
-      default: 200
+      default: 200,
     },
     height: {
       type: [Number, Object],
-      default: null
+      default: null,
     },
     breakpoint: {
       type: Number,
-      default: 576
+      default: 576,
     },
     items: {
       type: Array,
       default: function() {
         return [];
-      }
-    }
-  }
+      },
+    },
+  },
 };
 export const SidebarOffsetContent = styled("div", props)`
   margin-left: 0px;
-  @media (min-width: ${props => props.breakpoint}px) {
-    margin-left: ${props => props.width}px;
+  @media (min-width: ${(props) => props.breakpoint}px) {
+    margin-left: ${(props) => props.width}px;
     margin-top: 0px;
   }
   padding-left: 15px;

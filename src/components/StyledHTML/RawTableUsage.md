@@ -14,7 +14,7 @@ npm install @IntusFacultas/raw-table@latest --save
 
 This is a variation of the `@IntusFacultas/table` component, which allows you to construct your own custom table based on the same components as `@IntusFacultas/table`.
 
-Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
+Draws default themes from DesignSystem/theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
@@ -26,6 +26,8 @@ Draws default themes from DesignSystem/nasic-theme.js. You can override the them
 ```
 
 ```javascript
+import VueRawTable from "@IntusFacultas/raw-table";
+import {TableCarat, TableRow, TableHeader, TableCell} from "@IntusFacultas/table";
 data: {
     flavor: "Primary",
     striped: true

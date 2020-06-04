@@ -27,6 +27,7 @@ When you are instantiating your component instance, make sure to bind a variable
 ```
 
 ```javascript
+import SelectMe from "@IntusFacultas/select-me";
 data: {
     selectedOptions: [],
     multiSelect: true,

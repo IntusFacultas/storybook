@@ -22,7 +22,7 @@
         :class="{
           'active-title': title.visible,
           'margined-title': margined(title),
-          'visible-title': computeVisibility(title)
+          'visible-title': computeVisibility(title),
         }"
         @click="scrollToEl(title.el)"
         @keyup.space="scrollToEl(title.el)"
@@ -41,30 +41,120 @@ if (!Element.prototype.matches) {
     Element.prototype.msMatchesSelector ||
     Element.prototype.webkitMatchesSelector;
 }
+
+if (!Array.from) {
+  Array.from = (function () {
+    var toStr = Object.prototype.toString;
+    var isCallable = function (fn) {
+      return typeof fn === "function" || toStr.call(fn) === "[object Function]";
+    };
+    var toInteger = function (value) {
+      var number = Number(value);
+      if (isNaN(number)) {
+        return 0;
+      }
+      if (number === 0 || !isFinite(number)) {
+        return number;
+      }
+      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+    };
+    var maxSafeInteger = Math.pow(2, 53) - 1;
+    var toLength = function (value) {
+      var len = toInteger(value);
+      return Math.min(Math.max(len, 0), maxSafeInteger);
+    };
+
+    // The length property of the from method is 1.
+    return function from(arrayLike /*, mapFn, thisArg */) {
+      // 1. Let C be the this value.
+      var C = this;
+
+      // 2. Let items be ToObject(arrayLike).
+      var items = Object(arrayLike);
+
+      // 3. ReturnIfAbrupt(items).
+      if (arrayLike == null) {
+        throw new TypeError(
+          "Array.from requires an array-like object - not null or undefined"
+        );
+      }
+
+      // 4. If mapfn is undefined, then let mapping be false.
+      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+      var T;
+      if (typeof mapFn !== "undefined") {
+        // 5. else
+        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
+        if (!isCallable(mapFn)) {
+          throw new TypeError(
+            "Array.from: when provided, the second argument must be a function"
+          );
+        }
+
+        // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
+      }
+
+      // 10. Let lenValue be Get(items, "length").
+      // 11. Let len be ToLength(lenValue).
+      var len = toLength(items.length);
+
+      // 13. If IsConstructor(C) is true, then
+      // 13. a. Let A be the result of calling the [[Construct]] internal method
+      // of C with an argument list containing the single item len.
+      // 14. a. Else, Let A be ArrayCreate(len).
+      var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+
+      // 16. Let k be 0.
+      var k = 0;
+      // 17. Repeat, while k < len… (also steps a - h)
+      var kValue;
+      while (k < len) {
+        kValue = items[k];
+        if (mapFn) {
+          A[k] =
+            typeof T === "undefined"
+              ? mapFn(kValue, k)
+              : mapFn.call(T, kValue, k);
+        } else {
+          A[k] = kValue;
+        }
+        k += 1;
+      }
+      // 18. Let putStatus be Put(A, "length", len, true).
+      A.length = len;
+      // 20. Return A.
+      return A;
+    };
+  })();
+}
+
 const props = {
   padding: {
     type: Number,
-    default: 0
+    default: 0,
   },
   breakpoint: {
     type: Number,
-    default: 576
+    default: 576,
   },
   topOffset: {
     type: Number,
-    default: 100
+    default: 100,
   },
   width: {
     type: String,
-    default: "auto"
+    default: "auto",
   },
   textTheme: {
     type: Object,
-    default: function() {
+    default: function () {
       return TextTheme;
-    }
+    },
   },
-  flavor: String
+  flavor: String,
 };
 const Toggler = styled.span`
   color: #ff7200;
@@ -75,7 +165,7 @@ const Toggler = styled.span`
 `;
 const ContentsContainer = styled("nav", props)`
   display: block;
-  max-width: ${props => (props.width ? props.width : "auto")};
+  max-width: ${(props) => (props.width ? props.width : "auto")};
 `;
 const ContentsTable = styled("ul", props)`
   & * {
@@ -94,7 +184,7 @@ const ContentsTable = styled("ul", props)`
 `;
 
 const Item = styled("li", props)`
-  padding-left: ${props => props.padding * 10 + 10}px;
+  padding-left: ${(props) => props.padding * 10 + 10}px;
   border-left-style: solid;
   border-left-width: 2px;
   font-size: 14px;
@@ -103,9 +193,9 @@ const Item = styled("li", props)`
   max-height: 0px;
   overflow: hidden;
   border-color: rgba(0, 0, 0, 0.1);
-  color: ${props =>
+  color: ${(props) =>
     props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color};
-  ${props =>
+  ${(props) =>
     props.flavor
       ? props.textTheme[props.flavor]
         ? "color " + props.textTheme[props.flavor].color
@@ -119,26 +209,35 @@ export const TableOfContents = {
     return {
       titles: [],
       override: false,
-      scrollToOverride: false
+      scrollToOverride: false,
+      observer: null,
     };
   },
   props: {
     width: {
       type: String,
-      default: "auto"
+      default: "auto",
+    },
+    enableDomListening: {
+      type: Boolean,
+      default: false,
     },
     flavor: {
       type: String,
-      default: ""
+      default: "",
+    },
+    ignoreQuery: {
+      type: [String, Array],
+      default: "",
     },
     queryOverride: {
       type: String,
-      default: ""
+      default: "",
     },
     offset: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   methods: {
     toggleOverride() {
@@ -158,7 +257,7 @@ export const TableOfContents = {
       window.scrollTo({ top: y - IEHoldOff, behavior: "smooth" });
       this.scrollToOverride = true;
       let self = this;
-      setTimeout(function() {
+      setTimeout(function () {
         setTimeout(() => {
           self.checkTitles();
         }, 100);
@@ -169,10 +268,10 @@ export const TableOfContents = {
     debounce(func, wait, immediate) {
       // pulled from https://davidwalsh.name/javascript-debounce-function
       var timeout;
-      return function() {
+      return function () {
         var context = this,
           args = arguments;
-        var later = function() {
+        var later = function () {
           timeout = null;
           if (!immediate) func.apply(context, args);
         };
@@ -186,15 +285,15 @@ export const TableOfContents = {
       return (
         (!this.scrollToOverride && this.override) ||
         title.override ||
-        title.children.filter(child => child.override).length > 0 ||
-        title.parents.filter(parent => parent.override).length > 0
+        title.children.filter((child) => child.override).length > 0 ||
+        title.parents.filter((parent) => parent.override).length > 0
       );
     },
     computeScreenVisibility(title) {
       return (
         !this.scrollToOverride &&
         (title.visible ||
-          title.children.filter(child => child.visible).length > 0)
+          title.children.filter((child) => child.visible).length > 0)
       );
     },
     computeVisibility(title) {
@@ -237,10 +336,23 @@ export const TableOfContents = {
       }
     },
     checkIfTitle(el) {
+      let notDisqualified = true;
+      if (this.ignoreQuery) {
+        if (Array.isArray(this.ignoreQuery)) {
+          for (let query of this.ignoreQuery) {
+            if (el.matches(query)) {
+              notDisqualified = false;
+              break;
+            }
+          }
+        } else {
+          notDisqualified = !el.matches(this.ignoreQuery);
+        }
+      }
       if (this.queryOverride) {
-        return el.matches(this.queryOverride);
+        return el.matches(this.queryOverride) && notDisqualified;
       } else {
-        return el.matches("h1, h2, h3, h4, h5, h6");
+        return el.matches("h1, h2, h3, h4, h5, h6") && notDisqualified;
       }
     },
     calculateTitleType(el) {
@@ -256,10 +368,12 @@ export const TableOfContents = {
       let visited = [];
       while (stack.length > 0) {
         let el = stack.pop();
-        for (let child of Array.from(el.children).filter(
-          c => visited.indexOf(c) == -1 && !c.isEqualNode(el)
-        )) {
-          stack.push(child);
+        if (typeof el.children !== "undefined") {
+          for (let child of Array.from(el.children).filter(
+            (c) => visited.indexOf(c) == -1 && !c.isEqualNode(el)
+          )) {
+            stack.push(child);
+          }
         }
         let path = this.getPathTo(el);
         let notVisited = visited.indexOf(path) == -1;
@@ -272,7 +386,7 @@ export const TableOfContents = {
             offset: -1,
             visible: false,
             hovered: false,
-            override: false
+            override: false,
           });
         }
         visited.push(this.getPathTo(el));
@@ -287,7 +401,7 @@ export const TableOfContents = {
       for (let [index, title] of this.titles.entries()) {
         title.offset = title.el.getBoundingClientRect().top;
         if (title.offset < 20 + this.offset && title.offset > 0) {
-          for (let other of this.titles.filter(o => o.visible)) {
+          for (let other of this.titles.filter((o) => o.visible)) {
             other.visible = false;
           }
           title.visible = true;
@@ -304,12 +418,12 @@ export const TableOfContents = {
         yOffset == 0 &&
         window.innerWidth - document.documentElement.clientWidth == 0
       ) {
-        for (let other of this.titles.filter(o => o.visible)) {
+        for (let other of this.titles.filter((o) => o.visible)) {
           other.visible = false;
         }
         this.titles[0].visible = true;
       } else if (window.innerHeight + yOffset >= document.body.offsetHeight) {
-        for (let other of this.titles.filter(o => o.visible)) {
+        for (let other of this.titles.filter((o) => o.visible)) {
           other.visible = false;
         }
         this.titles[this.titles.length - 1].visible = true;
@@ -363,21 +477,66 @@ export const TableOfContents = {
           title.siblings = [];
         } else {
           title.siblings = this.titles.filter(
-            o =>
-              o.parents.filter(p => p.id == title.parents[0].id).length > 0 &&
+            (o) =>
+              o.parents.filter((p) => p.id == title.parents[0].id).length > 0 &&
               o.parents.length == title.parents.length &&
               o.id != title.id
           );
         }
       }
-    }
+    },
+    updateTitles() {
+      this.titles = this.crawl(document.getElementsByTagName("body")[0]);
+      this.assignChildren();
+      this.checkTitles();
+    },
+    updateTitlesOnDOMChange(mutationsList) {
+      for (let mutation of mutationsList) {
+        if (mutation.type === "childList") {
+          this.updateTitles();
+        }
+      }
+    },
+  },
+  beforeDestroy() {
+    this.observer.disconnect();
   },
   mounted() {
-    this.titles = this.crawl(document.getElementsByTagName("body")[0]);
-    this.assignChildren();
-    this.checkTitles();
+    let body = document.getElementsByTagName("body")[0];
+    if (this.enableDomListening) {
+      let config = { attributes: false, childList: true, subtree: false };
+      this.observer = new MutationObserver(this.updateTitlesOnDOMChange);
+      this.observer.observe(body, config);
+    } else {
+      (function () {
+        if (typeof window.CustomEvent === "function") return false;
+
+        function CustomEvent(event, params) {
+          params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: null,
+          };
+          var evt = document.createEvent("CustomEvent");
+          evt.initCustomEvent(
+            event,
+            params.bubbles,
+            params.cancelable,
+            params.detail
+          );
+          return evt;
+        }
+
+        window.CustomEvent = CustomEvent;
+      })();
+      window.addEventListener(
+        "IntusFacultas-table-of-contents",
+        this.updateTitles
+      );
+    }
+    this.updateTitles();
     window.addEventListener("scroll", this.checkTitles);
-    (function() {
+    (function () {
       "use strict";
 
       // polyfill
@@ -403,7 +562,7 @@ export const TableOfContents = {
           scroll: w.scroll || w.scrollTo,
           scrollBy: w.scrollBy,
           elementScroll: Element.prototype.scroll || scrollElement,
-          scrollIntoView: Element.prototype.scrollIntoView
+          scrollIntoView: Element.prototype.scrollIntoView,
         };
 
         // define timing method
@@ -613,13 +772,13 @@ export const TableOfContents = {
             startX: startX,
             startY: startY,
             x: x,
-            y: y
+            y: y,
           });
         }
 
         // ORIGINAL METHODS OVERRIDES
         // w.scroll and w.scrollTo
-        w.scroll = w.scrollTo = function() {
+        w.scroll = w.scrollTo = function () {
           // avoid action when no arguments are passed
           if (arguments[0] === undefined) {
             return;
@@ -659,7 +818,7 @@ export const TableOfContents = {
         };
 
         // w.scrollBy
-        w.scrollBy = function() {
+        w.scrollBy = function () {
           // avoid action when no arguments are passed
           if (arguments[0] === undefined) {
             return;
@@ -694,7 +853,7 @@ export const TableOfContents = {
         };
 
         // Element.prototype.scroll and Element.prototype.scrollTo
-        Element.prototype.scroll = Element.prototype.scrollTo = function() {
+        Element.prototype.scroll = Element.prototype.scrollTo = function () {
           // avoid action when no arguments are passed
           if (arguments[0] === undefined) {
             return;
@@ -742,7 +901,7 @@ export const TableOfContents = {
         };
 
         // Element.prototype.scrollBy
-        Element.prototype.scrollBy = function() {
+        Element.prototype.scrollBy = function () {
           // avoid action when no arguments are passed
           if (arguments[0] === undefined) {
             return;
@@ -766,12 +925,12 @@ export const TableOfContents = {
           this.scroll({
             left: ~~arguments[0].left + this.scrollLeft,
             top: ~~arguments[0].top + this.scrollTop,
-            behavior: arguments[0].behavior
+            behavior: arguments[0].behavior,
           });
         };
 
         // Element.prototype.scrollIntoView
-        Element.prototype.scrollIntoView = function() {
+        Element.prototype.scrollIntoView = function () {
           // avoid smooth behavior if not required
           if (shouldBailOut(arguments[0]) === true) {
             original.scrollIntoView.call(
@@ -801,7 +960,7 @@ export const TableOfContents = {
               w.scrollBy({
                 left: parentRects.left,
                 top: parentRects.top,
-                behavior: "smooth"
+                behavior: "smooth",
               });
             }
           } else {
@@ -809,7 +968,7 @@ export const TableOfContents = {
             w.scrollBy({
               left: clientRects.left,
               top: clientRects.top,
-              behavior: "smooth"
+              behavior: "smooth",
             });
           }
         };
@@ -825,8 +984,14 @@ export const TableOfContents = {
     })();
   },
   beforeDestroy() {
+    if (!this.enableDomListening) {
+      window.removeEventListener(
+        "IntusFacultas-table-of-contents",
+        this.updateTitles
+      );
+    }
     window.removeEventListener("scroll", this.checkTitles);
-  }
+  },
 };
 export default TableOfContents;
 </script>

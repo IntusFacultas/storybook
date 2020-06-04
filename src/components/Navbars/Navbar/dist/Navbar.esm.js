@@ -85,7 +85,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  white-space: nowrap;\n  padding: 1rem 0.5rem 0px 0.5rem;\n  height:\n  ", "\n  & * {\n    text-decoration: none;\n  }\n  ", ";\n  ", "\n  &:hover {\n    background-color: ", ";\n    color: ", ";\n  }\n  &:disabled {\n    pointer-events: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  white-space: nowrap;\n  padding: 1rem 0.5rem 0px 0.5rem;\n  height: ", "\n    & * {\n    text-decoration: none;\n  }\n  ", ";\n  ", "\n  &:hover {\n    background-color: ", ";\n    color: ", ";\n  }\n  &:disabled {\n    pointer-events: none;\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -436,132 +436,142 @@ var Navbar = {
   }
 };
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+/* server only */
+, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+  if (typeof shadowMode !== 'boolean') {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  } // Vue.extend constructor export interop.
+
+
+  var options = typeof script === 'function' ? script.options : script; // render functions
+
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true; // functional template
+
+    if (isFunctionalTemplate) {
+      options.functional = true;
     }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
-        }
+  } // scopedId
+
+
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+
+  var hook;
+
+  if (moduleIdentifier) {
+    // server build
+    hook = function hook(context) {
+      // 2.3 injection
+      context = context || // cached call
+      this.$vnode && this.$vnode.ssrContext || // stateful
+      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      // 2.2 with runInNewContext: true
+
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+      } // inject component styles
+
+
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      } // register component module identifier for async chunk inference
+
+
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    }; // used by ssr in case component is cached and beforeCreate
+    // never gets called
+
+
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode ? function (context) {
+      style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+    } : function (context) {
+      style.call(this, createInjector(context));
+    };
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      var originalRender = options.render;
+
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
-        };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
-    }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
+  }
+
+  return script;
 }
 
-const isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
 function createInjector(context) {
-    return (id, style) => addStyle(id, style);
+  return function (id, style) {
+    return addStyle(id, style);
+  };
 }
-let HEAD;
-const styles = {};
+
+var HEAD;
+var styles = {};
+
 function addStyle(id, css) {
-    const group = isOldIE ? css.media || 'default' : id;
-    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-    if (!style.ids.has(id)) {
-        style.ids.add(id);
-        let code = css.source;
-        if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-                '\n/*# sourceMappingURL=data:application/json;base64,' +
-                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-                    ' */';
-        }
-        if (!style.element) {
-            style.element = document.createElement('style');
-            style.element.type = 'text/css';
-            if (css.media)
-                style.element.setAttribute('media', css.media);
-            if (HEAD === undefined) {
-                HEAD = document.head || document.getElementsByTagName('head')[0];
-            }
-            HEAD.appendChild(style.element);
-        }
-        if ('styleSheet' in style.element) {
-            style.styles.push(code);
-            style.element.styleSheet.cssText = style.styles
-                .filter(Boolean)
-                .join('\n');
-        }
-        else {
-            const index = style.ids.size - 1;
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index])
-                style.element.removeChild(nodes[index]);
-            if (nodes.length)
-                style.element.insertBefore(textNode, nodes[index]);
-            else
-                style.element.appendChild(textNode);
-        }
+  var group = isOldIE ? css.media || 'default' : id;
+  var style = styles[group] || (styles[group] = {
+    ids: new Set(),
+    styles: []
+  });
+
+  if (!style.ids.has(id)) {
+    style.ids.add(id);
+    var code = css.source;
+
+    if (css.map) {
+      // https://developer.chrome.com/devtools/docs/javascript-debugging
+      // this makes source maps inside style tags work properly in Chrome
+      code += '\n/*# sourceURL=' + css.map.sources[0] + ' */'; // http://stackoverflow.com/a/26603875
+
+      code += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) + ' */';
     }
+
+    if (!style.element) {
+      style.element = document.createElement('style');
+      style.element.type = 'text/css';
+      if (css.media) style.element.setAttribute('media', css.media);
+
+      if (HEAD === undefined) {
+        HEAD = document.head || document.getElementsByTagName('head')[0];
+      }
+
+      HEAD.appendChild(style.element);
+    }
+
+    if ('styleSheet' in style.element) {
+      style.styles.push(code);
+      style.element.styleSheet.cssText = style.styles.filter(Boolean).join('\n');
+    } else {
+      var index = style.ids.size - 1;
+      var textNode = document.createTextNode(code);
+      var nodes = style.element.childNodes;
+      if (nodes[index]) style.element.removeChild(nodes[index]);
+      if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
+    }
+  }
 }
 
 /* script */
@@ -638,14 +648,7 @@ var __vue_render__ = function() {
                     ? _c(
                         "a",
                         { attrs: { href: item.disabled ? "#" : item.url } },
-                        [
-                          _vm._v(
-                            "\n          " + _vm._s(item.text) + "\n          "
-                          ),
-                          _c("span", {
-                            domProps: { innerHTML: _vm._s(item.html) }
-                          })
-                        ]
+                        [_vm._v(_vm._s(item.text))]
                       )
                     : _c("vue-navbar-dropdown", {
                         attrs: {
@@ -690,14 +693,7 @@ var __vue_render__ = function() {
                     ? _c(
                         "a",
                         { attrs: { href: item.disabled ? "#" : item.url } },
-                        [
-                          _vm._v(
-                            "\n          " + _vm._s(item.text) + "\n          "
-                          ),
-                          _c("span", {
-                            domProps: { innerHTML: _vm._s(item.html) }
-                          })
-                        ]
+                        [_vm._v(_vm._s(item.text))]
                       )
                     : _c("vue-navbar-dropdown", {
                         attrs: {
@@ -742,14 +738,7 @@ var __vue_render__ = function() {
                     ? _c(
                         "a",
                         { attrs: { href: item.disabled ? "#" : item.url } },
-                        [
-                          _vm._v(
-                            "\n          " + _vm._s(item.text) + "\n          "
-                          ),
-                          _c("span", {
-                            domProps: { innerHTML: _vm._s(item.html) }
-                          })
-                        ]
+                        [_vm._v(_vm._s(item.text))]
                       )
                     : _c("vue-navbar-dropdown", {
                         attrs: {
@@ -781,7 +770,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-56f6434c_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\storybook\\src\\components\\Navbars\\Navbar\\src\\Navbar.vue"],"names":[],"mappings":";AA2nBA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA","file":"Navbar.vue","sourcesContent":["<template>\r\n  <navbar-container :flavor=\"flavor\" ref=\"container\" :fixed=\"fixed\" :collapsed=\"collapsed\">\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n    >&#9776;</n-button>\r\n    <navbar-content-container :collapsed=\"collapsed\" :open=\"open\" ref=\"content\">\r\n      <navbar-content\r\n        :style=\"computedStyle(leftItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"leftContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in leftItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a v-if=\"item.type == 'item'\" :href=\"item.disabled ? '#' : item.url\">\r\n            {{ item.text }}\r\n            <span v-html=\"item.html\"></span>\r\n          </a>\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n      <navbar-content\r\n        :style=\"computedStyle(centerItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"middleContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in centerItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a v-if=\"item.type == 'item'\" :href=\"item.disabled ? '#' : item.url\">\r\n            {{ item.text }}\r\n            <span v-html=\"item.html\"></span>\r\n          </a>\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n      <navbar-content\r\n        :style=\"computedStyle(rightItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"rightContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in rightItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a v-if=\"item.type == 'item'\" :href=\"item.disabled ? '#' : item.url\">\r\n            {{ item.text }}\r\n            <span v-html=\"item.html\"></span>\r\n          </a>\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  open: Boolean,\r\n  active: Boolean,\r\n  navHeight: Number,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    }\r\n  },\r\n  collapsed: Boolean,\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576\r\n  },\r\n  fixed: Boolean\r\n};\r\nexport const NavbarContainer = styled(\"nav\", props)`\r\n  ${props =>\r\n    props.fixed\r\n      ? `\r\n    position: fixed;\r\n    top: 0px;\r\n    right: 0px;\r\n    left: 0px;\r\n  `\r\n      : \"\"}\r\n  z-index: 2;\r\n  & * {\r\n    z-index: 2;\r\n  }\r\n  & * {\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Old versions of Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n  }\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  & * {\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n  }\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  font-size: 16px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n  padding: 0rem 0.5rem;\r\n  border: none;\r\n`;\r\nexport const NavbarItem = styled(\"li\", props)`\r\n  white-space: nowrap;\r\n  padding: 1rem 0.5rem 0px 0.5rem;\r\n  height:\r\n  ${props => (props.collapsed ? \"auto\" : `calc(${props.navHeight}px - 1rem);`)}\r\n  & * {\r\n    text-decoration: none;\r\n  }\r\n  ${props =>\r\n    props.disabled\r\n      ? `& * {\r\n    pointer-events: none;\r\n    color: rgba(0, 0, 0, 0.3) !important;\r\n  }`\r\n      : \"\"};\r\n  ${props =>\r\n    props.active\r\n      ? `\r\n  background-color: ${\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.focus\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.focus\r\n      : \"#d7d7d7\"\r\n  };\r\n  `\r\n      : \"\"}\r\n  &:hover {\r\n    background-color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : \"#d7d7d7\"};\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.hover\r\n        : \"#222\"};\r\n  }\r\n  &:disabled {\r\n    pointer-events: none;\r\n  }\r\n`;\r\nexport const NavbarTitle = styled.span`\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  padding: 0.5rem;\r\n  padding-left: 0rem;\r\n  & a {\r\n    text-decoration: none;\r\n  }\r\n`;\r\nexport const NavbarContent = styled(\"ul\", props)`\r\n  display: flex;\r\n  list-style: none;\r\n  margin: 0;\r\n  transition: 0.3s max-height;\r\n  padding-left: 0px !important;\r\n  ${props =>\r\n    props.collapsed\r\n      ? `flex-direction: column; max-height: 0px; overflow: hidden;`\r\n      : \"\"};\r\n`;\r\nexport const NavbarContentContainer = styled(\"div\", props)`\r\n  display: flex;\r\n  flex: 1;\r\n  justify-content: space-between;\r\n  padding-right: 10px;\r\n  ${props =>\r\n    props.collapsed\r\n      ? \"flex-direction: column; padding-bottom: 5px; flex-basis: 100%; flex-grow: 1; padding-right: 0px;\"\r\n      : \"\"};\r\n  ${props => (props.collapsed && !props.open ? \"max-width: 0px;\" : \"\")}\r\n`;\r\nconst NavbarDropdownContainer = styled(\"div\", props)`\r\n  ${props => (props.collapsed ? `text-align: left` : `text-align: center;`)}\r\n  min-width: 130px;\r\n  & * {\r\n  }\r\n`;\r\nconst NavbarDropdownLabel = styled.label`\r\n  cursor: pointer;\r\n`;\r\nconst NavbarDropdown = styled(\"ul\", props)`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n  text-align: left;\r\n  transition: 0.3s max-height;\r\n  margin-left: -8px;\r\n  margin-right: -44px;\r\n  ${props => (props.collapsed ? `margin-right: -8px; padding-left: 20px` : \"\")}\r\n  margin-top: 12px;\r\n  max-height: 0px;\r\n  overflow-y: hidden;\r\n  background-color: ${props =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  & li {\r\n    color: ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    padding: 0.5rem 1.5rem;\r\n  }\r\n  border: 1px solid\r\n    ${props =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : \"#222\"};\r\n  ${props => (!props.open ? `border: none; ` : \"padding: .25rem 0\")}\r\n  border-radius: 3px;\r\n`;\r\nconst NavbarDropdownCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${props =>\r\n        props.disabled\r\n          ? \"rgba(0, 0, 0, 0.3)\"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  margin-bottom: 1px;\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const VueNavbarDropdown = {\r\n  components: {\r\n    NavbarDropdownContainer,\r\n    NavbarDropdownLabel,\r\n    NavbarDropdown,\r\n    NavbarDropdownCarat,\r\n    NavbarItem\r\n  },\r\n  data() {\r\n    return {\r\n      toggled: false\r\n    };\r\n  },\r\n  props: {\r\n    icon: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    text: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    parent: {\r\n      type: Object,\r\n      required: true\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  mounted() {\r\n    window.addEventListener(\"click\", this.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", this.checkOffclick);\r\n  },\r\n  computed: {\r\n    collapsed() {\r\n      return this.parent.collapsed;\r\n    },\r\n    computedDropdownClass() {\r\n      if (this.toggled) {\r\n        return [\"navbar-open-carat\"];\r\n      }\r\n      return [];\r\n    }\r\n  },\r\n  methods: {\r\n    checkOffclick: function($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj.isEqualNode(parentObj)) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.isEqualNode(parentObj)) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (!isChild($e.target, this.$el)) {\r\n        self.toggled = false;\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    doNotClose($e) {\r\n      $e.stopPropagation();\r\n    },\r\n    selectInternalA($e) {\r\n      if ($e.target.children[0]) $e.target.children[0].click();\r\n      this.$forceUpdate();\r\n    },\r\n    toggleDropdown($e) {\r\n      this.toggled = !this.toggled;\r\n      $e.preventDefault();\r\n    }\r\n  },\r\n  template: `\r\n    <navbar-dropdown-container :collapsed=\"collapsed\">\r\n      <a\r\n        href=\"#\"\r\n        role=\"button\"\r\n        @click=\"toggleDropdown\"\r\n        @keyup.space=\"toggleDropdown\"\r\n        @keyup.enter='toggleDropdown'\r\n      >\r\n        <div v-html=\"icon\"></div>\r\n        {{text}}\r\n        <navbar-dropdown-carat\r\n          :flavor=\"flavor\"\r\n          :class=\"computedDropdownClass\"\r\n          :disabled=\"disabled\"\r\n        ></navbar-dropdown-carat>\r\n      </a>\r\n      <navbar-dropdown\r\n        :flavor=\"flavor\"\r\n        @click=\"doNotClose\"\r\n        :collapsed=\"collapsed\"\r\n        :open=\"toggled\"\r\n        :style=\"{'max-height': toggled ? (items.length * 60) + 'px' : '0px'}\"\r\n\r\n      >\r\n        <navbar-item\r\n          v-for=\"(option, optionIndex) in items\"\r\n          :key=\"optionIndex\"\r\n          @click=\"selectInternalA\"\r\n          :collapsed=\"collapsed\"\r\n          :disabled=\"option.disabled\"\r\n          :active=\"option.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a\r\n            v-if=\"option.type == 'item'\"\r\n            :href=\"option.disabled ? '#' : option.url\"\r\n          >{{option.text}}</a>\r\n        </navbar-item>\r\n      </navbar-dropdown>\r\n    </navbar-dropdown-container>\r\n  `\r\n};\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarItem,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NavbarContent,\r\n    VueNavbarDropdown,\r\n    NButton\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      titleWidth: 0,\r\n      LEFT_CONTENT_INDICATOR: \"L\",\r\n      CENTER_CONTENT_INDICATOR: \"C\",\r\n      RIGHT_CONTENT_INDICATOR: \"R\"\r\n    };\r\n  },\r\n  mounted() {\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true\r\n      }\r\n    );\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\"\r\n        };\r\n      }\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\"\r\n    },\r\n    leftItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      }\r\n    },\r\n    centerItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      }\r\n    },\r\n    rightItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      }\r\n    }\r\n  },\r\n  methods: {\r\n    selectInternalA($e) {\r\n      if ($e.target.children[0]) $e.target.children[0].click();\r\n      this.$forceUpdate();\r\n    },\r\n    doNotClose($e) {\r\n      $e.stopPropagation();\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function() {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function() {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (this.$refs.content && !this.collapsed)\r\n        this.contentWidth =\r\n          this.$refs.leftContent.$el.clientWidth +\r\n          this.$refs.middleContent.$el.clientWidth +\r\n          this.$refs.rightContent.$el.clientWidth;\r\n      if (this.$refs.container) {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (this.$refs.title) {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    computedStyle(length) {\r\n      let sizeOfUnit = 50; // height of the nav elements\r\n      for (let dropdown in this.dropdowns) {\r\n        if (this.dropdowns[dropdown]) {\r\n          if (dropdown[0] == this.LEFT_CONTENT_INDICATOR) {\r\n            length += this.leftItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          } else if (dropdown[0] == this.CENTER_CONTENT_INDICATOR) {\r\n            length += this.centerItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          } else if (dropdown[0] == this.RIGHT_CONTENT_INDICATOR) {\r\n            length += this.rightItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          }\r\n        }\r\n      }\r\n      return {\r\n        \"max-height\": `${this.open ? sizeOfUnit * length : 0}px`\r\n      };\r\n    },\r\n    toggleAccordion() {\r\n      this.open = !this.open;\r\n    }\r\n  },\r\n  watch: {\r\n    collapsed: function() {\r\n      this.open = false;\r\n      for (let dropdown in this.dropdowns) {\r\n        this.dropdowns[dropdown] = false;\r\n      }\r\n    }\r\n  },\r\n  computed: {\r\n    instance() {\r\n      return this;\r\n    },\r\n    collapsed() {\r\n      return this.contentWidth >= this.collapseCutOff;\r\n    },\r\n    computedClass() {\r\n      if (this.open) {\r\n        return [];\r\n      }\r\n      return [\"closed\"];\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 28;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    }\r\n  }\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-ac56de10_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\Navbar\\src\\Navbar.vue"],"names":[],"mappings":";AAqoBA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA","file":"Navbar.vue","sourcesContent":["<template>\r\n  <navbar-container\r\n    :flavor=\"flavor\"\r\n    ref=\"container\"\r\n    :fixed=\"fixed\"\r\n    :collapsed=\"collapsed\"\r\n  >\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n      >&#9776;</n-button\r\n    >\r\n    <navbar-content-container :collapsed=\"collapsed\" :open=\"open\" ref=\"content\">\r\n      <navbar-content\r\n        :style=\"computedStyle(leftItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"leftContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in leftItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a\r\n            v-if=\"item.type == 'item'\"\r\n            :href=\"item.disabled ? '#' : item.url\"\r\n            >{{ item.text }}</a\r\n          >\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n      <navbar-content\r\n        :style=\"computedStyle(centerItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"middleContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in centerItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a\r\n            v-if=\"item.type == 'item'\"\r\n            :href=\"item.disabled ? '#' : item.url\"\r\n            >{{ item.text }}</a\r\n          >\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n      <navbar-content\r\n        :style=\"computedStyle(rightItems.length)\"\r\n        :collapsed=\"collapsed\"\r\n        ref=\"rightContent\"\r\n      >\r\n        <navbar-item\r\n          v-for=\"(item, index) in rightItems\"\r\n          :key=\"index + '-left'\"\r\n          :collapsed=\"collapsed\"\r\n          :nav-height=\"navHeight\"\r\n          :disabled=\"item.disabled\"\r\n          :active=\"item.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a\r\n            v-if=\"item.type == 'item'\"\r\n            :href=\"item.disabled ? '#' : item.url\"\r\n            >{{ item.text }}</a\r\n          >\r\n          <vue-navbar-dropdown\r\n            v-else\r\n            :parent=\"instance\"\r\n            :collapsed=\"collapsed\"\r\n            :icon=\"item.icon\"\r\n            :text=\"item.text\"\r\n            :items=\"item.items\"\r\n            :disabled=\"item.disabled\"\r\n            :flavor=\"flavor\"\r\n          ></vue-navbar-dropdown>\r\n        </navbar-item>\r\n      </navbar-content>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n\r\n<script>\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nconst props = {\r\n  flavor: String,\r\n  disabled: Boolean,\r\n  open: Boolean,\r\n  active: Boolean,\r\n  navHeight: Number,\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function () {\r\n      return Theme;\r\n    },\r\n  },\r\n  collapsed: Boolean,\r\n  breakpoint: {\r\n    type: Number,\r\n    default: 576,\r\n  },\r\n  fixed: Boolean,\r\n};\r\nexport const NavbarContainer = styled(\"nav\", props)`\r\n  ${(props) =>\r\n    props.fixed\r\n      ? `\r\n    position: fixed;\r\n    top: 0px;\r\n    right: 0px;\r\n    left: 0px;\r\n  `\r\n      : \"\"}\r\n  z-index: 2;\r\n  & * {\r\n    z-index: 2;\r\n  }\r\n  & * {\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n    -khtml-user-select: none; /* Konqueror HTML */\r\n    -moz-user-select: none; /* Old versions of Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none;\r\n  }\r\n  background-color: ${(props) =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  & * {\r\n    color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n  }\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  font-size: 16px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n  padding: 0rem 0.5rem;\r\n  border: none;\r\n`;\r\nexport const NavbarItem = styled(\"li\", props)`\r\n  white-space: nowrap;\r\n  padding: 1rem 0.5rem 0px 0.5rem;\r\n  height: ${(props) =>\r\n      props.collapsed ? \"auto\" : `calc(${props.navHeight}px - 1rem);`}\r\n    & * {\r\n    text-decoration: none;\r\n  }\r\n  ${(props) =>\r\n    props.disabled\r\n      ? `& * {\r\n    pointer-events: none;\r\n    color: rgba(0, 0, 0, 0.3) !important;\r\n  }`\r\n      : \"\"};\r\n  ${(props) =>\r\n    props.active\r\n      ? `\r\n  background-color: ${\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.focus\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.focus\r\n      : \"#d7d7d7\"\r\n  };\r\n  `\r\n      : \"\"}\r\n  &:hover {\r\n    background-color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : \"#d7d7d7\"};\r\n    color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.hover\r\n        : \"#222\"};\r\n  }\r\n  &:disabled {\r\n    pointer-events: none;\r\n  }\r\n`;\r\nexport const NavbarTitle = styled.span`\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  padding: 0.5rem;\r\n  padding-left: 0rem;\r\n  & a {\r\n    text-decoration: none;\r\n  }\r\n`;\r\nexport const NavbarContent = styled(\"ul\", props)`\r\n  display: flex;\r\n  list-style: none;\r\n  margin: 0;\r\n  transition: 0.3s max-height;\r\n  padding-left: 0px !important;\r\n  ${(props) =>\r\n    props.collapsed\r\n      ? `flex-direction: column; max-height: 0px; overflow: hidden;`\r\n      : \"\"};\r\n`;\r\nexport const NavbarContentContainer = styled(\"div\", props)`\r\n  display: flex;\r\n  flex: 1;\r\n  justify-content: space-between;\r\n  padding-right: 10px;\r\n  ${(props) =>\r\n    props.collapsed\r\n      ? \"flex-direction: column; padding-bottom: 5px; flex-basis: 100%; flex-grow: 1; padding-right: 0px;\"\r\n      : \"\"};\r\n  ${(props) => (props.collapsed && !props.open ? \"max-width: 0px;\" : \"\")}\r\n`;\r\nconst NavbarDropdownContainer = styled(\"div\", props)`\r\n  ${(props) => (props.collapsed ? `text-align: left` : `text-align: center;`)}\r\n  min-width: 130px;\r\n  & * {\r\n  }\r\n`;\r\nconst NavbarDropdownLabel = styled.label`\r\n  cursor: pointer;\r\n`;\r\nconst NavbarDropdown = styled(\"ul\", props)`\r\n  list-style: none;\r\n  margin-top: 0px;\r\n  padding: 0px;\r\n  margin-bottom: 0px;\r\n  text-align: left;\r\n  transition: 0.3s max-height;\r\n  margin-left: -8px;\r\n  margin-right: -44px;\r\n  ${(props) =>\r\n    props.collapsed ? `margin-right: -8px; padding-left: 20px` : \"\"}\r\n  margin-top: 12px;\r\n  max-height: 0px;\r\n  overflow-y: hidden;\r\n  background-color: ${(props) =>\r\n    props.theme && props.theme[props.flavor]\r\n      ? props.theme[props.flavor].background.color\r\n      : props.defaultTheme[props.flavor]\r\n      ? props.defaultTheme[props.flavor].background.color\r\n      : \"#f2f2f2\"};\r\n  & li {\r\n    color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].color.color\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].color.color\r\n        : \"#222\"};\r\n    padding: 0.5rem 1.5rem;\r\n  }\r\n  border: 1px solid\r\n    ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].background.hover\r\n        : props.defaultTheme[props.flavor]\r\n        ? props.defaultTheme[props.flavor].background.hover\r\n        : \"#222\"};\r\n  ${(props) => (!props.open ? `border: none; ` : \"padding: .25rem 0\")}\r\n  border-radius: 3px;\r\n`;\r\nconst NavbarDropdownCarat = styled(\"div\", props)`\r\n  background-image: linear-gradient(\r\n    to top right,\r\n    transparent 50%,\r\n    ${(props) =>\r\n        props.disabled\r\n          ? \"rgba(0, 0, 0, 0.3)\"\r\n          : props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].color.color\r\n          : props.defaultTheme[props.flavor]\r\n          ? props.defaultTheme[props.flavor].color.color\r\n          : \"#222\"}\r\n      50%\r\n  );\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  transform: rotate(45deg);\r\n  margin-bottom: 1px;\r\n  transition: 0.3s all;\r\n  display: inline-block;\r\n`;\r\nexport const VueNavbarDropdown = {\r\n  components: {\r\n    NavbarDropdownContainer,\r\n    NavbarDropdownLabel,\r\n    NavbarDropdown,\r\n    NavbarDropdownCarat,\r\n    NavbarItem,\r\n  },\r\n  data() {\r\n    return {\r\n      toggled: false,\r\n    };\r\n  },\r\n  props: {\r\n    icon: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    text: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    parent: {\r\n      type: Object,\r\n      required: true,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    items: {\r\n      type: Array,\r\n      default() {\r\n        return [];\r\n      },\r\n    },\r\n  },\r\n  mounted() {\r\n    window.addEventListener(\"click\", this.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    window.removeEventListener(\"click\", this.checkOffclick);\r\n  },\r\n  computed: {\r\n    collapsed() {\r\n      return this.parent.collapsed;\r\n    },\r\n    computedDropdownClass() {\r\n      if (this.toggled) {\r\n        return [\"navbar-open-carat\"];\r\n      }\r\n      return [];\r\n    },\r\n  },\r\n  methods: {\r\n    checkOffclick: function ($e) {\r\n      /**\r\n       * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another\r\n       */\r\n      let self = this;\r\n      function isChild(obj, parentObj) {\r\n        if (obj.isEqualNode(parentObj)) return true;\r\n        while ((obj = obj.parentNode)) {\r\n          if (obj.isEqualNode(parentObj)) return true;\r\n        }\r\n        return false;\r\n      }\r\n      if (!isChild($e.target, this.$el)) {\r\n        self.toggled = false;\r\n        self.$forceUpdate();\r\n      }\r\n    },\r\n    doNotClose($e) {\r\n      $e.stopPropagation();\r\n    },\r\n    selectInternalA($e) {\r\n      if ($e.target.children[0]) $e.target.children[0].click();\r\n      this.$forceUpdate();\r\n    },\r\n    toggleDropdown($e) {\r\n      this.toggled = !this.toggled;\r\n      $e.preventDefault();\r\n    },\r\n  },\r\n  template: `\r\n    <navbar-dropdown-container :collapsed=\"collapsed\">\r\n      <a\r\n        href=\"#\"\r\n        role=\"button\"\r\n        @click=\"toggleDropdown\"\r\n        @keyup.space=\"toggleDropdown\"\r\n        @keyup.enter='toggleDropdown'\r\n      >\r\n        <div v-html=\"icon\"></div>\r\n        {{text}}\r\n        <navbar-dropdown-carat\r\n          :flavor=\"flavor\"\r\n          :class=\"computedDropdownClass\"\r\n          :disabled=\"disabled\"\r\n        ></navbar-dropdown-carat>\r\n      </a>\r\n      <navbar-dropdown\r\n        :flavor=\"flavor\"\r\n        @click=\"doNotClose\"\r\n        :collapsed=\"collapsed\"\r\n        :open=\"toggled\"\r\n        :style=\"{'max-height': toggled ? (items.length * 60) + 'px' : '0px'}\"\r\n\r\n      >\r\n        <navbar-item\r\n          v-for=\"(option, optionIndex) in items\"\r\n          :key=\"optionIndex\"\r\n          @click=\"selectInternalA\"\r\n          :collapsed=\"collapsed\"\r\n          :disabled=\"option.disabled\"\r\n          :active=\"option.active\"\r\n          :flavor=\"flavor\"\r\n        >\r\n          <a\r\n            v-if=\"option.type == 'item'\"\r\n            :href=\"option.disabled ? '#' : option.url\"\r\n          >{{option.text}}</a>\r\n        </navbar-item>\r\n      </navbar-dropdown>\r\n    </navbar-dropdown-container>\r\n  `,\r\n};\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarItem,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NavbarContent,\r\n    VueNavbarDropdown,\r\n    NButton,\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      titleWidth: 0,\r\n      LEFT_CONTENT_INDICATOR: \"L\",\r\n      CENTER_CONTENT_INDICATOR: \"C\",\r\n      RIGHT_CONTENT_INDICATOR: \"R\",\r\n    };\r\n  },\r\n  mounted() {\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true,\r\n      }\r\n    );\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\",\r\n        };\r\n      },\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    leftItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      },\r\n    },\r\n    centerItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      },\r\n    },\r\n    rightItems: {\r\n      type: Array,\r\n      default: () => {\r\n        return [];\r\n      },\r\n    },\r\n  },\r\n  methods: {\r\n    selectInternalA($e) {\r\n      if ($e.target.children[0]) $e.target.children[0].click();\r\n      this.$forceUpdate();\r\n    },\r\n    doNotClose($e) {\r\n      $e.stopPropagation();\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function () {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function () {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (this.$refs.content && !this.collapsed)\r\n        this.contentWidth =\r\n          this.$refs.leftContent.$el.clientWidth +\r\n          this.$refs.middleContent.$el.clientWidth +\r\n          this.$refs.rightContent.$el.clientWidth;\r\n      if (this.$refs.container) {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (this.$refs.title) {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    computedStyle(length) {\r\n      let sizeOfUnit = 50; // height of the nav elements\r\n      for (let dropdown in this.dropdowns) {\r\n        if (this.dropdowns[dropdown]) {\r\n          if (dropdown[0] == this.LEFT_CONTENT_INDICATOR) {\r\n            length += this.leftItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          } else if (dropdown[0] == this.CENTER_CONTENT_INDICATOR) {\r\n            length += this.centerItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          } else if (dropdown[0] == this.RIGHT_CONTENT_INDICATOR) {\r\n            length += this.rightItems[dropdown.substring(1, dropdown.length)]\r\n              .items.length;\r\n          }\r\n        }\r\n      }\r\n      return {\r\n        \"max-height\": `${this.open ? sizeOfUnit * length : 0}px`,\r\n      };\r\n    },\r\n    toggleAccordion() {\r\n      this.open = !this.open;\r\n    },\r\n  },\r\n  watch: {\r\n    collapsed: function () {\r\n      this.open = false;\r\n      for (let dropdown in this.dropdowns) {\r\n        this.dropdowns[dropdown] = false;\r\n      }\r\n    },\r\n  },\r\n  computed: {\r\n    instance() {\r\n      return this;\r\n    },\r\n    collapsed() {\r\n      return this.contentWidth >= this.collapseCutOff;\r\n    },\r\n    computedClass() {\r\n      if (this.open) {\r\n        return [];\r\n      }\r\n      return [\"closed\"];\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 28;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    },\r\n  },\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */
@@ -873,5 +862,6 @@ for (var _i = 0, _components = components; _i < _components.length; _i++) {
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
 
+export default Navbar;
 export { Navbar, NavbarContainer, NavbarContent, NavbarContentContainer, NavbarItem, NavbarTitle, VueNavbarDropdown };
 //# sourceMappingURL=Navbar.esm.js.map

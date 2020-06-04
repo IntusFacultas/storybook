@@ -29,6 +29,7 @@ This provides a number range selector that can be given either a basic step incr
 ```
 
 ```javascript
+import NumberRange from "@IntusFacultas/number-range";
 data: {
     value: {
         lowerValue: 0,

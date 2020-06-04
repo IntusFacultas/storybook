@@ -14,7 +14,7 @@ npm install @IntusFacultas/button@latest --save
 
 This replaces the default HTML button with a styled button that contains styles for each color as described in the Design System:
 
-Draws default themes from DesignSystem/nasic-theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
+Draws default themes from DesignSystem/theme.js. You can override the theme by providing a theme using the **vue-styled-components** ThemeProvider component.
 
 ## Usage
 
@@ -25,9 +25,32 @@ Draws default themes from DesignSystem/nasic-theme.js. You can override the them
   :large="large"
   :block="block"
 ></n-button>
+
+<button-group>
+  <n-button
+    flavor="Primary"
+    :small="small"
+    :large="large"
+    :block="block"
+  ></n-button>
+  <n-button
+    flavor="Primary"
+    :small="small"
+    :large="large"
+    :block="block"
+  ></n-button>
+  <n-button
+    flavor="Primary"
+    :small="small"
+    :large="large"
+    :block="block"
+  ></n-button>
+</button-group>
 ```
 
 ```javascript
+import {NButton} from "@IntusFacultas/button";
+import {NButton, ButtonGroup} from "@IntusFacultas/button";
 data: {
     large: false,
     small: false,

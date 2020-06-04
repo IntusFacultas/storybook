@@ -27,6 +27,7 @@ When instantiating your component, it is extremely important to bind a Vue insta
 ```
 
 ```javascript
+import VueToast from "@IntusFacultas/vue-toast";
 data: {
     maxWidth: 300,
     delay: 5000,

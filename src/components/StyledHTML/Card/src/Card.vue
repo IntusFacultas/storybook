@@ -3,7 +3,11 @@
     <n-card-header :flavor="headerFlavor" :bordered="bordered" v-if="header">
       <slot name="header"></slot>
     </n-card-header>
-    <n-card-body :flavor="bodyFlavor" :bordered="bordered" :style="computedStyle">
+    <n-card-body
+      :flavor="bodyFlavor"
+      :bordered="bordered"
+      :style="computedStyle"
+    >
       <slot name="body"></slot>
     </n-card-body>
     <n-card-footer :flavor="footerFlavor" :bordered="bordered" v-if="footer">
@@ -19,26 +23,25 @@ const props = {
   flavor: String,
   bordered: {
     type: Boolean,
-    default: false
+    default: false,
   },
   defaultTheme: {
     type: Object,
     default: function() {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const NCardHeader = styled("div", props)`
-  border-radius: 5px 5px 0px 0px;
   padding: 10px 10px 10px 10px;
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  ${props =>
+  ${(props) =>
     !props.bordered
       ? props.theme && props.theme[props.flavor]
         ? "background-color:" + props.theme[props.flavor].background.color + ";"
@@ -54,18 +57,18 @@ const NCardHeader = styled("div", props)`
         props.defaultTheme[props.flavor].background.color +
         ";"
       : "border: 1px solid #aaa;"};
-  ${props => (props.bordered ? "background-color: #f4f4f4;" : "")}
+  ${(props) => (props.bordered ? "background-color: #f4f4f4;" : "")}
 `;
 const NCardBody = styled("div", props)`
   padding: 10px;
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  ${props =>
+  ${(props) =>
     !props.bordered
       ? props.theme && props.theme[props.flavor]
         ? "background-color:" + props.theme[props.flavor].background.color + ";"
@@ -86,16 +89,15 @@ const NCardBody = styled("div", props)`
 `;
 const NCardFooter = styled("div", props)`
   padding: 10px;
-  border-radius: 0px 0px 5px 5px;
 
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].border.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
-  ${props =>
+  ${(props) =>
     !props.bordered
       ? props.theme && props.theme[props.flavor]
         ? "background-color:" + props.theme[props.flavor].background.color + ";"
@@ -111,7 +113,7 @@ const NCardFooter = styled("div", props)`
         props.defaultTheme[props.flavor].background.color +
         ";"
       : "border: 1px solid #aaa;"};
-  ${props => (props.bordered ? "background-color: #f4f4f4;" : "")}
+  ${(props) => (props.bordered ? "background-color: #f4f4f4;" : "")}
 `;
 const NCardContainer = styled("div", props)``;
 export const Card = {
@@ -119,28 +121,28 @@ export const Card = {
   props: {
     headerFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     footerFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     bodyFlavor: {
       type: String,
-      default: ""
+      default: "",
     },
     bordered: {
       type: Boolean,
-      default: false
+      default: false,
     },
     header: {
       type: Boolean,
-      default: false
+      default: false,
     },
     footer: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     computedStyle: function() {
@@ -151,11 +153,11 @@ export const Card = {
         "border-bottom-left-radius": self.footer ? "0px" : "5px",
         "border-bottom-right-radius": self.footer ? "0px" : "5px",
         "border-top-width": self.header ? "0px" : "1px",
-        "border-bottom-width": self.footer ? "0px" : "1px"
+        "border-bottom-width": self.footer ? "0px" : "1px",
       };
       return data;
-    }
-  }
+    },
+  },
 };
 export default Card;
 </script>

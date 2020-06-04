@@ -9,14 +9,14 @@ export default {
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
-      markdown
-    }
+      markdown,
+    },
   },
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
 const actionsData = {
-  onChange: action("@change")
+  onChange: action("@change"),
 };
 
 export const MultiselectableMenu = () => ({
@@ -24,33 +24,33 @@ export const MultiselectableMenu = () => ({
   methods: actionsData,
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
     height: {
-      default: text("Height", "100px")
+      default: text("Height", "100px"),
     },
     items: {
       default: object("Items", [
         {
           display: "Item 1",
-          value: "1"
+          value: "1",
         },
         {
           display: "Item 2",
-          value: "2"
+          value: "2",
         },
         {
           display: "Item 3",
-          value: "3"
+          value: "3",
         },
         {
           display: "Item 4",
-          value: "4"
-        }
-      ])
-    }
+          value: "4",
+        },
+      ]),
+    },
   },
   template: `
         <menu-multi-select @change="onChange" :height="height" :items="items" :flavor="flavor"></menu-multi-select>
-    `
+    `,
 });

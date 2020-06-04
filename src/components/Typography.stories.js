@@ -1,192 +1,360 @@
-// import { action } from '@storybook/addon-actions';
 import {
-  NLabel,
-  NSmall,
-  Paragraph,
   PageTitle,
   SectionTitle,
   SubSectionTitle,
   CategoryTitle,
-  WebLink,
-  WebText,
   SubCategoryTitle,
-  Keyword
+  Keyword,
+  TextContent,
+  NLabel,
+  SmallText,
+  Paragraph,
 } from "Components/components/StyledHTML/Typography/src/Typography.vue";
 import { withA11y } from "@storybook/addon-a11y";
 import { withKnobs, number, boolean, text } from "@storybook/addon-knobs";
 import titlemarkdown from "Components/components/StyledHTML/StyledTitleUsage.md";
 import textmarkdown from "Components/components/StyledHTML/StyledBodyUsage.md";
 
+import {
+  List,
+  ListItem,
+} from "Components/components/StyledHTML/List/src/StyledList.vue";
+import { TextTheme as Theme } from "Components/components/DesignSystem/theme.js";
+let formattedTheme = [];
+Object.keys(Theme).forEach((key) =>
+  formattedTheme.push({ text: key, value: Theme[key].color })
+);
+
 export default {
-  title: "Styled HTML/Typography",
+  title: "IntusFacultas HTML/Typography",
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
       Title: titlemarkdown,
-      Text: textmarkdown
-    }
+      text: textmarkdown,
+    },
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/
+  excludeStories: /.*Data$/,
 };
 
-export const Title = () => ({
-  components: { PageTitle },
+export const WebTitle = () => ({
+  components: { PageTitle, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <page-title :flavor="flavor" :bold="bold">This is a  title</page-title>
-  `
+    <div>
+      <page-title>This is a web title</page-title>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 export const WebSectionTitle = () => ({
-  components: { SectionTitle },
+  components: { SectionTitle, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <section-title :flavor="flavor" :bold="bold">This is a  section title</section-title>
-  `
+    <div>
+      <section-title>This is a web section title</section-title>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 export const WebSubSectionTitle = () => ({
-  components: { SubSectionTitle },
+  components: { SubSectionTitle, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <sub-section-title :flavor="flavor" :bold="bold">This is a  subsection title</sub-section-title>
-  `
+    <div>
+      <sub-section-title>This is a web subsection title</sub-section-title>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 export const WebCategoryTitle = () => ({
-  components: { CategoryTitle },
+  components: { CategoryTitle, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <category-title :flavor="flavor" :bold="bold">This is a  category title</category-title>
-  `
+    <div>
+      <category-title>This is a web category title</category-title>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 export const WebSubCategoryTitle = () => ({
-  components: { SubCategoryTitle },
+  components: { SubCategoryTitle, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <sub-category-title :flavor="flavor" :bold="bold">This is a  subcategory title</sub-category-title>
-  `
+    <div>
+      <sub-category-title>This is a web subcategory title</sub-category-title>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 export const WebKeyword = () => ({
-  components: { Keyword },
+  components: { Keyword, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
+    },
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
   },
   template: `
-    <keyword :flavor="flavor" :bold="bold">This is a  keyword</keyword>
-  `
+    <div>
+      <keyword>This is a web keyword</keyword>
+      <hr>
+      <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+      <text-content :size="16">Available Flavors</text-content>
+      <list style="background-color: gray">
+      <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+          {{themeFlavor.text}}
+      </list-item>
+      </list>
+    </div>
+  `,
 });
 
-// body
-export const Text = () => ({
-  components: { WebText },
+export const NormalText = () => ({
+  components: { TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
-    flavor: {
-      default: text("Flavor", "")
-    },
-    size: {
-      default: number("Font Size", 14)
+    dark: {
+      default: boolean("Dark Mode", false),
     },
     bold: {
-      default: boolean("Text Bold", false)
-    }
+      default: boolean("Text Bold", false),
+    },
+    flavor: {
+      default: text("Flavor", ""),
+    },
+    size: {
+      default: number("Font Size", 14),
+    },
   },
   /**
    * Size prop must be a Number, and controls the font size of the body
    * Any number less than 14 will be set to 14, and number greater than 16 will be set to 16
    */
-  template: `<web-text :bold="bold" :flavor="flavor" :size="size">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </web-text>`
+  template: `
+  <div>
+    <text-content :flavor="flavor" :size="size" :bold="bold" :dark="dark">lorem ipsum dolor sit amet consectetur adipisicing elit sed do </text-content>
+    <hr>
+    <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+    <text-content :size="16">Available Flavors</text-content>
+    <list style="background-color: gray">
+    <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+        {{themeFlavor.text}}
+    </list-item>
+    </list>
+  </div>`,
 });
 
 export const Label = () => ({
-  components: { "n-label": NLabel },
-  props: {
-    flavor: {
-      default: text("Flavor", "")
-    },
-    bold: {
-      default: boolean("Text Bold", false)
-    }
+  components: { NLabel, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
   },
-  template: `<n-label :bold="bold" :flavor="flavor">Label</n-label>`
-});
-
-export const Link = () => ({
-  components: { "web-link": WebLink },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
     dark: {
-      default: boolean("Dark Mode", false)
-    }
+      default: boolean("Dark Mode", false),
+    },
   },
-  template: `<web-link href="#" :flavor="flavor">Label</web-link>`
+  template: `
+  <div>
+    <n-label :flavor="flavor" :dark="dark">Label</n-label>
+    <hr>
+    <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+    <text-content :size="16">Available Flavors</text-content>
+    <list style="background-color: gray">
+    <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+        {{themeFlavor.text}}
+    </list-item>
+    </list>
+  </div>`,
 });
 
 export const Small = () => ({
-  components: { NSmall },
+  components: { SmallText, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
-    bold: {
-      default: boolean("Text Bold", false)
-    }
+    dark: {
+      default: boolean("Dark Mode", false),
+    },
   },
-  template: `<n-small :flavor="flavor">small</n-small>`
+  template: `
+  <div>
+    <small-text :flavor="flavor" :dark="dark">small</small-text>
+    <hr>
+    <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+    <text-content :size="16">Available Flavors</text-content>
+    <list style="background-color: gray">
+    <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+        {{themeFlavor.text}}
+    </list-item>
+    </list>
+  </div>`,
 });
 
-export const WebParagraph = () => ({
-  components: { Paragraph },
+export const ParagraphText = () => ({
+  components: { Paragraph, TextContent, List, ListItem },
+  data() {
+    return {
+      formattedTheme,
+    };
+  },
   props: {
     size: {
-      default: number("Font Size", 14)
+      default: number("Font Size", 14),
     },
     flavor: {
-      default: text("Flavor", "")
+      default: text("Flavor", ""),
     },
-    bold: {
-      default: boolean("Text Bold", false)
-    }
+    dark: {
+      default: boolean("Dark Mode", false),
+    },
   },
-  template: `<paragraph :bold="bold" :flavor="flavor" :size="size">paragraph</paragraph>`
+  template: `
+  <div>
+    <paragraph :flavor="flavor" :dark="dark" :size="size">paragraph</paragraph>
+    <hr>
+    <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
+    <text-content :size="16">Available Flavors</text-content>
+    <list style="background-color: gray">
+    <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
+        {{themeFlavor.text}}
+    </list-item>
+    </list>
+  </div>`,
 });

@@ -23,6 +23,7 @@ This provides a Bootstrap style alert
 ```
 
 ```javascript
+import VueStaticAlert from "@IntusFacultas/vue-static-alert";
 data: {
     flavor: "Primary",
     aniamted: true,
