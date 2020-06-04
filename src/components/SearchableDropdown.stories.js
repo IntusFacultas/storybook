@@ -700,7 +700,6 @@ export const AjaxLoadingSelect = () => ({
                 :load-ajax="true"
                 endpoint="/api/options"
                 name="searchableDropdown"
-                :options="options"
                 :value-attribute="valueAttribute"
                 :display-attribute="displayAttribute"
                 :disabled="disabled"
