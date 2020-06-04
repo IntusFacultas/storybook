@@ -485,9 +485,6 @@ export const SingleSelect = () => ({
      * default: ""
      * Sets the input id so that you can reference it with a label for accessability purposes
      */
-    id: {
-      default: text("Input ID", "selectInput"),
-    },
     canBeEmpty: { default: boolean("Can Be Empty", true) },
 
     /**
@@ -564,20 +561,12 @@ export const SingleSelect = () => ({
      * When this is set to True, the dropdown does not close, allowing you to inspect the element
      */
     debug: { default: boolean("Debug Mode", false) },
-
-    /**
-     * type: Boolean,
-     * default: false,
-     * When this is set to True, the dropdown will allow a user to select multiple options
-     */
-    multiSelect: { default: boolean("Multi Select Mode", false) },
   },
   template: `
         <div style="max-width: 35%">
-            <n-label :for="id">Select a country</n-label>
+            <n-label for="searchableDropdown">Select a country</n-label>
             <select-me
                 :flavor="flavor"
-                :badge-flavor="badgeFlavor"
                 :can-be-empty="canBeEmpty"
                 @input="onInput"
                 name="searchableDropdown"
@@ -586,7 +575,7 @@ export const SingleSelect = () => ({
                 :display-attribute="displayAttribute"
                 :disabled="disabled"
                 :debug="debug"
-                :multi-select="multiSelect">
+                :multi-select="false">
             </select-me>
             <hr>
             <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
