@@ -155,7 +155,7 @@ export const ConfigurableSidebar = () => ({
     },
   },
   template: `
-        <div style="position:relative">
+        <div>
             <sidebar
                 :flavor="flavor"
                 :sidebar-title="sidebarTitle"
@@ -222,7 +222,7 @@ export const RawInputSidebar = () => ({
     },
   },
   template: `
-    <div style="position:relative">
+    <div>
         <raw-sidebar
             :flavor="flavor"
             :sidebar-title="sidebarTitle"
