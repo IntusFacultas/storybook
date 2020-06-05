@@ -62,7 +62,7 @@ export const WebTitle = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -94,7 +94,7 @@ export const WebSectionTitle = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -126,7 +126,7 @@ export const WebSubSectionTitle = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -158,7 +158,7 @@ export const WebCategoryTitle = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -190,7 +190,7 @@ export const WebSubCategoryTitle = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -222,7 +222,7 @@ export const WebKeyword = () => ({
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
-      <list style="background-color: gray">
+      <list>
       <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
           {{themeFlavor.text}}
       </list-item>
@@ -262,7 +262,7 @@ export const NormalText = () => ({
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
-    <list style="background-color: gray">
+    <list>
     <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
         {{themeFlavor.text}}
     </list-item>
@@ -291,7 +291,7 @@ export const Label = () => ({
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
-    <list style="background-color: gray">
+    <list>
     <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
         {{themeFlavor.text}}
     </list-item>
@@ -320,7 +320,7 @@ export const Small = () => ({
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
-    <list style="background-color: gray">
+    <list>
     <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
         {{themeFlavor.text}}
     </list-item>
@@ -352,7 +352,7 @@ export const ParagraphText = () => ({
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
-    <list style="background-color: gray">
+    <list>
     <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
         {{themeFlavor.text}}
     </list-item>
@@ -384,7 +384,7 @@ export const Link = () => ({
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
-    <list style="background-color: gray">
+    <list>
     <list-item v-for="themeFlavor in formattedTheme" :key="themeFlavor.text" :style="{color: themeFlavor.value}">
         {{themeFlavor.text}}
     </list-item>
