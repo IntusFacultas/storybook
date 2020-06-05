@@ -380,7 +380,7 @@ export const Link = () => ({
   },
   template: `
   <div>
-    <weblink :flavor="flavor" :dark="dark" :size="size" href="#">Link</weblink>
+    <web-link :flavor="flavor" :dark="dark" :size="size" href="#">Link</web-link>
     <hr>
     <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
     <text-content :size="16">Available Flavors</text-content>
