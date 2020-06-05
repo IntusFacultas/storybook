@@ -99,6 +99,7 @@ export const SidebarContainer = styled("aside", props)`
       : "#f2f2f2"};
   width: ${(props) => props.width}px;
   z-index: 1;
+  overflow-y: auto;
   position: absolute;
   left: 0px;
   top: ${(props) => props.topOffset};
