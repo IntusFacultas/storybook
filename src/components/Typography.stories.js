@@ -32,7 +32,7 @@ export default {
   parameters: {
     notes: {
       Title: titlemarkdown,
-      text: textmarkdown,
+      Text: textmarkdown,
     },
   },
   excludeStories: /.*Data$/,

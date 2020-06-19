@@ -30,9 +30,7 @@ These components functions similarly to a normal HTML5 text tags. You can place 
 <small-text :bold="bold" :flavor="flavor" :size="size" :dark="dark"
   >Lorem ipsum</small-text
 >
-<portion-marking :bold="bold" :flavor="flavor" :dark="dark"
-  >(TS/SCI)</portion-marking
->
+
 <n-label :bold="bold" :flavor="flavor" :size="size" :dark="dark">Label</n-label>
 ```
 

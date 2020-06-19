@@ -21,27 +21,7 @@ These components functions similarly to a normal HTML5 title tag. You can place 
 ## Available Components
 
 ```html
-<web-title :bold="bold" :flavor="flavor" :dark="dark">Lorem ipsum</web-title>
-<web-section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-section-title
->
-<web-sub-section-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-sub-section-title
->
-<web-category-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-category-title
->
-<web-sub-category-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-sub-category-title
->
-<web-keyword :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</web-keyword
->
-
-<!-- These are used specifically for when displaying a IntusFacultas Product -->
-<product-title :bold="bold" :flavor="flavor" :dark="dark"
-  >Lorem ipsum</product-title
->
+<page-title :bold="bold" :flavor="flavor" :dark="dark"></page-title>
 <section-title :bold="bold" :flavor="flavor" :dark="dark"
   >Lorem ipsum</section-title
 >
@@ -58,8 +38,7 @@ These components functions similarly to a normal HTML5 title tag. You can place 
 ```
 
 ```javascript
-import {WebTitle, WebSectionTitle, WebSubSectionTitle, WebCategoryTitle, WebSubCategoryTitle, WebKeyword} from "@IntusFacultas/typography";
-import {ProductTitle, SectionTitle, SectionTitle, SubSectionTitle, CategoryTitle, SubCategoryTitle, Keyword} from "@IntusFacultas/typography";
+import {PageTitle, SectionTitle, SubSectionTitle, CategoryTitle, SubCategoryTitle, Keyword} from "@IntusFacultas/typography";
 data: {
     dark: false,
     flavor: "",
