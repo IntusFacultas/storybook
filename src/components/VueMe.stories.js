@@ -83,15 +83,15 @@ export const VueMeDialog = () => ({
       it("formats fields", () => {
         let field = vm.formatField({});
         expect(field.label).toEqual("Label");
-        expect(field.type).toEqual("text-content");
-        expect(field.id).toEqual("Label-text-content");
+        expect(field.type).toEqual("text");
+        expect(field.id).toEqual("Label-text");
       });
       it("formats buttons", () => {
         let button = vm.formatButton({});
         expect(button.flavor).toEqual("Primary");
         expect(button.action).toBeInstanceOf(Function);
         expect(button.id).toBeDefined();
-        expect(button.text - content).toEqual("Button");
+        expect(button.text).toEqual("Button");
       });
       it("alerts default", () => {
         vm.alert({});

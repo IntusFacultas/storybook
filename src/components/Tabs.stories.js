@@ -33,7 +33,7 @@ import jest from "jest-mock";
 window.jest = jest;
 
 export default {
-  title: "Navbars/Tabs", // Folder/ is unnecessary but you can group stories by a folder by doing so
+  title: "Navigation/Tabs", // Folder/ is unnecessary but you can group stories by a folder by doing so
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {

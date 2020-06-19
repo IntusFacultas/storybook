@@ -58,7 +58,7 @@ export const WebTitle = () => ({
   },
   template: `
     <div>
-      <page-title>This is a web title</page-title>
+      <page-title :flavor="flavor" :bold="bold" :dark="dark">This is a web title</page-title>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
@@ -90,7 +90,7 @@ export const WebSectionTitle = () => ({
   },
   template: `
     <div>
-      <section-title>This is a web section title</section-title>
+      <section-title :flavor="flavor" :bold="bold" :dark="dark">This is a web section title</section-title>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
@@ -122,7 +122,7 @@ export const WebSubSectionTitle = () => ({
   },
   template: `
     <div>
-      <sub-section-title>This is a web subsection title</sub-section-title>
+      <sub-section-title :flavor="flavor" :bold="bold" :dark="dark">This is a web subsection title</sub-section-title>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
@@ -154,7 +154,7 @@ export const WebCategoryTitle = () => ({
   },
   template: `
     <div>
-      <category-title>This is a web category title</category-title>
+      <category-title :flavor="flavor" :bold="bold" :dark="dark">This is a web category title</category-title>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
@@ -186,7 +186,7 @@ export const WebSubCategoryTitle = () => ({
   },
   template: `
     <div>
-      <sub-category-title>This is a web subcategory title</sub-category-title>
+      <sub-category-title :flavor="flavor" :bold="bold" :dark="dark">This is a web subcategory title</sub-category-title>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>
@@ -218,7 +218,7 @@ export const WebKeyword = () => ({
   },
   template: `
     <div>
-      <keyword>This is a web keyword</keyword>
+      <keyword :flavor="flavor" :bold="bold" :dark="dark">This is a web keyword</keyword>
       <hr>
       <text-content :size="16">Design system information can be found <a href="/?path=/story/design-system--colors">here</a></text-content><br>
       <text-content :size="16">Available Flavors</text-content>

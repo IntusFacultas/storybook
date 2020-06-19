@@ -14,7 +14,7 @@ function _taggedTemplateLiteral(strings, raw) {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", "\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -24,7 +24,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", ";\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont, Roboto,\n    \"Helvetica Neue\", Arial, sans-serif;\n  font-size: ", "px;\n  font-weight: ", ";\n  line-height: 1.571;\n  color: ", "\n  -webkit-text-size-adjust: 100%;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -34,7 +34,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  color: ", ";\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: 0;\n  font-weight: ", ";\n  line-height: 1.2;\n  margin-bottom: 0.5rem;\n  font-family: Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  color: ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -56,9 +56,7 @@ var titleProps = {
 var PageTitle = styled("h1", titleProps)(_templateObject(), function (props) {
   return props.bold ? "bold" : 500;
 }, function (props) {
-  return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-}, function (props) {
-  return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color + "!important" : "" : "";
+  return props.dark ? props.textTheme.Dark.color : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color : props.textTheme[props.flavor] ? props.textTheme[props.flavor].color : props.textTheme.Normal.color;
 });
 var SectionTitle = PageTitle.withComponent("h2", titleProps);
 var SubSectionTitle = PageTitle.withComponent("h3", titleProps);
@@ -85,17 +83,13 @@ var TextContent = styled("span", props)(_templateObject2(), function (props) {
 }, function (props) {
   return props.bold ? "bold" : 500;
 }, function (props) {
-  return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-}, function (props) {
-  return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
+  return props.dark ? props.textTheme.Dark.color : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color : props.textTheme[props.flavor] ? props.textTheme[props.flavor].color : props.textTheme.Normal.color;
 });
 var Paragraph = TextContent.withComponent("p", props);
 var SmallText = styled("small", props)(_templateObject3(), function (props) {
   return props.bold ? "bold" : 500;
 }, function (props) {
-  return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
-}, function (props) {
-  return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
+  return props.dark ? props.textTheme.Dark.color : props.theme && props.theme[props.flavor] ? props.theme[props.flavor].color : props.textTheme[props.flavor] ? props.textTheme[props.flavor].color : props.textTheme.Normal.color;
 });
 var NLabel = TextContent.withComponent("label", props);
 var WebLink = TextContent.withComponent("a", props);
@@ -246,7 +240,7 @@ const __vue_script__ = TextContent;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-07cfd3a8_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
+    inject("data-v-fdcfcd1e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Typography.vue"}, media: undefined });
 
   };
   /* scoped */

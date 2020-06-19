@@ -32,7 +32,7 @@ Object.keys(Theme).forEach((key) =>
 );
 
 export default {
-  title: "Navbars/Sidebar",
+  title: "Navigation/Sidebar",
   decorators: [withA11y, withKnobs],
   parameters: {
     notes: {
