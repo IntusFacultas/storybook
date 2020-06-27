@@ -178,6 +178,7 @@ export const Navbar = {
       var elementTransition = element.style.transition;
       element.style.transition = "";
       element.style.height = sectionHeight + "px !important";
+      element.style.paddingBottom = "0px";
       // element.style.width = sectionWidth + "px !important";
 
       // on the next frame (as soon as the previous style change has taken effect),

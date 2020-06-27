@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/raw-navbar",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Provides a raw HTML navbar that you can build as you choose",
   "main": "src/RawNavbar.vue",
   "browser": "dist/RawNavbar.esm.js",

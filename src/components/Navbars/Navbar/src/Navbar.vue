@@ -235,7 +235,6 @@ export const NavbarContentContainer = styled("div", props)`
        overflow: hidden;
        height: 0px;
        flex-direction: column;
-       padding-bottom: 5px;
        flex-basis: 100%;
        flex-grow: 1;
        padding-right: 0px;`
@@ -418,6 +417,7 @@ export const VueNavbarDropdown = {
         element.style.height = sectionHeight + "px";
         element.style.transition = elementTransition;
         element.style.overflowY = "hidden";
+        element.style.padding = "0 0 0 0";
 
         //   // on the next frame (as soon as the previous style change has taken effect),
         //   // have the element transition to height: 0
@@ -445,6 +445,7 @@ export const VueNavbarDropdown = {
         if (element.getAttribute("data-collapsed") == "false") {
           // remove "height" from the element's inline styles, so it can return to its initial value
           element.style.height = "auto";
+          element.style.padding = "0 0 5px 0";
         }
       });
 
@@ -703,8 +704,9 @@ export default Navbar;
 
 <style>
 .navbar-brand {
-  display: inline-block;
-  padding-right: 5px;
+  display: flex;
+  align-items: center;
+  height: 50px;
 }
 .navbar-open-carat {
   transform: rotate(135deg) !important;
@@ -718,7 +720,5 @@ export default Navbar;
   margin-top: 0.4rem;
   position: absolute;
   right: 20px;
-}
-.intusfacultasnavbar__dropdown ul {
 }
 </style>
