@@ -16,7 +16,7 @@ This creates a configurable responsive navbar that can use whatever flavor you p
 
 ## Usage
 
-<b>Note: This component requires a Vue installation with the runtime compiler enabled. If you are using vue-cli, make sure to set runtimeCompiler: true in your vue.config.js</b>
+<b>Note: This component requires a Vue installation with the runtime compiler enabled. If you are using vue-cli, make sure to set `runtimeCompiler: true` in your vue.config.js</b>
 
 ```html
 <navbar

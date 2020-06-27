@@ -163,16 +163,10 @@ This is a component that will render a dropdown with a variety of options.
 
 **IT IS HIGHLY RECOMMENDED THAT YOU DO NOT NEST DROPDOWNS. USE A MEGAMENU COMPONENT INSTEAD**
 
-**THIS COMPONENT WILL NOT RENDER PROPERLY UNLESS IT IS INSIDE A `NavbarItem` COMPONENT THAT IS INSIDE A `NavbarContent` COMPONENT AND YOU MUST PASS THE VUE NAVBAR COMPONENT TO IT**
+**THIS COMPONENT WILL NOT RENDER PROPERLY UNLESS IT IS INSIDE A `NavbarItem` COMPONENT THAT IS INSIDE A `NavbarContent` COMPONENT**
 
 ```html
-<vue-navbar-dropdown
-  :parent="this"
-  :flavor="flavor"
-  icon=""
-  text="My Dropdown"
-  :items="items"
->
+<vue-navbar-dropdown :flavor="flavor" icon="" text="My Dropdown" :items="items">
 </vue-navbar-dropdown>
 ```
 

@@ -105,7 +105,6 @@ export const RawInputNavbar = () => ({
                 <navbar-content>
                     <navbar-item>
                     <vue-navbar-dropdown
-                      :parent="navbar"
                       icon=""
                       text="Dropdown" 
                       :items="items"

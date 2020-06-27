@@ -15,7 +15,10 @@ var Navbar = {
       contentWidth: 0,
       containerWidth: 0,
       navHeight: 0,
-      titleWidth: 0
+      observer: null,
+      titleWidth: 0,
+      blockWidth: 0,
+      leaves: []
     };
   },
   mounted: function mounted() {
@@ -24,10 +27,18 @@ var Navbar = {
     window.addEventListener("resize", this.debounce(this.calculateDimensions, 10, true), {
       passive: true
     });
+    this.calculateContentWidth();
+    this.observer = new MutationObserver(this.calculateContentWidth);
+    this.observer.observe(this.$refs.content.$el, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
     window.addEventListener("click", self.checkOffclick);
   },
   beforeDestroy: function beforeDestroy() {
     var self = this;
+    this.observer.disconnect();
     window.removeEventListener("click", self.checkOffclick);
     window.removeEventListener("resize", this.debounce(this.calculateDimensions, 10, true));
   },
@@ -55,6 +66,93 @@ var Navbar = {
     }
   },
   methods: {
+    calculateContentWidth: function calculateContentWidth() {
+      var self = this;
+
+      function findBlockElement(elem) {
+        var INLINE_ELEMENTS = ["a", "abbr", "acronym", "b", "bdo", "big", "br", "button", "cite", "code", "dfn", "em", "i", "img", "input", "kbd", "label", "map", "object", "output", "q", "samp", "script", "select", "small", "span", "strong", "sub", "sup", "textarea", "time", "tt", "var"];
+
+        if (INLINE_ELEMENTS.indexOf(elem.tagName.toLowerCase()) != -1) {
+          return elem;
+        }
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = elem.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var child = _step.value;
+
+            if (INLINE_ELEMENTS.indexOf(child.tagName.toLowerCase()) != -1) {
+              return child;
+            }
+
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+              for (var _iterator2 = child.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var subchild = _step2.value;
+                var potentialChild = findBlockElement(subchild);
+
+                if (potentialChild != null) {
+                  return potentialChild;
+                }
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                  _iterator2.return();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return null;
+      }
+
+      function stepChildren(elem) {
+        if (elem.tagName.toUpperCase() == "LI") {
+          elem.children.forEach(function (child) {
+            return self.leaves.push(findBlockElement(child));
+          });
+        } else {
+          elem.children.forEach(function (child) {
+            return stepChildren(child);
+          });
+        }
+      }
+
+      stepChildren(this.$refs.content.$el);
+      this.blockWidth = this.leaves.map(function (a) {
+        return a.scrollWidth + 32;
+      }).reduce(function (accum, val) {
+        return accum + val;
+      });
+    },
     collapseSection: function collapseSection(element) {
       // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified
       // get the height of the element's inner content, regardless of its actual size
@@ -130,35 +228,6 @@ var Navbar = {
       };
     },
     calculateDimensions: function calculateDimensions() {
-      if (typeof this.$refs.content != "undefined" && !this.collapsed) {
-        var contentWidth = 0;
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = this.$refs.content.$el.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var child = _step.value;
-            contentWidth += child.scrollWidth;
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
-        this.contentWidth = contentWidth; // this.$forceUpdate();
-      }
-
       if (typeof this.$refs.container != "undefined") {
         if (!this.open) {
           this.navHeight = this.$refs.container.$el.clientHeight;
@@ -197,22 +266,8 @@ var Navbar = {
     }
   },
   computed: {
-    computedNavClass: function computedNavClass() {
-      if (!this.collapsed) {
-        return ["raw-navbar-container-uncollapsed"];
-      }
-
-      return [];
-    },
-    computedClass: function computedClass() {
-      if (this.collapsed) {
-        return ["raw-navbar-content-container", "open-raw-navbar"];
-      }
-
-      return ["raw-navbar-content-container"];
-    },
     collapsed: function collapsed() {
-      return this.contentWidth >= this.collapseCutOff;
+      return this.blockWidth >= this.collapseCutOff;
     },
     collapseCutOff: function collapseCutOff() {
       var additionalPadding = 30;
@@ -371,8 +426,12 @@ var __vue_render__ = function() {
     "navbar-container",
     {
       ref: "container",
-      class: _vm.computedNavClass,
-      attrs: { flavor: _vm.flavor, fixed: _vm.fixed, collapsed: _vm.collapsed }
+      attrs: {
+        flavor: _vm.flavor,
+        fixed: _vm.fixed,
+        collapsed: _vm.collapsed,
+        "data-navbar": _vm._uid
+      }
     },
     [
       _c("navbar-title", { ref: "title", attrs: { tabindex: "1" } }, [
@@ -407,11 +466,7 @@ var __vue_render__ = function() {
       _vm._v(" "),
       _c(
         "navbar-content-container",
-        {
-          ref: "content",
-          class: _vm.computedClass,
-          attrs: { collapsed: _vm.collapsed }
-        },
+        { ref: "content", attrs: { collapsed: _vm.collapsed } },
         [_vm._t("default")],
         2
       )
@@ -425,7 +480,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-6708702d_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\n}\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\n}\n.open-raw-navbar * {\r\n  flex-direction: column;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\RawNavbar\\src\\RawNavbar.vue"],"names":[],"mappings":";AAmPA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA;AACA;EACA,YAAA;EACA,iBAAA;AACA;AACA;EACA,gCAAA;EACA,6BAAA;EACA,8BAAA;EACA,gBAAA;AACA;AACA;EACA,sBAAA;AACA","file":"RawNavbar.vue","sourcesContent":["<template>\r\n  <navbar-container\r\n    :flavor=\"flavor\"\r\n    ref=\"container\"\r\n    :fixed=\"fixed\"\r\n    :collapsed=\"collapsed\"\r\n    :class=\"computedNavClass\"\r\n  >\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n      >&#9776;</n-button\r\n    >\r\n    <navbar-content-container\r\n      :collapsed=\"collapsed\"\r\n      ref=\"content\"\r\n      :class=\"computedClass\"\r\n    >\r\n      <slot></slot>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n<script>\r\nimport {\r\n  NavbarContainer,\r\n  NavbarTitle,\r\n  NavbarContentContainer,\r\n} from \"@IntusFacultas/navbar\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NButton,\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      titleWidth: 0,\r\n    };\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true,\r\n      }\r\n    );\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\",\r\n        };\r\n      },\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n  },\r\n  methods: {\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      // element.style.width = sectionWidth + \"px !important\";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function () {\r\n        element.style.height = sectionHeight + \"px\";\r\n        // element.style.width = sectionWidth + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function () {\r\n          element.style.height = 0 + \"px\";\r\n          // element.style.width = \"0px\";\r\n          element.style.paddingBottom = \"0px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      // element.style.width = sectionWidth + \"px\";\r\n\r\n      element.style.paddingBottom = \"5px\";\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function () {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function () {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function () {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (typeof this.$refs.content != \"undefined\" && !this.collapsed) {\r\n        let contentWidth = 0;\r\n        for (let child of this.$refs.content.$el.children) {\r\n          contentWidth += child.scrollWidth;\r\n        }\r\n        this.contentWidth = contentWidth;\r\n        // this.$forceUpdate();\r\n      }\r\n      if (typeof this.$refs.container != \"undefined\") {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (typeof this.$refs.title != \"undefined\") {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    toggleAccordion() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    },\r\n  },\r\n  watch: {\r\n    collapsed(newVal) {\r\n      if (newVal) {\r\n        this.$refs.content.$el.style.height = \"0px\";\r\n        // this.$refs.content.$el.style.width =  \"0px\";\r\n        this.$refs.content.$el.style.paddingBottom = \"0px\";\r\n        this.$refs.content.$el.style.overflow = \"hidden\";\r\n      } else {\r\n        this.$refs.content.$el.style.height = \"50px\";\r\n        // this.$refs.content.$el.style.width = \"initial\";\r\n        this.$refs.content.$el.style.paddingBottom = \"initial\";\r\n        this.$refs.content.$el.style.overflow = \"visible\";\r\n      }\r\n    },\r\n  },\r\n  computed: {\r\n    computedNavClass() {\r\n      if (!this.collapsed) {\r\n        return [\"raw-navbar-container-uncollapsed\"];\r\n      }\r\n      return [];\r\n    },\r\n    computedClass() {\r\n      if (this.collapsed) {\r\n        return [\"raw-navbar-content-container\", \"open-raw-navbar\"];\r\n      }\r\n      return [\"raw-navbar-content-container\"];\r\n    },\r\n    collapsed() {\r\n      return this.contentWidth >= this.collapseCutOff;\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 30;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    },\r\n  },\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n.raw-navbar-container-uncollapsed {\r\n  height: 50px;\r\n  overflow: visible;\r\n}\r\n.raw-navbar-content-container {\r\n  transition: height 0.3s ease-out;\r\n  max-width: initial !important;\r\n  max-height: initial !important;\r\n  overflow: hidden;\r\n}\r\n.open-raw-navbar * {\r\n  flex-direction: column;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-6419738c_0", { source: "\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\n}\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\n}\n.open {\r\n  max-height: 1980px !important;\n}\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\Navbars\\RawNavbar\\src\\RawNavbar.vue"],"names":[],"mappings":";AA0SA;EACA,qBAAA;EACA,kBAAA;AACA;AACA;EACA,oCAAA;EACA,kBAAA;AACA;AACA;EACA,6BAAA;AACA;AACA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;AACA","file":"RawNavbar.vue","sourcesContent":["<template>\r\n  <navbar-container\r\n    :flavor=\"flavor\"\r\n    ref=\"container\"\r\n    :fixed=\"fixed\"\r\n    :collapsed=\"collapsed\"\r\n    :data-navbar=\"_uid\"\r\n  >\r\n    <navbar-title ref=\"title\" tabindex=\"1\">\r\n      <div v-html=\"title.html\" class=\"navbar-brand\"></div>\r\n      <a :href=\"title.url ? title.url : '#'\">{{ title.text }}</a>\r\n    </navbar-title>\r\n    <n-button\r\n      tabindex=\"1\"\r\n      class=\"nav-button\"\r\n      v-show=\"collapsed\"\r\n      :flavor=\"flavor\"\r\n      @click=\"toggleAccordion\"\r\n      ref=\"hamburger\"\r\n      >&#9776;</n-button\r\n    >\r\n    <navbar-content-container :collapsed=\"collapsed\" ref=\"content\">\r\n      <slot></slot>\r\n    </navbar-content-container>\r\n  </navbar-container>\r\n</template>\r\n<script>\r\nimport {\r\n  NavbarContainer,\r\n  NavbarTitle,\r\n  NavbarContentContainer,\r\n} from \"@IntusFacultas/navbar\";\r\nimport { NButton } from \"@IntusFacultas/button\";\r\nexport const Navbar = {\r\n  components: {\r\n    NavbarContainer,\r\n    NavbarTitle,\r\n    NavbarContentContainer,\r\n    NButton,\r\n  },\r\n  data: () => {\r\n    return {\r\n      open: false,\r\n      contentWidth: 0,\r\n      containerWidth: 0,\r\n      navHeight: 0,\r\n      observer: null,\r\n      titleWidth: 0,\r\n      blockWidth: 0,\r\n      leaves: [],\r\n    };\r\n  },\r\n  mounted() {\r\n    let self = this;\r\n    this.calculateDimensions();\r\n    window.addEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true),\r\n      {\r\n        passive: true,\r\n      }\r\n    );\r\n    this.calculateContentWidth();\r\n    this.observer = new MutationObserver(this.calculateContentWidth);\r\n    this.observer.observe(this.$refs.content.$el, {\r\n      childList: true,\r\n      characterData: true,\r\n      subtree: true,\r\n    });\r\n    window.addEventListener(\"click\", self.checkOffclick);\r\n  },\r\n  beforeDestroy() {\r\n    let self = this;\r\n    this.observer.disconnect();\r\n    window.removeEventListener(\"click\", self.checkOffclick);\r\n    window.removeEventListener(\r\n      \"resize\",\r\n      this.debounce(this.calculateDimensions, 10, true)\r\n    );\r\n  },\r\n  updated() {\r\n    this.calculateDimensions();\r\n  },\r\n  props: {\r\n    title: {\r\n      type: Object,\r\n      default: () => {\r\n        return {\r\n          text: \"Brand\",\r\n          url: \"#\",\r\n          html: \"\",\r\n        };\r\n      },\r\n    },\r\n    fixed: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    flavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n  },\r\n  methods: {\r\n    calculateContentWidth() {\r\n      let self = this;\r\n      function findBlockElement(elem) {\r\n        const INLINE_ELEMENTS = [\r\n          \"a\",\r\n          \"abbr\",\r\n          \"acronym\",\r\n          \"b\",\r\n          \"bdo\",\r\n          \"big\",\r\n          \"br\",\r\n          \"button\",\r\n          \"cite\",\r\n          \"code\",\r\n          \"dfn\",\r\n          \"em\",\r\n          \"i\",\r\n          \"img\",\r\n          \"input\",\r\n          \"kbd\",\r\n          \"label\",\r\n          \"map\",\r\n          \"object\",\r\n          \"output\",\r\n          \"q\",\r\n          \"samp\",\r\n          \"script\",\r\n          \"select\",\r\n          \"small\",\r\n          \"span\",\r\n          \"strong\",\r\n          \"sub\",\r\n          \"sup\",\r\n          \"textarea\",\r\n          \"time\",\r\n          \"tt\",\r\n          \"var\",\r\n        ];\r\n        if (INLINE_ELEMENTS.indexOf(elem.tagName.toLowerCase()) != -1) {\r\n          return elem;\r\n        }\r\n        for (let child of elem.children) {\r\n          if (INLINE_ELEMENTS.indexOf(child.tagName.toLowerCase()) != -1) {\r\n            return child;\r\n          }\r\n          for (let subchild of child.children) {\r\n            let potentialChild = findBlockElement(subchild);\r\n            if (potentialChild != null) {\r\n              return potentialChild;\r\n            }\r\n          }\r\n        }\r\n        return null;\r\n      }\r\n      function stepChildren(elem) {\r\n        if (elem.tagName.toUpperCase() == \"LI\") {\r\n          elem.children.forEach((child) =>\r\n            self.leaves.push(findBlockElement(child))\r\n          );\r\n        } else {\r\n          elem.children.forEach((child) => stepChildren(child));\r\n        }\r\n      }\r\n      stepChildren(this.$refs.content.$el);\r\n      this.blockWidth = this.leaves\r\n        .map((a) => a.scrollWidth + 32)\r\n        .reduce((accum, val) => accum + val);\r\n    },\r\n    collapseSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // temporarily disable all css transitions\r\n      var elementTransition = element.style.transition;\r\n      element.style.transition = \"\";\r\n      element.style.height = sectionHeight + \"px !important\";\r\n      // element.style.width = sectionWidth + \"px !important\";\r\n\r\n      // on the next frame (as soon as the previous style change has taken effect),\r\n      // explicitly set the element's height to its current pixel height, so we\r\n      // aren't transitioning out of 'auto'\r\n      requestAnimationFrame(function() {\r\n        element.style.height = sectionHeight + \"px\";\r\n        // element.style.width = sectionWidth + \"px\";\r\n        element.style.transition = elementTransition;\r\n        // element.style.overflowY = 'hidden';\r\n\r\n        // on the next frame (as soon as the previous style change has taken effect),\r\n        // have the element transition to height: 0\r\n        requestAnimationFrame(function() {\r\n          element.style.height = 0 + \"px\";\r\n          // element.style.width = \"0px\";\r\n          element.style.paddingBottom = \"0px\";\r\n        });\r\n      });\r\n\r\n      // mark the section as \"currently collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"true\");\r\n    },\r\n    expandSection(element) {\r\n      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified\r\n      // get the height of the element's inner content, regardless of its actual size\r\n      let sectionHeight = element.scrollHeight;\r\n      // have the element transition to the height of its inner content\r\n      element.style.height = sectionHeight + \"px\";\r\n      // element.style.width = sectionWidth + \"px\";\r\n\r\n      element.style.paddingBottom = \"5px\";\r\n      // element.style.overflowY = \"auto\"\r\n      // when the next css transition finishes (which should be the one we just triggered)\r\n      element.addEventListener(\"transitionend\", function() {\r\n        // remove this event listener so it only gets triggered once\r\n        element.removeEventListener(\"transitionend\", this);\r\n        if (element.getAttribute(\"data-collapsed\") == \"false\") {\r\n          // remove \"height\" from the element's inline styles, so it can return to its initial value\r\n          element.style.height = \"auto\";\r\n        }\r\n      });\r\n\r\n      // mark the section as \"currently not collapsed\"\r\n      element.setAttribute(\"data-collapsed\", \"false\");\r\n    },\r\n    debounce(func, wait, immediate) {\r\n      /**\r\n       * Pulled from: https://davidwalsh.name/javascript-debounce-function\r\n       */\r\n      var timeout;\r\n      return function() {\r\n        var context = this,\r\n          args = arguments;\r\n        var later = function() {\r\n          timeout = null;\r\n          if (!immediate) func.apply(context, args);\r\n        };\r\n        var callNow = immediate && !timeout;\r\n        clearTimeout(timeout);\r\n        timeout = setTimeout(later, wait);\r\n        try {\r\n          if (callNow) func.apply(context, args);\r\n        } catch {\r\n          // pass\r\n        }\r\n      };\r\n    },\r\n    calculateDimensions() {\r\n      if (typeof this.$refs.container != \"undefined\") {\r\n        if (!this.open) {\r\n          this.navHeight = this.$refs.container.$el.clientHeight;\r\n        }\r\n        this.containerWidth = this.$refs.container.$el.clientWidth;\r\n      }\r\n      if (typeof this.$refs.title != \"undefined\") {\r\n        this.titleWidth = this.$refs.title.$el.clientWidth;\r\n      }\r\n    },\r\n    toggleAccordion() {\r\n      if (!this.open) {\r\n        this.expandSection(this.$refs.content.$el);\r\n        this.open = true;\r\n      } else {\r\n        this.collapseSection(this.$refs.content.$el);\r\n        this.open = false;\r\n      }\r\n    },\r\n  },\r\n  watch: {\r\n    collapsed(newVal) {\r\n      if (newVal) {\r\n        this.$refs.content.$el.style.height = \"0px\";\r\n        // this.$refs.content.$el.style.width =  \"0px\";\r\n        this.$refs.content.$el.style.paddingBottom = \"0px\";\r\n        this.$refs.content.$el.style.overflow = \"hidden\";\r\n      } else {\r\n        this.$refs.content.$el.style.height = \"50px\";\r\n        // this.$refs.content.$el.style.width = \"initial\";\r\n        this.$refs.content.$el.style.paddingBottom = \"initial\";\r\n        this.$refs.content.$el.style.overflow = \"visible\";\r\n      }\r\n    },\r\n  },\r\n  computed: {\r\n    collapsed() {\r\n      return this.blockWidth >= this.collapseCutOff;\r\n    },\r\n    collapseCutOff() {\r\n      let additionalPadding = 30;\r\n      return this.containerWidth - this.titleWidth - additionalPadding;\r\n    },\r\n  },\r\n};\r\nexport default Navbar;\r\n</script>\r\n\r\n<style>\r\n.navbar-brand {\r\n  display: inline-block;\r\n  padding-right: 5px;\r\n}\r\n.navbar-open-carat {\r\n  transform: rotate(135deg) !important;\r\n  margin-bottom: 4px;\r\n}\r\n.open {\r\n  max-height: 1980px !important;\r\n}\r\n.nav-button {\r\n  height: 37px;\r\n  margin-top: 0.4rem;\r\n  position: absolute;\r\n  right: 20px;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */

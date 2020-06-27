@@ -3,7 +3,7 @@
     :flavor="flavor"
     ref="container"
     :fixed="fixed"
-    :collapsed="collapsed"
+    :data-navbar="_uid"
   >
     <navbar-title ref="title" tabindex="1">
       <div v-html="title.html" class="navbar-brand"></div>
@@ -18,17 +18,11 @@
       ref="hamburger"
       >&#9776;</n-button
     >
-    <navbar-content-container :collapsed="collapsed" :open="open" ref="content">
-      <navbar-content
-        :style="computedStyle(leftItems.length)"
-        :collapsed="collapsed"
-        ref="leftContent"
-      >
+    <navbar-content-container :collapsed="collapsed" ref="content">
+      <navbar-content :collapsed="collapsed" ref="leftContent">
         <navbar-item
           v-for="(item, index) in leftItems"
           :key="index + '-left'"
-          :collapsed="collapsed"
-          :nav-height="navHeight"
           :disabled="item.disabled"
           :active="item.active"
           :flavor="flavor"
@@ -40,8 +34,6 @@
           >
           <vue-navbar-dropdown
             v-else
-            :parent="instance"
-            :collapsed="collapsed"
             :icon="item.icon"
             :text="item.text"
             :items="item.items"
@@ -50,16 +42,10 @@
           ></vue-navbar-dropdown>
         </navbar-item>
       </navbar-content>
-      <navbar-content
-        :style="computedStyle(centerItems.length)"
-        :collapsed="collapsed"
-        ref="middleContent"
-      >
+      <navbar-content :collapsed="collapsed" ref="middleContent">
         <navbar-item
           v-for="(item, index) in centerItems"
           :key="index + '-left'"
-          :collapsed="collapsed"
-          :nav-height="navHeight"
           :disabled="item.disabled"
           :active="item.active"
           :flavor="flavor"
@@ -71,8 +57,6 @@
           >
           <vue-navbar-dropdown
             v-else
-            :parent="instance"
-            :collapsed="collapsed"
             :icon="item.icon"
             :text="item.text"
             :items="item.items"
@@ -81,16 +65,10 @@
           ></vue-navbar-dropdown>
         </navbar-item>
       </navbar-content>
-      <navbar-content
-        :style="computedStyle(rightItems.length)"
-        :collapsed="collapsed"
-        ref="rightContent"
-      >
+      <navbar-content :collapsed="collapsed" ref="rightContent">
         <navbar-item
           v-for="(item, index) in rightItems"
           :key="index + '-left'"
-          :collapsed="collapsed"
-          :nav-height="navHeight"
           :disabled="item.disabled"
           :active="item.active"
           :flavor="flavor"
@@ -102,8 +80,6 @@
           >
           <vue-navbar-dropdown
             v-else
-            :parent="instance"
-            :collapsed="collapsed"
             :icon="item.icon"
             :text="item.text"
             :items="item.items"
@@ -125,18 +101,14 @@ const props = {
   disabled: Boolean,
   open: Boolean,
   active: Boolean,
-  navHeight: Number,
   defaultTheme: {
     type: Object,
-    default: function () {
+    default: function() {
       return Theme;
     },
   },
   collapsed: Boolean,
-  breakpoint: {
-    type: Number,
-    default: 576,
-  },
+
   fixed: Boolean,
 };
 export const NavbarContainer = styled("nav", props)`
@@ -150,9 +122,6 @@ export const NavbarContainer = styled("nav", props)`
   `
       : ""}
   z-index: 2;
-  & * {
-    z-index: 2;
-  }
   & * {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -187,10 +156,11 @@ export const NavbarContainer = styled("nav", props)`
 `;
 export const NavbarItem = styled("li", props)`
   white-space: nowrap;
-  padding: 1rem 0.5rem 0px 0.5rem;
-  height: ${(props) =>
-      props.collapsed ? "auto" : `calc(${props.navHeight}px - 1rem);`}
-    & * {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 1em;
+  align-items: center;
+  & * {
     text-decoration: none;
   }
   ${(props) =>
@@ -233,8 +203,10 @@ export const NavbarItem = styled("li", props)`
 export const NavbarTitle = styled.span`
   font-weight: bold;
   font-size: 24px;
-  padding: 0.5rem;
-  padding-left: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1em 0 0;
   & a {
     text-decoration: none;
   }
@@ -243,62 +215,74 @@ export const NavbarContent = styled("ul", props)`
   display: flex;
   list-style: none;
   margin: 0;
-  transition: 0.3s max-height;
   padding-left: 0px !important;
-  ${(props) =>
-    props.collapsed
-      ? `flex-direction: column; max-height: 0px; overflow: hidden;`
-      : ""};
 `;
 export const NavbarContentContainer = styled("div", props)`
   display: flex;
   flex: 1;
+
   justify-content: space-between;
   padding-right: 10px;
   ${(props) =>
     props.collapsed
-      ? "flex-direction: column; padding-bottom: 5px; flex-basis: 100%; flex-grow: 1; padding-right: 0px;"
-      : ""};
-  ${(props) => (props.collapsed && !props.open ? "max-width: 0px;" : "")}
+      ? `
+      & > ul{
+        display: flex;
+        flex-direction: column;
+      }
+      
+      transition: 0.3s height ease-in-out;
+       overflow: hidden;
+       height: 0px;
+       flex-direction: column;
+       padding-bottom: 5px;
+       flex-basis: 100%;
+       flex-grow: 1;
+       padding-right: 0px;`
+      : "height: 50px !important; overflow-y: visible !important;"};
 `;
 const NavbarDropdownContainer = styled("div", props)`
-  ${(props) => (props.collapsed ? `text-align: left` : `text-align: center;`)}
-  min-width: 130px;
-  & * {
-  }
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: center;
 `;
 const NavbarDropdownLabel = styled.label`
   cursor: pointer;
 `;
 const NavbarDropdown = styled("ul", props)`
   list-style: none;
-  margin-top: 0px;
   padding: 0px;
-  margin-bottom: 0px;
   text-align: left;
-  transition: 0.3s max-height;
-  margin-left: -8px;
-  margin-right: -44px;
-  ${(props) =>
-    props.collapsed ? `margin-right: -8px; padding-left: 20px` : ""}
-  margin-top: 12px;
-  max-height: 0px;
+  transition: 0.1s height;
+  position: absolute;
+  
+  top: 35px;
+  z-index: 888;
+  height: 0;
   overflow-y: hidden;
-  background-color: ${(props) =>
-    props.theme && props.theme[props.flavor]
-      ? props.theme[props.flavor].background.color
-      : props.defaultTheme[props.flavor]
-      ? props.defaultTheme[props.flavor].background.color
-      : "#f2f2f2"};
-  & li {
-    color: ${(props) =>
-      props.theme && props.theme[props.flavor]
-        ? props.theme[props.flavor].color.color
-        : props.defaultTheme[props.flavor]
-        ? props.defaultTheme[props.flavor].color.color
-        : "#222"};
-    padding: 0.5rem 1.5rem;
+  background-color: white;
+  & li * {
+    color: #444;
   }
+  & > a {
+    white-space: nowrap;
+  }
+  & li:hover {
+    background-color: #f2f2f2;
+  }
+  ${(props) =>
+    props.collapsed
+      ? `display: block;
+        position: relative;
+        & li {
+          word-break: break-all;
+          white-space: pre-line;
+        }
+        margin-top: 1em;
+        top: 0px;
+        width: 100%;`
+      : `min-width: 100%; max-width: 350px; word-wrap: break-word;`}
   border: 1px solid
     ${(props) =>
       props.theme && props.theme[props.flavor]
@@ -341,6 +325,8 @@ export const VueNavbarDropdown = {
   data() {
     return {
       toggled: false,
+      collapsed: false,
+      parent: null,
     };
   },
   props: {
@@ -356,10 +342,6 @@ export const VueNavbarDropdown = {
       type: Boolean,
       default: false,
     },
-    parent: {
-      type: Object,
-      required: true,
-    },
     flavor: {
       type: String,
       default: "",
@@ -373,14 +355,21 @@ export const VueNavbarDropdown = {
   },
   mounted() {
     window.addEventListener("click", this.checkOffclick);
+    this.parent = this.$parent;
+    while (this.parent && !this.parent.$el.hasAttribute("data-navbar")) {
+      this.parent = this.parent.$parent;
+    }
+    this.parent = this.parent.$parent;
+    this.collapsed = this.parent.collapsed;
+    let self = this;
+    this.$watch("parent.collapsed", function(newVal) {
+      self.collapsed = newVal;
+    });
   },
   beforeDestroy() {
     window.removeEventListener("click", this.checkOffclick);
   },
   computed: {
-    collapsed() {
-      return this.parent.collapsed;
-    },
     computedDropdownClass() {
       if (this.toggled) {
         return ["navbar-open-carat"];
@@ -389,7 +378,7 @@ export const VueNavbarDropdown = {
     },
   },
   methods: {
-    checkOffclick: function ($e) {
+    checkOffclick: function($e) {
       /**
        * Pulled from: https://stackoverflow.com/questions/17773852/check-if-div-is-descendant-of-another
        */
@@ -404,6 +393,7 @@ export const VueNavbarDropdown = {
       if (!isChild($e.target, this.$el)) {
         self.toggled = false;
         self.$forceUpdate();
+        self.collapseSection(this.$refs.dropdowncontent.$el);
       }
     },
     doNotClose($e) {
@@ -413,16 +403,70 @@ export const VueNavbarDropdown = {
       if ($e.target.children[0]) $e.target.children[0].click();
       this.$forceUpdate();
     },
+    collapseSection(element) {
+      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified
+      // get the height of the element's inner content, regardless of its actual size
+      let sectionHeight = element.scrollHeight;
+      // // temporarily disable all css transitions
+      var elementTransition = element.style.transition;
+      element.style.transition = "";
+      element.style.height = sectionHeight + "px !important";
+      // on the next frame (as soon as the previous style change has taken effect),
+      // explicitly set the element's height to its current pixel height, so we
+      // aren't transitioning out of 'auto'
+      requestAnimationFrame(function() {
+        element.style.height = sectionHeight + "px";
+        element.style.transition = elementTransition;
+        element.style.overflowY = "hidden";
+
+        //   // on the next frame (as soon as the previous style change has taken effect),
+        //   // have the element transition to height: 0
+        requestAnimationFrame(function() {
+          element.style.height = 0 + "px";
+        });
+      });
+
+      // mark the section as "currently collapsed"
+      element.setAttribute("data-collapsed", "true");
+    },
+    expandSection(element) {
+      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified
+      // get the height of the element's inner content, regardless of its actual size
+      let sectionHeight = element.scrollHeight;
+      // have the element transition to the height of its inner content
+      element.style.height = sectionHeight + "px";
+      // element.style.padding = "5px 0px";
+
+      // element.style.overflowY = "auto"
+      // when the next css transition finishes (which should be the one we just triggered)
+      element.addEventListener("transitionend", function() {
+        // remove this event listener so it only gets triggered once
+        element.removeEventListener("transitionend", this);
+        if (element.getAttribute("data-collapsed") == "false") {
+          // remove "height" from the element's inline styles, so it can return to its initial value
+          element.style.height = "auto";
+        }
+      });
+
+      // mark the section as "currently not collapsed"
+      element.setAttribute("data-collapsed", "false");
+    },
     toggleDropdown($e) {
       this.toggled = !this.toggled;
       $e.preventDefault();
+      if (this.toggled) {
+        this.expandSection(this.$refs.dropdowncontent.$el);
+      } else {
+        this.collapseSection(this.$refs.dropdowncontent.$el);
+      }
     },
   },
   template: `
-    <navbar-dropdown-container :collapsed="collapsed">
+    <navbar-dropdown-container>
       <a
         href="#"
         role="button"
+        :collapsed="collapsed"
         @click="toggleDropdown"
         @keyup.space="toggleDropdown"
         @keyup.enter='toggleDropdown'
@@ -436,18 +480,16 @@ export const VueNavbarDropdown = {
         ></navbar-dropdown-carat>
       </a>
       <navbar-dropdown
+        :collapsed="collapsed"
         :flavor="flavor"
         @click="doNotClose"
-        :collapsed="collapsed"
         :open="toggled"
-        :style="{'max-height': toggled ? (items.length * 60) + 'px' : '0px'}"
-
+        ref="dropdowncontent"
       >
         <navbar-item
           v-for="(option, optionIndex) in items"
           :key="optionIndex"
           @click="selectInternalA"
-          :collapsed="collapsed"
           :disabled="option.disabled"
           :active="option.active"
           :flavor="flavor"
@@ -476,7 +518,6 @@ export const Navbar = {
       open: false,
       contentWidth: 0,
       containerWidth: 0,
-      navHeight: 0,
       titleWidth: 0,
       LEFT_CONTENT_INDICATOR: "L",
       CENTER_CONTENT_INDICATOR: "C",
@@ -543,22 +584,15 @@ export const Navbar = {
     },
   },
   methods: {
-    selectInternalA($e) {
-      if ($e.target.children[0]) $e.target.children[0].click();
-      this.$forceUpdate();
-    },
-    doNotClose($e) {
-      $e.stopPropagation();
-    },
     debounce(func, wait, immediate) {
       /**
        * Pulled from: https://davidwalsh.name/javascript-debounce-function
        */
       var timeout;
-      return function () {
+      return function() {
         var context = this,
           args = arguments;
-        var later = function () {
+        var later = function() {
           timeout = null;
           if (!immediate) func.apply(context, args);
         };
@@ -572,6 +606,54 @@ export const Navbar = {
         }
       };
     },
+    collapseSection(element) {
+      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified
+      // get the height of the element's inner content, regardless of its actual size
+      let sectionHeight = element.scrollHeight;
+      // // temporarily disable all css transitions
+      var elementTransition = element.style.transition;
+      element.style.transition = "";
+      element.style.height = sectionHeight + "px !important";
+      // on the next frame (as soon as the previous style change has taken effect),
+      // explicitly set the element's height to its current pixel height, so we
+      // aren't transitioning out of 'auto'
+      requestAnimationFrame(function() {
+        element.style.height = sectionHeight + "px";
+        element.style.transition = elementTransition;
+        element.style.overflowY = "hidden";
+
+        //   // on the next frame (as soon as the previous style change has taken effect),
+        //   // have the element transition to height: 0
+        requestAnimationFrame(function() {
+          element.style.height = 0 + "px";
+        });
+      });
+
+      // mark the section as "currently collapsed"
+      element.setAttribute("data-collapsed", "true");
+    },
+    expandSection(element) {
+      // pulled from https://css-tricks.com/using-css-transitions-auto-dimensions/ and modified
+      // get the height of the element's inner content, regardless of its actual size
+      let sectionHeight = element.scrollHeight;
+      // have the element transition to the height of its inner content
+      element.style.height = sectionHeight + "px";
+      // element.style.padding = "5px 0px";
+
+      // element.style.overflowY = "auto"
+      // when the next css transition finishes (which should be the one we just triggered)
+      element.addEventListener("transitionend", function() {
+        // remove this event listener so it only gets triggered once
+        element.removeEventListener("transitionend", this);
+        if (element.getAttribute("data-collapsed") == "false") {
+          // remove "height" from the element's inline styles, so it can return to its initial value
+          element.style.height = "auto";
+        }
+      });
+
+      // mark the section as "currently not collapsed"
+      element.setAttribute("data-collapsed", "false");
+    },
     calculateDimensions() {
       if (this.$refs.content && !this.collapsed)
         this.contentWidth =
@@ -579,41 +661,24 @@ export const Navbar = {
           this.$refs.middleContent.$el.clientWidth +
           this.$refs.rightContent.$el.clientWidth;
       if (this.$refs.container) {
-        if (!this.open) {
-          this.navHeight = this.$refs.container.$el.clientHeight;
-        }
-        this.containerWidth = this.$refs.container.$el.clientWidth;
+        if (this.$refs.container.$el.clientWidth)
+          this.containerWidth = this.$refs.container.$el.clientWidth;
       }
       if (this.$refs.title) {
         this.titleWidth = this.$refs.title.$el.clientWidth;
       }
     },
-    computedStyle(length) {
-      let sizeOfUnit = 50; // height of the nav elements
-      for (let dropdown in this.dropdowns) {
-        if (this.dropdowns[dropdown]) {
-          if (dropdown[0] == this.LEFT_CONTENT_INDICATOR) {
-            length += this.leftItems[dropdown.substring(1, dropdown.length)]
-              .items.length;
-          } else if (dropdown[0] == this.CENTER_CONTENT_INDICATOR) {
-            length += this.centerItems[dropdown.substring(1, dropdown.length)]
-              .items.length;
-          } else if (dropdown[0] == this.RIGHT_CONTENT_INDICATOR) {
-            length += this.rightItems[dropdown.substring(1, dropdown.length)]
-              .items.length;
-          }
-        }
-      }
-      return {
-        "max-height": `${this.open ? sizeOfUnit * length : 0}px`,
-      };
-    },
     toggleAccordion() {
       this.open = !this.open;
+      if (this.open) {
+        this.expandSection(this.$refs.content.$el);
+      } else {
+        this.collapseSection(this.$refs.content.$el);
+      }
     },
   },
   watch: {
-    collapsed: function () {
+    collapsed: function() {
       this.open = false;
       for (let dropdown in this.dropdowns) {
         this.dropdowns[dropdown] = false;
@@ -626,12 +691,6 @@ export const Navbar = {
     },
     collapsed() {
       return this.contentWidth >= this.collapseCutOff;
-    },
-    computedClass() {
-      if (this.open) {
-        return [];
-      }
-      return ["closed"];
     },
     collapseCutOff() {
       let additionalPadding = 28;
@@ -659,5 +718,7 @@ export default Navbar;
   margin-top: 0.4rem;
   position: absolute;
   right: 20px;
+}
+.intusfacultasnavbar__dropdown ul {
 }
 </style>
