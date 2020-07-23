@@ -1,23 +1,16 @@
 <template>
-  <navbar-container
-    :flavor="flavor"
-    ref="container"
-    :fixed="fixed"
-    :data-navbar="_uid"
-  >
-    <navbar-title ref="title" tabindex="1">
+  <navbar-container :flavor="flavor" ref="container" :fixed="fixed" :data-navbar="_uid">
+    <navbar-title ref="title">
       <div v-html="title.html" class="navbar-brand"></div>
-      <a :href="title.url ? title.url : '#'">{{ title.text }}</a>
+      <a v-if="title.text" :href="title.url ? title.url : '#'">{{ title.text }}</a>
     </navbar-title>
     <n-button
-      tabindex="1"
       class="nav-button"
       v-show="collapsed"
       :flavor="flavor"
       @click="toggleAccordion"
       ref="hamburger"
-      >&#9776;</n-button
-    >
+    >&#9776;</n-button>
     <navbar-content-container :collapsed="collapsed" ref="content">
       <navbar-content :collapsed="collapsed" ref="leftContent">
         <navbar-item
@@ -27,11 +20,7 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">{{ item.text }}</a>
           <vue-navbar-dropdown
             v-else
             :icon="item.icon"
@@ -50,11 +39,7 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">{{ item.text }}</a>
           <vue-navbar-dropdown
             v-else
             :icon="item.icon"
@@ -73,11 +58,7 @@
           :active="item.active"
           :flavor="flavor"
         >
-          <a
-            v-if="item.type == 'item'"
-            :href="item.disabled ? '#' : item.url"
-            >{{ item.text }}</a
-          >
+          <a v-if="item.type == 'item'" :href="item.disabled ? '#' : item.url">{{ item.text }}</a>
           <vue-navbar-dropdown
             v-else
             :icon="item.icon"
@@ -105,14 +86,14 @@ const props = {
     type: Object,
     default: function() {
       return Theme;
-    },
+    }
   },
   collapsed: Boolean,
 
-  fixed: Boolean,
+  fixed: Boolean
 };
 export const NavbarContainer = styled("nav", props)`
-  ${(props) =>
+  ${props =>
     props.fixed
       ? `
     position: fixed;
@@ -130,14 +111,14 @@ export const NavbarContainer = styled("nav", props)`
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
   }
-  background-color: ${(props) =>
+  background-color: ${props =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
       : props.defaultTheme[props.flavor]
       ? props.defaultTheme[props.flavor].background.color
       : "#f2f2f2"};
   & * {
-    color: ${(props) =>
+    color: ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.color
         : props.defaultTheme[props.flavor]
@@ -163,14 +144,14 @@ export const NavbarItem = styled("li", props)`
   & * {
     text-decoration: none;
   }
-  ${(props) =>
+  ${props =>
     props.disabled
       ? `& * {
     pointer-events: none;
     color: rgba(0, 0, 0, 0.3) !important;
   }`
       : ""};
-  ${(props) =>
+  ${props =>
     props.active
       ? `
   background-color: ${
@@ -183,13 +164,13 @@ export const NavbarItem = styled("li", props)`
   `
       : ""}
   &:hover {
-    background-color: ${(props) =>
+    background-color: ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].background.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.hover
         : "#d7d7d7"};
-    color: ${(props) =>
+    color: ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].color.hover
         : props.defaultTheme[props.flavor]
@@ -223,7 +204,7 @@ export const NavbarContentContainer = styled("div", props)`
 
   justify-content: space-between;
   padding-right: 10px;
-  ${(props) =>
+  ${props =>
     props.collapsed
       ? `
       & > ul{
@@ -231,7 +212,7 @@ export const NavbarContentContainer = styled("div", props)`
         flex-direction: column;
       }
       
-      transition: 0.3s height ease-in-out;
+      transition: 0.1s height ease-in-out;
        overflow: hidden;
        height: 0px;
        flex-direction: column;
@@ -270,7 +251,7 @@ const NavbarDropdown = styled("ul", props)`
   & li:hover {
     background-color: #f2f2f2;
   }
-  ${(props) =>
+  ${props =>
     props.collapsed
       ? `display: block;
         position: relative;
@@ -283,20 +264,20 @@ const NavbarDropdown = styled("ul", props)`
         width: 100%;`
       : `min-width: 100%; max-width: 350px; word-wrap: break-word;`}
   border: 1px solid
-    ${(props) =>
+    ${props =>
       props.theme && props.theme[props.flavor]
         ? props.theme[props.flavor].background.hover
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].background.hover
         : "#222"};
-  ${(props) => (!props.open ? `border: none; ` : "padding: .25rem 0")}
+  ${props => (!props.open ? `border: none; ` : "padding: .25rem 0")}
   border-radius: 3px;
 `;
 const NavbarDropdownCarat = styled("div", props)`
   background-image: linear-gradient(
     to top right,
     transparent 50%,
-    ${(props) =>
+    ${props =>
         props.disabled
           ? "rgba(0, 0, 0, 0.3)"
           : props.theme && props.theme[props.flavor]
@@ -319,38 +300,38 @@ export const VueNavbarDropdown = {
     NavbarDropdownLabel,
     NavbarDropdown,
     NavbarDropdownCarat,
-    NavbarItem,
+    NavbarItem
   },
   data() {
     return {
       toggled: false,
       collapsed: false,
-      parent: null,
+      parent: null
     };
   },
   props: {
     icon: {
       type: String,
-      default: "",
+      default: ""
     },
     text: {
       type: String,
-      default: "",
+      default: ""
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     flavor: {
       type: String,
-      default: "",
+      default: ""
     },
     items: {
       type: Array,
       default() {
         return [];
-      },
-    },
+      }
+    }
   },
   mounted() {
     window.addEventListener("click", this.checkOffclick);
@@ -374,7 +355,7 @@ export const VueNavbarDropdown = {
         return ["navbar-open-carat"];
       }
       return [];
-    },
+    }
   },
   methods: {
     checkOffclick: function($e) {
@@ -460,7 +441,7 @@ export const VueNavbarDropdown = {
       } else {
         this.collapseSection(this.$refs.dropdowncontent.$el);
       }
-    },
+    }
   },
   template: `
     <navbar-dropdown-container>
@@ -502,7 +483,7 @@ export const VueNavbarDropdown = {
         </navbar-item>
       </navbar-dropdown>
     </navbar-dropdown-container>
-  `,
+  `
 };
 export const Navbar = {
   components: {
@@ -512,7 +493,7 @@ export const Navbar = {
     NavbarContentContainer,
     NavbarContent,
     VueNavbarDropdown,
-    NButton,
+    NButton
   },
   data: () => {
     return {
@@ -522,7 +503,7 @@ export const Navbar = {
       titleWidth: 0,
       LEFT_CONTENT_INDICATOR: "L",
       CENTER_CONTENT_INDICATOR: "C",
-      RIGHT_CONTENT_INDICATOR: "R",
+      RIGHT_CONTENT_INDICATOR: "R"
     };
   },
   mounted() {
@@ -531,7 +512,7 @@ export const Navbar = {
       "resize",
       this.debounce(this.calculateDimensions, 10, true),
       {
-        passive: true,
+        passive: true
       }
     );
   },
@@ -553,36 +534,36 @@ export const Navbar = {
         return {
           text: "Brand",
           url: "#",
-          html: "",
+          html: ""
         };
-      },
+      }
     },
     fixed: {
       type: Boolean,
-      default: false,
+      default: false
     },
     flavor: {
       type: String,
-      default: "",
+      default: ""
     },
     leftItems: {
       type: Array,
       default: () => {
         return [];
-      },
+      }
     },
     centerItems: {
       type: Array,
       default: () => {
         return [];
-      },
+      }
     },
     rightItems: {
       type: Array,
       default: () => {
         return [];
-      },
-    },
+      }
+    }
   },
   methods: {
     debounce(func, wait, immediate) {
@@ -676,7 +657,7 @@ export const Navbar = {
       } else {
         this.collapseSection(this.$refs.content.$el);
       }
-    },
+    }
   },
   watch: {
     collapsed: function() {
@@ -684,7 +665,7 @@ export const Navbar = {
       for (let dropdown in this.dropdowns) {
         this.dropdowns[dropdown] = false;
       }
-    },
+    }
   },
   computed: {
     instance() {
@@ -696,8 +677,8 @@ export const Navbar = {
     collapseCutOff() {
       let additionalPadding = 28;
       return this.containerWidth - this.titleWidth - additionalPadding;
-    },
-  },
+    }
+  }
 };
 export default Navbar;
 </script>

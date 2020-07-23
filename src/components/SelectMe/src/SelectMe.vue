@@ -24,7 +24,11 @@
       :disabled="disabled"
     ></n-input>
     <!-- Dropdown for all options -->
-    <div v-if="showDropdown" class="selectme-dropdown" :style="{ width: calculatedWidth + 'px' }">
+    <div
+      v-if="showDropdown"
+      class="selectme-dropdown"
+      :style="{ width: calculatedWidth + 'px' }"
+    >
       <ul>
         <li
           v-for="(option, index) in selectOptions"
@@ -50,16 +54,22 @@
           {{ option[displayAttribute] }}
         </li>
         <li v-if="loadAjax && loading">Loading...</li>
-        <li
-          v-if="loadAjax && !initialized && !errored && !loading"
-        >Please enter 1 or more characters</li>
+        <li v-if="loadAjax && !initialized && !errored && !loading">
+          Please enter 1 or more characters
+        </li>
         <li v-if="errored">There was an issue contacting the server.</li>
         <li
           v-if="
-            (loadAjax && !errored && initialized && !loading && loadedOptions.length == 0) ||
+            (loadAjax &&
+              !errored &&
+              initialized &&
+              !loading &&
+              loadedOptions.length == 0) ||
               (!loadAjax && selectOptions.length == 0)
           "
-        >No results found</li>
+        >
+          No results found
+        </li>
       </ul>
     </div>
     <!-- Dropdown for selected values. Only shows when selected overflow input-->
@@ -86,10 +96,7 @@
         data-dropdown="toggle"
       >
         {{ selectedOptions.length }} selected...
-        <span
-          class="select-me-ignore-me"
-          v-if="!showSelected"
-        >&#x25BE;</span>
+        <span class="select-me-ignore-me" v-if="!showSelected">&#x25BE;</span>
         <span class="select-me-ignore-me" v-else>&#x25B4;</span>
       </n-button>
       <div class="selectme-dropdown" v-show="showSelected">
@@ -137,7 +144,8 @@
           :class="computedSpanClass"
           class="select-me-ignore-me"
           v-if="canBeEmpty || (!canBeEmpty && selectedOptions.length > 1)"
-        >&#215;</span>
+          >&#215;</span
+        >
       </n-button>
     </div>
   </div>
@@ -170,7 +178,7 @@ const SelectMe = {
       hoveredSelectedOption: {},
       combinedPaddingPerBadge: 26,
       hoveredIndex: -1,
-      hoveredSelectedIndex: -1
+      hoveredSelectedIndex: -1,
     };
   },
   watch: {
@@ -184,77 +192,77 @@ const SelectMe = {
           this.selectOption(this.options[0]);
         }
       },
-      deep: true
+      deep: true,
     },
     value(newValue) {
       this.selectedOptions = newValue;
       window.requestAnimationFrame(this.setSelectBoxWidth);
       this.setCalculatedPadding();
-    }
+    },
   },
   props: {
     value: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     loadAjax: {
       type: Boolean,
-      default: false
+      default: false,
     },
     endpoint: {
       type: String,
-      default: false
+      default: "",
     },
     badgeFlavor: {
       type: String,
-      default: "Primary"
+      default: "Primary",
     },
     flavor: {
       type: String,
-      default: "LightBlue"
+      default: "LightBlue",
     },
     displayAttribute: {
       type: String,
-      default: "text"
+      default: "text",
     },
     valueAttribute: {
       type: String,
-      default: "value"
+      default: "value",
     },
     canBeEmpty: {
       type: Boolean,
-      default: true
+      default: true,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     options: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     debug: {
       type: Boolean,
-      default: false
+      default: false,
     },
     multiSelect: {
       type: Boolean,
-      default: false
+      default: false,
     },
     initialValues: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   computed: {
     computedSpanClass() {
@@ -296,7 +304,7 @@ const SelectMe = {
         return self.loadedOptions;
       }
       return options;
-    }
+    },
   },
   methods: {
     deselectDropdownOption(option) {
@@ -352,12 +360,12 @@ const SelectMe = {
       var self = this;
       clearTimeout(self.timeout);
       self.hoveredOption = self.selectOptions.filter(
-        option =>
+        (option) =>
           option[self.valueAttribute] ==
           document.activeElement.getAttribute("value")
       )[0];
       self.hoveredIndex = self.selectOptions
-        .map(option => option[self.valueAttribute])
+        .map((option) => option[self.valueAttribute])
         .indexOf(self.hoveredOption[self.valueAttribute]);
     },
     hoverOption(step) {
@@ -495,12 +503,12 @@ const SelectMe = {
         self.loading = true;
         axios
           .get(self.endpoint, { params: { text: self.optionSearch } })
-          .then(response => {
+          .then((response) => {
             self.initialized = true;
             self.loading = false;
             self.loadedOptions = response.data;
           })
-          .catch(response => {
+          .catch((response) => {
             self.loading = false;
             self.errored = true;
             console.error("SelectMe had a bad response from the server.");
@@ -605,13 +613,11 @@ const SelectMe = {
           // pass
         }
       }, 50);
-    }
+    },
   },
   mounted() {
     var self = this;
-    if (!self.canBeEmpty && self.options.length > 0 && !self.loadAjax) {
-      self.selectOption(self.options[0]);
-    }
+
     window.requestAnimationFrame(self.setCalculatedPadding);
     window.addEventListener("resize", self.setCalculatedWidth);
     window.addEventListener("click", self.handleOffClick);
@@ -619,8 +625,8 @@ const SelectMe = {
     setTimeout(function() {
       self.setCalculatedWidth();
     }, 200);
-    for (var x = 0; x < self.initialValues.length; x++) {
-      var initVal = self.initialValues[x];
+    for (var x = 0; x < self.value.length; x++) {
+      var initVal = self.value[x];
       for (var y = 0; y < self.options.length; y++) {
         if (
           self.options[y][self.valueAttribute] == initVal[self.valueAttribute]
@@ -630,11 +636,19 @@ const SelectMe = {
         }
       }
     }
+    if (
+      !self.canBeEmpty &&
+      self.options.length > 0 &&
+      self.value.length == 0 &&
+      !self.loadAjax
+    ) {
+      self.selectOption(self.options[0]);
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", self.setCalculatedWidth);
     window.removeEventListener("click", self.handleOffClick);
-  }
+  },
 };
 export default SelectMe;
 </script>

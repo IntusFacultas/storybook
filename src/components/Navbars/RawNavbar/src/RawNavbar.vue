@@ -6,19 +6,21 @@
     :collapsed="collapsed"
     :data-navbar="_uid"
   >
-    <navbar-title ref="title" tabindex="1">
+    <navbar-title ref="title">
       <div v-html="title.html" class="navbar-brand"></div>
-      <a :href="title.url ? title.url : '#'">{{ title.text }}</a>
+      <a v-if="title.text" :href="title.url ? title.url : '#'">
+        {{
+        title.text
+        }}
+      </a>
     </navbar-title>
     <n-button
-      tabindex="1"
       class="nav-button"
       v-show="collapsed"
       :flavor="flavor"
       @click="toggleAccordion"
       ref="hamburger"
-      >&#9776;</n-button
-    >
+    >&#9776;</n-button>
     <navbar-content-container :collapsed="collapsed" ref="content">
       <slot></slot>
     </navbar-content-container>
@@ -28,7 +30,7 @@
 import {
   NavbarContainer,
   NavbarTitle,
-  NavbarContentContainer,
+  NavbarContentContainer
 } from "@IntusFacultas/navbar";
 import { NButton } from "@IntusFacultas/button";
 export const Navbar = {
@@ -36,7 +38,7 @@ export const Navbar = {
     NavbarContainer,
     NavbarTitle,
     NavbarContentContainer,
-    NButton,
+    NButton
   },
   data: () => {
     return {
@@ -47,7 +49,7 @@ export const Navbar = {
       observer: null,
       titleWidth: 0,
       blockWidth: 0,
-      leaves: [],
+      leaves: []
     };
   },
   mounted() {
@@ -57,7 +59,7 @@ export const Navbar = {
       "resize",
       this.debounce(this.calculateDimensions, 10, true),
       {
-        passive: true,
+        passive: true
       }
     );
     this.calculateContentWidth();
@@ -65,7 +67,7 @@ export const Navbar = {
     this.observer.observe(this.$refs.content.$el, {
       childList: true,
       characterData: true,
-      subtree: true,
+      subtree: true
     });
     window.addEventListener("click", self.checkOffclick);
   },
@@ -88,18 +90,18 @@ export const Navbar = {
         return {
           text: "Brand",
           url: "#",
-          html: "",
+          html: ""
         };
-      },
+      }
     },
     fixed: {
       type: Boolean,
-      default: false,
+      default: false
     },
     flavor: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   methods: {
     calculateContentWidth() {
@@ -138,7 +140,7 @@ export const Navbar = {
           "textarea",
           "time",
           "tt",
-          "var",
+          "var"
         ];
         if (INLINE_ELEMENTS.indexOf(elem.tagName.toLowerCase()) != -1) {
           return elem;
@@ -158,16 +160,16 @@ export const Navbar = {
       }
       function stepChildren(elem) {
         if (elem.tagName.toUpperCase() == "LI") {
-          elem.children.forEach((child) =>
+          elem.children.forEach(child =>
             self.leaves.push(findBlockElement(child))
           );
         } else {
-          elem.children.forEach((child) => stepChildren(child));
+          elem.children.forEach(child => stepChildren(child));
         }
       }
       stepChildren(this.$refs.content.$el);
       this.blockWidth = this.leaves
-        .map((a) => a.scrollWidth + 32)
+        .map(a => a.scrollWidth + 32)
         .reduce((accum, val) => accum + val);
     },
     collapseSection(element) {
@@ -266,7 +268,7 @@ export const Navbar = {
         this.collapseSection(this.$refs.content.$el);
         this.open = false;
       }
-    },
+    }
   },
   watch: {
     collapsed(newVal) {
@@ -281,7 +283,7 @@ export const Navbar = {
         this.$refs.content.$el.style.paddingBottom = "initial";
         this.$refs.content.$el.style.overflow = "visible";
       }
-    },
+    }
   },
   computed: {
     collapsed() {
@@ -290,8 +292,8 @@ export const Navbar = {
     collapseCutOff() {
       let additionalPadding = 30;
       return this.containerWidth - this.titleWidth - additionalPadding;
-    },
-  },
+    }
+  }
 };
 export default Navbar;
 </script>

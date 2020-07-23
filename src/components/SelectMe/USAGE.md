@@ -135,12 +135,6 @@ Special note: camelCase props need to be converted to kebab-case when being set.
             <td>When this is set to True, the dropdown does not close, allowing you to inspect the element</td>
         </tr>
         <tr>
-            <td>initialValues</td>
-            <td>`Array`</td>
-            <td>`[]`</td>
-            <td>When this is set to an array of objects with key "value" that match the values of options present in the required "options" prop, the selectme will initialize itself already having those options pre-selected.</td>
-        </tr>
-        <tr>
             <td>multiSelect</td>
             <td>`Boolean`</td>
             <td>`false`</td>
