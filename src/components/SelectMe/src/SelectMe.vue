@@ -24,7 +24,11 @@
       :disabled="disabled"
     ></n-input>
     <!-- Dropdown for all options -->
-    <div v-if="showDropdown" class="selectme-dropdown" :style="{ width: calculatedWidth + 'px' }">
+    <div
+      v-if="showDropdown"
+      class="selectme-dropdown"
+      :style="{ width: calculatedWidth + 'px' }"
+    >
       <ul>
         <li
           v-for="(option, index) in selectOptions"
@@ -50,9 +54,9 @@
           {{ option[displayAttribute] }}
         </li>
         <li v-if="loadAjax && loading">Loading...</li>
-        <li
-          v-if="loadAjax && !initialized && !errored && !loading"
-        >Please enter 1 or more characters</li>
+        <li v-if="loadAjax && !initialized && !errored && !loading">
+          Please enter 1 or more characters
+        </li>
         <li v-if="errored">There was an issue contacting the server.</li>
         <li
           v-if="
@@ -63,7 +67,9 @@
               loadedOptions.length == 0) ||
               (!loadAjax && selectOptions.length == 0)
           "
-        >No results found</li>
+        >
+          No results found
+        </li>
       </ul>
     </div>
     <!-- Dropdown for selected values. Only shows when selected overflow input-->
@@ -90,10 +96,7 @@
         data-dropdown="toggle"
       >
         {{ selectedOptions.length }} selected...
-        <span
-          class="select-me-ignore-me"
-          v-if="!showSelected"
-        >&#x25BE;</span>
+        <span class="select-me-ignore-me" v-if="!showSelected">&#x25BE;</span>
         <span class="select-me-ignore-me" v-else>&#x25B4;</span>
       </n-button>
       <div class="selectme-dropdown" v-show="showSelected">
@@ -112,7 +115,7 @@
             }"
             @click="deselectDropdownOption(option)"
           >
-            <span>&#215;</span>
+            <span aria-hidden="true">&#215;</span>
             <span class="sr-only">Press enter or space to deselect</span>
             {{ option[displayAttribute] }}
           </li>
@@ -143,7 +146,10 @@
           :class="computedSpanClass"
           class="select-me-ignore-me"
           v-if="canBeEmpty || (!canBeEmpty && selectedOptions.length > 1)"
-        >&#215;</span>
+          aria-hidden="true"
+        >
+          &#215;
+        </span>
       </n-button>
     </div>
   </div>
@@ -346,7 +352,7 @@ const SelectMe = {
         self.$emit("input", self.selectedOptions);
         self.hoveredSelectedOption = {};
         self.showSelected = false;
-        setTimeout(function () {
+        setTimeout(function() {
           self.hoveredIndex = -1;
           window.requestAnimationFrame(self.setSelectBoxWidth);
           self.setCalculatedPadding();
@@ -482,10 +488,10 @@ const SelectMe = {
     debounce(func, wait, immediate) {
       var self = this;
       // pulled from https://davidwalsh.name/javascript-debounce-function
-      return function () {
+      return function() {
         var context = this,
           args = arguments;
-        var later = function () {
+        var later = function() {
           self.ajaxTimeout = null;
           if (!immediate) func.apply(context, args);
         };
@@ -565,7 +571,7 @@ const SelectMe = {
     closeDropdown() {
       var self = this;
       self.hoveredIndex = -1;
-      self.timeout = setTimeout(function () {
+      self.timeout = setTimeout(function() {
         self.showOptions = false;
       }, 200);
     },
@@ -598,7 +604,7 @@ const SelectMe = {
     },
     setCalculatedWidth() {
       var self = this;
-      setTimeout(function () {
+      setTimeout(function() {
         try {
           self.calculatedHeight = self.$el.firstChild.offsetHeight * -1 + 5;
           if (!self.multiSelect) {
@@ -620,7 +626,7 @@ const SelectMe = {
     window.addEventListener("resize", self.setCalculatedWidth);
     window.addEventListener("click", self.handleOffClick);
     self.setCalculatedWidth();
-    setTimeout(function () {
+    setTimeout(function() {
       self.setCalculatedWidth();
     }, 200);
     for (var x = 0; x < self.value.length; x++) {

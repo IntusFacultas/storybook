@@ -82,6 +82,6 @@ iifeProdConfig.output = Object.assign({}, iifeConfig.output, {
 iifeProdConfig.plugins = [...iifeConfig.plugins, terser()];
 
 let configurations = [];
-configurations.push(esmConfig, esmProdConfig, iifeConfig, iifeProdConfig);
+configurations.push(esmConfig, esmProdConfig);
 
 export default configurations;
