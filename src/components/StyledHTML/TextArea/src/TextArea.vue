@@ -6,12 +6,9 @@
     <n-text-area
       :id="name"
       :flavor="flavor"
-      :cols="cols"
-      :rows="rows"
       :readonly="readonly"
-      :placeholder="placeholder"
       :name="name"
-      :maxlength="maxlength"
+      v-bind="dynamicAttributes"
       :required="required"
       :disabled="disabled"
       :autofocus="autofocus"
@@ -164,6 +161,24 @@ export const VueTextArea = {
     if (self.msieversion()) {
       resizeHandlerPolyfill(self.$refs.input.$el, true);
     }
+  },
+  computed: {
+    dynamicAttributes() {
+      let attributes = {};
+      if (this.placeholder) {
+        attributes.placeholder = this.placeholder;
+      }
+      if (this.maxlength) {
+        attributes.maxlength = this.maxlength;
+      }
+      if (this.cols) {
+        attributes.cols = this.cols;
+      }
+      if (this.rows) {
+        attributes.rows = this.rows;
+      }
+      return attributes;
+    },
   },
   methods: {
     msieversion() {

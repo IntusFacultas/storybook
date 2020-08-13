@@ -134,6 +134,29 @@ var VueInput = {
       self.$parent.$refs.inputs[self.name] = self;
     }
   },
+  computed: {
+    dynamicAttributes: function dynamicAttributes() {
+      var attributes = {};
+
+      if (this.placeholder) {
+        attributes.placeholder = this.placeholder;
+      }
+
+      if (this.pattern) {
+        attributes.pattern = this.pattern;
+      }
+
+      if (this.min) {
+        attributes.min = this.min;
+      }
+
+      if (this.max) {
+        attributes.max = this.max;
+      }
+
+      return attributes;
+    }
+  },
   methods: {
     onInput: function onInput($e) {
       var self = this;
@@ -304,36 +327,40 @@ var __vue_render__ = function() {
         {
           attrs: { dark: _vm.labelDark, flavor: _vm.labelFlavor, for: _vm.name }
         },
-        [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]
+        [_vm._v(_vm._s(_vm.label))]
       ),
       _vm._v(" "),
-      _c("n-input", {
-        attrs: {
-          flavor: _vm.flavor,
-          id: _vm.name,
-          readonly: _vm.readonly,
-          placeholder: _vm.placeholder,
-          pattern: _vm.pattern,
-          multiple: _vm.multiple,
-          min: _vm.min,
-          max: _vm.max,
-          name: _vm.name,
-          type: _vm.inputType,
-          required: _vm.required,
-          disabled: _vm.disabled,
-          autofocus: _vm.autofocus,
-          autocomplete: _vm.autocomplete,
-          value: _vm.internalValue
-        },
-        on: {
-          input: _vm.onInput,
-          change: _vm.onChange,
-          focus: _vm.onFocus,
-          keyup: function($event) {
-            return _vm.$emit("keyup", $event)
-          }
-        }
-      })
+      _c(
+        "n-input",
+        _vm._b(
+          {
+            attrs: {
+              flavor: _vm.flavor,
+              id: _vm.name,
+              readonly: _vm.readonly,
+              multiple: _vm.multiple,
+              name: _vm.name,
+              type: _vm.inputType,
+              required: _vm.required,
+              disabled: _vm.disabled,
+              autofocus: _vm.autofocus,
+              autocomplete: _vm.autocomplete,
+              value: _vm.internalValue
+            },
+            on: {
+              input: _vm.onInput,
+              change: _vm.onChange,
+              focus: _vm.onFocus,
+              keyup: function($event) {
+                return _vm.$emit("keyup", $event)
+              }
+            }
+          },
+          "n-input",
+          _vm.dynamicAttributes,
+          false
+        )
+      )
     ],
     1
   )
@@ -344,7 +371,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-c703c74e_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\StyledHTML\\Input\\src\\Input.vue"],"names":[],"mappings":";AAqMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"Input.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">\r\n      {{ label }}\r\n    </n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :pattern=\"pattern\"\r\n      :multiple=\"multiple\"\r\n      :min=\"min\"\r\n      :max=\"max\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"onInput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n      @keyup=\"$emit('keyup', $event)\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\",\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function () {\r\n      return Theme;\r\n    },\r\n  },\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function () {\r\n    return {\r\n      internalValue: \"\",\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\",\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\",\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    },\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  methods: {\r\n    onInput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    },\r\n  },\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
+    inject("data-v-9ad781f8_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\StyledHTML\\Input\\src\\Input.vue"],"names":[],"mappings":";AAkNA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"Input.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{ label }}</n-label>\r\n    <n-input\r\n      :flavor=\"flavor\"\r\n      :id=\"name\"\r\n      :readonly=\"readonly\"\r\n      :multiple=\"multiple\"\r\n      v-bind=\"dynamicAttributes\"\r\n      :name=\"name\"\r\n      :type=\"inputType\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      :autocomplete=\"autocomplete\"\r\n      :value=\"internalValue\"\r\n      @input=\"onInput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n      @keyup=\"$emit('keyup', $event)\"\r\n    ></n-input>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport styled from \"vue-styled-components\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\",\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function () {\r\n      return Theme;\r\n    },\r\n  },\r\n};\r\nexport const NInput = styled(\"input\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: 1px solid\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#04040480\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#10d2ff80\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueInput = {\r\n  name: \"vue-input\",\r\n  components: { NInput, NLabel },\r\n  data: function () {\r\n    return {\r\n      internalValue: \"\",\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\",\r\n    },\r\n    autocomplete: {\r\n      type: String,\r\n      default: \"off\",\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    pattern: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    multiple: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    min: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    max: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    inputType: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n  },\r\n  watch: {\r\n    value(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    },\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n  },\r\n  computed: {\r\n    dynamicAttributes() {\r\n      let attributes = {};\r\n      if (this.placeholder) {\r\n        attributes.placeholder = this.placeholder;\r\n      }\r\n      if (this.pattern) {\r\n        attributes.pattern = this.pattern;\r\n      }\r\n      if (this.min) {\r\n        attributes.min = this.min;\r\n      }\r\n      if (this.max) {\r\n        attributes.max = this.max;\r\n      }\r\n      return attributes;\r\n    },\r\n  },\r\n  methods: {\r\n    onInput($e) {\r\n      var self = this;\r\n      this.internalValue = $e;\r\n      self.$emit(\"input\", this.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    },\r\n  },\r\n};\r\nexport default VueInput;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
   };
   /* scoped */

@@ -1,17 +1,12 @@
 <template>
   <div class="input-container">
-    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">
-      {{ label }}
-    </n-label>
+    <n-label :dark="labelDark" :flavor="labelFlavor" :for="name">{{ label }}</n-label>
     <n-input
       :flavor="flavor"
       :id="name"
       :readonly="readonly"
-      :placeholder="placeholder"
-      :pattern="pattern"
       :multiple="multiple"
-      :min="min"
-      :max="max"
+      v-bind="dynamicAttributes"
       :name="name"
       :type="inputType"
       :required="required"
@@ -176,6 +171,24 @@ export const VueInput = {
       if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};
       self.$parent.$refs.inputs[self.name] = self;
     }
+  },
+  computed: {
+    dynamicAttributes() {
+      let attributes = {};
+      if (this.placeholder) {
+        attributes.placeholder = this.placeholder;
+      }
+      if (this.pattern) {
+        attributes.pattern = this.pattern;
+      }
+      if (this.min) {
+        attributes.min = this.min;
+      }
+      if (this.max) {
+        attributes.max = this.max;
+      }
+      return attributes;
+    },
   },
   methods: {
     onInput($e) {

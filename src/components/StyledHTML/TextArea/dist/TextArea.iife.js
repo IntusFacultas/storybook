@@ -4208,6 +4208,29 @@ var TextArea = (function (exports) {
         resizeHandlerPolyfill(self.$refs.input.$el, true);
       }
     },
+    computed: {
+      dynamicAttributes: function dynamicAttributes() {
+        var attributes = {};
+
+        if (this.placeholder) {
+          attributes.placeholder = this.placeholder;
+        }
+
+        if (this.maxlength) {
+          attributes.maxlength = this.maxlength;
+        }
+
+        if (this.cols) {
+          attributes.cols = this.cols;
+        }
+
+        if (this.rows) {
+          attributes.rows = this.rows;
+        }
+
+        return attributes;
+      }
+    },
     methods: {
       msieversion: function msieversion() {
         var ua = window.navigator.userAgent;
@@ -4392,30 +4415,38 @@ var TextArea = (function (exports) {
           [_vm._v(_vm._s(_vm.label))]
         ),
         _vm._v(" "),
-        _c("text-area", {
-          ref: "input",
-          attrs: {
-            id: _vm.name,
-            flavor: _vm.flavor,
-            cols: _vm.cols,
-            rows: _vm.rows,
-            readonly: _vm.readonly,
-            placeholder: _vm.placeholder,
-            name: _vm.name,
-            maxlength: _vm.maxlength,
-            required: _vm.required,
-            disabled: _vm.disabled,
-            autofocus: _vm.autofocus
-          },
-          on: { input: _vm.oninput, change: _vm.onChange, focus: _vm.onFocus },
-          model: {
-            value: _vm.internalValue,
-            callback: function($$v) {
-              _vm.internalValue = $$v;
+        _c(
+          "n-text-area",
+          _vm._b(
+            {
+              ref: "input",
+              attrs: {
+                id: _vm.name,
+                flavor: _vm.flavor,
+                readonly: _vm.readonly,
+                name: _vm.name,
+                required: _vm.required,
+                disabled: _vm.disabled,
+                autofocus: _vm.autofocus
+              },
+              on: {
+                input: _vm.oninput,
+                change: _vm.onChange,
+                focus: _vm.onFocus
+              },
+              model: {
+                value: _vm.internalValue,
+                callback: function($$v) {
+                  _vm.internalValue = $$v;
+                },
+                expression: "internalValue"
+              }
             },
-            expression: "internalValue"
-          }
-        })
+            "n-text-area",
+            _vm.dynamicAttributes,
+            false
+          )
+        )
       ],
       1
     )
@@ -4426,7 +4457,7 @@ var TextArea = (function (exports) {
     /* style */
     const __vue_inject_styles__$1 = function (inject) {
       if (!inject) return
-      inject("data-v-c22eb124_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\StyledHTML\\TextArea\\src\\TextArea.vue"],"names":[],"mappings":";AAsMA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"TextArea.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{\r\n      label\r\n    }}</n-label>\r\n    <text-area\r\n      :id=\"name\"\r\n      :flavor=\"flavor\"\r\n      :cols=\"cols\"\r\n      :rows=\"rows\"\r\n      :readonly=\"readonly\"\r\n      :placeholder=\"placeholder\"\r\n      :name=\"name\"\r\n      :maxlength=\"maxlength\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      v-model=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n      ref=\"input\"\r\n    ></text-area>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport styled from \"vue-styled-components\";\r\nimport resizeHandlerPolyfill from \"./polyfill-resize\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\",\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    },\r\n  },\r\n};\r\nexport const NTextArea = styled(\"textarea\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].border.color\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#040404\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#040404\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueTextArea = {\r\n  name: \"vue-text-area\",\r\n  components: { NTextArea, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\",\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\",\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    maxlength: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    cols: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    rows: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n  },\r\n  watch: {\r\n    value: function(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    },\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n    if (self.msieversion()) {\r\n      resizeHandlerPolyfill(self.$refs.input.$el, true);\r\n    }\r\n  },\r\n  methods: {\r\n    msieversion() {\r\n      var ua = window.navigator.userAgent;\r\n      var msie = ua.indexOf(\"MSIE \");\r\n\r\n      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\\:11\\./)) {\r\n        // If Internet Explorer, return version number\r\n        return true;\r\n      } // If another browser, return 0\r\n      else {\r\n        return false;\r\n      }\r\n\r\n      return false;\r\n    },\r\n    oninput: function() {\r\n      var self = this;\r\n      self.$emit(\"input\", self.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    },\r\n  },\r\n};\r\nexport default VueTextArea;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
+      inject("data-v-7bce0596_0", { source: "\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\pedro\\Documents\\Personal Projects\\GitHub\\storybook\\src\\components\\StyledHTML\\TextArea\\src\\TextArea.vue"],"names":[],"mappings":";AAqNA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;AACA","file":"TextArea.vue","sourcesContent":["<template>\r\n  <div class=\"input-container\">\r\n    <n-label :dark=\"labelDark\" :flavor=\"labelFlavor\" :for=\"name\">{{\r\n      label\r\n    }}</n-label>\r\n    <n-text-area\r\n      :id=\"name\"\r\n      :flavor=\"flavor\"\r\n      :readonly=\"readonly\"\r\n      :name=\"name\"\r\n      v-bind=\"dynamicAttributes\"\r\n      :required=\"required\"\r\n      :disabled=\"disabled\"\r\n      :autofocus=\"autofocus\"\r\n      v-model=\"internalValue\"\r\n      @input=\"oninput\"\r\n      @change=\"onChange\"\r\n      @focus=\"onFocus\"\r\n      ref=\"input\"\r\n    ></n-text-area>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport { NLabel } from \"@IntusFacultas/typography\";\r\nimport Theme from \"@IntusFacultas/design-system\";\r\nimport styled from \"vue-styled-components\";\r\nimport resizeHandlerPolyfill from \"./polyfill-resize\";\r\nconst props = {\r\n  flavor: {\r\n    type: String,\r\n    default: \"LightBlue\",\r\n  },\r\n  defaultTheme: {\r\n    type: Object,\r\n    default: function() {\r\n      return Theme;\r\n    },\r\n  },\r\n};\r\nexport const NTextArea = styled(\"textarea\", props)`\r\n  width: 100%;\r\n  height: 35px;\r\n  font-size: 16px;\r\n  border-radius: 5px;\r\n  border-width: 1px;\r\n  border-style: solid;\r\n  padding: 2px 5px 2px 5px;\r\n  margin-top: 2px;\r\n  box-sizing: border-box;\r\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\r\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\r\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\r\n  transition: box-shadow 0.5s cubic-bezier(0, 0.99, 0.37, 1.01);\r\n  &:focus {\r\n    border-color: ${(props) =>\r\n      props.theme && props.theme[props.flavor]\r\n        ? props.theme[props.flavor].border.color\r\n        : props.defaultTheme[props.flavor] &&\r\n          props.defaultTheme[props.flavor].border.color\r\n        ? props.defaultTheme[props.flavor].border.color\r\n        : \"#040404\"};\r\n    outline: none;\r\n    box-shadow: 0px 0px 0px 3px\r\n      ${(props) =>\r\n        props.theme && props.theme[props.flavor]\r\n          ? props.theme[props.flavor].border.color\r\n          : props.defaultTheme[props.flavor] &&\r\n            props.defaultTheme[props.flavor].border.color\r\n          ? props.defaultTheme[props.flavor].border.color\r\n          : \"#040404\"};\r\n  }\r\n  &:read-only {\r\n    background-color: #e9e9e9;\r\n    color: #747474;\r\n  }\r\n  &:disabled {\r\n    cursor: not-allowed;\r\n    pointer-events: none;\r\n    color: #747474;\r\n    background-color: #e2e2e2;\r\n  }\r\n`;\r\nexport const VueTextArea = {\r\n  name: \"vue-text-area\",\r\n  components: { NTextArea, NLabel },\r\n  data: function() {\r\n    return {\r\n      internalValue: \"\",\r\n    };\r\n  },\r\n  props: {\r\n    flavor: {\r\n      type: String,\r\n      default: \"LightBlue\",\r\n    },\r\n    autofocus: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    readonly: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    placeholder: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    maxlength: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    value: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    cols: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    rows: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    required: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    labelFlavor: {\r\n      type: String,\r\n      default: \"\",\r\n    },\r\n    labelDark: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    label: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    disabled: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n  },\r\n  watch: {\r\n    value: function(newVal, oldVal) {\r\n      this.internalValue = newVal;\r\n    },\r\n  },\r\n  mounted: function() {\r\n    var self = this;\r\n    if (typeof self.$parent !== \"undefined\") {\r\n      if (!self.$parent.$refs.inputs) self.$parent.$refs.inputs = {};\r\n      self.$parent.$refs.inputs[self.name] = self;\r\n    }\r\n    if (self.msieversion()) {\r\n      resizeHandlerPolyfill(self.$refs.input.$el, true);\r\n    }\r\n  },\r\n  computed: {\r\n    dynamicAttributes() {\r\n      let attributes = {};\r\n      if (this.placeholder) {\r\n        attributes.placeholder = this.placeholder;\r\n      }\r\n      if (this.maxlength) {\r\n        attributes.maxlength = this.maxlength;\r\n      }\r\n      if (this.cols) {\r\n        attributes.cols = this.cols;\r\n      }\r\n      if (this.rows) {\r\n        attributes.rows = this.rows;\r\n      }\r\n      return attributes;\r\n    },\r\n  },\r\n  methods: {\r\n    msieversion() {\r\n      var ua = window.navigator.userAgent;\r\n      var msie = ua.indexOf(\"MSIE \");\r\n\r\n      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\\:11\\./)) {\r\n        // If Internet Explorer, return version number\r\n        return true;\r\n      } // If another browser, return 0\r\n      else {\r\n        return false;\r\n      }\r\n\r\n      return false;\r\n    },\r\n    oninput: function() {\r\n      var self = this;\r\n      self.$emit(\"input\", self.internalValue);\r\n    },\r\n    onChange() {\r\n      this.$emit(\"change\", this.internalValue);\r\n    },\r\n    onFocus() {\r\n      this.$emit(\"focus\");\r\n    },\r\n  },\r\n};\r\nexport default VueTextArea;\r\n</script>\r\n\r\n<style>\r\n.input-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n</style>\r\n"]}, media: undefined });
 
     };
     /* scoped */
