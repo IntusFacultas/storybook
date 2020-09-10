@@ -61,6 +61,7 @@ Special note: camelCase props need to be converted to kebab-case when being set.
     </thead>
     <tbody>
         <tr><td>`defaultNow`</td><td>`Boolean`</td><td>true</td><td>When set to true, the datepicker will have a default value of the current day</td></tr>
+        <tr><td>`showClear`</td><td>`Boolean`</td><td>true</td><td>When set to true, the datepicker will have have a clear button</td></tr>
         <tr><td>`label`</td><td>`String`</td><td>`"Select a Date"`</td><td>Sets the label for the input</td></tr>
         <tr><td>`debug`</td><td>`Boolean`</td><td>`false`</td><td>Keeps the datepicker open if set to true</td></tr>
         <tr><td>`textFlavor`</td><td>`String`</td><td>`"Normal"`</td><td>Sets the text flavor of the label</td></tr>

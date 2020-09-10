@@ -35,14 +35,18 @@ export const ConfigurableDatePicker = () => ({
     name: {
       default: text("Name", "datepicker"),
     },
+    clear: {
+      default: boolean("Show Clear", true),
+    },
   },
   template: `
     <div>
         <date-picker
-        :label=label
-        :debug=debug
-        :text-flavor=textFlavor
-        :name=name
+        :label="label"
+        :debug="debug"
+        :text-flavor="textFlavor"
+        :name="name"
+        :show-clear="clear"
         :start="startDate"
         :end="endDate"></date-picker>
         <h2>Other content</h2>

@@ -78,12 +78,12 @@
               "
               :key="dayIndex"
               role="button"
-              tabindex="0"
+              :tabindex="selectingDay && (show || debug) ? 0 : -1"
             >{{ day.format("D") }}</day>
           </tr>
           <tr>
             <day
-              tabindex="0"
+              :tabindex="selectingDay && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(currentDate, 'day');
                 setInternalDate(currentDate);
@@ -101,11 +101,33 @@
               colspan="7"
             >Today</day>
           </tr>
+          <tr>
+            <day
+              :tabindex="selectingDay && (show || debug) ? 0 : -1"
+              @click="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.space="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.enter="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              :in-month="true"
+              :disabled="false"
+              v-if="showClear"
+              colspan="7"
+            >Clear</day>
+          </tr>
         </tbody>
       </calendar>
     </date-picker-container>
     <date-picker-container
       ref="monthpicker"
+      class="monthpicker"
       :data-datepicker="name"
       v-else-if="selectingMonth && (show || debug)"
     >
@@ -124,7 +146,7 @@
           @click="incrementCursorDate(1, 'year')"
         >&#10095;</increment-decrement>
       </selector-bar>
-      <calendar :data-datepicker="name">
+      <calendar :data-datepicker="name" class="monthpicker__table">
         <tbody :data-datepicker="name" v-if="cursorDate">
           <tr :data-datepicker="name" v-for="(monthChunk, index) in shownYear.months" :key="index">
             <month-or-year
@@ -142,7 +164,7 @@
               "
               :key="monthIndex"
               role="button"
-              tabindex="0"
+              :tabindex="selectingMonth && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(month.value, 'month');
                 toggleDay();
@@ -157,6 +179,27 @@
               "
             >{{ month.display }}</month-or-year>
           </tr>
+          <tr>
+            <day
+              :tabindex="selectingMonth && (show || debug) ? 0 : -1"
+              @click="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.space="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.enter="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              :in-month="true"
+              :disabled="false"
+              v-if="showClear"
+              colspan="7"
+            >Clear</day>
+          </tr>
         </tbody>
       </calendar>
     </date-picker-container>
@@ -164,6 +207,7 @@
       :data-datepicker="name"
       v-else-if="selectingYear && (show || debug)"
       ref="yearpicker"
+      class="yearpicker"
     >
       <selector-bar :data-datepicker="name">
         <increment-decrement
@@ -180,7 +224,7 @@
           @click="incrementCursorDate(10, 'year')"
         >&#10095;</increment-decrement>
       </selector-bar>
-      <calendar :data-datepicker="name">
+      <calendar :data-datepicker="name" class="yearpicker__table">
         <tbody :data-datepicker="name" v-if="cursorDate">
           <tr :data-datepicker="name" v-for="(yearChunk, index) in shownYears.years" :key="index">
             <month-or-year
@@ -190,8 +234,7 @@
               :active="internalDate ? internalDate.year() == year : false"
               :key="yearIndex"
               role="button"
-              tabindex="0"
-              :colspan="yearChunk.length == 5 ? 1 : 5"
+              :tabindex="selectingYear && (show || debug)? 0 : -1"
               @click="
                 setCursorDate(year, 'year');
                 toggleMonth();
@@ -205,6 +248,27 @@
                 toggleMonth();
               "
             >{{ year }}</month-or-year>
+          </tr>
+          <tr>
+            <day
+              :tabindex="selectingYear && (show || debug)? 0 : -1"
+              @click="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.space="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              @keyup.enter="
+                setCursorDate(currentDate, 'day');
+                setInternalDate({clone() {return null}});
+              "
+              :in-month="true"
+              :disabled="false"
+              v-if="showClear"
+              colspan="7"
+            >Clear</day>
           </tr>
         </tbody>
       </calendar>
@@ -222,30 +286,30 @@ const SUNDAY = 0;
 const props = {
   active: {
     type: Boolean,
-    default: false
+    default: false,
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   inMonth: {
     type: Boolean,
-    default: false
+    default: false,
   },
   current: {
     type: Boolean,
-    default: false
+    default: false,
   },
   top: {
     type: String,
-    default: "inherit"
+    default: "inherit",
   },
   defaultTheme: {
     type: Object,
     default() {
       return Theme;
-    }
-  }
+    },
+  },
 };
 const SelectorBar = styled.div`
   display: flex;
@@ -301,7 +365,7 @@ const DatePickerContainer = styled("div", props)`
   padding: 10px 10px;
   border-radius: 4px;
   background-color: white;
-  top: ${props => props.top};
+  top: ${(props) => props.top};
   & * {
     font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
       "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
@@ -312,7 +376,7 @@ const DatePickerContainer = styled("div", props)`
   box-shadow: 0px 8px 8px 2px #e4e4e4;
 `;
 const MonthOrYear = styled("td", props)`
-  ${props =>
+  ${(props) =>
     props.active
       ? `
         color: ${props.defaultTheme.Primary.color.color}
@@ -339,8 +403,8 @@ const MonthOrYear = styled("td", props)`
   border-radius: 4px;
 `;
 const Day = styled("td", props)`
-  ${props => (props.inMonth ? `` : `color: #b8b8b8;`)}
-  ${props =>
+  ${(props) => (props.inMonth ? `` : `color: #b8b8b8;`)}
+  ${(props) =>
     props.active
       ? `
         color: ${props.defaultTheme.Primary.color.color}
@@ -361,7 +425,7 @@ const Day = styled("td", props)`
     background-color: #eee;
   }`}
   cursor: pointer;
-  ${props =>
+  ${(props) =>
     props.disabled
       ? `pointer-events: none; color: #f0f0f0; cursor: not-allowed;`
       : ``}
@@ -384,7 +448,7 @@ export const DatePicker = {
     Day,
     MonthOrYear,
     YearPicker,
-    ContentContainer
+    ContentContainer,
   },
   data() {
     return {
@@ -398,16 +462,16 @@ export const DatePicker = {
       internalDate: null,
       shownMonth: {
         month: "Loading",
-        dates: []
+        dates: [],
       },
       shownYear: {
         year: "Loading",
-        months: []
+        months: [],
       },
       shownYears: {
         range: "Loading",
-        years: []
-      }
+        years: [],
+      },
     };
   },
   watch: {
@@ -426,13 +490,13 @@ export const DatePicker = {
       if (oldVal == null || !moment(newVal).isSame(oldVal)) {
         this.validateStartEnd();
       }
-    }
+    },
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClick, { passive: true });
   },
   mounted() {
-    Element.prototype.closestDatePicker = function(name) {
+    Element.prototype.closestDatePicker = function (name) {
       var el = this;
       var ancestor = this;
       if (!document.documentElement.contains(el)) return null;
@@ -457,48 +521,52 @@ export const DatePicker = {
   props: {
     label: {
       type: String,
-      default: "Select a date"
+      default: "Select a date",
     },
     debug: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    showClear: {
+      type: Boolean,
+      default: true,
     },
     textFlavor: {
       type: String,
-      default: "Normal"
+      default: "Normal",
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     defaultNow: {
       type: Boolean,
-      default: true
+      default: true,
     },
     start: {
       type: [Object, String, Date, moment],
       default() {
         return null;
-      }
+      },
     },
     end: {
       type: [Object, String, Date, moment],
       default() {
         return null;
-      }
+      },
     },
     disabledDates: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     value: {
       type: [Object, String, Date, moment],
       default() {
         return new Date();
-      }
-    }
+      },
+    },
   },
   computed: {
     computedStart() {
@@ -512,7 +580,7 @@ export const DatePicker = {
         return moment(this.end);
       }
       return null;
-    }
+    },
   },
   methods: {
     open() {
@@ -597,72 +665,73 @@ export const DatePicker = {
           [
             {
               display: "JAN",
-              value: 0
+              value: 0,
             },
             {
               display: "FEB",
-              value: 1
+              value: 1,
             },
             {
               display: "MAR",
-              value: 2
+              value: 2,
             },
             {
               display: "APR",
-              value: 3
-            }
+              value: 3,
+            },
           ],
           [
             {
               display: "MAY",
-              value: 4
+              value: 4,
             },
             {
               display: "JUN",
-              value: 5
+              value: 5,
             },
             {
               display: "JUL",
-              value: 6
+              value: 6,
             },
             {
               display: "AUG",
-              value: 7
-            }
+              value: 7,
+            },
           ],
           [
             {
               display: "SEP",
-              value: 8
+              value: 8,
             },
             {
               display: "OCT",
-              value: 9
+              value: 9,
             },
             {
               display: "NOV",
-              value: 10
+              value: 10,
             },
             {
               display: "DEC",
-              value: 11
-            }
-          ]
-        ]
+              value: 11,
+            },
+          ],
+        ],
       };
       let rangeStart = Math.floor(this.cursorDate.year() / 10) * 10;
       let rangeEnd = Math.round(this.cursorDate.year() / 10) * 10;
       if (rangeStart == rangeEnd) {
         rangeEnd += 10;
       }
-      let years = [[], [], []];
+      let years = [[], [], [], []];
       let buffer = 0;
+      let YEARS_PER_ROW = 3;
       for (let year = rangeStart; year <= rangeEnd; year++) {
-        years[parseInt(buffer++ / 5)].push(year);
+        years[parseInt(buffer++ / YEARS_PER_ROW)].push(year);
       }
       this.shownYears = {
         range: `${rangeStart} - ${rangeEnd}`,
-        years
+        years,
       };
     },
     incrementCursorDate(amount, duration) {
@@ -733,7 +802,7 @@ export const DatePicker = {
       }
       return {
         month: this.cursorDate.format("MMMM YYYY"),
-        dates: formattedMonth.slice()
+        dates: formattedMonth.slice(),
       };
     },
     getsDayOfMonth(momentDate) {
@@ -751,13 +820,25 @@ export const DatePicker = {
         nextDay.add(1, "d");
       }
       return [...daysBehind, momentDate, ...daysAhead];
-    }
-  }
+    },
+  },
 };
 export default DatePicker;
 </script>
 
 <style>
+.yearpicker {
+  height: 238px;
+}
+.yearpicker__table {
+  height: 206px;
+}
+.monthpicker {
+  height: 238px;
+}
+.monthpicker__table {
+  height: 206px;
+}
 input::-webkit-calendar-picker-indicator {
   display: none;
 }
