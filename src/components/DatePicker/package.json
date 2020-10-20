@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/date-picker",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A Eonasdan style datepicker minus the time picking",
   "main": "src/DatePicker.vue",
   "browser": "dist/DatePicker.esm.js",

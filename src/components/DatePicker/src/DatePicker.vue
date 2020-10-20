@@ -7,6 +7,9 @@
       :name="name"
       :value="internalDate ? internalDate.format('YYYY-MM-DD') : ''"
       @focus="open()"
+      @input="handleManualInput"
+      @change="confirmOrCancelManualInput"
+      @blur="confirmOrCancelManualInput"
       ref="input"
       :data-datepicker="name"
     ></vue-input>
@@ -20,16 +23,16 @@
         <increment-decrement
           :data-datepicker="name"
           @click="decrementCursorDate(1, 'month')"
-        >&#10094;</increment-decrement>
+          >&#10094;</increment-decrement
+        >
         <month-picker :data-datepicker="name" @click="toggleMonth">
-          {{
-          shownMonth.month
-          }}
+          {{ shownMonth.month }}
         </month-picker>
         <increment-decrement
           :data-datepicker="name"
           @click="incrementCursorDate(1, 'month')"
-        >&#10095;</increment-decrement>
+          >&#10095;</increment-decrement
+        >
       </selector-bar>
 
       <calendar :data-datepicker="name">
@@ -43,7 +46,11 @@
             <td>Fr</td>
             <td>Sa</td>
           </tr>
-          <tr :data-datepicker="name" v-for="(week, index) in shownMonth.dates" :key="index">
+          <tr
+            :data-datepicker="name"
+            v-for="(week, index) in shownMonth.dates"
+            :key="index"
+          >
             <day
               :data-datepicker="name"
               v-for="(day, dayIndex) in week"
@@ -79,7 +86,8 @@
               :key="dayIndex"
               role="button"
               :tabindex="selectingDay && (show || debug) ? 0 : -1"
-            >{{ day.format("D") }}</day>
+              >{{ day.format("D") }}</day
+            >
           </tr>
           <tr>
             <day
@@ -99,28 +107,30 @@
               :in-month="true"
               :disabled="testDisabled(currentDate)"
               colspan="7"
-            >Today</day>
+              >Today</day
+            >
           </tr>
           <tr>
             <day
               :tabindex="selectingDay && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate(null);
               "
               @keyup.space="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate(null);
               "
               @keyup.enter="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate(null);
               "
               :in-month="true"
               :disabled="false"
               v-if="showClear"
               colspan="7"
-            >Clear</day>
+              >Clear</day
+            >
           </tr>
         </tbody>
       </calendar>
@@ -135,20 +145,24 @@
         <increment-decrement
           :data-datepicker="name"
           @click="decrementCursorDate(1, 'year')"
-        >&#10094;</increment-decrement>
+          >&#10094;</increment-decrement
+        >
         <month-picker :data-datepicker="name" @click="toggleYear">
-          {{
-          shownYear.year
-          }}
+          {{ shownYear.year }}
         </month-picker>
         <increment-decrement
           :data-datepicker="name"
           @click="incrementCursorDate(1, 'year')"
-        >&#10095;</increment-decrement>
+          >&#10095;</increment-decrement
+        >
       </selector-bar>
       <calendar :data-datepicker="name" class="monthpicker__table">
         <tbody :data-datepicker="name" v-if="cursorDate">
-          <tr :data-datepicker="name" v-for="(monthChunk, index) in shownYear.months" :key="index">
+          <tr
+            :data-datepicker="name"
+            v-for="(monthChunk, index) in shownYear.months"
+            :key="index"
+          >
             <month-or-year
               :data-datepicker="name"
               v-for="(month, monthIndex) in monthChunk"
@@ -177,28 +191,42 @@
                 setCursorDate(month.value, 'month');
                 toggleDay();
               "
-            >{{ month.display }}</month-or-year>
+              >{{ month.display }}</month-or-year
+            >
           </tr>
           <tr>
             <day
               :tabindex="selectingMonth && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               @keyup.space="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               @keyup.enter="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               :in-month="true"
               :disabled="false"
               v-if="showClear"
               colspan="7"
-            >Clear</day>
+              >Clear</day
+            >
           </tr>
         </tbody>
       </calendar>
@@ -213,20 +241,24 @@
         <increment-decrement
           :data-datepicker="name"
           @click="decrementCursorDate(10, 'year')"
-        >&#10094;</increment-decrement>
+          >&#10094;</increment-decrement
+        >
         <year-picker :data-datepicker="name">
-          {{
-          shownYears.range
-          }}
+          {{ shownYears.range }}
         </year-picker>
         <increment-decrement
           :data-datepicker="name"
           @click="incrementCursorDate(10, 'year')"
-        >&#10095;</increment-decrement>
+          >&#10095;</increment-decrement
+        >
       </selector-bar>
       <calendar :data-datepicker="name" class="yearpicker__table">
         <tbody :data-datepicker="name" v-if="cursorDate">
-          <tr :data-datepicker="name" v-for="(yearChunk, index) in shownYears.years" :key="index">
+          <tr
+            :data-datepicker="name"
+            v-for="(yearChunk, index) in shownYears.years"
+            :key="index"
+          >
             <month-or-year
               :data-datepicker="name"
               v-for="(year, yearIndex) in yearChunk"
@@ -234,7 +266,7 @@
               :active="internalDate ? internalDate.year() == year : false"
               :key="yearIndex"
               role="button"
-              :tabindex="selectingYear && (show || debug)? 0 : -1"
+              :tabindex="selectingYear && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(year, 'year');
                 toggleMonth();
@@ -247,28 +279,42 @@
                 setCursorDate(year, 'year');
                 toggleMonth();
               "
-            >{{ year }}</month-or-year>
+              >{{ year }}</month-or-year
+            >
           </tr>
           <tr>
             <day
-              :tabindex="selectingYear && (show || debug)? 0 : -1"
+              :tabindex="selectingYear && (show || debug) ? 0 : -1"
               @click="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               @keyup.space="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               @keyup.enter="
                 setCursorDate(currentDate, 'day');
-                setInternalDate({clone() {return null}});
+                setInternalDate({
+                  clone() {
+                    return null;
+                  },
+                });
               "
               :in-month="true"
               :disabled="false"
               v-if="showClear"
               colspan="7"
-            >Clear</day>
+              >Clear</day
+            >
           </tr>
         </tbody>
       </calendar>
@@ -452,6 +498,9 @@ export const DatePicker = {
   },
   data() {
     return {
+      correctOnBlur: false,
+      debounceCorrection: null,
+      lastManualInput: null,
       show: false,
       selectingDay: true,
       selectingMonth: false,
@@ -476,9 +525,13 @@ export const DatePicker = {
   },
   watch: {
     value(newVal, oldVal) {
-      if (!moment(newVal).isSame(this.internalDate)) {
-        this.internalDate = moment(newVal);
-        this.cursorDate = this.internalDate;
+      if (newVal != null) {
+        if (!moment(newVal).isSame(this.internalDate)) {
+          this.internalDate = moment(newVal);
+          this.cursorDate = this.internalDate;
+        }
+      } else {
+        this.internalDate = null;
       }
     },
     start(newVal, oldVal) {
@@ -496,7 +549,7 @@ export const DatePicker = {
     document.removeEventListener("click", this.handleClick, { passive: true });
   },
   mounted() {
-    Element.prototype.closestDatePicker = function (name) {
+    Element.prototype.closestDatePicker = function(name) {
       var el = this;
       var ancestor = this;
       if (!document.documentElement.contains(el)) return null;
@@ -583,6 +636,60 @@ export const DatePicker = {
     },
   },
   methods: {
+    confirmOrCancelManualInput() {
+      const self = this;
+      if (self.debounceCorrection) {
+        clearTimeout(self.debounceCorrection);
+      }
+      self.debounceCorrection = setTimeout(() => {
+        if (self.correctOnBlur && self.lastManualInput) {
+          if (self.computedStart) {
+            if (self.computedStart.isAfter(self.lastManualInput)) {
+              self.internalDate = self.computedStart.clone();
+              self.lastManualInput = null;
+              self.$emit("input", self.internalDate);
+            }
+          }
+          if (self.computedEnd) {
+            if (self.computedEnd.isBefore(self.lastManualInput)) {
+              self.internalDate = self.computedEnd.clone();
+              self.lastManualInput = null;
+              self.$emit("input", self.internalDate);
+            }
+          }
+        } else if (!self.correctOnBlur && self.lastManualInput) {
+          self.internalDate = self.lastManualInput.clone();
+          self.lastManualInput = null;
+          self.$emit("input", self.internalDate);
+        }
+        self.correctOnBlur = false;
+      }, 250);
+    },
+    handleManualInput(value) {
+      let manualDate = moment(value);
+      if (manualDate.isValid()) {
+        this.lastManualInput = manualDate.clone();
+        // check if date is before allowed start
+        if (this.computedStart) {
+          if (this.computedStart.isAfter(manualDate)) {
+            this.correctOnBlur = true;
+            return;
+          }
+        }
+        if (this.computedEnd) {
+          if (this.computedEnd.isBefore(manualDate)) {
+            this.correctOnBlur = true;
+            return;
+          }
+        }
+        this.correctOnBlur = false;
+      } else {
+        // set date to start or current date
+        this.lastManualInput = this.start
+          ? this.start.clone()
+          : this.currentDate.clone();
+      }
+    },
     open() {
       this.show = true;
       let self = this;
@@ -743,7 +850,11 @@ export const DatePicker = {
       this.updateShownValues();
     },
     setInternalDate(day) {
-      this.internalDate = day.clone();
+      if (day == null) {
+        this.internalDate = null;
+      } else {
+        this.internalDate = day.clone();
+      }
       this.$emit("input", this.internalDate);
       this.close();
     },

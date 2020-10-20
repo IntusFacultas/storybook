@@ -2,10 +2,15 @@
   <div>
     <n-modal-backdrop :class="computedClass" @click="turnOff" ref="backdrop">
       <n-modal-container :width="width" :top-offset="topOffset" ref="modal">
-        <n-modal-header :flavor="headerFlavor" v-if="header">
+        <n-modal-header
+          class="intusfacultas-modal-header"
+          :flavor="headerFlavor"
+          v-if="header"
+        >
           <slot name="header"></slot>
         </n-modal-header>
         <n-modal-body
+          class="intusfacultas-modal-body"
           :bottom-offset="!footer ? bottomOffset : '0px'"
           :flavor="bodyFlavor"
           :style="computedStyle"
@@ -13,6 +18,7 @@
           <slot name="body"></slot>
         </n-modal-body>
         <n-modal-footer
+          class="intusfacultas-modal-footer"
           :bottom-offset="bottomOffset"
           :flavor="footerFlavor"
           v-if="footer"
@@ -31,7 +37,7 @@ const props = {
   flavor: String,
   defaultTheme: {
     type: Object,
-    default: function () {
+    default: function() {
       return Theme;
     },
   },
@@ -71,6 +77,8 @@ export const NModalHeader = styled("div", props)`
         : props.defaultTheme[props.flavor]
         ? props.defaultTheme[props.flavor].border.hover
         : "#aaa"};
+  border-width: 0px;
+  border-bottom-width: 1px;
   background-color: ${(props) =>
     props.theme && props.theme[props.flavor]
       ? props.theme[props.flavor].background.color
@@ -97,6 +105,7 @@ export const NModalBody = styled("div", props)`
   border-style: solid;
   margin-bottom: ${(props) =>
     props.bottomOffset ? props.bottomOffset : "0px"};
+  border-width: 0px;
 `;
 export const NModalFooter = styled("div", props)`
   padding: 10px;
@@ -117,6 +126,8 @@ export const NModalFooter = styled("div", props)`
       : "white"};
   margin-bottom: ${(props) =>
     props.bottomOffset ? props.bottomOffset : "20px"};
+  border-width: 0px;
+  border-top-width: 1px;
 `;
 
 export const Modal = {
@@ -174,7 +185,7 @@ export const Modal = {
   },
   mounted() {
     window.addEventListener(`modal-${this.id}`, this.detectChange);
-    (function () {
+    (function() {
       if (typeof window.CustomEvent === "function") return false;
 
       function CustomEvent(event, params) {
@@ -226,7 +237,7 @@ export const Modal = {
       }
       return ["modal-hidden"];
     },
-    computedStyle: function () {
+    computedStyle: function() {
       var self = this;
       let data = {
         "border-top-left-radius": self.header ? "0px" : "5px",

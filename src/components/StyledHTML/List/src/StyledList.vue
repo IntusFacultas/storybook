@@ -4,9 +4,10 @@ import { TextTheme } from "@IntusFacultas/design-system";
 const props = {
   size: Number,
   dark: Boolean,
+  unstyled: Boolean,
   textTheme: {
     type: Object,
-    default: function () {
+    default: function() {
       return TextTheme;
     },
   },
@@ -16,6 +17,13 @@ export const List = styled("ul", props)`
   font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
+    ${(props) =>
+      props.unstyled
+        ? `
+      list-style: none;
+      padding-inline-start: 0;
+    `
+        : ``}
   font-size: ${(props) =>
     props.size < 14 ? 14 : props.size > 16 ? 16 : props.size}px;
   & li {
@@ -33,6 +41,13 @@ export const OrderedList = styled("ol", props)`
   font-family: "Open Sans Regular", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
+    ${(props) =>
+      props.unstyled
+        ? `
+      list-style: none;
+      padding-inline-start: 0;
+    `
+        : ``}
   font-size: ${(props) =>
     props.size < 14 ? 14 : props.size > 16 ? 16 : props.size}px;
   & li {

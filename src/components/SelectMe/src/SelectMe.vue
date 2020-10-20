@@ -15,6 +15,7 @@
       :flavor="flavor"
       v-model="optionSearch"
       @keydown.delete="handleBackspace"
+      @keydown.esc="closeDropdown"
       @keydown.down="handleDown"
       @keydown.up="handleUp"
       @keydown.left="handleLeft"

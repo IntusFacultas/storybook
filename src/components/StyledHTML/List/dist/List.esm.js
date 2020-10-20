@@ -24,7 +24,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  & li {\n    color: ", ";\n    ", "\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    ", "\n  font-size: ", "px;\n  & li {\n    color: ", ";\n    ", "\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -34,7 +34,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: ", "px;\n  & li {\n    color: ", ";\n    ", "\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-family: \"Open Sans Regular\", -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    ", "\n  font-size: ", "px;\n  & li {\n    color: ", ";\n    ", "\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -45,6 +45,7 @@ function _templateObject() {
 var props = {
   size: Number,
   dark: Boolean,
+  unstyled: Boolean,
   textTheme: {
     type: Object,
     default: function _default() {
@@ -54,6 +55,8 @@ var props = {
   flavor: String
 };
 var List = styled("ul", props)(_templateObject(), function (props) {
+  return props.unstyled ? "\n      list-style: none;\n      padding-inline-start: 0;\n    " : "";
+}, function (props) {
   return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
 }, function (props) {
   return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
@@ -61,6 +64,8 @@ var List = styled("ul", props)(_templateObject(), function (props) {
   return props.flavor ? props.textTheme[props.flavor] ? "color " + props.textTheme[props.flavor].color : "" : "";
 });
 var OrderedList = styled("ol", props)(_templateObject2(), function (props) {
+  return props.unstyled ? "\n      list-style: none;\n      padding-inline-start: 0;\n    " : "";
+}, function (props) {
   return props.size < 14 ? 14 : props.size > 16 ? 16 : props.size;
 }, function (props) {
   return props.dark ? props.textTheme.Dark.color : props.textTheme.Normal.color;
@@ -221,7 +226,7 @@ const __vue_script__ = List;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-1f675ec2_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"StyledList.vue"}, media: undefined });
+    inject("data-v-448890e7_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"StyledList.vue"}, media: undefined });
 
   };
   /* scoped */

@@ -1,6 +1,6 @@
 {
   "name": "@IntusFacultas/select-me",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "A Select2 Style searchable dropdown with full accessability audits passing",
   "main": "src/SelectMe.vue",
   "browser": "dist/SelectMe.esm.js",

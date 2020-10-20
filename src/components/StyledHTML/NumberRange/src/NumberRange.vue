@@ -236,12 +236,11 @@ export const NumberRange = {
       function () {
         if (self.lowerValue != self.value.lowerValue) {
           self.lowerValue = self.value.lowerValue;
-          self.validateValue();
         }
         if (self.upperValue != self.value.upperValue) {
           self.upperValue = self.value.upperValue;
-          self.validateValue();
         }
+        self.validateValue();
       },
       { deep: true }
     );
