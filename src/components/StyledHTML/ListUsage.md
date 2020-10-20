@@ -72,6 +72,12 @@ data: {
             <td>Sets the color of the text to dark mode.</td>
         </tr>
         <tr>
+            <td>unstyled</td>
+            <td>`Boolean`</td>
+            <td>`false`</td>
+            <td>Removes the list styling.</td>
+        </tr>
+        <tr>
             <td>flavor</td>
             <td>`String`</td>
             <td>`""`</td>

@@ -73,6 +73,9 @@ export const ListItemLevelStyling = () => ({
     dark: {
       default: boolean("Dark Mode for First Element", false),
     },
+    unstyled: {
+      default: boolean("Unstyled List", false),
+    },
     size: {
       default: number("Font Size for First Element", 14),
     },
@@ -82,7 +85,7 @@ export const ListItemLevelStyling = () => ({
   },
   template: `
     <div>
-      <list>
+      <list :unstyled="unstyled">
           <list-item :size="size" :dark="dark" :flavor="flavor">List Item 1</list-item>
           <list-item >List Item 2</list-item>
           <list-item>List Item 3</list-item>
