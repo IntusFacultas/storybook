@@ -25,7 +25,7 @@
     "@IntusFacultas/design-system": "^1.5.11",
     "@IntusFacultas/input": "^1.4.2",
     "@IntusFacultas/typography": "^2.1.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "vue-styled-components": "^1.4.14"
   },
   "keywords": [
